@@ -1,0 +1,181 @@
+<!-- start product-sliders (SNIPPET) -->
+{%- for tagBadge in product.tags -%}
+    {%- if tagBadge == settings.product_badge_tag and settings.product_badge_text_tag != blank -%}
+        <label class="product_tag_badge ribbon {{ settings.position_product_tag_badge }}">
+            <span>{{ settings.product_badge_text_tag }}</span>
+        </label>
+    {%- endif -%}
+{%- endfor -%}
+
+{%- assign featured_image = product.selected_or_first_available_variant.image -%}
+
+{%- for img in product.images -%}
+    {%- if featured_image == img -%}
+        {%- break -%}
+    {%- endif -%}
+{%- endfor -%}
+
+{%- assign qtySlides = settings.thumbnails_options | default: 5 -%}
+{%- assign qtyImages = product.images | size -%}
+
+{%- if qtyImages < qtySlides -%}
+    {%- assign resetTransform='center-slick-track' -%}
+{%- else -%}
+    {%- assign resetTransform = '' -%}
+{%- endif -%}
+
+{%- assign image_product_default = settings.recently_viewed_product_without_image -%}
+
+<div class="product-slider-widget">
+    <div class="product-slider product-slider-featured jq-featured-slider invisible">
+        {% for image in product.media %}
+            <div>
+                <div class="product-slider-image-wrapper magnify-zoom" data-src="{{ image.src | split: '?' | first }}">
+                    {%- case image.media_type -%}
+                        {%- when 'external_video' -%}
+                          <div class="external-video-wrapper">
+                              {%- if image.host contains "youtube" -%}
+                                <iframe 
+                                  class="lazyFrame"
+                                  frameborder="0" 
+                                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                                  allowfullscreen="allowfullscreen" 
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9Ta0UqDkYQcchQnSyIijhqFYpQIdQKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APE0clJ0UVK/F9SaBHrwXE/3t173L0DhFqJ6XbHGKAbjpVKxKVMdkUKvyKETojoh6gw25yV5STajq97BPh6F+NZ7c/9OXq0nM2AgEQ8w0zLIV4nntp0TM77xCIrKhrxOfGoRRckfuS66vMb54LHAs8UrXRqjlgklgotrLYwK1o68SRxVNMNyhcyPmuctzjrpQpr3JO/MJIzlpe4TnMICSxgETIkqKhgAyU4iNFqkGIjRfvxNv5Bzy+TSyXXBhg55lGGDsXzg//B727t/MS4nxSJA6EX1/0YBsK7QL3qut/Hrls/AYLPwJXR9JdrwPQn6dWmFj0CereBi+umpu4BlzvAwJOpWIonBWkK+TzwfkbflAX6boHuVb+3xj5OH4A0dZW8AQ4OgZECZa+1eXdXa2//nmn09wMjG3KHDOS4EQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+YFBhQWEhVMTaAAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12O4f/8+AAU+Ap5GJPuHAAAAAElFTkSuQmCC"
+                                  data-src="https://www.youtube.com/embed/{{ image.external_id }}?color=white&amp;controls=1&amp;enablejsapi=1&amp;modestbranding=1&amp;playsinline=1&amp;rel=0" 
+                                  allowfullscreen></iframe>
+                              {%- elsif image.host contains "vimeo" -%}
+                                <iframe 
+                                  class="lazyFrame"
+                                  frameborder="0" 
+                                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                                  allowfullscreen="allowfullscreen" 
+                                  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9Ta0UqDkYQcchQnSyIijhqFYpQIdQKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APE0clJ0UVK/F9SaBHrwXE/3t173L0DhFqJ6XbHGKAbjpVKxKVMdkUKvyKETojoh6gw25yV5STajq97BPh6F+NZ7c/9OXq0nM2AgEQ8w0zLIV4nntp0TM77xCIrKhrxOfGoRRckfuS66vMb54LHAs8UrXRqjlgklgotrLYwK1o68SRxVNMNyhcyPmuctzjrpQpr3JO/MJIzlpe4TnMICSxgETIkqKhgAyU4iNFqkGIjRfvxNv5Bzy+TSyXXBhg55lGGDsXzg//B727t/MS4nxSJA6EX1/0YBsK7QL3qut/Hrls/AYLPwJXR9JdrwPQn6dWmFj0CereBi+umpu4BlzvAwJOpWIonBWkK+TzwfkbflAX6boHuVb+3xj5OH4A0dZW8AQ4OgZECZa+1eXdXa2//nmn09wMjG3KHDOS4EQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+YFBhQWEhVMTaAAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12O4f/8+AAU+Ap5GJPuHAAAAAElFTkSuQmCC" 
+                                  data-src="https://player.vimeo.com/video/{{ image.external_id }}?byline=0&controls=1&playsinline=1&title=0" 
+                                  allowfullscreen></iframe>
+                              {%- endif -%}
+                            </div>
+                        {%- when 'video' -%}
+
+                        <div class="external-video-wrapper">
+                          <video 
+                            playsinline="playsinline" 
+                            controls="controls" 
+                            class="video-wrapper__media" 
+                            preload="metadata" 
+                            aria-label="Subscription Product" 
+                            poster="//cdn.shopify.com/s/files/1/0234/9272/2735/products/a1bdc3d2a2ac4418b6932d52769981d5.thumbnail.0000000_1000x.jpg?v=1649270269">
+                              
+                            {% for item in image.sources %}
+                              <source class="lazyFrame" src="{{ item.url }}" type="{{ item.mime_type }}" >
+                            {% endfor %}
+                              
+                            <img src="{{ image.preview_image | img_url: "600x" }}">
+                          </video>
+                        </div>
+
+                        {%- else -%}
+                            {%- capture img_attr -%}
+                                data-magnify-src="{{ image.src | image_url: width: 1000 }}"
+                                data-magnify-magnifiedwidth="1000"
+                                data-magnify-magnifiedheight="1000"
+                            {%- endcapture -%}
+
+                            {% render 'responsive-image' with
+                                image: image,
+                                image_class: "slick-img",
+                                custom_class: true,
+                                max_width: 660,
+                                active_lazy: true,
+                                id_prefix: forloop.index,
+                                size_large: 660,
+                                size_mobile: 87,
+                                size_desk: 42,
+                                image_alt: image.alt,
+                                image_attributes: img_attr
+                            %}
+                    {%- endcase -%}
+                </div>
+            </div>
+        {% else %}
+            <div class="product-slider-image-wrapper" data-src="{{ image.src | split: '?' | first }}">
+                {% render 'responsive-image' with image: image_product_default, image_class: "slick-img", custom_class:
+                true, max_width: 600, active_lazy: true, id_prefix: forloop.index, size_large: 600, size_mobile: 87,
+                size_desk: 42, image_alt: image.alt %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="product-slider product-slider-thumbnails invisible {{ resetTransform }}">
+        {% for image in product.media %}
+            {%- case image.media_type -%}
+                {%- when 'external_video' -%}
+                    {%- assign image_alt = value -%}
+            {%- endcase -%}
+            <div class="product-slide">
+                <div class="product-slider-image-wrapper" data-src="{{ image_src | split: '?' | first }}">
+                    {% render 'responsive-image' with image: image, image_class: "slick-img", custom_class: true,
+                    max_width: 120, active_lazy: true, id_prefix: forloop.index, size_large: 200, size_mobile: 87,
+                    size_desk: 42, image_alt: image_alt %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% style %}
+    {%- if settings.enable_zoom_feature_for_mobile -%}
+    .product-page .slick-slider {
+        -ms-touch-action: pan-y pinch-zoom;
+        touch-action: pan-y pinch-zoom;
+    }
+    {%- endif -%}
+    
+    {%- if settings.select_position_thumbnails != 'below' -%} 
+        .product-page .product-slider-widget .product-slider .slick-list {
+            width: 100%;
+            max-width: 100%; 
+        }
+        .product-slider-widget{
+            width:100%;
+            display:flex;
+            justify-content: center;
+        }   
+        .product-page .product-slider-widget .product-slider.product-slider-thumbnails {
+        flex-direction: column;
+        justify-content: center;
+        }
+        .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-list{
+        flex-grow: 0;
+        }
+        .product-half.half-img{
+            display: flex;
+        }
+        .product-page .product-slider-widget .product-slider .slick-list .slick-track {
+            display: block;
+        }
+        .product-slider.product-slider-featured{
+        width: 89%;
+        }
+        .product-slider.product-slider-thumbnails{
+        width:10%;
+        }
+        .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-prev.slick-arrow,.product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-next.slick-arrow{
+        transform: rotateZ(90deg)
+        }
+        .product-page .product-slider-widget .product-slider-thumbnails .slick-prev {
+        margin-right: 0px;
+        margin-left: 4px;
+        }
+        {%- if settings.select_position_thumbnails == 'left' -%} 
+            .product-slider-widget {
+                flex-direction: row-reverse;
+            }
+            .product-page .ribbon-top-left {
+                left: 12%;
+            }
+        {%- endif -%}
+
+    {%- endif -%}
+{% endstyle %}
+
+

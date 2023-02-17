@@ -1,0 +1,151 @@
+<!-- start blog-template.liquid (SECTION) -->
+<div class="wrapper">
+  {% if settings.enable_breadcrumbs_blog %}
+    {% render 'breadcrumb' %}
+  {% endif %}
+  {% paginate blog.articles by settings.blog_num_posts %}
+    <div class="grid blog-grid">
+      <div class="grid__item large--three-quarters article-section">
+        <section>
+          {% if settings.blog_enabled_blog_title %}
+              <h1>{{ blog.title }}</h1>
+          {% endif %}
+
+          {% for article in blog.articles %}
+            <article class="article">
+              {% if settings.show_featured_image %}
+                <div class="article_img">
+                  {% assign article_image =  article.image | image_url: width: 300, height: 300 %}
+
+                  {% if article_image contains 'no-image' %}
+                  {% else %}
+                    <a title="{{ article.title | strip_html | escape }}" id="article-featured-image-{{ forloop.index }}" class="article__featured-image" href="{{ article.url }}">
+                      {% if forloop.index == 1 %}
+                        {% render 'responsive-image',
+                          id_prefix: article.title,
+                          image: article.image,
+                          active_lazy: false,
+                          max_width: 300,
+                          no_wrap: true,
+                          alt_text: article.title
+                        %}
+                      {% else %}
+                        {% render 'responsive-image',
+                          id_prefix: article.title,
+                          image: article.image,
+                          active_lazy: true,
+                          max_width: 300,
+                          no_wrap: true,
+                          alt_text: article.title
+                        %}
+                      {% endif %}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+              <div id="article-info-{{ forloop.index }}" class="article_info">
+                <a  href="{{ article.url }}" >
+                  <h2 class="entry-title">
+                    {{ article.title }}
+                  </h2>
+                </a>
+
+                <div>
+                  {{ article.content | strip_html | split: '<!--split-->' | last | truncatewords: 50 }}
+                </div>
+
+                <a title="{{ article.title | strip_html | escape }}" href="{{ article.url }}" rel="bookmark" id="blog-button-{{ forloop.index }}" class="btn button blogbutton {{ settings.blog_buttons_text_transform }}">{{ 'blogs.article.read_more' | t }}</a>
+
+                {% if settings.enable_blogs_comments and blog.comments_enabled? and article.comments_count > 0 %}
+                  <div class="clearfix"></div>
+
+                  <a href="{{ article.url }}#comments" class="count-comments">
+                    {{ 'blogs.comments.comments_with_count' | t: count: article.comments_count }}
+                  </a>
+                {% endif %}
+              </div>
+            </article>
+          {% endfor %}
+        </section>
+
+        {%- if paginate.pages > 1 -%}
+          <div class="paginate">{{ paginate | default_pagination: next: '→', previous: '←' }}</div>
+        {%- endif -%}
+      </div>
+
+      <aside class="grid__item large--one-quarter sidebar">
+        {%- render 'blog-sidebars' -%}
+      </aside>
+    </div>
+  {% endpaginate %}
+</div>
+
+{% schema %}
+{
+  "name": "Blog Sidebar",
+  "class": "blog-sidebar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "label": "Sidebar Left",
+      "id": "sidebar_left"
+    },
+    {
+      "type": "checkbox",
+      "label": "Fixed Sidebar",
+      "id": "fixed_sidebar"
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Recent Posts",
+      "id": "show_recent_posts",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Show Categories",
+      "id": "show_categories",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "sidebar_title",
+      "label": "Newsletter Widget Title",
+      "placeholder": "Newsletter Widget Title"
+    },
+    {
+      "type": "textarea",
+      "id": "sidebar_text",
+      "label": "Newsletter Widget Text",
+      "default": "Ready to find out more about our new, and upcoming products? Sign up below. "
+    },
+    {
+      "type": "textarea",
+      "id": "filter_by_tags",
+      "label": "Filter Categories By Tag",
+      "placeholder": "Type the tags",
+      "info": "Separate tags handle with ( ; )."
+    },
+    {
+      "type": "select",
+      "id": "select_newsletter",
+      "label": "Newsletter Manager",
+      "info": "Klaviyo only will work if enabled, check it on Newsletter",
+      "options": [
+        {
+          "label": "Klaviyo",
+          "value": "klaviyo"
+        },
+        {
+          "label": "Default Shopify Form",
+          "value": "newsletter-default"
+        },
+        {
+          "label": "Custom Newsletter",
+          "value": "newsletter-custom"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

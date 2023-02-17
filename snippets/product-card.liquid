@@ -1,0 +1,71 @@
+<!-- start product-card.liquid (SNIPPET) -->
+
+{%- assign variant = prod.selected_or_first_available_variant -%}
+{%- assign temp_product = variant.product -%}
+
+{%- assign max_width_large = width_large | default: 500 -%}
+{%- assign max_width_mobile_large = width_mobile | default: 45 -%}
+{%- assign max_width_desk = width_desk | default: 20 -%}
+{%- assign prefix = 'Image' | append: variant.id -%}
+{%- assign lazyload = enable_lazy | default: true -%}
+
+<div class="grid__item">
+  {%- for tagBadge in prod.tags -%}
+  {%- assign handledTagBadge = tagBadge | handle -%}
+  {%- assign handedTagTyped = settings.product_badge_tag | handle -%}
+
+  {%- if handledTagBadge == handedTagTyped and settings.product_badge_text_tag != blank -%}
+      <label class="product_tag_badge ribbon {{ settings.position_product_tag_badge }}">
+          <span>{{ settings.product_badge_text_tag }}</span>
+      </label>
+  {%- endif -%}
+{%- endfor -%}
+  <a href="{{- variant.url | within: collection -}}" title="{{- variant.title | strip_html | escape -}}" class="grid__item-link">
+    <div class="grid__item-image-wrapper">
+      {%- render 'responsive-image' with
+        image: temp_product,
+        custom_class: true,
+        image_class: 'grid__item-image',
+        max_width: max_width,
+        active_lazy : lazyload,
+        id_prefix: prefix,
+        size_large: max_width_large,
+        size_mobile: max_width_mobile_large,
+        size_desk: max_width_desk
+      -%}
+    </div>
+
+    <h3 class="grid__item-title">{{- temp_product.title -}}</h3>
+
+    <div class="grid__item-price-wrapper">
+      {%- if show_price -%}
+        {%- if variant.compare_at_price > variant.price -%}
+          <span class="grid__item-compare-at-price">{{- variant.compare_at_price | money -}}</span>
+        {%- endif -%}
+
+        <span class="grid__item-price">{{- variant.price | money -}}</span> 
+      {%- endif -%}
+
+      {% if settings.enable_outofstock_label %}
+      {%- unless variant.available -%}
+        <span class="grid__item-sold-out">{{ settings.unavailable_product_label | default: '(Out Of Stock)' }}</span>
+      {%- endunless -%}
+    {% endif %}
+  </div>
+
+    {%- if show_reviews -%}
+      <div class="grid__item-reviews-wrapper">
+        {%- render 'reviews-stars' with product: temp_product -%}
+      </div>
+    {%- endif -%}
+
+    {%- if show_swatch -%}
+      <div class="grid__item-swatch-wrapper">
+        {%- render 'swatch_collection' with
+          prod: temp_product,
+          type: settings.select_swatch_collection
+        -%}
+      </div>
+    {%- endif -%}
+  </a>
+</div>

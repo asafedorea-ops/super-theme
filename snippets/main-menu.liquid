@@ -1,0 +1,36 @@
+<!-- start main-menu (SNIPPET) -->
+<nav class="header__menu no-mobile" >
+  <h3 class="hide">Main Menu</h3>
+
+  <ul class="header__list parent--layer">
+    {%- for item in linklists[section.settings.menu].links -%}
+      {%- assign first_layer_index = forloop.index -%}
+      
+      <li class="header__list__item">
+        <a id="hdr-nav-menu-{{ first_layer_index }}" href="{{ item.url }}" class="header__item__anchor">{{ item.title }}</a>
+        {%- if item.links != blank -%}
+        {%- render "icon-arrow-down" -%}
+
+          <ul class="header__list child--layer">
+            {%- for child_item in item.links -%}
+              {%- assign second_layer_index = forloop.index -%}
+              <li class="header__list__item">
+                <a id="hdr-nav-menu-{{ first_layer_index }}-{{ second_layer_index }}" href="{{ child_item.url }}" class="header__item__anchor">{{ child_item.title }}</a>
+                {%- if child_item.links != blank -%} 
+                {%- render "icon-arrow-down" -%}
+                  <ul class="header__list grandchild--layer">
+                    {%- for grandchild_item in child_item.links -%}
+                      <li class="header__list__item">
+                        <a id="hdr-nav-menu-{{ first_layer_index }}-{{ second_layer_index }}-{{ forloop.index }}" href="{{ grandchild_item.url }}" class="header__item__anchor" >{{ grandchild_item.title }}</a>
+                      </li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        {%- endif-%}
+      </li>
+    {%- endfor -%}
+  </ul>
+</nav>

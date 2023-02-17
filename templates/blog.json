@@ -1,0 +1,20 @@
+{
+  "sections": {
+    "main": {
+      "type": "blog-template",
+      "settings": {
+        "sidebar_left": true,
+        "fixed_sidebar": false,
+        "show_recent_posts": false,
+        "show_categories": false,
+        "sidebar_title": "",
+        "sidebar_text": "Ready to find out more about our new, and upcoming products? Sign up below.",
+        "filter_by_tags": "",
+        "select_newsletter": "klaviyo"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

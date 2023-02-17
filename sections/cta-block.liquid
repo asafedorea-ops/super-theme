@@ -1,0 +1,444 @@
+<!-- section/cta-block.liquid -->
+
+<section class="call-to-action {{ section.settings.custom_class }}" data-section-type="cta-section">
+  <h2 class="hide">{{ section.settings.buy_now_text_button }}</h3>
+
+  <div class="buy-now">
+    <div class="buy-now-bg buy-now-bg-{{ section.id }}"></div>
+
+    <div class="buy-now-wrapper buy-now-wrapper-{{ section.id }}">
+      {%- assign product_temp = all_products[section.settings.id_product_block] -%}
+
+      {%- assign product_link = product_temp.selected_or_first_available_variant.url -%}
+      <div class="cta-content-wrapper">
+        <div class="cta-content">
+          {%- if section.settings.use_add_to_cart -%}
+            <div class="cta-content-rte rte">{{ section.settings.text_above_button }}</div>
+
+            {%- if section.settings.id_product_block != blank -%}
+              <form method="post" action="/cart/add">
+                <input type="hidden" name="id" value="{{ product_temp.selected_or_first_available_variant.id }}" id="id-jq-cart-item" class="jq-cart-item"/>
+                <input type="hidden" name="quantity" id="id-quantity" value="1"/>
+                <button class="cart-button" >{{ section.settings.buy_now_text_button }}</button>
+                <div id="add-to-cart-error" class="add-to-cart-errors"></div>
+              </form>
+            {%- endif -%}
+          {%- else -%}
+
+          <div class="cta-content-rte rte">{{ section.settings.text_above_button }}</div>
+
+          {%- if section.settings.use_external_link -%}
+              <div class="cta-content-button">
+                {%- if section.settings.buy_now_text_button != blank -%}
+                  <a title="{{ section.settings.buy_now_text_button | strip_html | escape }}" href="{{ section.settings.url_product | default: product_link }}" id="BuyNowBtn-{{ section.id }}" class="buy-now-btn buy-now-btn-{{ section.id }} {{ section.settings.text_transform_button }}" >{{ section.settings.buy_now_text_button }}</a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div>
+        {%- if section.settings.url_call_to_action != blank -%}
+          {%- render 'responsive-image',
+            id_prefix: 'cta-block',
+            image: section.settings.url_call_to_action,
+            active_lazy: section.settings.enable_lazy_load_cta,
+            max_width: 400,
+            no_wrap: true
+          -%}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% style %}
+#shopify-section-{{ section.id }} .cta-content-button {
+    width: {{ section.settings.width_cta_botton }}%;
+    max-width:{{ section.settings.box_limit }}px;
+    margin: 0 auto;
+    font-size:{{ section.settings.text_button_font_size }}px;
+}
+#shopify-section-{{ section.id }} .cta-content-button a{
+    font-size:{{ section.settings.text_button_font_size }}px;
+}
+#shopify-section-{{ section.id }} .cta-content {
+    width: {{ section.settings.box_limit }}px;
+}
+#shopify-section-{{ section.id }} .cta-content,
+#shopify-section-{{ section.id }} .cta-content h2,
+#shopify-section-{{ section.id }} .cta-content h3 {
+    color: {{ section.settings.text_above_color }};
+    max-width: 100%;
+}
+
+#shopify-section-{{ section.id }} .cta-content {
+    font-size:{{ section.settings.text_above_font_size }}px;
+    text-align:{{ section.settings.block_text_align }};
+}
+
+#shopify-section-{{ section.id }} .cart-button {
+    color: {{ section.settings.button_text_color }} ;
+    background-color:{{ section.settings.button_background_color }};
+    border-color: {{ section.settings.button_border_color }};
+    text-transform: {{ section.settings.text_transform_button }};
+    width: {{ section.settings.width_cta_botton }}%;
+    max-width:{{ section.settings.box_limit }}px;
+    margin: 0 auto;
+    font-size:{{ section.settings.text_button_font_size }}px;
+}
+#shopify-section-{{ section.id }} .cart-button:hover,
+#shopify-section-{{ section.id }} .cart-button:active{
+    color: {{ section.settings.button_hover_text_color }};
+    background: {{ section.settings.button_hover_background_color }};
+    border-color: {{ section.settings.button_hover_border_color }};
+}
+.cart-button {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    padding: 15px 30px;
+    display: block;
+    border: 1px solid transparent;
+    text-align: center;
+    max-width: 100%;
+    width:100%;
+}
+#shopify-section-{{ section.id }} .add-to-cart-errors{
+    color: {{ section.settings.max_qtd_color }};
+}
+
+.cta-block .call-to-action {
+    padding-bottom: 30px;
+    margin: 0;
+}
+
+.call-to-action .buy-now .buy-now-bg-{{ section.id }} {
+    background-color: {{ section.settings.buy_now_background_color }};
+    top: {{ section.settings.buy_now_background_top_position }}%;
+    height: {{ section.settings.buy_nowbackgroung_height }}%;
+}
+
+.call-to-action .buy-now .buy-now-wrapper-{{ section.id }} {
+    flex-direction:{{ section.settings.buy_now_line_direction }};
+}
+
+.call-to-action .buy-now .buy-now-wrapper .buy-now-btn-{{ section.id }} {
+    color:{{ section.settings.button_text_color }} ;
+    background-color:{{ section.settings.button_background_color }};
+    font-size:{{ section.settings.buy_now_size_button }}px;
+    border-color: {{ section.settings.button_border_color }};
+    text-transform: {{ section.settings.text_transform_button }};
+}
+
+.call-to-action .buy-now .buy-now-wrapper .buy-now-btn-{{ section.id }}:hover,
+.call-to-action .buy-now .buy-now-wrapper .buy-now-btn-{{ section.id }}:active {
+    color: {{ section.settings.button_hover_text_color }};
+    background: {{ section.settings.button_hover_background_color }};
+    border-color: {{ section.settings.button_hover_border_color }};
+}
+
+.cta-content-rte {
+  margin-bottom: 10px;
+}
+{% endstyle %}
+
+<script type="lazyload2">
+setTimeout(function(){
+  (function(){
+      var _add_to_cart = jQuery('.js-atc-form');
+
+      _add_to_cart.submit(function() {
+          $('#add-to-cart-error').html('');
+          jQuery('.cart-button').prop('disabled', true);
+          jQuery('.cart-button .btn-progress').animate({
+              width: '30%'
+          }, 250);
+
+          $('#add-to-cart-error').empty().hide()
+
+          VastaShop.Cart.addItem(jQuery(this).serialize()).then(function(prod, status) {
+              if ('success' == status) {
+                  VastaShop.Cart.getAllItems().then(function(cart, status) {
+                      if ('success' === status) {
+                          jQuery('.btn-add-tocart .btn-progress').animate({
+                              width: '100%'
+                          }, 250, function() {
+                              jQuery(this).css('width', '0').show();
+                          });
+
+                          VastaShop.Cart.current = cart;
+
+                          jQuery('.cupom-text').show();
+                          render_cart_drawer(VastaShop.Cart.current, jQuery('.list-products'), 0, '');
+
+                          update_shipping_bar(cart);
+
+                          jQuery('.cart-button').prop('disabled', false);
+                          jQuery('body').addClass('cart-drawer-open cart-open');
+                          inventoryControl(prod.id);
+                      }
+                  }).catch(function(err) {
+                      console.log(err);
+                  });
+              }
+          }).catch(function(err) {
+              jQuery('.cart-button').prop('disabled', false).hide();
+
+              if (err.status === 422) {
+                  $('#add-to-cart-error').html('Maximum Quantity Available In Stock.').show();
+              } else {
+                  throw err;
+              }
+          });
+
+          return false;
+      });
+  })();
+});
+</script>
+
+{% schema %}
+{
+  "name": "CTA Section",
+  "class": "cta-block",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Custom class to apply css styles for specific sections"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_lazy_load_cta",
+      "label": "Enable Lazy Load",
+      "info": "If this is the first section of the homepage, you have to keep this field unchecked for Google Pagespeed score improvements.",
+      "default": true
+    },
+    {
+      "type": "color",
+      "id": "buy_now_background_color",
+      "label": "Section Background Color",
+      "default": "#9c2135"
+    },
+    {
+      "type": "select",
+      "id": "buy_now_line_direction",
+      "label": "Content and Image Position",
+      "options": [
+        {
+          "value": "row",
+          "label": "Content - Image"
+        },
+        {
+          "value": "row-reverse",
+          "label": "Image - Content"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "box_limit",
+      "min": 300,
+      "max": 550,
+      "step": 10,
+      "unit": "px",
+      "label": "Box Text and Button Width",
+      "default": 400
+    },
+    {
+      "type": "liquid",
+      "id": "text_above_button",
+      "label": "Message Text",
+      "default": "Text Example"
+    },
+    {
+      "type": "select",
+      "id": "block_text_align",
+      "label": "Text Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "text_above_font_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "text_above_color",
+      "label": "Text Color",
+      "default": "#000"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "buy_now_text_button",
+      "label": "Text",
+      "default": "buy now"
+    },
+    {
+      "type": "select",
+      "id": "text_transform_button",
+      "label": "Text Transform",
+      "options": [
+        {
+          "label": "Capitalize",
+          "value": "capitalize"
+        },
+        {
+          "label": "Lowercase",
+          "value": "lowercase"
+        },
+        {
+          "label": "Uppercase",
+          "value": "uppercase"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "text_button_font_size",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "label": "Font Size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "width_cta_botton",
+      "min": 20,
+      "max": 100,
+      "step": 10,
+      "unit": "%",
+      "label": "Button Size",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button Background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_background_color",
+      "label": "Button Hover Background Color",
+      "default": "#9c2135"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#9c2135"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "button_border_color",
+      "label": "Button Border Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_border_color",
+      "label": "Button Hover Border Color",
+      "default": "#fff"
+    },
+    {
+      "type": "header",
+      "content": "Product & Image"
+    },
+    {
+      "type": "product",
+      "id": "id_product_block",
+      "label": "Product"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_add_to_cart",
+      "label": "Add To Cart Button"
+    },
+    {
+      "type": "checkbox",
+      "id": "use_external_link",
+      "label": "Enable Custom Link"
+    },
+    {
+      "type": "url",
+      "id": "url_product",
+      "label": "Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "url_call_to_action",
+      "label": "Image",
+      "info": "800x800"
+    },
+    {
+      "type": "range",
+      "id": "buy_nowbackgroung_height",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Background Height",
+      "default": 75
+    },
+    {
+      "type": "range",
+      "id": "buy_now_background_top_position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "label": "Background Position",
+      "default": 50
+    },
+    {
+      "type": "color",
+      "id": "max_qtd_color",
+      "label": "Error Message Text Color",
+      "default": "#000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Call To Action",
+      "category": "Call To Action"
+    }
+  ]
+}
+{% endschema %}
