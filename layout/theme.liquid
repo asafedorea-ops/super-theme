@@ -7,41 +7,32 @@
     <link rel="preconnect dns-prefetch" href="https://shopify.vastaweb.com">
     <link rel="preconnect dns-prefetch" href="https://cdn.shopify.com">
     <link rel="preconnect dns-prefetch" href="https://ajax.googleapis.com">
-
     {%- render 'style-css' -%}
-
     <link rel="stylesheet" data-href="{{- 'layout.theme.styleLiquid.css' | asset_url -}}"/>
-
     <!-- Meta Tags -->
     <meta name="theme-name" content="Super Theme BV" />
     <meta name="theme-version" content="2.2.1"/>
     <meta name="theme-color" content="{{- settings.color_accent -}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
-
     {%- if template contains 'noindex' -%}
       <meta name="robots" content="noindex">
     {%- endif -%}
-
     {%- if settings.enable_zoom_feature_for_mobile -%}
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.75, user-scalable=yes" />
     {%- else -%}
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     {%- endif -%}
-
     {%- if template contains 'product' -%}
       <meta name="description" content="{{- page_description | json | strip_html | escape -}}" />
     {%- else -%}
       {%- assign meta_description = page_description | default: shop.description | default: shop.name -%}
       <meta name="description" content="{{- meta_description | strip_html | escape -}}">
     {%- endif -%}
-
     <link rel="canonical" href="{{ canonical_url }}">
-
     {%- if settings.enable_custom_style -%}
       {%- render 'custom_head' -%}
     {%- endif -%}
-
     {%- if settings.enable_zoom_feature_for_desktop and template contains 'product' -%}
       <link rel="stylesheet" data-href="https://cdnjs.cloudflare.com/ajax/libs/magnify/2.3.3/css/magnify.css" integrity="sha512-JxBFHHd+xyHl++SdVJYCCgxGPJKCTTaqndOl/n12qI73hgj7PuGuYDUcCgtdSHTeXSHCtW4us4Qmv+xwPqKVjQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     {%- endif -%}
