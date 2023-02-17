@@ -37,19 +37,23 @@
                         {%- elsif url contains 'vimeo' -%}
                             {%- assign platform = 'vimeo' -%}
                         {%- endif -%}
-                        <div class="video" data-video="{{ platform }}">
+                        {% if platform == 'youtube' %}
+                          <div class="youtube-player" data-id="{{- videoID -}}"></div>
+                        {% else %}
+                          <div class="video" data-video="{{ platform }}">
                             <iframe class="{{ platform }}{% if slideshow %}hide-player{% endif %}"
                                 data-video-url="{{ url }}"
                                 loading="lazy"
                                 width="560"
                                 height="315"
-                                src="{% if platform == 'youtube' %}https://www.youtube.com/embed/{{ videoID }}{% else %}{{ url }}{% endif %}"
+                                src="{{- url -}}"
                                 frameborder="0"
                                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                                 allowfullscreen>
                             </iframe>
                         </div>
-            
+                      {% endif %}
+
                         {% if section.settings.enable_videos_description and block.settings.video_description != blank %}
                             <p class="videos-description">{{ block.settings.video_description }}</p>
                         {% endif %}
@@ -67,7 +71,53 @@
   "settings": [
     {
       "type": "header",
-      "content": "Video Settings"
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     },
     {
       "type": "text",
@@ -191,7 +241,17 @@
 });
 </script>
 
-{%- style -%}
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
     #shopify-section-{{ section.id }} .dynamic-video-wrapper {
         {% if section.settings.enable_videos_slider %}
             display: block;
@@ -218,4 +278,4 @@
             padding-top: 25px;
         {% endif %}
     }
-{%- endstyle -%}
+</style>

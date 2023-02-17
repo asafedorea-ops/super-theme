@@ -16,28 +16,33 @@
     {%- assign show_banner = false -%}
 {%- endif -%}
 
+
 {%- if settings.enabled_collection_featured_image == true and show_banner and collection.image != blank -%}
     <div class="collection-banner">
+        {%- assign image_desktop_width = 1280 -%}
+        {%- assign image_desktop_height = image_desktop_width | times: 0.4 -%}
+
+        {%- if section.settings.collection_banner_image_checkbox -%}
+            {%- assign temp_height = section.settings.collection_banner_image | divided_by: 100.0 -%}
+            {%- assign image_desktop_height = image_desktop_width | times: temp_height  -%}
+        {%- endif -%}
+
         <picture>
-            {%- assign default_image = collection.image -%}
-            {%- assign desktop_widths = '1500,1400,1300,1200,1100,1000,900,800' | split: ',' -%}
-            {%- assign mobile_widths = '700,600,500,400' | split: ',' -%}
-
-            {%- assign image_desktop_width = 1440 -%}
-            {%- assign image_desktop_height = image_desktop_width | divided_by: default_image.aspect_ratio -%}
-
-            <source class="lazy2 lazy3" media="(min-width: 768px)" {% if enable_lazy %}data-{% endif %}srcset="
-            {%- for desktop_width in desktop_widths -%}
-                https:{{- default_image | image_url: width: desktop_width }} {{ desktop_width }}w,
-            {%- endfor -%}
-            "/>
-
-            <source class="lazy2 lazy3" media="(max-width: 767px)" {% if enable_lazy %}data-{% endif %}srcset="
-            {%- for mobile_width in mobile_widths -%}
-                https:{{- default_image | image_url: width: mobile_width }} {{ mobile_width }}w,
-            {%- endfor -%}
-            "/>
-            <img class="collection-banner__image" width="{{ image_desktop_width }}" height="{{ image_desktop_height }}"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Banner"/>
+            <source media="(min-width: 768px)" 
+                srcset="{{ collection.image | image_url: width: 1200 }} 1200w, 
+                        {{ collection.image | image_url: width: 1100 }} 1100w, 
+                        {{ collection.image | image_url: width: 1000 }} 1000w, 
+                        {{ collection.image | image_url: width: 900 }} 900w, 
+                        {{ collection.image | image_url: width: 800 }} 800w">
+            
+            <source media="(max-width: 767px)" 
+                srcset="{{ collection.image | image_url: width: 700 }} 700w, 
+                        {{ collection.image | image_url: width: 600 }} 600w, 
+                        {{ collection.image | image_url: width: 500 }} 500w, 
+                        {{ collection.image | image_url: width: 400 }} 400w, 
+                        {{ collection.image | image_url: width: 300 }} 300w">
+            
+            <img class="collection-banner__image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" width="{{ image_desktop_width }}" height="{{ image_desktop_height }}"  />
         </picture>
     </div>
 {%- endif -%}

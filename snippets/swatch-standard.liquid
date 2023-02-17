@@ -14,8 +14,7 @@
                {% if swatch_index > 0 and settings.enable_out_of_stock_button == false %} disabled {% endif %}
                required/>
         <span class="swatch-value" >{{ value }}</span>
-        <span class="{% if settings.swatch_round_size_product_page %}swatch-value-circle-checked{% else %}swatch-value-checked{% endif %}">{%- render 'icon-check' -%}</span>
-        <span class="tooltip-standard">{{ val }}</span>
+        <span class="{% if settings.swatch_round_size_product_page %}swatch-value-circle-checked{% else %}swatch-value-checked{% endif %}"></span>
     </label>
 {%- endfor -%}
 

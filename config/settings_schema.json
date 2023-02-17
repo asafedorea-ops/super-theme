@@ -2,10 +2,10 @@
   {
     "name": "theme_info",
     "theme_name": "Super Theme BV",
-    "theme_version": "2.2.1",
+    "theme_version": "2.3",
     "theme_author": "Vasta",
-    "theme_documentation_url": "https:\/\/vasta.notion.site\/BGS-Super-Theme-2-0-Documentation-9fa406eea2884ba7a79d14997cec73ec",
-    "theme_support_url": "https:\/\/vastaweb.com"
+    "theme_documentation_url": "https://vasta.notion.site/BGS-Super-Theme-2-0-Documentation-9fa406eea2884ba7a79d14997cec73ec",
+    "theme_support_url": "https://vastaweb.com"
   },
   {
     "name": "Store Info",
@@ -75,7 +75,7 @@
         "id": "facebook-app-id",
         "label": "Facebook App ID",
         "placeholder": "app_id",
-        "info": "Find your Facebook App ID on your [App Dashboard](https:\/\/developers.facebook.com\/apps\/redirect\/dashboard)."
+        "info": "Find your Facebook App ID on your [App Dashboard](https://developers.facebook.com/apps/redirect/dashboard)."
       },
       {
         "type": "header",
@@ -193,6 +193,29 @@
         "content": "SEARCH SUGGESTIONS"
       },
       {
+        "type": "select",
+        "id": "enable_products_pages_article",
+        "label": "Search Terms",
+        "options": [
+          {
+            "value": "",
+            "label": "Products"
+          },
+          {
+            "value": "article,page",
+            "label": "All"
+          },
+          {
+            "value": "article",
+            "label": "Products and Articles"
+          },
+          {
+            "value": "page",
+            "label": "Products and Pages"
+          }
+        ]
+      },
+      {
         "type": "checkbox",
         "id": "enable_search_suggestions",
         "label": "Enable Search Suggestions",
@@ -223,6 +246,16 @@
             "label": "12 Products"
           }
         ]
+      },
+      {
+        "type": "header",
+        "content": "DISPLAY SECOND IMAGE ON HOVER"
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_image_hover",
+        "label": "Enable On Sitewide",
+        "default": true
       },
       {
         "type": "header",
@@ -267,7 +300,7 @@
       {
         "type": "select",
         "id": "breadcrumb_position",
-        "label": "Position On Collection Page",
+        "label": "Breadcrumb Position On Collection Page",
         "options": [
           {
             "value": "above",
@@ -361,12 +394,12 @@
         "content": "CUSTOM HTML CODE"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "enable_html_head",
         "label": "Head tag"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "enable_html_body",
         "label": "Body tag"
       },
@@ -457,30 +490,6 @@
       },
       {
         "type": "header",
-        "content": "404 PAGE"
-      },
-      {
-        "type": "select",
-        "id": "show_404_promotional",
-        "label": "Choose What to Display on 404 Page",
-        "default": "none",
-        "options": [
-          {
-            "value": "none",
-            "label": "None"
-          },
-          {
-            "value": "collection_list",
-            "label": "Collection List"
-          },
-          {
-            "value": "slider_promotional",
-            "label": "Slider Promotional"
-          }
-        ]
-      },
-      {
-        "type": "header",
         "content": "BACK TO THE TOP"
       },
       {
@@ -556,6 +565,12 @@
       },
       {
         "type": "font_picker",
+        "label": "Sitewide Bold Body Font Family",
+        "id": "copy_bold_body_font",
+        "default": "helvetica_n7"
+      },
+      {
+        "type": "font_picker",
         "label": "Sitewide Body Font Family",
         "id": "copy_body_font",
         "default": "helvetica_n4"
@@ -613,7 +628,7 @@
         "type": "range",
         "id": "item_nav_menu_font_size",
         "min": 12,
-        "max": 64,
+        "max": 32,
         "step": 1,
         "unit": "px",
         "label": "Navigation Font Size Desktop",
@@ -623,11 +638,31 @@
         "type": "range",
         "id": "item_nav_menu_font_size_tablet",
         "min": 12,
-        "max": 64,
+        "max": 32,
         "step": 1,
         "unit": "px",
         "label": "Navigation Font Size Tablet",
         "default": 15
+      },
+      {
+        "type": "range",
+        "id": "item_nav_menu_dropdown_font_size",
+        "min": 12,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "label": "Navigation Dropdown Font Size Desktop",
+        "default": 15
+      },
+      {
+        "type": "range",
+        "id": "item_nav_menu_dropdown_font_size_tablet",
+        "min": 12,
+        "max": 32,
+        "step": 1,
+        "unit": "px",
+        "label": "Navigation Dropdown Font Size Tablet",
+        "default": 14
       },
       {
         "type": "header",
@@ -1002,7 +1037,7 @@
       {
         "type": "select",
         "id": "collection_featured_image_position",
-        "label": "Position",
+        "label": "Featured Image Position",
         "options": [
           {
             "value": "above",
@@ -1028,7 +1063,7 @@
         "type": "textarea",
         "id": "collection_featured_image_filter",
         "label": "Remove Featured Images On The Following Collections:",
-        "info": "Use ',' to separate items."
+        "info": "Use ';' to separate items. To remove the featured image, please use the collection handle."
       },
       {
         "type": "header",
@@ -1387,7 +1422,7 @@
         "max": 70,
         "step": 1,
         "unit": "%",
-        "label": "Slider Width",
+        "label": "Slider And Product Image Width",
         "default": 50
       },
       {
@@ -1668,6 +1703,12 @@
         "default": "#26b522"
       },
       {
+        "type": "checkbox",
+        "id": "enable_tooltip",
+        "label": "Enable Tooltip",
+        "default": true
+      },
+      {
         "type": "range",
         "id": "tooltip_size",
         "min": 100,
@@ -1824,18 +1865,18 @@
       {
         "type": "checkbox",
         "id": "enabled_social_share",
-        "label": "Enable"
+        "label": "Enable Social Share"
       },
       {
         "type": "text",
         "id": "social_share_title",
-        "label": "Title",
+        "label": "Social Share Title",
         "placeholder": "Title"
       },
       {
         "type": "color",
         "id": "social_share_title_color",
-        "label": "Title Color",
+        "label": "Social Share Title Color",
         "default": "#000"
       },
       {
@@ -1847,7 +1888,7 @@
       {
         "type": "select",
         "id": "social_share_position",
-        "label": "Position",
+        "label": "Social Share Position",
         "options": [
           {
             "value": "above",
@@ -2064,14 +2105,15 @@
       },
       {
         "type": "checkbox",
-        "id": "enable_cart_property",
-        "label": "Enable Product Properties",
+        "id": "enable_show_percentual_discount",
+        "label": "Enable Show Percentual Discount",
         "default": true
       },
       {
         "type": "checkbox",
-        "id": "disable_reviews",
-        "label": "Disable Reviews"
+        "id": "enable_cart_property",
+        "label": "Enable Product Properties",
+        "default": true
       },
       {
         "type": "image_picker",
@@ -2127,6 +2169,12 @@
       },
       {
         "type": "color",
+        "id": "color_product_discount",
+        "label": "Product Discount Price Color ",
+        "default": "#444"
+      },
+      {
+        "type": "color",
         "id": "color_continue_shopping",
         "label": "Continue Shopping Link Color",
         "default": "#43AECF"
@@ -2136,55 +2184,10 @@
         "content": "CART INFO"
       },
       {
-        "type": "checkbox",
-        "id": "enable_discount_shipping_bar",
-        "label": "Enable Shipping Bar Discount Settings",
-        "info": "This field will use all info inside Shipping Bar Discount Threshold",
-        "default": false
-      },
-      {
-        "type": "select",
-        "id": "enabled_discount_cart_page",
-        "label": "Enable Discount Message on Cart Page",
-        "options": [
-          {
-            "label": "None",
-            "value": "none"
-          },
-          {
-            "label": "Quantity",
-            "value": "quantity"
-          },
-          {
-            "label": "Price",
-            "value": "price"
-          }
-        ]
-      },
-      {
-        "type": "range",
-        "id": "cart_discount_value_range",
-        "min": 0,
-        "max": 500,
-        "step": 5,
-        "unit": "$",
-        "label": "Discount Value",
-        "default": 50
-      },
-      {
-        "type": "range",
-        "id": "cart_discount_qtd_range",
-        "min": 1,
-        "max": 100,
-        "step": 1,
-        "label": "Discount Product Qtd",
-        "default": 10
-      },
-      {
         "type": "text",
         "id": "text_cart_above_button",
         "label": "Text Under Proceed To Checkout",
-        "default": "<strong>Use Code <span style='color:blue;font-weight:bold'>GET5NOW <\/span>to save 5% <\/strong>"
+        "default": "<strong>Use Code <span style='color:blue;font-weight:bold'>GET5NOW </span>to save 5% </strong>"
       },
       {
         "type": "checkbox",
@@ -2196,7 +2199,7 @@
         "type": "text",
         "id": "text_total",
         "label": "Total Price Text",
-        "default": "Total"
+        "default": "Subtotal"
       },
       {
         "type": "checkbox",
@@ -2229,7 +2232,7 @@
         "type": "url",
         "id": "href_continue_shopping",
         "label": "Continue Shopping Button Link",
-        "default": "\/collections\/all"
+        "default": "/collections/all"
       },
       {
         "type": "text",
@@ -2248,7 +2251,7 @@
         "label": "Enable HTML Area"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "cart_html_area",
         "label": "Custom HTML"
       }
@@ -2340,11 +2343,6 @@
         "id": "blog_article_placeholder",
         "label": "Placeholder Image",
         "info": "300x300"
-      },
-      {
-        "type": "checkbox",
-        "id": "enable_sidebar_newsletter",
-        "label": "Enable Newsletter on Sidebar"
       },
       {
         "type": "checkbox",
@@ -2458,6 +2456,12 @@
       },
       {
         "type": "color",
+        "id": "button_border_color_blog",
+        "label": "Newsletters Button Border Color",
+        "default": "#56aad7"
+      },
+      {
+        "type": "color",
         "id": "button_background_hover_color_blog",
         "label": "Newsletters Button Hover Color",
         "default": "#56aad7"
@@ -2467,6 +2471,12 @@
         "id": "button_text_hover_color_blog",
         "label": "Newsletters Button Text Hover Color",
         "default": "#fff"
+      },
+      {
+        "type": "color",
+        "id": "button_border_hover_color_blog",
+        "label": "Newsletters Button Border Hover Color",
+        "default": "#56aad7"
       },
       {
         "type": "color",
@@ -2484,7 +2494,7 @@
         "content": "GENERAL"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "custom_style",
         "label": "Sitewide"
       },
@@ -2493,7 +2503,7 @@
         "content": "DESKTOP"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "custom_style_min_1020",
         "label": "@media (min-width: 1020px)"
       },
@@ -2502,7 +2512,7 @@
         "content": "TABLET"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "custom_style_1019",
         "label": "@media (max-width: 1019px)"
       },
@@ -2511,7 +2521,7 @@
         "content": "LARGE MOBILE"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "custom_style_767",
         "label": "@media (max-width: 767px)"
       },
@@ -2520,7 +2530,7 @@
         "content": "SMALL MOBILE"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "custom_style_479",
         "label": "@media (max-width: 479px)"
       }
@@ -2620,7 +2630,7 @@
         "default": "#fff"
       },
       {
-        "type": "liquid",
+        "type": "html",
         "id": "custom_newsletter_html",
         "label": "Custom Newsletter",
         "info": "This content will only appear when Custom Newsletter is selected on Newsletter sections."
@@ -2633,7 +2643,7 @@
       {
         "type": "header",
         "content": "REVIEWS",
-        "info": "Visit [Judge.me](https:\/\/apps.shopify.com\/judgeme), [Yotpo](https:\/\/apps.shopify.com\/yotpo-social-reviews), [Stamped.io](https:\/\/apps.shopify.com\/product-reviews-addon) or [Product Reviews](https:\/\/apps.shopify.com\/product-reviews) to download."
+        "info": "Visit [Judge.me](https://apps.shopify.com/judgeme), [Yotpo](https://apps.shopify.com/yotpo-social-reviews), [Stamped.io](https://apps.shopify.com/product-reviews-addon) or [Product Reviews](https://apps.shopify.com/product-reviews) to download."
       },
       {
         "type": "select",
@@ -2671,7 +2681,7 @@
         "id": "yotpo_key",
         "label": "Yotpo (APPKEY)",
         "placeholder": "App key",
-        "info": "Get your Yotpo Key in [Yotpo Support](https:\/\/support.yotpo.com\/en\/article\/finding-your-yotpo-app-key-and-api-secret)."
+        "info": "Get your Yotpo Key in [Yotpo Support](https://support.yotpo.com/en/article/finding-your-yotpo-app-key-and-api-secret)."
       },
       {
         "type": "header",
@@ -2689,7 +2699,7 @@
         "id": "product_enabled_recharge",
         "label": "Enable reCharge App",
         "default": false,
-        "info": "Visit [reCharge](https:\/\/apps.shopify.com\/subscription-payments) to download."
+        "info": "Visit [reCharge](https://apps.shopify.com/subscription-payments) to download."
       },
       {
         "type": "checkbox",

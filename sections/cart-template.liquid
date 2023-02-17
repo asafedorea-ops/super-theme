@@ -1,11 +1,13 @@
 <!-- start cart.liquid (TEMPLATE) -->
 
+<link rel="stylesheet" data-href="{{ 'section-cart.css' | asset_url }}"/>
+
 <!-- Begin ReCharge code -->
 {%- if settings.product_enabled_recharge -%}
   {%- render 'subscription-cart-footer' -%}
 {%- endif -%}
 <!-- End ReCharge code -->
-<div class="wrapper">
+<div class="wrapper" id="ajax_cart">
   {%- if cart.item_count < 1 -%}
   <div class="cart__empty text-center" data-cart-view="data-cart-view">
     <p class="empty-cart">{{ 'cart.general.empty' | t }}</p>
@@ -108,7 +110,29 @@
               </div>
 
               <div class="product-price">
-                <strong class="price"  id="jq-cart-item-price-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.price | times: item.quantity | money }} </strong>
+                <strong class="price" id="jq-cart-item-price-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.original_line_price | money }}</strong>
+                
+                <div class="product-price">
+                  {%- if item.total_discount > 0 -%}
+                    <div class="discount-price__wrapper">
+
+                        <span class="price percentage_discount discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">-{{ item.total_discount | money}} 
+                        </span>
+
+                        {%- if settings.enable_show_percentual_discount == true -%}
+                          <span class="price discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}"> 
+                          ({{ item.total_discount | plus:0.0 | divided_by: item.price | times: 100 | round: 1}}%)&nbsp;
+                          </span>
+                        {%- endif -%}
+                        
+                    </div>
+                  {%- endif -%}
+                </div>
+                
+                {%- if item.total_discount > 0 -%}
+                  <strong class="price" id="jq-cart-item-price-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.price | times: item.quantity | money }}</strong>
+                {%- endif -%}
+
                 <form action="/cart" class="jq-remove-cart-item">
                   <input aria-label="jq-cart-item" type="hidden" name="updates[{{ item.variant_id }}]" value="0" class="jq-cart-item"/>
                   <button aria-label="bt-remove-cart" id="bt-remove-cart-{{ forloop.index }}" class="bt-remove-cart">{{ 'cart.general.remove' | t }}</button>
@@ -126,14 +150,14 @@
     {%- endif -%}
 
 
-    <div class="btn-wrapper btn-wrapper-2">
-  
+    <div class="btn-wrapper btn-wrapper-2" >
       <a title="Continue Shopping" aria-label="continue-shopping-no-mobile" id="continue-shopping-no-mobile" href="{{ settings.href_continue_shopping }}" class="continue-shopping no-mobile {% if settings.continue_shopping_button_style_cart_page %}cont-button-style{% endif %}" >{{ settings.text_continue_shopping }}</a>
+
       <form action="/cart" method="post" class="form-cart-proceed-to-checkout">
         <div class="pull-right cart-total-bottom">{{ settings.text_total }} <strong class="price-total" id="jq-cart-price-total">{{ cart.total_price | money }}</strong>
           {%- if settings.enable_freeshipping_msg -%}
-          <span id="cart-drawer-freeshipping-msg" class="free-shipping-message"></span>
-        {%- endif -%}
+            <span id="cart-drawer-freeshipping-msg" class="free-shipping-message"></span>
+          {%- endif -%}
         </div>
         <button aria-label="ProceedToCheckoutBellow" id="ProceedToCheckoutBellow" name="checkout" class="btn-add-tocart">
           {%- render 'icon-lock' -%}
@@ -164,17 +188,13 @@
          {%- if settings.enable_html_area -%}
             <div class="custom-html">{{ settings.cart_html_area }}</div>
           {%- endif -%}
-
-        
-
       </form>
     </div>
-
   </div>
   {%- endif -%}
 </div>
 
-{% style %}
+<style scoped>
   :root{
     --color-font-button-cart: {{ settings.color_font_button_cart }};
     --color-cart-item-title: {{ settings.color_cartitem }};
@@ -182,9 +202,9 @@
     --color-background-button: {{ settings.color_background_button }};
     --color-price-cart-page: {{ settings.color_price_cart }};
     --color-continue-shopping-color: {{ settings.color_continue_shopping }};
-
     --color-font-button-cart-hover: {{ settings.color_font_button_cart_hover }};
     --color-background-button-hover: {{ settings.color_background_button_hover }};
+    --color-product-discount: {{ settings.color_product_discount }};
 
   }
-{% endstyle %}
+</style>

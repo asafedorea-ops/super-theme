@@ -18,7 +18,7 @@
         "3c9528b1-45ad-45c7-86fd-cd9ff25a989b": {
           "type": "trust-badge",
           "settings": {
-            "title": "",
+            "title": "test",
             "svg_trust_badge_cart": "natural-product",
             "enable_custom_trust_badge_svg": false,
             "custom_trust_badge_svg_html": "",
@@ -91,12 +91,12 @@
         "shipping_calculator_font_size": 18,
         "shipping_calculator_font_weight": "normal",
         "days_to_start_shipping": 5,
-        "approximate_days_for_delivery": 12,
+        "approximate_days_for_delivery": 7,
         "delivery_align": "center",
-        "trust_badges_text": "",
-        "vasta_title_section_badges": 16,
+        "trust_badges_text": "test",
+        "vasta_title_section_badges": 25,
         "announcement_show_title_badges": false,
-        "vasta_copy_badges": 10,
+        "vasta_copy_badges": 8,
         "vasta_badges_size": 4,
         "trust_badges_text_weight": "normal",
         "trust_badges_text_transform": "uppercase",
@@ -173,6 +173,11 @@
         "2243defd-90e4-420f-8384-71ea4960d3e5"
       ],
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "enable_reviews": true,
         "title": "OUR REVIEWS",
@@ -183,16 +188,27 @@
     "related-products": {
       "type": "relatedproducts",
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "section_title": "Other Fine Products",
         "enable_uppercase": "uppercase",
         "text_transform_products_title": "uppercase",
         "show_price": true
+      }
+    },
+    "loox-product-reviews-app-section": {
+      "type": "apps",
+      "settings": {
       }
     }
   },
   "order": [
     "main",
     "reviews",
-    "related-products"
+    "related-products",
+    "loox-product-reviews-app-section"
   ]
 }

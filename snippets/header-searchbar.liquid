@@ -1,6 +1,7 @@
 <!-- start header-searchbar (SNIPPET) -->
 <div class="{% if mobile %}mobile{% else %}no-mobile{% endif %} header__search__form__wrapper">
   <form id="search-form" action="/search" method="get" class="header__search__form">
+    <input type="hidden" name="type" value="product,{{ settings.enable_products_pages_article }}">
     <input class="header__search__input" aria-label="search-text" type="text" class="search-text" name="q" id="Search-{{ search_id }}" value="{{ search.terms | escape }}" placeholder="{{ section.settings.header_searchbar_placeholder }}" required>
     
     <button id="SearchButton" type="submit" class="button">{{ 'general.search.submit' | t }}</button>

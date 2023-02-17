@@ -1,13 +1,11 @@
 <!-- start product-js.liquid (SNIPPET) -->
-<script>
-	{%- if settings.product_enabled_recharge -%}
-		window.addEventListener('load', function(){
-			recharge();
-		});
-	{%- endif -%}
+<script type="lazyload2">
+	setTimeout(function () {
+		(function ($) {
+			{% if settings.product_enabled_recharge %}
+				recharge();
+			{% endif %}
 
-	(function ($) {
-		$(document).ready(function () {
 			$(window).on('scroll', function() {
 				if( $("#button-out-of-stock").is(":visible") == false ) {
 					const $mainFooter = $('.footer-section').eq(0);
@@ -55,14 +53,12 @@
 					this.src = this.src;
 				});
 			});
-			
+
 			_product_featured.on('afterChange', function(event, slick, currentSlideIndex) {
-				var variant_option, current_slide;
-
 				if (swatch_locked === false) {
-					current_slide = $('.jq-featured-slider .slick-slide.slick-current .product-slider-image-wrapper').data('image-position');
-					variant_option = $('.all-variant option[data-image-position="' + current_slide + '"]');
-
+					const current_slide = $('.product-slider-thumbnails .slick-current .product-slider__image-wrapper').data('forloop-index');
+					let variant_option = $('.all-variant option[data-image-position="' + current_slide + '"]');
+					
 					if (variant_option.length > 0 && current_slide != '') {
 						variant_option = variant_option.eq(0);
 
@@ -123,10 +119,10 @@
 				prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
 				nextArrow: '<button type="button" class="slick-next">&rang;</button>',
 				responsive: [{
-					breakpoint: 1279,
+					breakpoint: 768,
 					settings: {
-						slidesToShow: number_of_images,
-						slidesToScroll: 1
+						vertical: false,
+						verticalSwiping: false,
 					}
 				}]
 			});
@@ -332,7 +328,7 @@
 
 			$(window).scroll(product_box_floating);
 			$(window).resize(product_box_floating);
-		});
+		})(jQuery);
 
 
 		function dynamicVideos() {
@@ -354,5 +350,5 @@
 				dynamicVideos();
 			}
 		});
-	})(jQuery);
+	});
 </script>

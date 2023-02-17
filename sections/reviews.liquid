@@ -1,4 +1,9 @@
 <!-- start reviews.liquid (SECTION) -->
+
+<link data-href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+<link data-href="{{ 'section-reviews.css' | asset_url }}"/>
+
+
 {% if section.settings.enable_reviews %}
   <section data-section-type="reviews" id="slider-reviews-{{ section.id }}" data-slider="{{ section.id }}" class="{{ section.settings.custom_class }}">
       <h3 class="hide">Reviews</h3>
@@ -82,6 +87,19 @@
 
 {% endif %}
 
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
+</style>
+
 {% schema %}
 {
   "name": "Reviews",
@@ -89,7 +107,53 @@
   "settings": [
     {
       "type": "header",
-      "content": "General"
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     },
     {
       "type": "text",
@@ -229,7 +293,7 @@
 {% endschema %}
 
 <script type="lazyload2">
-  setTimeout(function(){
+setTimeout(function(){
   window.SectionReviews = (function(){
     function SectionReviews() {
       this.settings = {

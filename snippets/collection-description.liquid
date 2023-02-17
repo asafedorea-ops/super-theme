@@ -25,15 +25,17 @@
 {%- if collection.description != blank and settings.announcement_show_description and show_description -%}
     <div class="collection-description">
         <div class="collection-description__wrapper">
-            <div id="collection-description__text" class="collection-description__text rte">
+            <div id="collection-description__text" class="collection-description__text rte {% if settings.enable_see_more %}see-more{% endif %} {% if settings.enable_see_more %}see-more{% endif %}">
                 {{- collection.description -}}
             </div>
 
-            <div class="collection-description__button-wrapper">
-                <span id="collection-description__button" class="collection-description__button {{ button_underline_class }}">
-                    {{ 'collections.general.see_more' | t }}
-                </span>
-            </div>
+            {%- if settings.enable_see_more -%}
+                <div class="collection-description__button-wrapper">
+                    <span id="collection-description__button" class="collection-description__button {{ button_underline_class }}">
+                        {{ 'collections.general.see_more' | t }}
+                    </span>
+                </div>            
+            {%- endif -%}
         </div>
     </div>
 {%- endif -%}

@@ -6,13 +6,32 @@
         "enable_sidebar": true,
         "sidebar_left": true,
         "fixed_sidebar": false,
-        "show_recent_posts": false,
-        "show_categories": false,
-        "sidebar_title": "",
-        "sidebar_text": "Ready to find out more about our new, and upcoming products? Sign up below.",
-        "filter_by_tags": "",
-        "select_newsletter": "klaviyo"
-      }
+        "sidebar_text_align": "center"
+      },
+      "blocks": {
+        "fed1b819-a28a-4ca0-a468-4bc939cfb078": {
+          "type": "newsletter",
+          "settings": {
+            "sidebar_title": "",
+            "sidebar_text": "Ready to find out more about our new, and upcoming products? Sign up below.",
+            "select_newsletter": "klaviyo"
+          }
+        },
+        "f41ad184-c675-46de-b3b4-19152e7e2680": {
+          "type": "recent_posts"
+        },
+        "d504b9b6-5c22-42a9-9154-7e25d008b097": {
+          "type": "categories",
+          "settings": {
+            "filter_by_tags": ""
+          }
+        }
+      },
+      "block_order": [
+        "fed1b819-a28a-4ca0-a468-4bc939cfb078",
+        "f41ad184-c675-46de-b3b4-19152e7e2680",
+        "d504b9b6-5c22-42a9-9154-7e25d008b097"
+      ]
     }
   },
   "order": [

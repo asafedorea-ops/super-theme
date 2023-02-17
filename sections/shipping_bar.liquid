@@ -1,163 +1,81 @@
 <!-- start shipping_bar.liquid (SECTION) -->
 
-{%- assign shipping_bar_style = section.settings.shipping_bar_style -%}
+{%- capture shipping_bar_css -%}
+    {%- render 'style-shipping-bar' -%}
+{%- endcapture -%}
 
-{%- assign shipping_bar_type = blank -%}
 
-{%- case shipping_bar_style -%}
-  {%- when 'sections_style' -%}
-      {%- assign shipping_bar_type = 'shipping-bar--sections-style' -%}
-  {%- when 'info_style' -%}
-      {%- assign shipping_bar_type = 'shipping-bar--info-style' -%}
-  {%- else -%}
-      {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
-{%- endcase -%}
-{% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
-  {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
-  {%- assign shipping_bar_style = 'dicount_style' -%}
-{%- endif -%}
+{{- shipping_bar_css | replace: 'data-lazy', 'class="critical2"' | strip_newlines | replace: '  ', '' -}}
+{{- shipping_bar_css | replace: 'data-lazy', 'type="lazyload2"' | strip_newlines | replace: '  ', '' -}}
 
-<div id="shipping-bar" class="shipping-bar {{ shipping_bar_type }}" data-style="{{- shipping_bar_style -}}">
-  <div class="wrapper">
-      <div class="shipping-bar__wrapper">
-          {%- for block in section.blocks -%}
-            {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
-              {%- render 'shipping-bar-discount' with block: block -%}
-            {% break %}
-          {% else %}
-            {%- if shipping_bar_style == 'sections_style' and block.type == 'sections-style' -%}
-                {%- render 'shipping-bar-sections' with block: block -%}
-                {%- break -%}
-            {%- elsif shipping_bar_style == 'info_style' and block.type == 'info-style' -%}
-                {%- render 'shipping-bar-informational' with message: block.settings.shipping_bar_info_text -%}
-                {%- break -%}
-            {%- elsif shipping_bar_style == 'dicount_style' and block.type == 'discount-style' -%}
+{%- capture shipping_bar_content -%}
+  {%- assign shipping_bar_style = section.settings.shipping_bar_style -%}
+
+  {%- assign shipping_bar_type = blank -%}
+
+  {%- case shipping_bar_style -%}
+    {%- when 'sections_style' -%}
+        {%- assign shipping_bar_type = 'shipping-bar--sections-style' -%}
+    {%- when 'info_style' -%}
+        {%- assign shipping_bar_type = 'shipping-bar--info-style' -%}
+    {%- else -%}
+        {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
+  {%- endcase -%}
+  {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
+    {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
+    {%- assign shipping_bar_style = 'dicount_style' -%}
+  {%- endif -%}
+
+  <div id="shipping-bar" class="shipping-bar {{ shipping_bar_type }} lazybg" data-style="{{- shipping_bar_style -}}">
+    <div class="wrapper">
+        <div class="shipping-bar__wrapper">
+            {%- for block in section.blocks -%}
+              {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
                 {%- render 'shipping-bar-discount' with block: block -%}
-                {%- break -%}
-            {%- endif -%}
-          {% endif %}
-          {%- endfor -%}
+              {% break %}
+            {% else %}
+              {%- if shipping_bar_style == 'sections_style' and block.type == 'sections-style' -%}
+                  {%- render 'shipping-bar-sections' with block: block -%}
+                  {%- break -%}
+              {%- elsif shipping_bar_style == 'info_style' and block.type == 'info-style' -%}
+                  {%- render 'shipping-bar-informational' with message: block.settings.shipping_bar_info_text -%}
+                  {%- break -%}
+              {%- elsif shipping_bar_style == 'dicount_style' and block.type == 'discount-style' -%}
+                  {%- render 'shipping-bar-discount' with block: block -%}
+                  {%- break -%}
+              {%- endif -%}
+            {% endif %}
+            {%- endfor -%}
 
-      </div>
+        </div>
+    </div>
   </div>
-</div>
 
-{%- style -%}
-:root {
-  {%- if section.settings.position -%}
-    --shipping-bar-height: 40px;
-  {%- else -%}
-    --shipping-bar-height: 0;
-  {%- endif -%}
-}
-#shopify-section-{{ section.id }} {
-  background-color: {{ section.settings.background_color }};
-  color: {{ section.settings.text_color }};
-  {%- if section.settings.position -%}
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 10;
-  {%- endif -%}
-}
-#shopify-section-{{ section.id }} svg {
-  fill: {{ section.settings.text_color }};
-}
-{%- endstyle -%}
+  <style scoped>
+  :root {
+    {%- if section.settings.position -%}
+      --shipping-bar-height: 40px;
+    {%- else -%}
+      --shipping-bar-height: 0;
+    {%- endif -%}
+  }
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.background_color }};
+    color: {{ section.settings.text_color }};
+    {%- if section.settings.position -%}
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    {%- endif -%}
+  }
+  #shopify-section-{{ section.id }} svg {
+    fill: {{ section.settings.text_color }};
+  }
+  </style>
+{%- endcapture -%}
 
-{% stylesheet %}
-.shipping-bar--fixed {
-  position: sticky;
-  top: 0;
-}
-.shipping-bar__section-item,
-.shipping-bar__wrapper {
-  display: flex;
-  align-items: center;
-}
-.shipping-bar__wrapper {
-  height: 40px;
-  justify-content: space-between;
-}
-.shipping-bar__section-item,
-.shipping-bar__item {
-  flex: 1;
-}
-.shipping-bar__item {
-  line-height: 1.15;
-}
-.shipping-bar__item:nth-of-type(1) {
-  text-align: left;
-}
-.shipping-bar__item:nth-of-type(2) {
-  text-align: center;
-}
-.shipping-bar--info-style .shipping-bar__item:nth-of-type(2) {
-  text-transform: uppercase;
-}
-.shipping-bar__item:nth-of-type(3) {
-  text-align: right;
-}
-.shipping-bar__item--small {
-  max-width: 230px;
-}
-.shipping-bar__item svg {
-  width: 16px;
-  height: 16px;
-  margin-right: 10px;
-  transform: translateY(2px);
-}
-.shipping-bar__link {
-  color: inherit;
-  font: inherit;
-}
-.shipping-bar__section-item {
-  justify-content: center;
-  height: calc(100% - 10px);
-  width: 33%;
-}
-.shipping-bar__section-item + .shipping-bar__section-item {
-  border-left: 1px solid var(--shipping-bar-items-line-color, #fff);
-}
-.shipping-bar__section-image  {
-  width: 100%;
-  max-width: 25px;
-  margin-right: 10px;
-}
-.shipping-bar--discount-style .shipping-bar__discount-value {
-  background: var(--shipping-bar-price-background, rgb(28, 168, 28));
-  margin: 0 4px;
-}
-.shipping-bar__discount-value {
-  display: inline-block;
-  color: var(--shipping-bar-price-text-color, rgb(255, 255, 255));
-  margin: 0px 4px;
-}
-.shipping-bar__discount-value:not(:last-child) {
-  margin-right: 4px;
-}
-.shipping-bar .shipping-bar__message {
-  display: flex;
-  justify-content: center;
-  text-transform: uppercase;
-}
-@media (max-width: 1019px) {
-  .shipping-bar__item--small {
-    max-width: 190px;
-  }
-}
-@media (max-width: 479px) {
-  .shipping-bar__item {
-    font-size: .85rem;
-  }
-  .shipping-bar__section-item {
-    font-size: 10px;
-  }
-  .shipping-bar > .wrapper {
-    padding: 0;
-  }
-}
-{% endstylesheet %}
+{{- shipping_bar_content | strip_newlines | replace: '  ', '' -}}
 
 {% schema %}
 {
@@ -413,7 +331,7 @@
 }
 {% endschema %}
 
-{%- style -%}
+<style scoped type="lazyload2">
 #shopify-section-{{ section.id }} .shipping-bar__section-item,
 #shopify-section-{{ section.id }} .shipping-bar__message,
 #shopify-section-{{ section.id }} .shipping-bar__item--small {
@@ -447,9 +365,9 @@
     width: {{ section.settings.font_size_mobile }}px;
   }
 }
-{%- endstyle -%}
+</style>
 
-<script>
+<script type="lazyload2">
   var shipping_bar = shipping_bar || {};
   {% for block in section.blocks %}
       {% if "discount-style" == block.type %}
@@ -495,5 +413,5 @@
 
       return new SectionShippingBar;
     })();
-  });
+  }, 3000);
 </script>

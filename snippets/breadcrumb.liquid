@@ -35,7 +35,7 @@
         <a id="breadcrumbs__product-url" class="breadcrumbs__item breadcrumbs__link" href="{{ collection.url }}" title="{{ collection.title | strip_html | escape }}">{{ collection.title }}</a>
       {%- endif -%}
         <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
-        <span class="breadcrumbs__item">{{ page_title }}</span>
+        <span class="breadcrumbs__item">{{ product.title | default: page_title }}</span>
       </span>
     {%- else -%}
     <span class="breadcrumbs__separator" aria-hidden="true">&rsaquo;</span>
@@ -43,3 +43,29 @@
     {%- endif -%}
   </div>
 {%- endunless -%}
+
+<style scoped>
+
+.breadcrumbs {
+	display: inline-table;
+	align-items: center;
+	padding: 5px 0;
+}
+
+.breadcrumbs__item {
+	color: #000;
+	font-size: var(--breadcrumbFontSize, 1rem);
+	color: var(--breadcrumbtextcolor, #000);
+	font-style: var(--breadcrumbtextstyle, normal);
+}
+
+.breadcrumbs__link {
+	color: var(--breadcrumbLinkColor, #000);
+}
+
+.breadcrumbs__separator {
+	font-size: 1rem;
+	margin: 0 5px;
+	font-family: initial;
+}
+</style>

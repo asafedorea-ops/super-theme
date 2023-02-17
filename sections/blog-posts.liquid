@@ -1,4 +1,7 @@
 <!-- start blog-posts.liquid (SECTION) -->
+
+<link rel="stylesheet" data-href="{{ 'section-article-blog.css' | asset_url }}"/>
+
 <section id="blog-posts" {% if section.settings.custom_class != blank %} class="{{ section.settings.custom_class }}" {% endif %}>
   
   {%- assign sectionTitle = section.settings.title -%}
@@ -67,11 +70,21 @@
   </div>
 </section>
 
-{% style %}
+<style scoped>
+#shopify-section-{{ section.id }} {
+  {% if section.settings.enable_custom_margins_paddings %}
+    margin-top: {{ section.settings.custom-margin-top }}px;
+    margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+    padding-top: {{ section.settings.custom-padding-top }}px;
+    padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+  {% else %}
+    margin: 20px 0;
+  {% endif %}
+}
 #shopify-section-{{ section.id }} .section-title {
   text-transform: {{ section.settings.section_title_text_transform }};
 }
-{% endstyle %}
+</style>
 
 {% schema %}
 {
@@ -80,7 +93,53 @@
   "settings": [
     {
       "type": "header",
-      "content": "Blog Post"
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     },
     {
       "type": "text",

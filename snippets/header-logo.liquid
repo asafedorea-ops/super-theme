@@ -1,6 +1,6 @@
 <!-- start header-logo (SNIPPET) -->
 <div id="Header{{ section_title }}" class="header__logo">
-  <a class="header__logo__anchor" title="{{ logo_alt | default: shop.name | strip_html | escape }}" href="/">
+  <a class="header__logo__anchor" title="{{ section.settings.shop_logo_alt }}" href="/" >
     {%- if section.settings.enable_svg_logo -%}
       {{ section.settings.logo_svg_html }}
     {%- else -%}

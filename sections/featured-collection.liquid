@@ -1,4 +1,7 @@
 <!-- start featured-collection.liquid (SECTION) -->
+
+<link rel="stylesheet" data-href="{{ 'section-featured-collection.css' | asset_url }}"/>
+
 {%- assign max_width = 280 -%}
 {%- assign width_mobile = 45 -%}
 {%- assign width_desk = 20 -%}
@@ -14,7 +17,7 @@
   {%- assign items_qtd_per_row = "grid-uniform--s4" -%}
 {%- endcase -%}
 
-{%- assign temp_collection = collections[section.settings.collection] -%}
+{%- assign temp_collection = collections[section.settings.collection].products -%}
 {%- assign rows = section.settings.rows | default: 1 -%}
 {%- assign items_per_row = section.settings.products_per_rows | default: 4 -%}
 {%- assign item_count = items_per_row | times: rows -%}
@@ -24,6 +27,11 @@
 {%- if section.settings.top_margin_featured_products > 0 -%}
 {%- assign enable_lazy = false -%}
 {%- endif -%}
+
+{%- if settings.enable_out_of_stock_button == false -%}
+  {% assign temp_collection = temp_collection | where: "available" %}
+{%- endif -%}
+
 
 <section class="featured-collection{% if section.settings.custom_class != blank %} {{ section.settings.custom_class | handleize }}{% endif %}">
 <div class="wrapper">
@@ -35,58 +43,64 @@
     {%- endif -%}
 
     <div class="grid-uniform {{ items_qtd_per_row }}">
-      {%- for temp_product in temp_collection.products limit: item_count-%}
-        {%- assign show_product = true -%}
-
-        {%- if temp_product.available == false and settings.enable_out_of_stock_button == false -%}
-          {%- assign show_product = false -%}
-        {%- endif -%}
-
-        {%- if show_product -%}
-          {%- render 'product-card',
-            prod: temp_product,
-            max_width: max_width,
-            width_large: width_large,
-            width_mobile: width_mobile,
-            index: forloop.index,
-            width_desk: width_desk,
-            show_reviews: settings.feat_prod_enabled_app_reviews,
-            show_price: section.settings.show_price,
-            enable_lazy: enable_lazy
-            show_swatch: section.settings.show_swatch
-          -%}
-        {%- endif -%}
+      {%- for temp_product in temp_collection limit: item_count -%}
+        {%- render 'product-card',
+          prod: temp_product,
+          max_width: max_width,
+          width_large: width_large,
+          width_mobile: width_mobile,
+          index: forloop.index,
+          width_desk: width_desk,
+          show_reviews: settings.feat_prod_enabled_app_reviews,
+          show_price: section.settings.show_price,
+          enable_lazy: enable_lazy
+          show_swatch: section.settings.show_swatch
+        -%}
       {%- endfor -%}
     </div>
   </div>
 </div>
 </section>
 
-{%- style -%}
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
 #shopify-section-{{ section.id }} .featured-collection__title {
 text-transform: {{ section.settings.text_transform_title }}
 }
-#shopify-section-{{ section.id }} .grid__item-title {
-text-transform: {{ section.settings.text_transform_product_title }}
+#shopify-section-{{ section.id }} .grid__item-title-link {
+text-transform: {{ section.settings.text_transform_product_title }};
+color: #000
 }
 @media (min-width: 768px) {
 .shopify-section.banner + #shopify-section-{{ section.id }} {
   top: {{ section.settings.top_margin_featured_products | times: -1 }}px;
-  margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 }}px;
+  {% if section.settings.enable_custom_margins_paddings %}
+    margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+  {% else %}
+    margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 | plus: 20 }}px;
+  {% endif %}
   position: relative;
 }
 }
 @media (max-width: 479px){
-  .grid-uniform--s4 .grid__item {
+  #shopify-section-{{ section.id }} .grid-uniform .grid__item {
     flex-basis: {{section.settings.products_per_rows_feature_collection}}%;
+  }
 }
-}
-{%- endstyle -%}
+</style>
 
-{% stylesheet %}
+<style scoped type="lazyload2">
 .featured-collection__wrapper {
   background-color: #fff;
-  padding-bottom: 25px;
 }
 .featured-collection__title {
   text-align: center;
@@ -95,7 +109,7 @@ text-transform: {{ section.settings.text_transform_product_title }}
 .featured-collection .grid-uniform {
   justify-content: center;
 }
-{% endstylesheet %}
+</style>
 
 {% schema %}
 {
@@ -104,7 +118,53 @@ text-transform: {{ section.settings.text_transform_product_title }}
 "settings": [
   {
     "type": "header",
-    "content": "Featured products"
+    "content": "General Settings"
+  },
+  {
+    "type": "checkbox",
+    "id": "enable_custom_margins_paddings",
+    "label": "Enable Custom Margins and Paddings",
+    "default": false
+  },
+  {
+    "type": "range",
+    "id": "custom-margin-top",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "label": "Margin Top",
+    "default": 0
+  },
+  {
+    "type": "range",
+    "id": "custom-margin-bottom",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "label": "Margin Bottom",
+    "default": 0
+  },
+  {
+    "type": "range",
+    "id": "custom-padding-top",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "label": "Padding Top",
+    "default": 0
+  },
+  {
+    "type": "range",
+    "id": "custom-padding-bottom",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "label": "Padding Bottom",
+    "default": 0
   },
   {
     "type": "text",
@@ -122,22 +182,6 @@ text-transform: {{ section.settings.text_transform_product_title }}
     "unit": "px",
     "label": "Position On/Off Banner",
     "default": 0
-  },
-  {
-    "id": "products_per_rows_feature_collection",
-    "label": "Products Per Row Mobile",
-    "type": "select",
-    "options": [
-      {
-        "label": "1 product",
-        "value": "94"
-      },
-      {
-        "label": "2 products",
-        "value": "49"
-      }
-    ],
-    "default": "49"
   },
   {
     "type": "text",
@@ -200,7 +244,7 @@ text-transform: {{ section.settings.text_transform_product_title }}
   },
   {
     "id": "products_per_rows",
-    "label": "Products Per Row",
+    "label": "Products Per Row Desktop",
     "type": "select",
     "options": [
       {
@@ -217,6 +261,22 @@ text-transform: {{ section.settings.text_transform_product_title }}
       }
     ],
     "default": "4"
+  },
+  {
+    "id": "products_per_rows_feature_collection",
+    "label": "Products Per Row Mobile",
+    "type": "select",
+    "options": [
+      {
+        "label": "1 product",
+        "value": "94"
+      },
+      {
+        "label": "2 products",
+        "value": "49"
+      }
+    ],
+    "default": "49"
   },
   {
     "id": "rows",

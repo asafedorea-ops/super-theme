@@ -9,11 +9,11 @@
     <div id="now" class="date"> {{ date | date: "%s" | plus: startDaysDate | date: "%A, %b %d" }} - {{ date | date: "%s" | plus: moreDaysDate | date: "%A, %b %d" }}</div>
 </div>
 
-{% style %}
+<style scoped>
     .shipping-calculate-date{
         display: flex;
         justify-content: {{ section.settings.delivery_align }};
-        padding: 3px;
+        padding: 2px;
         align-items: center;
     }
     .title-delivery{
@@ -25,15 +25,6 @@
     .title-delivery, .date {
         font-size: .9rem;
     }
-
-    @media(max-width: 476px){
-        .title-delivery, .date{
-            font-size: .8rem;
-        }
-        .shipping-calculate-date{
-            flex-direction: column;
-        }
-    }
-{% endstyle %}
+</style>
 
 <!--end shipping-calculate.liquid (SNIPPED)-->
