@@ -13,6 +13,56 @@
   "class": "reviews-judgeme",
   "settings": [
     {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
+    {
       "type": "text",
       "id": "custom_class",
       "label": "Custom Class",
@@ -33,14 +83,28 @@
 }
 {% endschema %}
 <!-- start reviews home-page-judme -->
-{% style %}
+<style scoped>
+#shopify-section-{{ section.id }} {
+  {% if section.settings.enable_custom_margins_paddings %}
+    margin-top: {{ section.settings.custom-margin-top }}px;
+    margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+    padding-top: {{ section.settings.custom-padding-top }}px;
+    padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+  {% else %}
+    margin: 20px 0;
+  {% endif %}
+}
 .jdgm-carousel-wrapper {
     position: relative;
     width: 100%;
     margin: auto;
-    padding: 48px 0;
+    padding: 0;
     display: block;
 }
+.jdgm-carousel-wrapper .jdgm-carousel {
+  margin: auto;
+}
+
 .jdgm-carousel__left-arrow {
     position: absolute;
     top: 50%;
@@ -72,5 +136,5 @@
   
   }
   
-{% endstyle %}
+</style>
       

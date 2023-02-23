@@ -13,7 +13,7 @@
 
         <span class="new-current-price" id="product-price" data-product-price="{{ variant.price }}">
             <span class="new-current-price-wrapper">
-                <span class="product-price-symbol">{{ cart.currency.symbol }}</span>
+                <span class="product-symbol-price price">{{ cart.currency.symbol }}</span>
                 <span class="new-product-price-value jq-new-price price recharger-price">{{ variant.price | money_without_currency }}</span>
             </span>
         </span>
@@ -51,6 +51,7 @@
         {%- render 'price-per-unit' with variant: variant -%}
 
         {%- render 'you-save' with variant: variant, enable_you_save: settings.enable_you_save -%}
+        
     </div>
     {%- if product.metafields.field.short_description != blank and section.settings.select_position_short_description == "after" -%}
         <div class="meta-short-description" {%- if section.settings.enable_short_description == false -%} style="display: none;"{%- endif -%} >  {{ product.metafields.field.short_description }} </div>

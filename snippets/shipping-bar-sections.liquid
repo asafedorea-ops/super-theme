@@ -1,10 +1,10 @@
 <!-- start shipping-bar-sections (SNIPPETS) -->
 
-{%- style -%}
+<style scoped>
 :root {
     --shipping-bar-items-line-color: {{- block.settings.line_color -}};
 }
-{%- endstyle -%}
+</style>
 
 <div class="shipping-bar__section-item">
     {%- assign image = block.settings.shipping-bar_icon-left-section -%}

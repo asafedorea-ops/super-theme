@@ -1,4 +1,7 @@
 <!-- start slider-promotional.liquid (SECTION) -->
+
+<link rel="stylesheet" data-href="{{ 'component-slick-slider.css' | asset_url }}"/>
+
 <section class="wrapper {{ section.settings.custom_class }}" data-section-type="slider-promotional" id="slider-promotional-{{ section.id }}" data-slider="{{ section.id }}">
     {%- if section.settings.section_title != blank -%}
       <h2 class="section-title">{{ section.settings.section_title | escape }}</h2>
@@ -6,63 +9,25 @@
 
       <div id="promotional-{{ section.id }}" class="grid-uniform grid-uniform--s4 slick-slide sliderPromotional sld-promotional" data-autoplay="{{ section.settings.slider_autoplay }}" data-speed="{{ section.settings.slider_speed }}">
       {%- for block in section.blocks -%}
-          <div style="border: 2px solid {{ section.settings.background_slide_promotional }};" class="grid__item featured" {{ block.shopify_attributes }}>
-            <a title="{{ block.settings.title | strip_html | escape }}" id="promo-slider-{{ forloop.index }}" href="{{ block.settings.link_Image_slide_promotional }}" class="grid-product-link">
-              {%- if block.settings.image_slide_promotional.alt != blank -%}
-                {%- elsif block.settings.title_slide_promotional != blank -%}
-                {%- else -%}
-                {%- endif -%}
+          <div class="grid__item featured" {{ block.shopify_attributes }}>
+            <div id="promo-slider-{{ forloop.index }}" class="grid-product-link">
                 {%- assign index = 'img-' | append: block.id -%}
               <div class="responsive-image__wrapper image-responsive">
-                {%- render 'responsive-image' with image: block.settings.image_slide_promotional, custom_class: true, max_width: 250, active_lazy: true, id_prefix: index, size_large: 270, size_mobile: 37, size_desk: 28 -%}
+                <a class="grid-product-link" title="{{ block.settings.title | strip_html | escape }}" href="{{ block.settings.link_Image_slide_promotional }}" >
+                  {%- render 'responsive-image' with image: block.settings.image_slide_promotional, custom_class: true, max_width: 250, active_lazy: true, id_prefix: index, size_large: 270, size_mobile: 37, size_desk: 28 -%}
+                </a>
               </div>
 
-              <h3 class="grid-product-title" style="color:{{ section.settings.text_color_slider_promotional }}; background-color: {{ section.settings.background_slide_promotional }};text-transform: {{ section.settings.text_transform_title_slider }};">{{ block.settings.title_slide_promotional }}</h3>
-            </a>
+              <h3 class="grid-product-title">
+                <a class="grid-product-title-link" title="{{ block.settings.title | strip_html | escape }}" href="{{ block.settings.link_Image_slide_promotional }}">{{ block.settings.title_slide_promotional }}</a>
+              </h3>
+            </div>
           </div>
       {%- else -%}
         {%- render 'no-blocks' -%}
       {%- endfor -%}
     </div>
 </section>
-
-{% style %}
-  #slider-promotional-{{ section.id }} .slick-list {
-    width: 100%;
-  }
-  #slider-promotional-{{ section.id }} .section-title {
-    text-transform: {{ section.settings.headline_text_transform_title_slider }};
-  }
-  .shopify-section.banner+  #shopify-section-{{ section.id }} {
-    position: relative;
-    top: -{{ section.settings.top_margin_slide }}px;
-    margin-bottom: -{{ section.settings.top_margin_slide }}px;
-    float: left;
-    width: 100%;
-  }
-
-  {%- if section.settings.top_margin_slide -%}
-    .shopify-section.banner+  #shopify-section-{{ section.id }} > .wrapper {
-      display: block;
-      margin: 0 auto;
-      background: #fff;
-    }
-  {%- endif -%}
-
-  @media only screen and (max-width: 1019px ){
-    .shopify-section.banner + #shopify-section-{{ section.id }} {
-      top: -65px;
-      margin-bottom: -65px;
-    }
-  }
-
-  @media only screen and (max-width: 767px ){
-    .shopify-section.banner + #shopify-section-{{ section.id }}{
-      top: 0;
-      margin-bottom: 0;
-    }
-  }
-{% endstyle %}
 
 {% schema %}
 {
@@ -72,7 +37,53 @@
   "settings": [
     {
       "type": "header",
-      "content": "Promotional Slider"
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     },
     {
       "type": "text",
@@ -296,7 +307,65 @@
 });
 </script>
 
-{% stylesheet %}
+<style scoped type="lazyload2">
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
+  #slider-promotional-{{ section.id }} .slick-list {
+    width: 100%;
+  }
+  #slider-promotional-{{ section.id }} .section-title {
+    text-transform: {{ section.settings.headline_text_transform_title_slider }};
+  }
+  .shopify-section.banner+  #shopify-section-{{ section.id }} {
+    position: relative;
+    top: -{{ section.settings.top_margin_slide }}px;
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-bottom: {{ section.settings.top_margin_slide | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+    {% else %}
+      margin-bottom: {{ section.settings.top_margin_slide | times: -1 | plus: 20 }}px;
+    {% endif %}
+    float: left;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }}.section-slide-promotional .grid-uniform .grid__item.featured {
+    border: 2px solid {{ section.settings.background_slide_promotional }};
+  }
+
+  #slider-promotional-{{ section.id }} .grid-product-title {
+    background-color: {{ section.settings.background_slide_promotional }};
+    display: flex;
+  }
+
+  #slider-promotional-{{ section.id }} .grid-product-title .grid-product-title-link {
+    text-transform: {{ section.settings.text_transform_title_slider }};
+    color:{{ section.settings.text_color_slider_promotional }};
+    width: 100%;
+  }
+
+  {%- if section.settings.top_margin_slide -%}
+    .shopify-section.banner+  #shopify-section-{{ section.id }} > .wrapper {
+      display: block;
+      margin: 0 auto;
+      background: #fff;
+    }
+  {%- endif -%}
+
+  @media only screen and (max-width: 767px ){
+    .shopify-section.banner + #shopify-section-{{ section.id }}{
+      top: 0;
+      margin-bottom: 0;
+    }
+  }
+  
 .section-slide-promotional .slick-slide .slick-prev,
 .section-slide-promotional .slick-slide .slick-next {
     position: absolute;
@@ -319,8 +388,15 @@
 }
 
 .section-slide-promotional .grid-uniform {
-  padding: 10px 10px 0;
   position: relative;
   background: var(--slider-promotional-background-color, #fff);
 }
-{% endstylesheet %}
+
+/*RESPONSIVE STYLES*/
+@media (max-width: 767px) {
+	.section-slide-promotional {
+		margin-top: 0;
+	}
+}
+
+</style>

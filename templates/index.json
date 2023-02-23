@@ -29,6 +29,11 @@
         "6387f68d-af18-45c4-8cd9-942d907c65c6"
       ],
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "homepage_banner_style_1": "shopify:\/\/shop_images\/reflective-sunglasses.jpg",
         "mobile_banner_style_1": "shopify:\/\/shop_images\/pink-sunglasses-on-white.jpg",
@@ -36,12 +41,13 @@
         "banner_max_height": 430,
         "banner_max_height_tablet": 430,
         "banner_max_height_mobile": 210,
-        "full_with_banne1": true,
-        "enable_lazy_load": true,
+        "vasta_banner_width": "full_width",
+        "enable_lazy_load": false,
         "enable_h1": true,
         "main_banner_title": "VASTA",
         "main_banner_sub_title": "Custom Text",
         "vasta_headline_align": "center",
+        "vasta_headline_align_mobile": "center",
         "banner_titcolor": "#3d3d3d",
         "banner_sub_titcolor": "#3d3d3d",
         "banner_titles_background_color": "none",
@@ -115,12 +121,18 @@
         "26dcb641-695c-44e7-9210-b5a69195f968"
       ],
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "border_color_collection_list": "#444444",
         "text_bg_color_collection_list": "#444444",
         "text_color_collection_list": "#ffffff",
         "title": "Featured Collections",
         "top_margin_featured": 0,
+        "products_per_rows_desktop_collection_list": "23.5",
         "products_per_rows_collection_list": "49",
         "text_transform_title": "uppercase",
         "collection_product_title_text_transform": "capitalize"
@@ -129,14 +141,19 @@
     "163518802243d59863": {
       "type": "featured-collection",
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "top_margin_featured_products": 0,
-        "products_per_rows_feature_collection": "49",
         "title": "Featured products",
         "text_transform_title": "uppercase",
         "text_transform_product_title": "uppercase",
         "collection": "rastreio",
         "products_per_rows": "4",
+        "products_per_rows_feature_collection": "49",
         "rows": "1",
         "show_price": true,
         "show_swatch": false
@@ -145,15 +162,21 @@
     "163518791261981d42": {
       "type": "cta-block",
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
-        "enable_lazy_load_cta": true,
-        "buy_now_background_color": "#767676",
         "buy_now_line_direction": "row",
-        "box_limit": 390,
+        "box_limit": 200,
         "text_above_button": "<h3>Lorem ipsum dolor<\/h3>\nLorem ipsum dolor sit amet consectetur adipiscing elit.",
         "block_text_align": "left",
         "text_above_font_size": 19,
         "text_above_color": "#ffffff",
+        "buy_now_background_color": "#767676",
+        "buy_nowbackgroung_height": 100,
+        "buy_now_background_top_position": 0,
         "buy_now_text_button": "LEARN MORE",
         "text_transform_button": "uppercase",
         "text_button_font_size": 20,
@@ -162,34 +185,38 @@
         "button_hover_background_color": "#9c2135",
         "button_text_color": "#ffffff",
         "button_hover_text_color": "#ffffff",
-        "button_border_color": "rgba(0,0,0,0)",
+        "button_border_color": "#ffffff",
         "button_hover_border_color": "#ffffff",
         "id_product_block": "accessories",
         "use_add_to_cart": true,
         "use_external_link": false,
         "url_product": "",
-        "url_call_to_action": "shopify:\/\/shop_images\/MIPL592CHGRY_720x_24759b9a-bf69-412a-9cc5-aaa3164c7029.jpg",
-        "buy_nowbackgroung_height": 100,
-        "buy_now_background_top_position": 50,
-        "max_qtd_color": "#000000"
+        "url_call_to_action": "shopify:\/\/shop_images\/travel-flatlay.jpg"
       }
     },
     "163518827257c845da": {
       "type": "banner-style3",
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "homepage_banner_style_3": "shopify:\/\/shop_images\/comparing-black-t-shirts-on-a-clothing-rack-in-a-sun-lit-shop.jpg",
+        "mobile_banner_style_3": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg",
         "enable_custom_banner_height": true,
         "banner_max_height": 410,
         "banner_max_height_tablet": 430,
         "banner_max_height_mobile": 400,
-        "full_with_banne1": true,
+        "vasta_banner_width": "full_width",
         "enable_lazy_load": true,
         "enable_h1": true,
         "homepage_banner_text": "VASTA SHOP",
         "main_banner_sub_title": "Your Best Choice\n<div>Vasta<\/div>",
         "homepage_banner_link": "collections\/all",
         "vasta_headline_align": "center",
+        "vasta_headline_align_mobile": "center",
         "font_weight": "bold",
         "banner_text_color": "#000000",
         "desktop_text_size": 63,
@@ -257,6 +284,11 @@
         "03846dea-ab9d-4cc3-9fea-ad5abfa79cdb"
       ],
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "enable_reviews": true,
         "title": "",
@@ -267,6 +299,11 @@
     "163518866014942cc3": {
       "type": "blog-posts",
       "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
         "custom_class": "",
         "title": "NEWS",
         "section_title_text_transform": "unset",
@@ -275,6 +312,152 @@
         "blog_article_placeholder_home": "shopify:\/\/shop_images\/download.jpg",
         "homepage_blog": "news",
         "posts_amount": "2"
+      }
+    },
+    "09985f82-026f-43d5-9602-59d1b0af41d6": {
+      "type": "custom-area",
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "title": "Custom Area",
+        "html_area": "<p style=\"text-align: center\">HTML Example<\/p>"
+      }
+    },
+    "5ae62c0c-1183-4c19-9892-adb4cdce71cd": {
+      "type": "reviews",
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "enable_reviews": true,
+        "title": "REVIEWS",
+        "slider_autoplay": false,
+        "slider_speed": 800
+      }
+    },
+    "8cb22b35-2d15-4d72-b123-fc22896e46e4": {
+      "type": "reviews-judgeme",
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "title": ""
+      }
+    },
+    "ab058aba-9f1d-437d-8982-0a2b628ba83a": {
+      "type": "social-icons",
+      "blocks": {
+        "d4c36f08-217a-490b-9a10-08a0a966ff8d": {
+          "type": "social",
+          "settings": {
+            "social_media": "icon-facebook"
+          }
+        }
+      },
+      "block_order": [
+        "d4c36f08-217a-490b-9a10-08a0a966ff8d"
+      ],
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "title": "",
+        "social_icon_color": "#000",
+        "section_title_text_transform": "unset",
+        "position_social_and_info": "center",
+        "show_title": false,
+        "icon_title_position": "below"
+      }
+    },
+    "21396dd5-f8ce-4ff3-8673-fced962bdbdd": {
+      "type": "text-column",
+      "blocks": {
+        "e7b22fdb-1866-4a74-af4a-90ebd67616ce": {
+          "type": "text_column",
+          "settings": {
+            "enabled_image": false,
+            "title_column": "Column Title",
+            "content_column": "Column Content"
+          }
+        }
+      },
+      "block_order": [
+        "e7b22fdb-1866-4a74-af4a-90ebd67616ce"
+      ],
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": ""
+      }
+    },
+    "bf5f7e85-16c2-44be-8fba-335d8dac1256": {
+      "type": "unique-value-proposition",
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "enable_icon_text": true,
+        "title": "Unique Value Proposition",
+        "title_text_transform": "capitalize",
+        "text_color": "#aaaaaa",
+        "body_text_color": "#aaaaaa",
+        "icons_color": "#aaaaaa",
+        "choose_icon_dimensions": "width",
+        "icon_uvp2_size": 180,
+        "icon_text_orientation": "column-reverse",
+        "icon_text_alignment": "center",
+        "vasta_badges_size": 4,
+        "vasta_badges_size_mobile": 2
+      }
+    },
+    "b1adacd4-10b5-4ecd-8d5b-ad07cc307c19": {
+      "type": "videos",
+      "blocks": {
+        "311a1995-dd37-45e6-ac78-a15479afe945": {
+          "type": "video",
+          "settings": {
+            "title": "Video Title",
+            "url": "",
+            "video_description": "Text Example",
+            "enable_video_by_tag": false,
+            "tag_name": ""
+          }
+        }
+      },
+      "block_order": [
+        "311a1995-dd37-45e6-ac78-a15479afe945"
+      ],
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "enable_section_title": true,
+        "section_title": "Videos",
+        "enable_videos_title": true,
+        "enable_videos_description": true,
+        "enable_videos_slider": false,
+        "enable_full_width": false
       }
     }
   },
@@ -285,6 +468,13 @@
     "163518791261981d42",
     "163518827257c845da",
     "163518853512c34568",
-    "163518866014942cc3"
+    "163518866014942cc3",
+    "09985f82-026f-43d5-9602-59d1b0af41d6",
+    "5ae62c0c-1183-4c19-9892-adb4cdce71cd",
+    "8cb22b35-2d15-4d72-b123-fc22896e46e4",
+    "ab058aba-9f1d-437d-8982-0a2b628ba83a",
+    "21396dd5-f8ce-4ff3-8673-fced962bdbdd",
+    "bf5f7e85-16c2-44be-8fba-335d8dac1256",
+    "b1adacd4-10b5-4ecd-8d5b-ad07cc307c19"
   ]
 }

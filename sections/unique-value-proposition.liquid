@@ -99,7 +99,53 @@
   "settings": [
     {
       "type": "header",
-      "content": "Color"
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     },
     {
       "type": "text",
@@ -311,7 +357,7 @@
           "default": false
         },
         {
-          "type": "liquid",
+          "type": "html",
           "id": "custom_svg_html",
           "label": "Custom SVG"
         },
@@ -339,7 +385,17 @@
 }
 {% endschema %}
 
-{% style %}
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
   #shopify-section-{{ section.id }} .shipping-text .shipping-text-content .shipping-text-text{
     color:{{ section.settings.text_color }};
   }
@@ -360,7 +416,6 @@
 
   #shopify-section-{{ section.id }} .shipping-text .shipping-text-content {
     flex-direction: {{ section.settings.icon_text_orientation }};
-    margin-bottom: 20px;
     justify-content: center;
   }
 
@@ -428,4 +483,4 @@
         flex: 0 0 {{ trustBadgeSizeDesktop }}%;
     }
   }
-{% endstyle %}
+</style>

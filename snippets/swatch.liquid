@@ -45,7 +45,7 @@
             data-inventory="{% if variant.inventory_policy == 'continue' or variant.inventory_management == blank %} -1 {% else %}{{ variant.inventory_quantity }}{% endif %}"
             data-compare-at-price="{{ variant.compare_at_price }}"
             data-image="{{ variant.image.src | split: '?' | first }}"
-            data-image-position="{{ variant.image.position | default: 0 }}">
+            data-image-position="{{ variant.featured_media.position | default: 0 }}">
                 {{ variant.title | escape }} / {{ variant.price | money }}
         </option>
       {% endif %}
@@ -53,8 +53,8 @@
   </select>
 </div>
 
-{% style %}
+<style scoped>
   :root{
       --swatch_checked-color: {{ settings.swatch_checked-color }};
   }
-{% endstyle %}
+</style>

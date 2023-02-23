@@ -1,4 +1,7 @@
 <!-- start banner-style3.liquid (SECTION) -->
+
+<link rel="stylesheet" data-href="{{ 'section-banner-3.css' | asset_url }}"/>
+
 {%- assign imageDesktop = section.settings.homepage_banner_style_3 -%}
 {%- assign paddingTopDesktop = imageDesktop.height | plus: 0.0 | divided_by: imageDesktop.width | times: 100.0 -%}
 {%- assign imageMobile = section.settings.mobile_banner_style_3 -%}
@@ -14,9 +17,10 @@
 
   {%- assign image_desktop_width = 1440 -%}
   {%- assign image_desktop_height = image_desktop_width | divided_by: imageDesktop.aspect_ratio -%}
-
+{% capture banner_content %}
 <section class="homepage-style-3 banner-style-3-{{ section.id }} {{ section.settings.custom_class }} ">
-    <a href="{{ section.settings.homepage_banner_link }}" class="title-banner-3-{{ section.id }} banner-style-3-titles">
+    <div class="title-banner-3-{{ section.id }} banner-style-3-titles">
+      <a href="{{ section.settings.homepage_banner_link }}" class="banner-style-3-titles-link"></a>
       {%- assign enable_lazy = section.settings.enable_lazy_load -%}
       {%- if section.settings.enable_h1 -%}
         {% if section.settings.homepage_banner_text != blank %}
@@ -32,7 +36,7 @@
         {% endif %}
       {%- endif -%}
         <div class="banner-sub-title" >{{ section.settings.main_banner_sub_title }}</div>
-    </a>
+    </div>
 
     <a class="banner-img background-banner-style-3-{{ section.id }} {% if section.settings.enable_custom_banner_height == false %} banner-padding-top-desktop{% endif %}{% if section.settings.enable_custom_banner_height == false %} banner-padding-top-mobile{% endif %}" href="{{ section.settings.homepage_banner_link }}">
 
@@ -64,57 +68,92 @@
       </picture>
     </a>
 </section>
+{% endcapture %}
 
-{% style %}
-    #shopify-section-{{ section.id }} .homepage-style-3 {
-      width: 100%;
-    }
+{% if section.settings.vasta_banner_width == 'full_width' %}
+  {{ banner_content }}
+{% else %}
+  {% if section.settings.vasta_banner_width == 'keep_image_size' %}
+    {{ banner_content }}
+  {% else %}
+  <div class="wrapper">
+  {{ banner_content }}
+  </div>
+{% endif %}
+{% endif %}
 
-    {% unless section.settings.full_with_banne1 %}
-    #shopify-section-{{ section.id }} .homepage-style-3 .banner-img {
-     max-width: {{ settings.vasta_wrapper_width }}px;
-     width: 92.5%;
-    }
-    {% endunless %}
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
+  #shopify-section-{{ section.id }} .homepage-style-3 {
+    width: 100%;
+  }
 
-    .homepage-style-3 .title-banner-3-{{ section.id }} {
-      position: absolute;
+  .homepage-style-3 .title-banner-3-{{ section.id }} {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    text-align: {{ section.settings.vasta_headline_align }};
+    left:{{ section.settings.vasta_title_horizontal_position }}%;
+    top:{{ section.settings.vasta_title_vertical_position }}%;
+    z-index: 2;
+    width: inherit;
+  }
+  .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
+  .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
+    font-size: {{ section.settings.desktop_text_size }}px;
+    color: {{ section.settings.banner_text_color }};
+    font-weight: {{ section.settings.font_weight }};
+  }
+  .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
+  .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
+    color: {{ section.settings.banner_text_color }};
+    font-size: {{ section.settings.main_banner_sub_headline_size }}px;
+    font-weight: {{ section.settings.font_weight }};
+  }
+  #shopify-section-{{ section.id }} .homepage-style-3 .banner-style-3-titles-link{
+    position: absolute; 
+    width: 100%; 
+    height: 100%;
+    left: 0;
+    z-index: 999;
+  }
+  #shopify-section-{{ section.id }} .banner-img.banner-padding-top-desktop{
+    padding-top: {{ paddingTopDesktop }}%;
+  }
+  #shopify-section-{{ section.id }} .banner-img.banner-padding-top-desktop img {
+    position: absolute;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      text-align: {{ section.settings.vasta_headline_align }};
-      left:{{ section.settings.vasta_title_horizontal_position }}%;
-      top:{{ section.settings.vasta_title_vertical_position }}%;
-      z-index: 2;
-      width: inherit;
-    }
-    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
-    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
-      font-size: {{ section.settings.desktop_text_size }}px;
-      color: {{ section.settings.banner_text_color }};
-      font-weight: {{ section.settings.font_weight }};
-    }
-    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
-    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
-      color: {{ section.settings.banner_text_color }};
-      font-size: {{ section.settings.main_banner_sub_headline_size }}px;
-      font-weight: {{ section.settings.font_weight }};
-    }
-
+      max-width: 100%;
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
+  }
+  {% if section.settings.vasta_banner_width == 'keep_image_size' %}
     #shopify-section-{{ section.id }} .banner-img.banner-padding-top-desktop{
-      padding-top: {{ paddingTopDesktop }}%;
+      padding-top: 0;
     }
-
     #shopify-section-{{ section.id }} .banner-img.banner-padding-top-desktop img {
-      position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-       max-width: 100%;
-       width: 100%;
-       object-fit: cover;
-       height: 100%;
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+      max-width: 100%;
+      width: 100%;
+      object-fit: cover;
+      height: 100%;
     }
-
-    {% if section.settings.enable_custom_banner_height %}
+  {% endif %}
+  {% if section.settings.enable_custom_banner_height %}
     #shopify-section-{{ section.id }} .homepage-style-3 .banner-img img{
       height: {{ section.settings.banner_max_height }}px;
       width: 100%;
@@ -139,65 +178,67 @@
       }
     }
   {% endif %}
-    @media (max-width: 1019px) {
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
-        font-size: {{ section.settings.tablet_text_size }}px;
-      }
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
-        font-size: {{ section.settings.main_banner_sub_headline_size_tablet }}px;
-
-      }
-        .homepage-style-3 .title-banner-3-{{ section.id }} {
-          left:{{ section.settings.vasta_title_horizontal_position_tablet }}%;
-          top:{{ section.settings.vasta_title_vertical_position_tablet }}%;
-          width: inherit;
-      }
+  @media (max-width: 1019px) {
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
+      font-size: {{ section.settings.tablet_text_size }}px;
     }
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
+      font-size: {{ section.settings.main_banner_sub_headline_size_tablet }}px;
 
-    @media(max-width: 767px){
-      .homepage-style-3 .background-banner-style-3-{{ section.id }}{
-        height:auto;
-      }
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
-        font-size: {{ section.settings.mobile_text_size }}px;
-      }
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
-        font-size: {{ section.settings.main_banner_sub_headline_size_mobile }}px;
-
-      }
+    }
       .homepage-style-3 .title-banner-3-{{ section.id }} {
-        left:{{ section.settings.vasta_title_horizontal_position_mobile }}%;
-        top:{{ section.settings.vasta_title_vertical_position_mobile }}%;
-      }
-      #shopify-section-{{ section.id }} .homepage-style-3 .banner-style-3-titles{
-        height: {{ section.settings.banner_mobile_height }}px;
-        width: {{ section.settings.banner_mobile_width }}%;
-
-      }
-      {% if section.settings.mobile_banner_style_3 != blank %}
-      #shopify-section-{{ section.id }} .banner-img.banner-padding-top-mobile{
-        padding-top: {{ paddingTopMobile }}%;
-      }
-      {% endif %}
+        left:{{ section.settings.vasta_title_horizontal_position_tablet }}%;
+        top:{{ section.settings.vasta_title_vertical_position_tablet }}%;
+        width: inherit;
     }
-    @media(max-width: 479px) {
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
-        font-size: {{ section.settings.mobile_text_size }}px;
-      }
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
-      .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
-        font-size: {{ section.settings.main_banner_sub_headline_size_mobile }}px;
-
-      }
+  }
+  @media(max-width: 479px) {
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
+      font-size: {{ section.settings.mobile_text_size }}px;
     }
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
+      font-size: {{ section.settings.main_banner_sub_headline_size_mobile }}px;
+    }
+  }
+  @media(max-width: 767px){
+    .homepage-style-3 .background-banner-style-3-{{ section.id }}{
+      height:auto;
+    }
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title,
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-title *{
+      font-size: {{ section.settings.mobile_text_size }}px;
+    }
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title,
+    .homepage-style-3 .title-banner-3-{{ section.id }} .banner-sub-title *{
+      font-size: {{ section.settings.main_banner_sub_headline_size_mobile }}px;
+    }
+    .homepage-style-3 .title-banner-3-{{ section.id }} {
+      left:{{ section.settings.vasta_title_horizontal_position_mobile }}%;
+      top:{{ section.settings.vasta_title_vertical_position_mobile }}%;
+      text-align: {{ section.settings.vasta_headline_align_mobile }};
+    }
+    #shopify-section-{{ section.id }} .homepage-style-3 .banner-style-3-titles{
+      height: {{ section.settings.banner_mobile_height }}px;
+      width: {{ section.settings.banner_mobile_width }}%;
+    }
+    
+  {% if section.settings.mobile_banner_style_3 != blank %}
+    #shopify-section-{{ section.id }} .banner-img.banner-padding-top-mobile{
+      padding-top: {{ paddingTopMobile }}%;
+    }
+  {% endif %}
+  {% if section.settings.vasta_banner_width == 'keep_image_size' %}
+    #shopify-section-{{ section.id }} .banner-img.banner-padding-top-mobile{
+      padding-top: 0;
+    }
+  {% endif %}
+  }
 
-
-{% endstyle %}
+</style>
 
 {% schema %}
 {
@@ -207,6 +248,52 @@
     {
       "type": "header",
       "content": "General settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     },
     {
       "type": "text",
@@ -263,16 +350,31 @@
       "default": 210
     },
     {
-      "type": "checkbox",
-      "id": "full_with_banne1",
-      "label": "Full Width",
-      "default": true
+      "type": "select",
+      "id": "vasta_banner_width",
+      "label": "Banner Alignment",
+      "options": [
+        {
+          "value": "full_width",
+          "label": "Full Width"
+        },
+        {
+          "value": "wrapper",
+          "label": "Wrapper"
+        },
+        {
+          "value": "keep_image_size",
+          "label": "Keep Image Size"
+        }
+      ],
+      "default": "full_width"
     },
     {
       "type": "checkbox",
       "id": "enable_lazy_load",
       "label": "Enable Lazy Load",
-      "info": "If this is the first section of the homepage, you have to keep this field unchecked for Google Pagespeed score improvements."
+      "info": "If this is the first section of the homepage, you have to keep this field unchecked for Google Pagespeed score improvements.",
+      "default": false
     },
     {
       "type": "header",
@@ -305,7 +407,27 @@
     {
       "type": "select",
       "id": "vasta_headline_align",
-      "label": "Headline Alignment",
+      "label": "Headline Alignment on Desktop",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "vasta_headline_align_mobile",
+      "label": "Headline Alignment on Mobile",
       "options": [
         {
           "value": "left",

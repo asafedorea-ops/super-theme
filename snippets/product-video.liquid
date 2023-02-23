@@ -33,15 +33,19 @@
               {%- if block.settings.title != blank -%}
                 <h2 class="section-title">{{ block.settings.title }}</h2>
               {%- endif -%}
+              {% if platform == 'youtube' %}
+                <div class="youtube-player" data-id="{{- videoID -}}"></div>
+              {% else %}
               <iframe  class="{{ platform }}{% if slideshow %}hide-player{% endif %}"
-					data-video-url="{{ url }}"
+					          data-video-url="{{ url }}"
                     width="560"
                     height="315"
-                    src="{% if platform == 'youtube' %}https://www.youtube.com/embed/{{ videoID }}{% else %}{{ url }}{% endif %}"
+                    src="{{ url }}"
                     frameborder="0"
                     allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen></iframe>
-              <div></div>
+                    allowfullscreen>
+              </iframe>
+            {%- endif -%}
             </div>
           </div>
         {%- endif -%}

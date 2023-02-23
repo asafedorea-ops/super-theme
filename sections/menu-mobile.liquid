@@ -1,7 +1,5 @@
 <!-- start menu-mobile.liquid (SECTION) -->
-
-
-{% style %}
+<style scoped>
 :root {
   --vasta-background-menu-mobile:{{ section.settings.background_color_mobile }};
   --vasta-border-menu-mobile:{{ section.settings.border_color_mobile }};
@@ -10,474 +8,400 @@
   --vasta-button-color-menu-mobile:{{ section.settings.button_color_menu_mobile }};
   --vasta-button-icon-color-menu-mobile:{{ section.settings.button_icon_color_menu_mobile }};
 }
-{% endstyle %}
-
-<style>
-.js-drawer-open-left .DrawerOverlay,
-.cart-open .DrawerOverlay {
-	visibility: visible;
-	opacity: 1;
-}
-
-.js-drawer-open-left .drawer--left {
-	-ms-transform: translateX(400px);
-	-webkit-transform: translateX(400px);
-	transform: translateX(400px);
-	overflow: auto;
-	z-index: 99999;
-}
-.drawer--left {
-	width: 400px;
-	left: -400px;
-	border-right: 1px solid var(--vasta-background-menu-mobile, #fff);
-	max-width: 85%;
-}
-.drawer {
-	display: flex;
-	flex-direction: column;
-	top: 0;
-	bottom: 0;
-	position: fixed;
-	-webkit-overflow-scrolling: touch;
-	padding: 0 15px 15px;
-	color: var(--vasta-font-color-menu-mobile, #444);
-	background-color: var(--vasta-background-menu-mobile, #fff);
-	transition: all 400ms cubic-bezier(0.46, 0.01, 0.32, 1);
-	z-index: 152;
-}
-.mobile-nav.static {
-	margin-top: 0;
-}
-.mobile-nav.static a.item-link.uppercase {
-	padding-bottom: 0;
-}
-.mobile-nav.static li.mobile-nav__item.dinamic-item a {
-	padding: 10px 15px;
-	text-decoration: none;
-	word-break: break-word;
-	width: 90%;
-	font-size: 15px;
-	display: flex;
-	align-items: center;
-	line-height: 21px;
-	color: var(--vasta-font-color-menu-mobile, #444);
-}
-.mobile-nav {
-	margin: 20px -15px 0 -15px;
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-.mobile-nav .item-menu-mobile.mobile-nav__link img {
-	width: 20px;
-	margin-right: 10px;
-}
-.mobile-nav>.dinamic-item+.dinamic-item {
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-#Contact_menu-mobile .thank_you {
-	color: var(--vasta-font-color-menu-mobile);
-}
-.drawer__header {
-	position: relative;
-	display: flex;
-	padding: 12px 0;
-	width: 100%;
-	align-items: center;
-	justify-content: space-between;
-}
-.drawer__title,
-.drawer__close {
-	font-size: 1.4rem;
-}
-.drawer__close {
-	cursor: pointer;
-}
-.drawer__close svg {
-	width: 20px;
-	height: 20px;
-}
-.drawer__close button {
-	position: relative;
-	right: 0;
-	color: inherit;
-	background-color: transparent;
-	border: none;
-}
-.mobile-nav__item {
-	position: relative;
-	display: block;
-}
-.search-bar {
-	display: flex;
-	justify-content: flex-end;
-}
-.search-bar .input-group-field {
-	border-radius: 3px 0 0 3px;
-	width: 100%;
-	height: 37px;
-	border: none;
-	padding: 0 10px;
-	border: solid 1px var(--vasta-border-menu-mobile, #ccc);
-	color: var(--vasta-search-text-color-mobile, #e25c63);
-	font-size: 14px;
-}
-.search-bar .jq-icon-fallback-text {
-	border-radius: 0 3px 3px 0;
-	padding: 6px 10px 5px;
-	background-color: var(--vasta-button-color-menu-mobile, #444);
-	color: #fff;
-	height: 37px;
-}
-.search-button-span svg {
-	fill: var(--vasta-button-icon-color-menu-mobile, #fff);
-}
-.nav-icon {
-	padding: 10px 15px;
-	text-decoration: none;
-	width: 100%;
-	font-size: 15px;
-	align-items: center;
-	line-height: 21px;
-	display: flex !important;
-	flex-direction: inherit !important;
-}
-.nav-icon svg {
-	width: 19px;
-	height: 19px;
-	fill: var(--vasta-font-color-menu-mobile, #444);
-	margin: 0 7px 0 0;
-}
-.nav-icon a {
-	padding: 0 !important;
-}
-.supports-fontface .jq-icon-fallback-text .icon {
-	display: inline-block;
-}
-.mobile-nav .news_letter_title {
-	font-weight: bold;
-	text-align: center;
-	font-size: 13px;
-	width: 100%;
-	margin: 0 auto 8px;
-}
-.mobile-nav .child .item-menu-mobile {
-	font-size: 13px;
-}
-.mobile-nav .button-menu-item {
-	display: flex;
-	width: 100%;
-}
-.mobile-nav .item-menu-mobile,
-.mobile-nav .mobile-nav__item .item-text .item-link {
-	display: flex;
-	align-items: center;
-	line-height: 21px;
-	color: var(--vasta-font-color-menu-mobile, #444);
-	padding: 10px 15px;
-	text-decoration: none;
-	width: 90%;
-	font-size: 15px;
-}
-.mobile-nav .dinamic-item,
-.mobile-nav .mobile-nav__item {
-	display: flex;
-	flex-direction: column;
-}
-.mobile-nav .dinamic-item .mobile-nav__toggle-open,
-.mobile-nav .mobile-nav__item .mobile-nav__toggle-open {
-	width: 40px;
-	height: 40px;
-	background: transparent;
-	border: none;
-}
-.mobile-nav .dinamic-item .mobile-nav__toggle-open:before,
-.mobile-nav .mobile-nav__item .mobile-nav__toggle-open:before {
-	height: 17px;
-	content: "";
-	width: 2px;
-	background-color: var(--vasta-font-color-menu-mobile, #444);
-	top: 0;
-	left: 13.5px;
-	position: relative;
-	display: block;
-}
-.mobile-nav .dinamic-item .mobile-nav__toggle-open:after,
-.mobile-nav .mobile-nav__item .mobile-nav__toggle-open:after {
-	width: 17px;
-	content: "";
-	height: 2px;
-	background-color: var(--vasta-font-color-menu-mobile, #444);
-	position: relative;
-	display: block;
-	top: -10px;
-	left: 6px;
-	transform: rotate(0deg);
-	transition: ease all 600ms;
-}
-.mobile-nav .dinamic-item .anime-plus-hor::after,
-.mobile-nav .mobile-nav__item .anime-plus-hor::after {
-	transform: rotate(180deg);
-	transition: ease all 600ms;
-}
-.mobile-nav .dinamic-item .anime-plus-ver::before,
-.mobile-nav .mobile-nav__item .anime-plus-ver::before {
-	transform: rotate(270deg);
-	transition: ease all 600ms;
-}
-.mobile-nav .dinamic-item a svg,
-.mobile-nav .mobile-nav__item a svg {
-	width: 19px;
-	height: 19px;
-	fill: var(--vasta-font-color-menu-mobile, #444);
-	margin: 0 7px 0 0;
-	overflow: visible;
-}
-.mobile-nav .child {
-	display: none;
-	margin: 0 0px 0 30px;
-}
-.mobile-nav .newsletter-opt .newsletter-form.full .contact-form .buttonControlNewsletterForm .buttonNewsletterForm {
-	width: 100%;
-	margin: 0;
-	bottom: 0;
-	border: 0;
-}
-.mobile-nav .newsletter-opt .newsletter-form.full .contact-form .inputControlNewsletter .emailNewsletterForm {
-	font-size: 12px;
-}
-.mobile-nav .newsletter-opt {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	align-items: center;
-	padding: 10px 15px;
-	border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-.mobile-nav .newsletter-opt .newsletter-message,
-.mobile-nav .newsletter-opt .thank_you {
-	display: block;
-	text-align: center;
-	margin: 0 0 0.5rem;
-	text-transform: uppercase;
-	line-height: 1.4;
-	color: var(--thankYouTextColor);
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling {
-	display: flex;
-	justify-content: center;
-	height: 36px;
-	margin: 0 auto;
-	max-width: 100%;
-	flex-wrap: wrap;
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling button input {
-	font-size: 7px;
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling .klaviyo_messages .success_message .thank_you {
-	color: var(--vasta-font-color-menu-mobile);
-	display: inline;
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling .klaviyo_inputs_wrapper {
-	width: 100%;
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling .klaviyo_form_actions {
-	width: 40%;
-	float: left;
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling .klaviyo_field_group {
-	margin: 0;
-	float: left;
-	border: solid 1px #ccc;
-	width: 60%;
-	height: 100%;
-	color: var(--vasta-font-color-menu-mobile, #444);
-	line-height: 20px;
-}
-.mobile-nav .newsletter-opt .klaviyo_condensed_styling .klaviyo_field_group input {
-	width: 100%;
-	height: 100%;
-	border: none;
-	padding: 0 10px;
-}
-.mobile-nav .klaviyo_condensed_styling .klaviyo_submit_button,
-.mobile-nav .klaviyo_styling .klaviyo_submit_button {
-	padding: 10px 4px;
-	width: 100%;
-	height: 36px;
-	border-radius: 0;
-}
-.mobile-nav #klaviyo-button-menu-mobile {
-	text-transform: uppercase;
-    background-color: var(--newsletter-submit-color);
-    color: var(--newsletter-submit-text-color);
-}
-.mobile-nav #klaviyo-button-menu-mobile:hover,
-.mobile-nav #klaviyo-button-menu-mobile:active{
-    background-color: var(--newsletter-submit-hover);
-    color: var(--newsletter-submit-text-color-hover);
-}
-@media (max-width: 479px) {
-	.mobile-nav .newsletter-opt .klaviyo_condensed_styling .klaviyo_form_actions {
-		flex: 0 0 40%;
-	}
-	.js-drawer-open-left {
-		overflow: hidden !important;
-	}
-}
 </style>
 
-<div id="NavDrawer" class="drawer drawer--left" data-section-type="menu-mobile">
-  <div>
-    <div class="drawer__header">
-        <div class="drawer__title">MENU</div>
-        <div class="drawer__close js-drawer-close">
-          <button type="button" aria-label="id-icon-fallback-text" id="id-icon-fallback-text" class="jq-icon-fallback-text">
-            {%- render 'icon-close' -%}
-          </button>
-        </div>
-      </div>
-      <!-- begin mobile-nav -->
-      {%- if section.settings.enable_mobile_search == true -%}
-        {%- render 'search-bar' with placeholder: section.settings.menu_mobile_searchbar_placeholder -%}
-      {%- endif -%}
-    </div>
+<style type="lazyload2">
+  .mobile-menu {margin-top: 0;}
+  
+  .js-drawer-open-left .DrawerOverlay {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  .js-drawer-open-left .sidenav--drawer-left {
+    -ms-transform: translateX(400px);
+    -webkit-transform: translateX(400px);
+    transform: translateX(400px);
+    overflow: auto;
+    z-index: 999;
+  }
 
-    <ul class="mobile-nav dinamic-menu">
-      {%- for link in linklists[section.settings.menu].links -%}
-        {%- assign index_li =  forloop.index -%}
+  .toggle--plus:before, .toggle--minus:before {
+    height: 17px;
+    content: "";
+    width: 2px;
+    background-color: var(--vasta-font-color-menu-mobile, rgb(0, 0, 0));
+    top: 0;
+    left: 7px;
+    position: relative;
+    display: block;
+    transition: 0.4s transform ease-out;
+  }
+
+  .toggle--plus:after, .toggle--minus:after {
+    width: 17px;
+    content: "";
+    height: 2px;
+    background-color: var(--vasta-font-color-menu-mobile, rgb(0, 0, 0));
+    position: relative;
+    display: block;
+    top: -10px;
+    left: 0;
+    transform: rotate(0);
+    transition: 0.4s transform ease-out;
+  }
+
+  .rotateVerticalLine:before, .toggle--minus:before {
+    transform: rotate(270deg);
+  }
+
+  .rotateHorizontalLine:after {
+    transform: rotate(180deg);
+  }
+
+  .sidenav__icon {
+    background-color: transparent;
+    position: relative;
+    width: 19px;
+    height: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .sidenav {
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    bottom: 0;
+    position: fixed;
+    -webkit-overflow-scrolling: touch;
+    color: var(--vasta-font-color-menu-mobile, #444);
+    background-color: var(--vasta-background-menu-mobile, #fff);
+    transition: all 400ms cubic-bezier(0.46, 0.01, 0.32, 1);
+    z-index: 99;
+  }
+  
+  .sidenav svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .sidenav--drawer-left {
+    width: 400px;
+    left: -400px;
+    border-right: 1px solid var(--vasta-background-menu-mobile, #fff);
+    max-width: 85%;
+  }
+
+  .sidenav__header {
+    padding: 0 15px 5px;
+  }
+
+  .sidenav__top__wrapper {
+    position: relative;
+    display: flex;
+    padding: 12px 0;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .sidenav__title,
+  .sidenav__close {
+    font-size: 1.4rem;
+    color: var(--vasta-font-color-menu-mobile, #444);
+  }
+  .sidenav__close {
+    cursor: pointer;
+  }
+
+  .sidenav__close {
+    position: relative;
+    right: 0;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+  }
+
+  .sidenav__close svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .sidenav__list {
+    width: 100%;
+  }
+  
+  .sidenav__list__item {
+    width: 100%;
+    border-top: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0 16px;
+  }
+
+  .sidenav__list--shop .sidenav__list__item:last-child {
+    border-bottom: 1px solid #ccc;
+  }
+
+  .list--child .sidenav__list__item {
+    border-top: unset;
+    padding: 0;
+  }
+
+  .sidenav__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .sidenav__item__anchor, .sidenav__shop__text__wrapper {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--vasta-font-color-menu-mobile, #444);
+  }
+
+  .sidenav__item__img {
+    width: 20px;
+    margin-right: 10px;
+  }
+
+  .sidenav .list--grandchild {
+    height: 0;
+    padding-left: 48px;
+    transition: 0.4s height ease-in-out;
+    overflow: hidden;
+  }
+
+  .sidenav .list--child {
+    display: block;
+    padding-left: 24px;
+    
+    height: 0;
+    transition: 0.4s height ease-in-out;
+    overflow: hidden;
+  }
+
+  .sidenav__item__anchor svg {
+    margin-right: 7px;
+    fill: var(--vasta-font-color-menu-mobile, #000)
+  }
+
+  .sidenav__footer {
+    padding: 12px 15px 0;
+  }
+
+  .sidenav__footer .news_letter_title {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .sidenav__footer input#k_id_email-menu-mobile {
+    width: 100%;
+    height: 44px;
+  }
+
+  .sidenav__footer .klaviyo_field_group {
+    margin-right: 0;
+    width: 60%;
+  }
+
+  .sidenav__footer .klaviyo_form_actions {
+    width: 40%;
+  }
+
+  .sidenav__footer .klaviyo_field_group {
+    width: 60%;
+    padding: 0;
+  }
+
+  .sidenav__footer .klaviyo_condensed_float .klaviyo_field_group {
+    margin-right: unset;
+  }
+</style>
+
+<div id="NavDrawer" class="sidenav sidenav--drawer-left " data-section-type="menu-mobile">
+  <div class="sidenav__header">
+    <div class="sidenav__top__wrapper">
+      <h3 class="sidenav__title">MENU</h3>
+      <button id="id-icon-fallback-text" class="sidenav__close" type="button" aria-label="id-icon-fallback-text">
+        {%- render 'icon-close' -%}
+      </button>
+    </div>
+    <!--  Search-bar -->
+    {%- if section.settings.enable_mobile_search == true -%}
+      {%- render 'search-bar' with placeholder: section.settings.menu_mobile_searchbar_placeholder -%}
+    {%- endif -%}
+  </div>
+
+  <div class="sidenav__main">
+    <ul id="main-menu" class="sidenav__list list--parent">
+      {%- for item in linklists[section.settings.menu].links -%}
+        {%- assign parent_item_index = forloop.index -%}
+        
         {%- for block in section.blocks -%}
           {%- if "icon" == block.type -%}
-            {%- if index_li == forloop.index -%}
+            {%- if parent_item_index == forloop.index -%}
               {%- assign url_icon =  block.settings.icon_menu_item -%}
-              {%- elsif index_li > forloop.index -%}
+            {%- elsif parent_item_index > forloop.index -%}
                 {%- assign url_icon =  "" -%}
             {%- endif -%}
           {%- endif -%}
         {%- endfor -%}
-        {%- assign menu = forloop.index -%}
-        {%- if link.links != blank -%}
+        
+        {%- if item.links != blank -%}
+          <li class="sidenav__list__item item--submenu">
+            <div class="sidenav__item">
+              
+              <a id="mobile-menu-{{ parent_item_index }}" class="sidenav__item__anchor {% if section.settings.enable_dropdown_clicking %}js-dropdown{% endif %} {{ section.settings.header_menu_caps }}"{%- unless section.settings.enable_dropdown_clicking -%}href="{{ item.url }}"{%- endunless -%}>
+                {%- if section.settings.enable_icon_menu -%}
+                  {%-  unless url_icon == "" or url_icon contains 'no-image'  or url_icon == blank -%}
+                    {%- render 'responsive-image', image_class: 'sidenav__item__img', id_prefix: 'menu-mobile', image: url_icon, max_width: 50, active_lazy: false, no_wrap: true,  alt_text: item.title -%}
+                  {%- endunless -%}
+                {%- endif -%}
 
-          <li class="dinamic-item">
-            <div class="button-menu-item">
-              <a id="mobile-menu-{{ menu }}" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="{%- if section.settings.enable_dropdown_clicking -%}#{%- else -%}{{ link.url }}{%- endif -%}">
-                {%- unless section.settings.enable_icon_menu == false or url_icon == "" or url_icon contains 'no-image'  or url_icon == blank -%}
-                {%- render 'responsive-image',
-                  id_prefix: 'menu-mobile',
-                  image: url_icon,
-                  max_width: 50,
-                  active_lazy: false,
-                  no_wrap: true, 
-                  alt_text: link.title
-                -%}
-                {%- endunless -%}
-
-                {{ link.title }}
+                {{ item.title }}
               </a>
-              <button type="button" aria-label="id-toggle-open-{{ menu }}" id="id-toggle-open-{{ menu }}" class=" mobile-nav__toggle-open">
-                <span class="icon icon-plus" aria-hidden="true"></span>
+              
+              <button class="sidenav__icon" type="button" aria-label="id-toggle-open-{{ parent_item_index }}" id="id-toggle-open-{{ parent_item_index }}" data-toggle="child">
+                <span class="toggle toggle--plus"></span>
               </button>
             </div>
-            <ul class="child-number-2 child">
-              {%- for childlink in link.links -%}
 
-            <li class="dinamic-item">
-              {%- assign child1 = forloop.index -%}
-              {%- if childlink.links != blank -%}
-                <div class="button-menu-item">
-                  <a id="mobile-menu-{{ menu }}-{{ child1 }}" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="{%- if section.settings.enable_dropdown_clicking -%}#{%- else -%}{{ childlink.url }}{%- endif -%}">{{ childlink.title }}</a>
-                  <button type="button" id="id-nav__toggle-open-{{ menu }}-{{ child1 }}" class=" mobile-nav__toggle-open">
-                    <span class="icon icon-plus" aria-hidden="true"></span>
-                  </button>
-                </div>
-                <ul class="child-number-3 child">
-                  {%- for child in childlink.links -%}
-                    {%- assign child2 = forloop.index -%}
-                    <li class="dinamic-item"><a id="mobile-menu-{{ menu }}-{{ child1 }}-{{ child2 }}" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="{{ child.url }}">{{ child.title }}</a></li>
-                  {%- endfor -%}
-                </ul>
-              {%- else -%}
-                {%- unless section.settings.enable_icon_menu == false or url_icon == "" or url_icon contains 'no-image' -%}
-                  <span style="background-image:url('{{ url_icon }}')"></span>
-                {%- endunless -%}
-                <a id="mobile-menu-{{ menu }}-{{ child1 }}" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="{{ childlink.url }}">{{ childlink.title }}</a>
-              {%- endif -%}
-            </li>
-          {%- endfor -%}
+            <ul class="sidenav__list list--child">
+              {%- for child_item in item.links -%}
 
-        </ul>
-        </li>
+                  {%- if child_item.links != blank -%}
+                    <li class="sidenav__list__item item--submenu">
+                      <div class="sidenav__item">
+                        <a id="mobile-menu-{{ parent_item_index }}-{{ child_item_index }}" class="sidenav__item__anchor {{ section.settings.header_menu_caps }} {% if section.settings.enable_dropdown_clicking %}js-dropdown{% endif %}" {%- unless section.settings.enable_dropdown_clicking -%}href="{{ item.url }}"{%- endunless -%}">
+                          {{ child_item.title }}
+                        </a>
+                        <button class="sidenav__icon" type="button" id="id-nav__toggle-open-{{ parent_item_index }}-{{ child_item_index }}" data-toggle="grandchild">
+                          <span class="toggle toggle--plus"></span>
+                        </button>
+                      </div>
+
+                      <ul class="sidenav__list list--grandchild">
+                        {%- for grandchild_item in child_item.links -%}
+                          <li class="sidenav__list__item">
+                            <a  class="sidenav__item__anchor {{ section.settings.header_menu_caps }}" id="mobile-menu-{{ parent_item_index }}-{{ grandchild_item_index }}-{{ forloop.index }}" href="{{ grandchild_item.url }}">
+                              {{ grandchild_item.title }}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </li>
+                  {%- else -%}
+                    <li class="sidenav__list__item">
+                      {%- assign child_item_index = forloop.index -%}
+    
+                      {%- unless section.settings.enable_icon_menu == false or url_icon == "" or url_icon contains 'no-image' -%}
+                        <span style="background-image:url('{{ url_icon }}')"></span>
+                      {%- endunless -%}
+                      
+                      <a class="sidenav__item__anchor {{ section.settings.header_menu_caps }}" id="mobile-menu-{{ parent_item_index }}-{{ child_item_index }}" href="{{ child_item.url }}">
+                        {{ child_item.title }}
+                      </a>
+                    </li>
+                  {%- endif -%}
+              {%- endfor -%}
+            </ul>
+          </li>
         {%- else -%}
-          <li class="dinamic-item">
-            <a id="mobile-menu-{{ menu }}" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="{{ link.url }}">
+          <li class="sidenav__list__item">
+            <a class="sidenav__item__anchor {{ section.settings.header_menu_caps }}" id="mobile-menu-{{ parent_item_index }}" href="{{ item.url }}">
               {%- unless section.settings.enable_icon_menu == false or url_icon == "" or url_icon contains 'no-image' or url_icon == blank -%}
-              {%- render 'responsive-image',
-                  id_prefix: 'menu-mobile',
-                  image: url_icon,
-                  max_width: 50,
-                  active_lazy: true,
-                  no_wrap: true, 
-                  alt_text: link.title
-                -%}
+                {%- render 'responsive-image', image_class: 'sidenav__item__img', id_prefix: 'menu-mobile', image: url_icon, max_width: 50, active_lazy: true, no_wrap: true,  alt_text: item.title -%}
               {%- endunless -%}
 
-              {{ link.title }}
+              {{ item.title }}
             </a>
           </li>
         {%- endif -%}
       {%- endfor -%}
-      </ul>
-      <ul class="mobile-nav static">
+    </ul>
+
+    <ul id="shop-info"  class="sidenav__list sidenav__list--shop">
       {%- if section.settings.text_email -%}
-        <li class="mobile-nav__item dinamic-item">
-          <span class="item-text"><a id="mobile-menu-email" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="mailto:{{ settings.text_email }}?Subject=Hello%20again"  target="_top"> {%- render "icon-envelope" -%}{{ settings.text_email }}</a></span>
+        <li class="sidenav__list__item">
+          <a id="mobile-menu-email" class="sidenav__item__anchor {{ section.settings.header_menu_caps }}" href="mailto:{{ settings.text_email }}?Subject=Hello%20again"  target="_top">
+            {%- render "icon-envelope" -%}
+            {{ settings.text_email }}
+          </a>
         </li>
       {%- endif -%}
       {%- if section.settings.text_tel -%}
-        <li class="mobile-nav__item dinamic-item">
-          <span class="item-text"><a id="mobile-menu-tel" class="item-menu-mobile mobile-nav__link {{ section.settings.header_menu_caps }}" href="tel:{{ settings.text_tel | replace: '+' , '' | replace: '(', '' | replace: ')' , '' | replace: ' ', '' }}"> {%- render "icon-phone" -%}{{ settings.text_tel }}</a></span>
+        <li class="sidenav__list__item">
+          <a id="mobile-menu-tel" class="sidenav__item__anchor {{ section.settings.header_menu_caps }}" href="tel:{{ settings.text_tel | replace: '+' , '' | replace: '(', '' | replace: ')' , '' | replace: ' ', '' }}">
+            {%- render "icon-phone" -%}
+            {{ settings.text_tel }}
+          </a>
         </li>
       {%- endif -%}
       {%- if shop.customer_accounts_enabled and section.settings.disable_login == false -%}
         {%- if customer -%}
-          <li class="mobile-nav__item dinamic-item nav-icon">
+          <li class="sidenav__list__item">
             {%- if customer.first_name != blank -%}
               {%- capture first_name -%}{{ customer.first_name }}{%- endcapture -%}
-              {%- render 'icon-key' -%} <a id="LoginAccount" class="item-menu-mobile mobile-nav__link" href="/account/logout">{{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}</a>
+              <a id="LoginAccount" class="sidenav__item__anchor" href="/account/logout">
+                {%- render 'icon-key' -%} 
+                {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+              </a>
             {%- else -%}
-              {%- render 'icon-create-account' -%} <a id="CreateAccount" class="item-menu-mobile mobile-nav__link" href="/account">{{ 'layout.customer.account' | t }}</a>
+              <a id="CreateAccount" class="sidenav__item__anchor" href="/account">
+                {%- render 'icon-create-account' -%}
+                {{ 'layout.customer.account' | t }}
+              </a>
             {%- endif -%}
           </li>
-          <li class="mobile-nav__item dinamic-item nav-icon">
-            {%- render 'icon-logout' -%} <a href="/account/logout" id="customer_logout_link-{{ section.id }}">{{ 'layout.customer.log_out' | t }}</a>
+          <li class="sidenav__list__item">
+            <a id="customer_logout_link-{{ section.id }}" class="sidenav__item__anchor" href="/account/logout">
+              {%- render 'icon-logout' -%}
+              {{ 'layout.customer.log_out' | t }}
+            </a>
           </li>
         {%- else -%}
-          <li class="mobile-nav__item dinamic-item nav-icon">
-            {%- render 'icon-key' -%}  <a href="/account/login" id="customer_login_link-{{ section.id }}">{{ 'layout.customer.log_in' | t }}</a>
+          <li class="sidenav__list__item">
+            <span class="sidenav__text__wrapper">
+              <a id="customer_login_link-{{ section.id }}" class="sidenav__item__anchor" href="/account/login">
+                {%- render 'icon-key' -%} 
+                {{ 'layout.customer.log_in' | t }}
+              </a>
+            </span>
           </li>
-          <li class="mobile-nav__item dinamic-item nav-icon">
-            {%- render 'icon-create-account' -%}<a href="/account/register" id="customer_register_link-{{ section.id }}">{{ 'layout.customer.create_account' | t }}</a>
+          <li class="sidenav__list__item">
+            <a id="customer_register_link-{{ section.id }}" class="sidenav__item__anchor" href="/account/register">
+              {%- render 'icon-create-account' -%}
+              {{ 'layout.customer.create_account' | t }}
+            </a>
           </li>
         {%- endif -%}
       {%- endif -%}
-        {%- if section.settings.enable_mobile_newsletter == true -%}
-          {%- if section.settings.select_newsletter == 'klaviyo' and settings.enable_klaviyo_id -%}
-            <li class="newsletter-opt">
-              {%- render 'newsletter-form-klaviyo', id_klaviyo: block.settings.id_klaviyo, section_id: section.id -%}
-          {%- endif -%}
-            
-          {%- if  section.settings.select_newsletter == 'newsletter-default' -%}
-            <li class="newsletter-opt">
-              {%- render 'newsletter-form', section_id: section.id -%}
-            </li>
-          {%- endif -%}
-          {%- if  section.settings.select_newsletter == 'newsletter-custom' -%}
-            <li class="newsletter-opt">
-              <div class="custom-html">{{ settings.custom_newsletter_html }}</div>
-            </li>
-          {%- endif -%}
-        {%- endif -%}
     </ul>
-    <!-- //mobile-nav -->
   </div>
+
+  <div class="sidenav__footer">
+    {%- if section.settings.enable_mobile_newsletter == true -%}
+      {%- if section.settings.select_newsletter == 'klaviyo' and settings.enable_klaviyo_id -%}
+        {%- render 'newsletter-form-klaviyo', id_klaviyo: block.settings.id_klaviyo, section_id: section.id -%}
+      {%- endif -%}
+        
+      {%- if  section.settings.select_newsletter == 'newsletter-default' -%}
+        {%- render 'newsletter-form', section_id: section.id -%}
+      {%- endif -%}
+      {%- if  section.settings.select_newsletter == 'newsletter-custom' -%}
+        <div class="custom-html">{{ settings.custom_newsletter_html }}</div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</div>
 
 {% schema %}
 {
@@ -616,36 +540,76 @@
 
 <script type="lazyload2">
   setTimeout(function(){
-  $(document).on('click', '.header__icon__wrap.icon--menu', function(){
-    if($('body').hasClass('js-drawer-open-left'))
-      $('body').removeClass('js-drawer-open-left');
-    else {
-      $('.main-content').addClass('is-moved-by-drawer');
-      $('.fixed').addClass('is-moved-by-drawer');
-      $('.shopify-section header').addClass('is-moved-by-drawer');
-      $('.search').addClass('is-moved-by-drawer');
-      $('body').addClass('js-drawer-open-left');
-    }
-  });
+    // Open Menu Mobile
+    document.querySelector('.header__icon__wrap.icon--menu').addEventListener("click", function() {
+      if (document.body.classList.contains('js-drawer-open-left')) {
+        document.body.classList.remove('js-drawer-open-left');
+      } else {
+        document.querySelector('.main-content').classList.add('is-moved-by-drawer');
+        document.querySelector('.shopify-section header').classList.add('is-moved-¹by-drawer');
+        document.querySelector('body').classList.add('js-drawer-open-left');
+      }
+    })
 
-  $(document).on('click', '.drawer__close, .DrawerOverlay', function(){
-    $('body').removeClass('js-drawer-open-left cart-open cart-drawer-open');
-  });
-
-  $(document).on('click', '.mobile-nav__toggle-open,.mobile-nav__link[href^="#"]', function(){
-    var instance = $(this);
-
-    instance.parent().siblings('.child').slideToggle(400);
-
-    if (instance.is('.mobile-nav__link')) {
-      instance = instance.siblings('.mobile-nav__toggle-open');;
+    // Close Nav
+    const closeNav = function(elClass) {
+      document.querySelector(`${elClass}`).addEventListener('click', function() {
+        document.querySelector('body').classList.remove('js-drawer-open-left','cart-open','cart-drawer-open' );
+      })
     }
 
-    if( instance.hasClass('anime-plus-ver') ) {
-      instance.removeClass('anime-plus-ver anime-plus-hor');
-    } else {
-      instance.addClass('anime-plus-ver anime-plus-hor');  
-    }
-  });
+    closeNav('.sidenav__close');
+    closeNav('.DrawerOverlay')
+
+    // Toggle Plus / Minus 
+    let allSideNavIcon = document.querySelectorAll('.sidenav__icon')
+
+    document.querySelectorAll('.js-dropdown').forEach(el => {
+      el.addEventListener("click", function(e) {
+        this.nextElementSibling.click()
+      })
+    })
+    
+    allSideNavIcon.forEach(icon => {
+      icon.addEventListener('click', function(e) {
+        let listType = this.getAttribute('data-toggle');
+        
+
+        if(this.querySelector('.toggle').classList.contains('toggle--plus')) {
+          
+          this.querySelector('.toggle--plus').classList.add('rotateVerticalLine','rotateHorizontalLine')
+          
+          let listEl = this.closest('.sidenav__list__item');
+          
+          if (listType === "grandchild") {
+            this.closest('.list--child').style.height = "auto";
+          }
+  
+          size = 0;
+          let allChildEl = listEl.querySelectorAll(`.list--${listType} > .sidenav__list__item`);
+          
+          allChildEl.forEach(item => {
+            size += item.offsetHeight;
+          })
+  
+          listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${size}px`;         
+
+          this.querySelector('.toggle').classList.remove('toggle--plus');
+          this.querySelector('.toggle').classList.add('toggle--minus');
+        }
+        else {
+          let listEl = this.closest('.sidenav__list__item');
+          if (listType === "child") {
+            const menuHeight = listEl.querySelector('.list--child').offsetHeight;
+          }
+          
+          this.querySelector('.toggle').classList.remove('rotateVerticalLine','rotateHorizontalLine')
+          this.querySelector('.toggle').classList.remove('toggle--minus');
+          this.querySelector('.toggle').classList.add('toggle--plus');
+
+          setTimeout(function() {listEl.querySelector(`.sidenav .list--${listType}`).style.height = `0`}, 50);
+        }
+      })  
+    })
 });
 </script>

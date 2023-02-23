@@ -1,5 +1,7 @@
 <!-- start article.liquid (TEMPLATE) -->
 
+<link rel="stylesheet" data-href="{{ 'section-article-blog.css' | asset_url }}"/>
+
 {%- if comment.status == 'pending' -%}
   {%- assign number_of_comments = article.comments_count | plus: 1 -%}
 {%- else -%}
@@ -162,26 +164,26 @@
         </div>
       {%- endif -%}
     </div>
-    <aside class="grid__item large--one-quarter sidebar">
-      {%- if section.settings.enable_sidebar -%}
+    {%- if section.settings.enable_sidebar -%}
+      <aside class="grid__item large--one-quarter sidebar">
         {%- render 'blog-sidebars' -%}        
-      {%- endif -%}
-    </aside>
+      </aside>
+    {%- endif -%}
   </div>
 </div>
 
-{% style %}
+<style scoped>
   {%- if section.settings.enable_sidebar == false -%}
   .article-section{
     width: 100%;
   }
 {% endif %}
-{% endstyle %}
+</style>
 
 {% schema %}
 {
-  "name": "Blog Sidebar",
-  "class": "blog-sidebar",
+  "name": "Article Template",
+  "class": "article-template",
   "settings": [
     {
       "type": "checkbox",
@@ -200,53 +202,100 @@
       "id": "fixed_sidebar"
     },
     {
-      "type": "checkbox",
-      "label": "Show Recent Posts",
-      "id": "show_recent_posts",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "label": "Show Categories",
-      "id": "show_categories",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "sidebar_title",
-      "label": "Newsletter Widget Title",
-      "placeholder": "Newsletter Widget Title"
-    },
-    {
-      "type": "textarea",
-      "id": "sidebar_text",
-      "label": "Newsletter Widget Text",
-      "default": "Ready to find out more about our new, and upcoming products? Sign up below. "
-    },
-    {
-      "type": "textarea",
-      "id": "filter_by_tags",
-      "label": "Filter Categories By Tag",
-      "placeholder": "Type the tags",
-      "info": "Separate tags handle with ( ; )."
+      "type": "header",
+      "content": "Sidebar"
     },
     {
       "type": "select",
-      "id": "select_newsletter",
-      "label": "Newsletter Manager",
-      "info": "Klaviyo only will work if enabled, check it on Newsletter",
+      "id": "sidebar_text_align",
+      "label": "Sidebar Text Alignment",
       "options": [
         {
-          "label": "Klaviyo",
-          "value": "klaviyo"
+          "value": "left",
+          "label": "Left"
         },
         {
-          "label": "Default Shopify Form",
-          "value": "newsletter-default"
+          "value": "center",
+          "label": "Center"
         },
         {
-          "label": "Custom Newsletter",
-          "value": "newsletter-custom"
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "recent_posts",
+      "name": "Recent Posts",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Recent Posts"
+        }
+      ]
+    },
+    {
+      "type": "categories",
+      "name": "Categories",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Categories"
+        },
+        {
+          "type": "textarea",
+          "id": "filter_by_tags",
+          "label": "Filter Categories By Tag",
+          "placeholder": "Type the tags",
+          "info": "Separate tags handle with ( ; )."
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter Widget ",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Newsletter Widget "
+        },
+        {
+          "type": "text",
+          "id": "sidebar_title",
+          "label": "Newsletter Widget Title",
+          "placeholder": "Newsletter Widget Title"
+        },
+        {
+          "type": "textarea",
+          "id": "sidebar_text",
+          "label": "Newsletter Widget Text",
+          "default": "Ready to find out more about our new, and upcoming products? Sign up below. "
+        },
+        {
+          "type": "select",
+          "id": "select_newsletter",
+          "label": "Newsletter Manager",
+          "info": "Klaviyo only will work if enabled, check it on Newsletter",
+          "options": [
+            {
+              "label": "Klaviyo",
+              "value": "klaviyo"
+            },
+            {
+              "label": "Default Shopify Form",
+              "value": "newsletter-default"
+            },
+            {
+              "label": "Custom Newsletter",
+              "value": "newsletter-custom"
+            }
+          ]
         }
       ]
     }

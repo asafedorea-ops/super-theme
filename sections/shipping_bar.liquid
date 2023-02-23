@@ -1,5 +1,7 @@
 <!-- start shipping_bar.liquid (SECTION) -->
 
+<link rel="stylesheet" data-href="{{ 'section-shipping-bar.css' | asset_url }}"/>
+
 {%- assign shipping_bar_style = section.settings.shipping_bar_style -%}
 
 {%- assign shipping_bar_type = blank -%}
@@ -17,7 +19,7 @@
   {%- assign shipping_bar_style = 'dicount_style' -%}
 {%- endif -%}
 
-<div id="shipping-bar" class="shipping-bar {{ shipping_bar_type }}" data-style="{{- shipping_bar_style -}}">
+<div id="shipping-bar" class="shipping-bar {{ shipping_bar_type }} lazybg" data-style="{{- shipping_bar_style -}}">
   <div class="wrapper">
       <div class="shipping-bar__wrapper">
           {%- for block in section.blocks -%}
@@ -42,7 +44,7 @@
   </div>
 </div>
 
-{%- style -%}
+<style scoped>
 :root {
   {%- if section.settings.position -%}
     --shipping-bar-height: 40px;
@@ -60,12 +62,13 @@
     z-index: 10;
   {%- endif -%}
 }
-#shopify-section-{{ section.id }} svg {
-  fill: {{ section.settings.text_color }};
+#shopify-section-{{ section.id }} svg,
+#shopify-section-{{ section.id }} path { 
+  fill: {{ section.settings.text_color }}; 
 }
-{%- endstyle -%}
+</style>
 
-{% stylesheet %}
+<style scoped type="lazyload2">
 .shipping-bar--fixed {
   position: sticky;
   top: 0;
@@ -157,7 +160,7 @@
     padding: 0;
   }
 }
-{% endstylesheet %}
+</style>
 
 {% schema %}
 {
@@ -413,7 +416,7 @@
 }
 {% endschema %}
 
-{%- style -%}
+<style scoped type="lazyload2">
 #shopify-section-{{ section.id }} .shipping-bar__section-item,
 #shopify-section-{{ section.id }} .shipping-bar__message,
 #shopify-section-{{ section.id }} .shipping-bar__item--small {
@@ -447,9 +450,9 @@
     width: {{ section.settings.font_size_mobile }}px;
   }
 }
-{%- endstyle -%}
+</style>
 
-<script>
+<script type="lazyload2">
   var shipping_bar = shipping_bar || {};
   {% for block in section.blocks %}
       {% if "discount-style" == block.type %}
@@ -495,5 +498,5 @@
 
       return new SectionShippingBar;
     })();
-  });
+  }, 3000);
 </script>

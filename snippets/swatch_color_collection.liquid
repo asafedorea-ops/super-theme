@@ -40,8 +40,8 @@
               {%- assign bg_image_css_value = css_value | append: '.jpg' | file_img_url: '50x' -%}
 
               <a title="{{ value }}" id="swatch-color-variant-{{ id_variant }}" aria-label="Swatch Color Variant" href="{{ url_variant }}" class="swatch-element swatch-element-color {% if settings.swatch_round %} round{% endif %}">
-                <span class="{% if custom_colors %}{{ value | handle }}-custom-color{% endif %} swatch-value swatch-value-color color swatch-background-{{ css_value }}" data-img="{{ img_swatch }}" style="background-color: {{ css_value }}; background-image: url('{{ bg_image_css_value }}')"></span>
-                <span class="swatch-value-checked">{%- render 'icon-check' -%}</span>
+                <span class="{% if custom_colors %}{{ value | handle }}-custom-color{% endif %} swatch-value swatch-value-color color swatch-background-{{ css_value }} lazybg" data-img="{{ img_swatch }}" data-style="background-color: {{ css_value }}; background-image: url('{{ bg_image_css_value }}')"></span>
+                <span class="swatch-value-checked"></span>
               </a>
         {%- endunless -%}
       {%- endif -%}

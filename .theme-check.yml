@@ -48,7 +48,7 @@ TemplateLength:
   max_length: 600
   # Exclude content of {% schema %} in line count
   exclude_schema: true
-  # Exclude content of {% stylesheet %} in line count
+  # Exclude content of <style scoped> in line count
   exclude_stylesheet: true
   # Exclude content of {% javascript %} in line count
   exclude_javascript: true

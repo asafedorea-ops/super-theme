@@ -1,4 +1,5 @@
 <!-- start cart-drawer.liquid (SECTION) -->
+<link rel="stylesheet" data-href="{{ 'section-cart.css' | asset_url }}"/>
 <div id="CartDrawer" class="cart-drawer drawer--right" tabindex="-1" data-section-type="cart-drawer">
   {%- render 'cart-drawer-header' with section_settings: section.settings, cart: cart -%}
 
@@ -53,7 +54,7 @@
 
         {%- if section.settings.paypal_enable -%}
           <div class="paypal-div">
-            <span class="paypal" style="font-size: 23px;"><strong><span style="color:#00298b;">Pay</span><span style="color: #0096e5;">Pal</span> Accepted</strong></span><br>
+            <span class="paypal"><strong><span style="color:#00298b;">Pay</span><span style="color: #0096e5;">Pal</span> Accepted</strong></span><br>
           </div>
         {%- endif -%}
 
@@ -156,6 +157,24 @@
       "default": "#ffffff"
     },
     {
+      "type": "text",
+      "id": "shipping_bar_free_shipping_before",
+      "label": "Text Before Price/Quantity",
+      "default": "WE PAY SHIPPING ON ORDERS OVER"
+    },
+    {
+      "type": "text",
+      "id": "shipping_bar_free_shipping_after",
+      "label": "Text After Price/Quantity",
+      "default": "Text Example"
+    },
+    {
+      "type": "text",
+      "id": "shipping_bar_freeshipping_text",
+      "label": "Free Shipping Message After Threshold is Met",
+      "default": "Congratulations! We'll Pay Your Shipping"
+    },
+    {
       "type": "header",
       "content": "Continue Shopping Link"
     },
@@ -238,7 +257,7 @@
       "info": "Content typed here will be appear under 'Proceed To Checkout' button"
     },
     {
-      "type": "liquid",
+      "type": "html",
       "id": "drawer_html_area",
       "label": "Custom HTML"
     },
@@ -484,7 +503,7 @@
           "default": false
         },
         {
-          "type": "liquid",
+          "type": "html",
           "id": "custom_trust_badge_svg_html",
           "label": "Custom Trust Badges SVG"
         },
@@ -530,7 +549,7 @@
 }
 {% endschema %}
 
-{%- style -%}
+<style scoped type="lazyload2">
   {%- if settings.enable_cart_property == false -%}
   .cart-drawer .product-variant {
     display: none !important;
@@ -566,7 +585,12 @@
   color: var(--text-color-price-free-shipping-text-color);
   margin-left: 4px;
 }
-{%- endstyle -%}
+
+.cart-drawer .shipping-bar__message {
+  color: var(--color-free-shipping-text-color);
+}
+
+</style>
 
 {%- capture not_empty_cart -%}
   <span class="drawer-title">{% render "icon-check" %}{{ section.settings.text__head_cartDrawer | escape }}</span>
@@ -574,7 +598,7 @@
 
 {{ product.metafields.custom.comparison_chart }}
 
-<script>
+<script type="lazyload2">
   const drawer_texts = {
       empty_cart: "{{ section.settings.cartDrawer_empty | strip_newlines }}",
       not_empty_cart: '{{ not_empty_cart | strip_newlines }}',
@@ -591,20 +615,19 @@
   };
 
   var shipping_bar = shipping_bar || {};
-
+  let text_message_initial_before = '{{ section.settings.shipping_bar_free_shipping_before | escape }}'
+  let text_message_initial_after = '{{ section.settings.shipping_bar_free_shipping_after | escape }}'
+  let free_shipping_text = '<span class="shipping-bar__message-wrapper">{{ section.settings.shipping_bar_freeshipping_text | escape }}</span>'
   const cartDrawerSettings = {
       shipping_bar: shipping_bar
   }
-  let cart_enable_discount_shipping_bar = {{ settings.enable_discount_shipping_bar }},
-      cart_discount_price_range = {{ settings.cart_discount_value_range }},
-      cart_discount_quantity_range = {{ settings.cart_discount_qtd_range }},
-      cart_discount_by = "{{ settings.enabled_discount_cart_page | escape }}",
-      cart_success_message = "{{ settings.cart_discount_text }}";
+  let cart_discount_by = "{{ settings.enabled_discount_cart_page | escape }}",    
+  cart_success_message = "{{ settings.cart_discount_text }}";
 </script>
 
 <script type="lazyload2">
   setTimeout(function(){
-  (async function(global, opt) {
+    window.CartDrawerAPI = (function(global, opt) {
       const settings = Object.assign({
           selectors: {
               openDrawer: '.main-header .icon--cart',
@@ -760,23 +783,13 @@
                   if (cartDrawerFreeShippingMsg && drawer_texts.free_shipping_msg.enabled) {
                     if (progress == 100) {
                       cartDrawerFreeShippingMsg.innerHTML = drawer_texts.free_shipping_msg.text;
-                        cartDrawerCouponMsg.innerHTML  = shippingBar.free_shipping_text;
+                        cartDrawerCouponMsg.innerHTML  = free_shipping_text;
                     } else {
                       cartDrawerFreeShippingMsg.innerHTML = '';
                       cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
                     }
                   }
                   
-                  if(cart_enable_discount_shipping_bar) {
-                    if (cartDrawerFreeShippingMsg && drawer_texts.free_shipping_msg.enabled) {
-                      if (progress == 100) {
-                          cartDrawerCouponMsg.innerHTML  = shippingBar.free_shipping_text;
-                      } else {
-                        cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
-                      }
-                    }
-                  }
-                  else {
                     if(cart_discount_by == "price") {
                       if((cart.total_price / 100) >= cart_discount_price_range) {
                         cartDrawerCouponMsg.innerHTML  = cart_success_message;
@@ -793,7 +806,6 @@
                         cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
                       }
                     }
-                  }
 
                   bars.forEach(function(bar){
                     const barWrapper = bar.parentNode || null;
@@ -808,7 +820,7 @@
 
                     if ((shippingBar.price_enable === 'shipping_bar_free_price' && cart.total_price >= shippingBar.shipping_value) ||
                         (shippingBar.price_enable === 'shipping_bar_free_qtd' && cart.item_count >= shippingBar.shipping_quantity)) {
-                        bar.innerHTML = shippingBar.free_shipping_text;
+                          bar.innerHTML = free_shipping_text;
                     } else if (cart.item_count > 0) {
                       if(shippingBar.price_enable === 'shipping_bar_free_qtd') {
                         let text_after_remain = "";
@@ -819,9 +831,9 @@
                         bar.innerHTML = 'Only<span class="shipping-bar__discount-value">' + remain + '</span> away from free shipping!';
                       }
                     } else {
-                        bar.innerHTML = '<span class="shipping-bar__message--before">' + shippingBar.text_message_initial_before + '&nbsp</span>';
+                      bar.innerHTML = '<span class="shipping-bar__message--before">' + text_message_initial_before + '&nbsp</span>';
                         bar.innerHTML += '<span class="shipping-bar__discount-value">' + remain + '</span>';
-                        bar.innerHTML += '<span class="shipping-bar__message--after">' + shippingBar.text_message_initial_after + '</span>';
+                        bar.innerHTML += '<span class="shipping-bar__message--after">' + text_message_initial_after + '</span>';
                     }
 
                     if(drawer_progress_bar.progress_bar){
@@ -1043,9 +1055,9 @@
           }
       };
 
-      let Cart = await methods.cart.getCart();
-
-      methods.cart.updateShippingBar(Cart);
+      methods.cart.getCart().then(function(cart){
+        methods.cart.updateShippingBar(cart);
+      });
 
       function on(event, selector, callback) {
           try {
@@ -1253,6 +1265,7 @@
           methods.cart.buildCart(cart);
         }
       });
+      return methods.cart;
   })(window, cartDrawerSettings);
 });
 </script>

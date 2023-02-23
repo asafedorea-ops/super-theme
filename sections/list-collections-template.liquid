@@ -62,8 +62,9 @@
           {%- assign image_alt = image.alt | default: "Collection Image" -%}
 
           <div class="list-collections__item">
-            <a id="CollectionLink-{{ forloop.index }}" href="{{- collection.url -}}" class="list-collections__link" title="Collection {{ collection.title | escape -}}">
+            <div id="CollectionLink-{{ forloop.index }}" class="list-collections__link" title="Collection {{ collection.title | escape -}}">
               <div class="list-collections__image-wrapper">
+                <a href="{{- collection.url -}}" class="list-collections__link">
                 {%- render 'responsive-image' with
                   id_prefix: 'list-collections__image',
                   image: image,
@@ -75,10 +76,11 @@
                   size_mobile: 45,
                   size_desk: 20
                 -%}
+                </a>
               </div>
 
-              <h3 class="list-collections__title">{{- collection.title -}}</h3>
-            </a>
+              <h3><a href="{{- collection.url -}}" class="list-collections__title">{{- collection.title -}}</a></h3>
+            </div>
           </div>
         {%- endif -%}
       {%- endfor -%}
@@ -86,15 +88,13 @@
   </div>
 </div>
 
-{%- style -%}
+<style scoped type="lazyload2">
   #shopify-section-{{ section.id }} .list-collections__title {
     background-color: {{ section.settings.collection_list_background_color }};
     color: {{ section.settings.collection_list_font_color }};
     font-size: {{ section.settings.collection_list_font_size | plus: 0.0 | divided_by: 16 }}rem;
   }
-{%- endstyle -%}
-
-{% stylesheet %}
+  
   .list-collections,
   .list-collections__list,
   .list-collections__title {
@@ -117,6 +117,9 @@
 
   .list-collections__item {
     width: 23.5%;
+  }
+  .list-collections__link{
+    color: #000;
   }
 
   .list-collections__title {
@@ -160,7 +163,7 @@
       width: 49%;
     }
   }
-{% endstylesheet %}
+</style>
 
 {% schema %}
 {
@@ -168,7 +171,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "GENERAL SETTINGS"
+      "content": "General Settings"
     },
     {
       "type": "text",

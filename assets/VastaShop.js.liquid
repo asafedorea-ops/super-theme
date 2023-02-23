@@ -107,7 +107,7 @@
 
         jQuery(document)
             .on('shopify:section:load', this.onLoad.bind(this))
-            .on('shopify:section:unload', this.onUnload.bind(this))
+            .on('shopify:section:unload', this.onPagehide.bind(this))
             .on('shopify:section:select', this.onSelect.bind(this))
             .on('shopify:section:deselect', this.onDeselect.bind(this))
             .on('shopify:block:select', this.onBlockSelect.bind(this))
@@ -133,11 +133,11 @@
             }
         },
 
-        onUnload: function (event) {
+        onPagehide: function (event) {
             var id = this._getId(event);
 
-            if ((typeof this.instances[id] !== 'undefined') && (typeof this.instances[id].onUnload === 'function')) {
-                this.instances[id].onUnload();
+            if ((typeof this.instances[id] !== 'undefined') && (typeof this.instances[id].onPagehide === 'function')) {
+                this.instances[id].onPagehide();
             }
         },
 
@@ -208,7 +208,7 @@
         inventory_policy: '',
         inventory_management: '',
         _add_to_cart: jQuery('.jq-cart-add-product'),
-        continue_shoping_link: '{{ settings.href_continue_shopping }}'
+        continue_shoping_link: '{{ settings.href_continue_shopping }}',
     };
 
     var VastaShop = {
@@ -232,7 +232,9 @@
         },
 
         formatMoney: function(price, amount) {
-            return Shopify.formatMoney(price, amount);
+            amount = amount || money_format;
+
+            return $($.parseHTML(Shopify.formatMoney(price, amount))).text();
         }
     };
 
@@ -511,14 +513,15 @@ function total_items(cart) {
 *
 * @return Line price
 */
-function product_line(cart, index) {
+function product_line(cart, index, attr = 'line_price') {
     var line_price = 0;
 
     cart.items.forEach(function (e, i) {
         if (i == index) {
-            line_price = e.line_price;
+            line_price = e[attr];
         }
     });
+
     return line_price;
 }
 
@@ -569,12 +572,12 @@ function cart_line(prod, index, oldQtd, id_variant) {
     var strDisabled = '';
     var strDisabledMax = '';
     var isDiscount = ''
+
     if (prod.total_discount > 0) {
         isDiscount = '<span class="cart_discount_price">-' + Shopify.formatMoney(prod.total_discount) + '</span>';
     } else {
         isDiscount = '';
     }
-
 
     // var variant = JSON.parse(window.localStorage.getItem('all_products'));
     prod.image = image_resize(prod.image, 100, 100);
@@ -856,39 +859,31 @@ function update_discount_cart(current_total_price, quantity_cart) {
             _message_drawer_cupom = "<strong>" + drawer_texts.cupom + "</strong>";
         }
 
-        if (cart_page.enable_week_message) {
+        if (cart_page.enable_day_on_message) {
             _message_default_in_cartPage += '<br><strong>' + week[d.getDay()] + ' Only!</strong>';
         }
 
-        if (cart_page.discount_in_cart_page == 'quantity') {
-            if (quantity_cart >= cart_page.cart_discount_quantity) {
-                if (VastaShop.config.enable_freeshipping_msg && (!cart_page.cart_enable_discount_shipping_bar)) {
-                    $('#cart-drawer-freeshipping-msg').html(VastaShop.config.freeshipping_msg);
-                }
-                if (!cart_page.cart_enable_discount_shipping_bar) {
-                    _discount_in_cart_page.html(_message_sucess_in_cartPage);
+        if (shipping_bar.price_enable == "shipping_bar_free_qtd") {
+                if (quantity_cart >= shipping_bar.shipping_quantity) {
+                    $('#cart-drawer-freeshipping-msg').html(cart_page.cart_freeshipping_text);
+                    _discount_in_cart_page.html(cart_page.text_cart_above_button_sucess);
+                    _cupom_drawer.html(cart_page.text_cart_above_button_sucess);
+                } else {
+                    _discount_in_cart_page.html(_message_default_in_cartPage);
                     _cupom_drawer.html(_message_drawer_cupom);
+                    $('#cart-drawer-freeshipping-msg').html('');
                 }
-            } else if (!cart_page.cart_enable_discount_shipping_bar) {
-                _discount_in_cart_page.html(_message_default_in_cartPage);
-                _cupom_drawer.html(_message_drawer_cupom);
-                $('#cart-drawer-freeshipping-msg').html('');
-            }
-        } else if (cart_page.discount_in_cart_page == 'price') {
-
-            if (current_total_price >= cart_page.cart_discount_value) {
-                if (VastaShop.config.enable_freeshipping_msg && (!cart_page.cart_enable_discount_shipping_bar)) {
-                    $('#cart-drawer-freeshipping-msg').html(VastaShop.config.freeshipping_msg);
+           
+        } else {
+                if (current_total_price >= shipping_bar.shipping_value) {
+                    $('#cart-drawer-freeshipping-msg').html(cart_page.cart_freeshipping_text);
+                    _discount_in_cart_page.html(cart_page.text_cart_above_button_sucess);
+                    _cupom_drawer.html(cart_page.text_cart_above_button_sucess);
+                } else {
+                    _discount_in_cart_page.html(_message_default_in_cartPage);
+                    _cupom_drawer.html(_message_drawer_cupom);
+                    $('#cart-drawer-freeshipping-msg').html('');
                 }
-                if (!cart_page.cart_enable_discount_shipping_bar) {
-                    _discount_in_cart_page.html(_message_sucess_in_cartPage);
-                    _cupom_drawer.html(_message_sucess_in_cartPage);
-                }
-            } else if (!cart_page.cart_enable_discount_shipping_bar) {
-                _discount_in_cart_page.html(_message_default_in_cartPage);
-                _cupom_drawer.html(_message_drawer_cupom);
-                $('#cart-drawer-freeshipping-msg').html('');
-            }
         }
     }
 }
@@ -907,17 +902,13 @@ function update_text_copy_message(current_total_price, quantity_cart) {
 
     if (typeof shipping_bar !== 'undefined' && typeof cart_page !== 'undefined') {
         if (cart_page.discount_in_cart_page == 'quantity') {
-            if (quantity_cart >= cart_page.cart_discount_quantity && VastaShop.config.enable_freeshipping_msg && (!cart_page.cart_enable_discount_shipping_bar)) {
+            if (quantity_cart >= cart_page.cart_discount_quantity && VastaShop.config.enable_freeshipping_msg ) {
                 $('#cart-drawer-freeshipping-msg').html(VastaShop.config.freeshipping_msg);
-            } else if (!cart_page.cart_enable_discount_shipping_bar) {
-                $('#cart-drawer-freeshipping-msg').html('');
-            }
+            } 
         } else if (cart_page.discount_in_cart_page == 'price') {
-            if (current_total_price >= cart_page.cart_discount_value && VastaShop.config.enable_freeshipping_msg && (!cart_page.cart_enable_discount_shipping_bar)) {
+            if (current_total_price >= cart_page.cart_discount_value && VastaShop.config.enable_freeshipping_msg ) {
                 $('#cart-drawer-freeshipping-msg').html(VastaShop.config.freeshipping_msg);
-            } else if (!cart_page.cart_enable_discount_shipping_bar) {
-                $('#cart-drawer-freeshipping-msg').html('');
-            }
+            } 
         }
     }
 }
@@ -963,7 +954,7 @@ function recharge(callback) {
         } else {
             _recharger_price.html(Shopify.formatMoney(price));
         }
-        
+
         _tag_prices.html(Shopify.formatMoney(Math.round(price, 0) * quantity));
 
         if (typeof callback === 'function') {
@@ -1199,9 +1190,6 @@ function size_chart(event) {
 
         if (window.SectionSliders && typeof window.SectionSliders !== 'undefined')
             sections.register('sliders', window.SectionSliders);
-
-        if (window.SectionInstafeed && typeof window.SectionInstafeed !== 'undefined')
-            sections.register('instafeed', window.SectionInstafeed);
 
         jQuery('#AddToCartFloat').click(function () {
             VastaShop.Variables._add_to_cart.trigger('submit');

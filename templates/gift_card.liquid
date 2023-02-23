@@ -9,6 +9,10 @@
   <!-- Title and description ================================================== -->
   <title>{{ 'gift_cards.issued.title' | t: value: formatted_initial_value_stripped, shop: shop.name }}</title>
   <meta name="description" content="{{ 'gift_cards.issued.subtext' | t }}">
+
+  <link rel="stylesheet" data-href="{{ 'template-gift-card.css' | asset_url }}"/>
+
+
 </head>
 <body>
   <div class="container">
@@ -55,7 +59,7 @@
             {{ 'gift_cards.issued.redeem' | t }}
           </p>
           <div class="qr-code-class" id="QrCode"></div>
-          <script>
+          <script type="lazyload2">
             new QRCode(document.getElementById('QrCode'), {
               text: "{{ gift_card.qr_identifier }}",
               width: 120,

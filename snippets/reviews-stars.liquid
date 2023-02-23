@@ -7,7 +7,15 @@
     {%- when 'judgeme' -%}
         {%- render 'judgeme_widgets' with widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: false, product: product -%}
     {%- when 'loox' -%}
-        <a title="Number Reviews" id="id-loox-rating" href="#looxReviews"><div class="loox-rating" data-id="{{ product_id }}" data-rating="{{ product.metafields.loox.avg_rating }}" data-raters="{{ product.metafields.loox.num_reviews }}"></div></a>
+        <a href="#looxReviews">
+            <div 
+                class="loox-rating" 
+                data-id="{{ product.id }}" 
+                data-rating="{{ product.metafields.loox.avg_rating }}" 
+                data-raters="{{ product.metafields.loox.num_reviews }}" 
+                data-pattern="([rating] of [count] Reviews)">
+            </div>
+        </a>
     {%- when 'yotpo' -%}
         <div class="yotpo bottomLine"
             data-appkey="{{ settings.yotpo_key }}"

@@ -1,35 +1,60 @@
 <!-- start vasta-scripts.liquid (SNIPPET) -->
-<script>const money_format = "{{ shop.money_format | escape }}"; </script>
+<script>const money_format = "{{ shop.money_format | escape }}";</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script src="{{ 'slick.min.js' | asset_url }}"></script>
 <script src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
-<script src="{{ 'VastaShop.js' | asset_url }}"></script>
-<script type="lazyload2" data-src="{{ 'jquery.tmpl.min.js' | asset_url }}"></script>
-<script type="lazyload2" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
 
-<script>
+{%- if template contains 'product' -%}
+    <script src="{{ 'VastaShop.js' | asset_url }}"></script>
+
+    <script>
+        (function(){
+            VastaShop.Cart.current = {{ cart | json }};
+            VastaShop.Cart.total_price = {{ cart.total_price }};
+            VastaShop.Cart.total_quantity = {{ cart.item_count }};
+        })();
+    </script>
+{%- else -%}
+    <script type="lazyload2" data-src="{{ 'VastaShop.js' | asset_url }}" onload="alert(1)"></script>
+
+    <script type="lazyload2">
+        (function(){
+            VastaShop.Cart.current = {{ cart | json }};
+            VastaShop.Cart.total_price = {{ cart.total_price }};
+            VastaShop.Cart.total_quantity = {{ cart.item_count }};
+        })();
+    </script>
+{%- endif -%}
+
+{%- unless template contains 'collection' -%}
+    <script src="{{ 'slick.min.js' | asset_url }}"></script>
+
+
+    <script type="lazyload2" data-src="{{ 'jquery.tmpl.min.js' | asset_url }}"></script>
+    <script type="lazyload2" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
+
+{%- endunless -%}
+
+<script type="lazyload2">
     {%- if settings.recently_viewed_product_without_image != blank -%}
-        var product_without_image = '{{ settings.recently_viewed_product_without_image | image_url }}';
+        const product_without_image = '{{ settings.recently_viewed_product_without_image | image_url }}';
     {%- else -%}
-        var product_without_image = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+        const product_without_image = 'https://cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c.gif';
     {%- endif -%}
-        var cart_page = cart_page || {},
-        cart_page = {
-            discount_in_cart_page:"{{ settings.enabled_discount_cart_page | escape }}",
-            text_cart_above_button_sucess:"{{ settings.cart_discount_text | escape }}",
-            cart_discount_quantity: {{ settings.cart_discount_qtd_range }},
-            cart_discount_value: {{ settings.cart_discount_value_range | times: 100 }},
-            cart_enable_discount_shipping_bar: {{ settings.enable_discount_shipping_bar }},
-        };
+
+    var cart_page = cart_page || {},
+
+    cart_page = {
+        discount_in_cart_page:"{{ settings.enabled_discount_cart_page | escape }}",
+        text_cart_above_button_sucess:"{{ settings.cart_discount_text | escape }}",
+        cart_discount_value: {{ settings.cart_discount_value_range | times: 100 }},
+        cart_freeshipping_text: "{{ settings.freeshipping_msg }}",
+        text_cart_above_button: "{{ settings.text_cart_above_button }}",
+        enable_day_on_message: {{ settings.enable_day_on_message }}
+    };
 
     VastaShop.config = {};
     VastaShop.config.enable_freeshipping_msg = {{ settings.enable_freeshipping_msg | default: false }};
     VastaShop.config.freeshipping_msg = '{{ settings.freeshipping_msg }}';
-
-    Shopify.money_format = '{{ shop.money_format }}';
-    VastaShop.Cart.current = {{ cart | json }};
-    VastaShop.Cart.total_price = {{ cart.total_price }};
-    VastaShop.Cart.total_quantity = {{ cart.item_count }};
 
     if (shipping_bar && shipping_bar.enable_discount || shipping_bar.style_shipping == "dicount_style") {
         update_shipping_bar({{ cart | json }});
@@ -39,7 +64,7 @@
 </script>
 
 <script type="lazyload2">
-    window.addEventListener('load', function () {
+    setTimeout(function () {
         var is_IE =  /*@cc_on!@*/false || !!document.documentMode;
 
         if (is_IE) {
@@ -102,7 +127,7 @@
         var slideCounter = 0;
     </script>
 
-    <script src="{{ 'swatch.js' | asset_url }}"></script>
+    <script type="lazyload2" data-src="{{ 'swatch.js' | asset_url }}"></script>
 
     {%- render 'product-js' -%}
 
@@ -162,12 +187,6 @@
             });
 
             /** End Klaviyo Script */
-
-            $(document).ready(function(){
-                $('a[href^="#"]:not(.item-menu-mobile)').click(function( e ){
-                    e.preventDefault();
-                });
-            });
         });
     </script>
 {%- endif -%}
@@ -179,7 +198,11 @@
         Shopify.Products.showRecentlyViewed({
             {%- assign  recentlyViewedProductsAmount = settings.recently_viewed_amount | default: 1 -%}
 
-            howManyToShow: {{ recentlyViewedProductsAmount | plus: 1 }},
+            {%- if template contains 'product' -%}
+                howManyToShow: {{ recentlyViewedProductsAmount | plus: 1 }},
+            {%- else -%}
+                howManyToShow: {{ recentlyViewedProductsAmount | plus: 0 }},
+            {%- endif -%}
 
             onComplete: function(){
                 var total = document.querySelectorAll('#recently-viewed-products .grid__item').length;
@@ -196,9 +219,41 @@
                 }
             }
         });
-    });
+    }, 2000);
+</script>
+<script>
+
+function labnolIframe(div) {
+    var iframe = document.createElement('iframe');
+    iframe.setAttribute('src', 'https://www.youtube.com/embed/' + div.dataset.id + '?autoplay=1&rel=0');
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allowfullscreen', '1');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture');
+    div.parentNode.replaceChild(iframe, div);
+}
+
+function initYouTubeVideos() {
+    var playerElements = document.getElementsByClassName('youtube-player');
+    for (var n = 0; n < playerElements.length; n++) {
+    var videoId = playerElements[n].dataset.id;
+    var div = document.createElement('div');
+    div.setAttribute('data-id', videoId);
+    var thumbNode = document.createElement('img');
+    thumbNode.src = '//i.ytimg.com/vi/ID/hqdefault.jpg'.replace('ID', videoId);
+    div.appendChild(thumbNode);
+    var playButton = document.createElement('div');
+    playButton.setAttribute('class', 'play');
+    div.appendChild(playButton);
+    div.onclick = function () {
+        labnolIframe(this);
+    };
+    playerElements[n].appendChild(div);
+    }
+}
+document.addEventListener('DOMContentLoaded', initYouTubeVideos);
 </script>
 
 {%- if settings.enable_custom_scripts -%}
     {%- render 'custom_scripts' -%}
 {%- endif -%}
+

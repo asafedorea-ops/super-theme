@@ -3,8 +3,8 @@
 {% assign results_box_background_color = '#ffffff' %}
 
 {% if settings.enable_search_suggestions %}
-<script>
-  window.addEventListener('DOMContentLoaded', function(){
+<script type="lazyload2">
+  setTimeout(function(){
     $(function() {
       // Current Ajax request.
       var currentAjaxRequest = null;
@@ -144,7 +144,7 @@
 {% endif %}
 
 <!-- Some styles to get you started. -->
-{% style %}
+<style scoped>
   section[data-section-id="header"] .header-desktop .header__search__form {
     padding: 0;
     display: flex;
@@ -600,4 +600,4 @@
       font-size: .8rem;
     }
   }
-{% endstyle %}
+</style>

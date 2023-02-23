@@ -1,4 +1,7 @@
 <!-- start addresses.liquid (TEMPLATE) -->
+
+<link rel="stylesheet" data-href="{{ 'template-customer.css' | asset_url }}"/>
+
 <div class="wrapper">
   <div class="account-content">
     {%- paginate customer.addresses by 5 -%}
@@ -203,8 +206,8 @@
   </div>
 </div>
 
-<script>
-  window.addEventListener('load', function(){
+<script type="lazyload2">
+  setTimeout(function(){
     document.querySelectorAll('.address-new-toggle').forEach(function(e){
       e.addEventListener('click', function(){
         var showFields = document.getElementById('AddressNewForm');

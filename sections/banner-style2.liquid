@@ -1,5 +1,7 @@
 <!-- start banner-style2.liquid (SECTION) -->
 
+<link rel="stylesheet" data-href="{{ 'section-banner-2.css' | asset_url }}"/>
+
 {%- assign imageDesktop = section.settings.homepage_banner_style_2 -%}
 {%- assign paddingTopDesktop = imageDesktop.height | plus: 0.0 | divided_by: imageDesktop.width | times: 100.0 -%}
 {%- assign imageMobile = section.settings.mobile_banner_style_2 -%}
@@ -93,8 +95,18 @@
 </div>
 </section>
 
-{% style %}
+<style scoped>
 
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
   #shopify-section-{{ section.id }} .homepage-style-2.banner .wrapper .banner .banner-content .banner-2-title{
     color:{{ section.settings.primary_title_color }};
     font-style: {{ section.settings.vasta_banner_font_style }};
@@ -131,13 +143,63 @@
     }
   {% endif %}
   }
-{% endstyle %}
+</style>
 
 {% schema %}
 {
   "name": "Banner(With Two Images)",
   "class": "banner",
   "settings": [
+    {
+      "type": "header",
+      "content": "General Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_custom_margins_paddings",
+      "label": "Enable Custom Margins and Paddings",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-margin-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-top",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "custom-padding-bottom",
+      "min": 0,
+      "max": 50,
+      "step": 1,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    },
     {
       "type": "text",
       "id": "custom_class",
@@ -186,7 +248,8 @@
       "type": "checkbox",
       "id": "enable_lazy_load",
       "label": "Enable Lazy Load",
-      "info": "If this is the first section of the homepage, you have to keep this field unchecked for Google Pagespeed score improvements."
+      "info": "If this is the first section of the homepage, you have to keep this field unchecked for Google Pagespeed score improvements.",
+      "default": false
     },
     {
       "type": "text",
@@ -269,7 +332,7 @@
   ],
   "presets": [
     {
-      "name": "Banner (Two Photos)",
+      "name": "Banner (With Two Images)",
       "category": "Banner"
     }
   ]

@@ -15,13 +15,13 @@
     {%- assign remain_value = 0 -%}
 {%- endif -%}
 
-{%- style -%}
+<style scoped>
 :root {
     --shipping-bar-price-background: {{- block.settings.free_shipping_background_color -}};
     --shipping-bar-price-text-color: {{- block.settings.free_shipping_text_color -}};
 
 }
-{%- endstyle -%}
+</style>
 
 {% render 'shipping-bar-email' %}
 

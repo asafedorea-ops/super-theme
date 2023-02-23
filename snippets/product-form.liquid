@@ -1,8 +1,16 @@
 <!-- start product-form (SNIPPET) -->
-<form id="AddToCartForm" action="/cart/add" method="post" class="form-add-to-cart jq-cart-add-product" enctype="multipart/form-data" data-productid="{{ product.id }}">
+{% form "product", product, id: 'AddToCartForm', class: 'form-add-to-cart jq-cart-add-product', enctype:'multipart/form-data', data-productid: product.id %}
+  
+  {%- assign show_swatch = true -%}
+
+  {%- if settings.enable_out_of_stock_button == false and product.available == false -%}
+    {%- assign show_swatch = false -%}
+  {%- endif -%}
+  
   <div class="product-variant-wrapper">
-    
-    {%- render 'swatch' with option -%}
+    {% if show_swatch %}
+      {%- render 'swatch' with option -%}
+    {% endif %}
   </div>
 
   {%- if settings.product_enabled_recharge and product.available -%}
@@ -60,11 +68,11 @@
   </div>
   <span class="invetoryError"></span>
 
-  <div class="shipping-calculate" {% if section.settings.enable_shipping_calculate == false %} style="display: none">{% endif %} 
+  <div class="shipping-calculate" {% if section.settings.enable_shipping_calculate == false %} style="display: none"{% endif %}>
     {%- render 'shipping-calculate' -%}
   </div>
   
   <div class="trust-badges">
     {%- render 'trust-badges' -%}
   </div>
-</form>
+{% endform %}

@@ -1,11 +1,16 @@
 (function(){
 	var src,srcset,windowWidth,windowHeight,critical2,lazyBackground,lazyIframe,lazybg,s,i,flag=1,external_single_loaded=1;
 
-	document.addEventListener("DOMContentLoaded", function() {
-		windowWidth=screen.width;
-		windowHeight=screen.height;
+	window.addEventListener("load", function() {
 		lazyLoadImg2();
 		lazyLoadBackground2();
+
+		setTimeout(function() {
+			wnw_init();
+		}, 10000);
+	});
+
+	document.addEventListener('DOMContentLoaded', function(){
 		window.addEventListener("scroll", function() {
 			wnw_init();
 		});
@@ -15,17 +20,18 @@
 		window.addEventListener("touchstart", function() {
 			wnw_init();
 		});
-		setTimeout(function() {
-			wnw_init();
-		}, 8000);
-	});
+	})
 
 	function wnw_init() {
+		windowWidth=screen.width;
+		windowHeight=screen.height;
+
 		lazyLoadCss();
 		lazyLoadStyle();
 		lazyLoadImg();
 		lazyLoadBackground();
 		lazyLoadIframe();
+		
 		if (flag) {
 			flag = 0;
 			document.body.classList.add("wnw_loaded");

@@ -3,6 +3,8 @@
     "main": {
       "type": "collection-template",
       "settings": {
+        "collection_banner_image_checkbox": false,
+        "collection_banner_image": 75
       }
     }
   },
