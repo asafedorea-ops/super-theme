@@ -70,7 +70,7 @@
         "vasta_buttons_text_color_1": "#ffffff",
         "vasta_border_color_1": "rgba(0,0,0,0)",
         "vasta_border_color_1_hover": "#ffffff",
-        "vasta_buttons_hover_color_1": "#1A7117",
+        "vasta_buttons_hover_color_1": "#1a7117",
         "vasta_buttons_hover_text_color_1": "#ffffff"
       }
     },
@@ -169,7 +169,7 @@
         "use_external_link": false,
         "url_product": "",
         "url_call_to_action": "shopify:\/\/shop_images\/MIPL592CHGRY_720x_24759b9a-bf69-412a-9cc5-aaa3164c7029.jpg",
-        "buy_nowbackgroung_height": 65,
+        "buy_nowbackgroung_height": 100,
         "buy_now_background_top_position": 50,
         "max_qtd_color": "#000000"
       }

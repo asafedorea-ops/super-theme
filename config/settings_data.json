@@ -13,7 +13,6 @@
     "link-tumblr": "https:\/\/tumblr.com",
     "link-vimeo": "https:\/\/vimeo.com",
     "disable_cartDrawer": false,
-    "enable_search_form": true,
     "recently_viewed_product_without_image": "shopify:\/\/shop_images\/rack-of-womens-clothing_2300x_d236ba81-e210-40e7-80ad-07a369a8a230.jpg",
     "enable_breadcrumbs": true,
     "breadcrumb_position": "above",
@@ -174,6 +173,7 @@
     "app_review": "loox",
     "product_enabled_recharge": false,
     "feat_prod_enabled_app_reviews": true,
+    "enable_search_form": true,
     "breadcrumbtextcolor": "#000",
     "breadcrumbtextstyle": "normal",
     "sections": {
