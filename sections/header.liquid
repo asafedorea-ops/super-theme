@@ -4,8 +4,8 @@
     {%- render 'style-header' -%}
 {%- endcapture -%}
 
-{{- header_css | replace: 'data-lazy', 'class="critical2"' | strip_newlines | replace: '  ', '' -}}
-{{- header_css | replace: 'data-lazy', 'type="lazyload2"' | strip_newlines | replace: '  ', '' -}}
+{{- header_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
+{{- header_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
 
 {% capture header_content %}
 <style>
@@ -66,7 +66,7 @@
  
 {% endcapture %}
 
-{{- header_content | strip_newlines -}}
+{{- header_content | strip_newlines | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

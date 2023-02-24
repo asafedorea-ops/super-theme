@@ -7,11 +7,11 @@
 {%- endcapture -%}
 
 
-{{- footer_css | replace: 'data-lazy', 'class="critical2"' | strip_newlines | replace: '  ', '' -}}
-{{- footer_css | replace: 'data-lazy', 'type="lazyload2"' | strip_newlines | replace: '  ', '' -}}
+{{- footer_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
+{{- footer_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
 
-{{- newsletter_css | replace: 'data-lazy', 'class="critical2"' | strip_newlines | replace: '  ', '' -}}
-{{- newsletter_css| replace: 'data-lazy', 'type="lazyload2"' | strip_newlines | replace: '  ', '' -}}
+{{- newsletter_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
+{{- newsletter_css| replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
 
 <!-- start footer.liquid (SECTION) -->
 
@@ -330,7 +330,7 @@
 </style>
 
 {% endcapture %}
-{{- footer_content | strip_newlines -}}
+{{- footer_content | strip_newlines | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

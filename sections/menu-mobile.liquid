@@ -4,8 +4,8 @@
 {%- endcapture -%}
 
 
-{{- main_menu_css | replace: 'data-lazy', 'class="critical2"' | strip_newlines | replace: '  ', '' -}}
-{{- main_menu_css| replace: 'data-lazy', 'type="lazyload2"' | strip_newlines | replace: '  ', '' -}}
+{{- main_menu_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
+{{- main_menu_css| replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
 
 {%- capture main_menu_content -%}
   <style scoped>
@@ -196,7 +196,7 @@
     </div>
   </div>
 {%- endcapture -%}
-{{- main_menu_content | strip_newlines -}}
+{{- main_menu_content | strip_newlines | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

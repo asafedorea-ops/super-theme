@@ -2,9 +2,8 @@
     {%- render 'style-banner-style1' -%}
 {%- endcapture -%}
 
-
-{{- banner_style_1_css | replace: 'data-lazy', 'class="critical2"' | strip_newlines | replace: '  ', '' -}}
-{{- banner_style_1_css | replace: 'data-lazy', 'type="lazyload2"' | strip_newlines | replace: '  ', '' -}}
+{{- banner_style_1_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
+{{- banner_style_1_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
 
 {%- capture banner_style_1_content -%}
   {% capture banner_content %}
@@ -101,221 +100,23 @@
     {% endif %}
   <!-- end banner-style1.liquid -->
   <style scoped>
-  /**section banner-style1**/
-  {% for block in section.blocks %}
-  #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }} {
-    left:{{ block.settings.vasta_button_horizontal_position }}%;
-    top:{{ block.settings.vasta_button_vertical_position }}%;
-    height:{{ block.settings.vasta_button_height }}px;
-    text-transform: {{ block.settings.button_text_transform }};
-    max-width: {{ block.settings.vasta_button_max_width_desktop }}px;
-    line-height:1.5;
-  }
-  {% endfor %}
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-  #shopify-section-{{ section.id }} .homepage-style-1 {
-    display: block;
-  }
-  #shopify-section-{{ section.id }} .btn-v {
-    background-color: {{ section.settings.vasta_buttons_color_1 }};
-    color: {{ section.settings.vasta_buttons_text_color_1 }};
-    border: 3px solid {{ section.settings.vasta_border_color_1 }};
-
-    {% if section.settings.vasta_buttons_hover_effect == 'none' %}
-    transition: unset;
-    {% endif %}
-  }
-  #shopify-section-{{ section.id }} .btn-v:hover,
-  #shopify-section-{{ section.id }} .btn-v:active {
-    border: 3px solid {{ section.settings.vasta_border_color_1_hover }};
-  }
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .slider-buttons .btn-v.{{ section.settings.vasta_buttons_hover_effect }}:hover,
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .slider-buttons .btn-v.{{ section.settings.vasta_buttons_hover_effect }}:active {
-    background-color: {{ section.settings.vasta_buttons_hover_color_1 }};
-    color: {{ section.settings.vasta_buttons_hover_text_color_1 }};
-  }
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .slider-buttons .btn-v.effect_1:before{
-    background-color: {{ section.settings.vasta_buttons_hover_color_1 }};
-  }
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles{
-    top:{{ section.settings.vasta_title_vertical_position }}%;
-    left:{{ section.settings.vasta_title_horizontal_position }}%;
-    padding: 8px 24px;
-    background: {{ section.settings.banner_titles_background_color }};
-
-    {%- if section.settings.enable_max_width -%}
-    max-width: {{ section.settings.banner_headline_width }}px;
-    {%- endif -%}
-  }
-
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-title,
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-title *{
-    color:{{ section.settings.banner_titcolor }};
-    font-size: {{ section.settings.main_banner_headline_size | divided_by: 16.0 }}rem;
-    text-align: {{ section.settings.vasta_headline_align }};
-  }
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-sub-title,
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-sub-title *{
-    font-size: {{ section.settings.main_banner_sub_headline_size | divided_by: 16.0 }}rem;
-    color:{{ section.settings.banner_sub_titcolor }};
-    text-align: {{ section.settings.vasta_headline_align }};
-  }
-  #shopify-section-{{ section.id }} .btn-v {
-    font-size:{{ section.settings.banner_font_size_button }}px;
+    #shopify-section-{{ section.id }} .homepage-style-1 .banner-padding-top-desktop{
+      padding-top: {{ paddingTopDesktop }}%;
     }
-  #shopify-section-{{ section.id }} .homepage-style-1 .banner-padding-top-desktop{
-    padding-top: {{ paddingTopDesktop }}%;
-  }
-  #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles{
-    width: {{ section.settings.banner_desktop_width }}%;
-    height: auto;
-  }
-  {% if section.settings.vasta_banner_width == 'keep_image_size' %}
-  #shopify-section-{{ section.id }} .homepage-style-1 .banner-img.banner-padding-top-desktop{
-      padding-top: 0;
-  }
-  #shopify-section-{{ section.id }} .banner-img.banner-padding-top-desktop img {
-      position: relative;
-      top: 0;
-      left: 0;
-      transform: none;
-      max-width: 100%;
-      width: 100%;
-      object-fit: cover;
-      height: 100%;
-  }
-  {% endif %}
-
-  /**@media queries**/
-  @media (max-width: 1019px) {
-    #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles{
-      top:{{ section.settings.vasta_title_vertical_position_tablet }}%;
-      left:{{ section.settings.vasta_title_horizontal_position_tablet }}%;
-      }
-      #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-title,
-      #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-title *{
-        font-size: {{ section.settings.main_banner_headline_size_tablet | divided_by: 16.0 }}rem;
-      }
-      #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-sub-title,
-      #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-sub-title *{
-        font-size: {{ section.settings.main_banner_sub_headline_size_tablet | divided_by: 16.0 }}rem;
-      }
-      #shopify-section-{{ section.id }} .btn-v {
-        font-size:{{ section.settings.banner_font_size_button_tablet }}px;
-      }
-      {% for block in section.blocks %}
-        #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }} {
-          left:{{ block.settings.vasta_button_horizontal_position_tablet }}%;
-          top:{{ block.settings.vasta_button_vertical_position_tablet }}%
+    @media(max-width:767px){
+      {%- if section.settings.mobile_banner_style_1 != blank -%}
+        #shopify-section-{{ section.id }} .homepage-style-1 .banner-img.banner-padding-top-mobile{
+          padding-top: {{ paddingTopMobile }}%;
         }
-        #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }}.btn-v {
-          max-width: {{ block.settings.vasta_button_max_width_tablet }}px;
-        }
-        #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }} {
-          height:{{ block.settings.vasta_button_height_tablet }}px;
-        }
-      {% endfor %}
+      {% endif %}
     }
-
-  @media(max-width: 767px) {
-    {% for block in section.blocks %}
-    #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }} {
-      left:{{ block.settings.vasta_button_horizontal_position_mobile }}%;
-      top:{{ block.settings.vasta_button_vertical_position_mobile }}%
+    :root {
+      --banner-title-color:{{ section.settings.banner_titcolor }};
+      --banner-sub-title-color:{{ section.settings.banner_sub_titcolor }};
     }
-    #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }}.btn-v {
-      max-width: {{ block.settings.vasta_button_max_width }}px;
-    }
-    #shopify-section-{{ section.id }} #Banner1Btn-{{ forloop.index }}-{{ section.id }} {
-      height:{{ block.settings.vasta_button_height_mobile }}px;
-    }
-    {% endfor %}
-    #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles{
-      top:{{ section.settings.vasta_title_vertical_position_mobile }}%;
-      left:{{ section.settings.vasta_title_horizontal_position_mobile }}%;
-      width: {{ section.settings.banner_mobile_width }}%;
-      height: {{ section.settings.banner_mobile_height }}px;
-    }
-    #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-title,
-    #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-title *{
-      font-size: {{ section.settings.main_banner_headline_size_mobile | divided_by: 16.0 }}rem;
-      text-align: {{ section.settings.vasta_headline_align_mobile }};
-    }
-    #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-sub-title,
-    #shopify-section-{{ section.id }} .homepage-style-1.banner .banner-titles .banner-sub-title *{
-      font-size: {{ section.settings.main_banner_sub_headline_size_mobile | divided_by: 16.0 }}rem;
-      text-align: {{ section.settings.vasta_headline_align_mobile }};
-    }
-    {%- if section.settings.mobile_banner_style_1 != blank -%}
-    #shopify-section-{{ section.id }} .homepage-style-1 .banner-img.banner-padding-top-mobile{
-      padding-top: {{ paddingTopMobile }}%;
-    }
-    {% endif %}
-    #shopify-section-{{ section.id }} .btn-v {
-      font-size:{{ section.settings.banner_font_size_button_mobile }}px;
-    }
-    {% if section.settings.vasta_banner_width == 'keep_image_size' %}
-      #shopify-section-{{ section.id }} .homepage-style-1 .banner-img.banner-padding-top-mobile{
-          padding-top: 0;
-    }
-    {% endif %}
-  }
-
-  {% if section.settings.enable_custom_banner_height %}
-    #shopify-section-{{ section.id }} .homepage-style-1 .banner-img {
-      overflow: hidden;
-      display: flex;
-      height: 0;
-      padding-top: {{ section.settings.banner_max_height }}px;
-      top: 0;
-      left: 0;
-      width: 100%;
-      position: relative;
-    }
-    #shopify-section-{{ section.id }} .homepage-style-1 .banner-img img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 100%;
-      width: 100%;
-      object-fit: cover;
-      height: 100%;
-    }
-
-  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-    #shopify-section-{{ section.id }} .homepage-style-1 .banner-img img {
-      height: auto;
-    }
-  }
-  @media (max-width: 1019px) {
-    #shopify-section-{{ section.id }} .homepage-style-1 .banner-img {
-      padding-top: {{ section.settings.banner_max_height_tablet }}px;
-    }
-  }
-  @media (max-width: 767px) {
-    #shopify-section-{{ section.id }} .homepage-style-1 .banner-img {
-      padding-top: {{ section.settings.banner_max_height_mobile }}px;
-    }
-  }
-  {% endif %}
-
-  :root {
-    --banner-title-color:{{ section.settings.banner_titcolor }};
-    --banner-sub-title-color:{{ section.settings.banner_sub_titcolor }};
-  }
   </style>
 {%- endcapture -%}
-{{- banner_style_1_content | strip_newlines -}}
+{{- banner_style_1_content | strip_newlines | replace: '  ' , ' ' -}}
 {% schema %}
 {
   "name": "Banner(Three Buttons)",
