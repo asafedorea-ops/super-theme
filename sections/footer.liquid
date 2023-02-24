@@ -1,3 +1,4 @@
+<!-- start footer.liquid (SECTION) -->
 {%- capture footer_css -%}
     {%- render 'style-footer' -%}
 {%- endcapture -%}
@@ -6,17 +7,13 @@
   {%- render 'style-newsletter' -%}
 {%- endcapture -%}
 
-
-{{- footer_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
-{{- footer_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
-
-{{- newsletter_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
-{{- newsletter_css| replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
-
-<!-- start footer.liquid (SECTION) -->
-
 {% capture footer_content %}
+  {{- footer_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- footer_css | replace: 'data-vasta', 'type="lazyload2"' -}}
 
+  {{- newsletter_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- newsletter_css| replace: 'data-vasta', 'type="lazyload2"' -}}
+  
   <section data-section-id="{{ section.id }}" class="site-footer {% if settings.enabled_atc_float_box and template contains "product" %}product-page-has-float-box{% endif %}" data-section-type="main-footer">
     <h3 class="hide">Footer</h3>
     <div class="wrapper">

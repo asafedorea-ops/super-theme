@@ -4,66 +4,64 @@
     {%- render 'style-header' -%}
 {%- endcapture -%}
 
-{{- header_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
-{{- header_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
 
 {% capture header_content %}
-<style>
-  :root {
-    --vasta_menu_title_color:{{ section.settings.vasta_menu_title_color }};
-    --vasta_menu_color:{{ section.settings.vasta_menu_color }};
-    --vasta-cart-color:{{ section.settings.vasta_cart_color }};
-    --vasta-icon-color-text:{{ section.settings.vasta_icon_color_text }};
-    --vasta-icon-color-text-hover:{{ section.settings.vasta_icon_color_text_hover }};
-    --vasta-icon-color:{{ section.settings.vasta_icon_color }};
-    --vasta-icon-color-hover:{{ section.settings.vasta_icon_color_hover }};
+  {{- header_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- header_css | replace: 'data-vasta', 'type="lazyload2"' -}}
+  <style>
+    :root {
+      --vasta_menu_title_color:{{ section.settings.vasta_menu_title_color }};
+      --vasta_menu_color:{{ section.settings.vasta_menu_color }};
+      --vasta-cart-color:{{ section.settings.vasta_cart_color }};
+      --vasta-icon-color-text:{{ section.settings.vasta_icon_color_text }};
+      --vasta-icon-color-text-hover:{{ section.settings.vasta_icon_color_text_hover }};
+      --vasta-icon-color:{{ section.settings.vasta_icon_color }};
+      --vasta-icon-color-hover:{{ section.settings.vasta_icon_color_hover }};
 
-    --vasta-search-placeholder-color: #898989;
-    --vasta-search-border-color:{{ section.settings.vasta_search_border_color }};
-    --search-button-color:{{ section.settings.vasta_search_button_color }};
-    --vasta-search-text-button-color:{{ section.settings.vasta_search_text_button_color }};
-    --vasta-search-button-hover-color:{{ section.settings.vasta_search_button_hover_color }};
-    --vasta-search-text-button-hover-color:{{ section.settings.vasta_search_text_button_hover_color }};
-    --vasta-border-color-on-mobile:{{ section.settings.vasta_border_color_on_mobile }};
+      --vasta-search-placeholder-color: #898989;
+      --vasta-search-border-color:{{ section.settings.vasta_search_border_color }};
+      --search-button-color:{{ section.settings.vasta_search_button_color }};
+      --vasta-search-text-button-color:{{ section.settings.vasta_search_text_button_color }};
+      --vasta-search-button-hover-color:{{ section.settings.vasta_search_button_hover_color }};
+      --vasta-search-text-button-hover-color:{{ section.settings.vasta_search_text_button_hover_color }};
+      --vasta-border-color-on-mobile:{{ section.settings.vasta_border_color_on_mobile }};
 
-    --nav-back-color:{{ section.settings.nav_back_color }};
-    --nav-text-color:{{ section.settings.nav_text_color }};
-    --vasta-dropdown-menu-color:{{ section.settings.vasta_dropdown_menu_color }};
-    --vasta-menu-hover-text-color:{{ section.settings.vasta_menu_hover_text_color }};
-    --nav-drpback-color:{{ section.settings.nav_drpback_color }};
-    --vasta-dropdown-menu-text-color:{{ section.settings.vasta_dropdown_menu_text_color }};
-    --nav-drphover-color:{{ section.settings.nav_drphover_color }};
-    --vasta-dropdown-menu-hover-text-color:{{ section.settings.vasta_dropdown_menu_hover_text_color }};
-    --vasta_dropdown_menu_border_color: {{ section.settings.vasta_dropdown_menu_border_color }};
-    --vasta_dropdown_menu_min_width:  {{ section.settings.min_width_dropdown_menu }}px;
-    --vasta_item_nav_menu_font_size:  {{ settings.item_nav_menu_font_size }}px;
-    --vasta_item_nav_menu_font_size_tablet:  {{ settings.item_nav_menu_font_size_tablet }}px;
-    --vasta_item_nav_menu_dropdown_font_size:  {{ settings.item_nav_menu_dropdown_font_size }}px;
-    --vasta_item_nav_menu_dropdown_font_size_tablet:  {{ settings.item_nav_menu_dropdown_font_size_tablet }}px;
-    --cart_title_font_size:  {{ section.settings.cart_title_font_size }}px;
-    --cart_title_color:  {{ section.settings.cart_title_color }};
-    --header_fallback_text_transform: {{ section.settings.header_title_icons }};
+      --nav-back-color:{{ section.settings.nav_back_color }};
+      --nav-text-color:{{ section.settings.nav_text_color }};
+      --vasta-dropdown-menu-color:{{ section.settings.vasta_dropdown_menu_color }};
+      --vasta-menu-hover-text-color:{{ section.settings.vasta_menu_hover_text_color }};
+      --nav-drpback-color:{{ section.settings.nav_drpback_color }};
+      --vasta-dropdown-menu-text-color:{{ section.settings.vasta_dropdown_menu_text_color }};
+      --nav-drphover-color:{{ section.settings.nav_drphover_color }};
+      --vasta-dropdown-menu-hover-text-color:{{ section.settings.vasta_dropdown_menu_hover_text_color }};
+      --vasta_dropdown_menu_border_color: {{ section.settings.vasta_dropdown_menu_border_color }};
+      --vasta_dropdown_menu_min_width:  {{ section.settings.min_width_dropdown_menu }}px;
+      --vasta_item_nav_menu_font_size:  {{ settings.item_nav_menu_font_size }}px;
+      --vasta_item_nav_menu_font_size_tablet:  {{ settings.item_nav_menu_font_size_tablet }}px;
+      --vasta_item_nav_menu_dropdown_font_size:  {{ settings.item_nav_menu_dropdown_font_size }}px;
+      --vasta_item_nav_menu_dropdown_font_size_tablet:  {{ settings.item_nav_menu_dropdown_font_size_tablet }}px;
+      --cart_title_font_size:  {{ section.settings.cart_title_font_size }}px;
+      --cart_title_color:  {{ section.settings.cart_title_color }};
+      --header_fallback_text_transform: {{ section.settings.header_title_icons }};
 
-    {% if section.settings.background_button_cupon != blank %}
-      --vasta-background-button-cuopon:{{ section.settings.background_button_cupon }};
-    {% endif %}
-  }
-</style>
+      {% if section.settings.background_button_cupon != blank %}
+        --vasta-background-button-cuopon:{{ section.settings.background_button_cupon }};
+      {% endif %}
+    }
+  </style>
 
+  <h3 class="hide">Header</h3>
 
-<h3 class="hide">Header</h3>
+  {%- unless template contains "cart" and settings.only_shipping_bar == false -%}
+    {%- render 'header-sitewide' -%}
 
-{%- unless template contains "cart" and settings.only_shipping_bar == false -%}
-  {%- render 'header-sitewide' -%}
-
-  {%- unless section.settings.enabled_search_bar == false and section.settings.enable_menu_into_header -%}
-    {%- render 'main-menu' -%}
+    {%- unless section.settings.enabled_search_bar == false and section.settings.enable_menu_into_header -%}
+      {%- render 'main-menu' -%}
+    {%- endunless -%}
+  {%- else -%}
+    {%- render 'header-cart' -%}
   {%- endunless -%}
-{%- else -%}
-  {%- render 'header-cart' -%}
-{%- endunless -%}
 
- 
 {% endcapture %}
 
 {{- header_content | strip_newlines | replace: '  ' , ' ' -}}

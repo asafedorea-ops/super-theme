@@ -2,10 +2,10 @@
     {%- render 'style-banner-style1' -%}
 {%- endcapture -%}
 
-{{- banner_style_1_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
-{{- banner_style_1_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
-
 {%- capture banner_style_1_content -%}
+
+  {{- banner_style_1_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- banner_style_1_css | replace: 'data-vasta', 'type="lazyload2"' -}}
   {% capture banner_content %}
   {%- assign enable_lazy = section.settings.enable_lazy_load | default: false -%}`
 

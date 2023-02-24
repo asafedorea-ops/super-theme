@@ -4,10 +4,10 @@
     {%- render 'style-cart' -%}
 {%- endcapture -%}
 
-{{- cart_drawer_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '  ' , ' ' -}}
-{{- cart_drawer_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '  ' , ' ' -}}
-
 {%- capture cart_drawer_content -%}
+    
+  {{- cart_drawer_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- cart_drawer_css | replace: 'data-vasta', 'type="lazyload2"' -}}
   <div id="CartDrawer" class="cart-drawer drawer--right" tabindex="-1" data-section-type="cart-drawer">
     {%- render 'cart-drawer-header' with section_settings: section.settings, cart: cart -%}
 
@@ -628,8 +628,8 @@
   let text_message_initial_before = '{{ section.settings.shipping_bar_free_shipping_before | escape }}'
   let text_message_initial_after = '{{ section.settings.shipping_bar_free_shipping_after | escape }}'
   let free_shipping_text = '<span class="shipping-bar__message-wrapper">{{ section.settings.shipping_bar_freeshipping_text | escape }}</span>'
-  const cartDrawerSettings = {
-      shipping_bar: shipping_bar
+  const cartDrawerSettings = { 
+    shipping_bar: shipping_bar 
   }
   let cart_discount_by = "{{ settings.enabled_discount_cart_page | escape }}",    
   cart_success_message = "{{ settings.cart_discount_text }}";

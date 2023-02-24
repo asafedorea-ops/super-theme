@@ -1,4 +1,25 @@
-<style data-vasta>
+<style data-vasta scoped>
+    #shopify-section-{{ section.id }} .shipping-bar__section-item,
+    #shopify-section-{{ section.id }} .shipping-bar__message,
+    #shopify-section-{{ section.id }} .shipping-bar__item--small {
+      font-size: {{ section.settings.font_size_desktop }}px;
+    }
+    #shopify-section-{{ section.id }} .shipping-bar__item svg {
+      width: {{ section.settings.font_size_desktop }}px;
+    }
+    #shopify-section-{{ section.id }} {
+        background-color: {{ section.settings.background_color }};
+        color: {{ section.settings.text_color }};
+        {%- if section.settings.position -%}
+          position: fixed;
+          top: 0;
+          left: 0;
+          z-index: 10;
+        {%- endif -%}
+    }
+    #shopify-section-{{ section.id }} svg {
+        fill: {{ section.settings.text_color }};
+    }
     .shipping-text {
         width: 100%;
         margin: 0;
@@ -44,7 +65,7 @@
         flex: 1;
     }
     .shipping-bar__item {
-     line-height: 1.15;
+        line-height: 1.15;
     }
     .shipping-bar__item:nth-of-type(1) {
         text-align: left;
@@ -105,16 +126,13 @@
         .shipping-bar__item--small {
           max-width: 190px;
         }
-    }
-    @media (max-width: 479px) {
-        .shipping-bar__item {
-          font-size: .85rem;
+        #shopify-section-{{ section.id }} .shipping-bar__section-item,
+        #shopify-section-{{ section.id }} .shipping-bar__message,
+        #shopify-section-{{ section.id }} .shipping-bar__item--small {
+            font-size: {{ section.settings.font_size_tablet }}px;
         }
-        .shipping-bar__section-item {
-          font-size: 10px;
-        }
-        .shipping-bar > .wrapper {
-          padding: 0;
+        #shopify-section-{{ section.id }} .shipping-bar__item svg {
+            width: {{ section.settings.font_size_tablet }}px;
         }
     }
     @media (max-width: 767px) {
@@ -126,6 +144,26 @@
         }
         .shipping-text .shipping-text-content p {
             font-weight: normal;
+        }
+        #shopify-section-{{ section.id }} .shipping-bar__section-item,
+        #shopify-section-{{ section.id }} .shipping-bar__message,
+        #shopify-section-{{ section.id }} .shipping-bar__item--small {
+            font-size: {{ section.settings.font_size_mobile }}px;
+        }
+        
+        #shopify-section-{{ section.id }} .shipping-bar__item svg {
+            width: {{ section.settings.font_size_mobile }}px;
+        }
+    }
+    @media (max-width: 479px) {
+        .shipping-bar__item {
+          font-size: .85rem;
+        }
+        .shipping-bar__section-item {
+          font-size: 10px;
+        }
+        .shipping-bar > .wrapper {
+          padding: 0;
         }
     }
 </style>
