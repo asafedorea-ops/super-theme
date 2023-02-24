@@ -26,7 +26,7 @@
               <h1 class="product-title no-mobile">
                   {{ product.title }}
               </h1>
-
+{% render 'judgeme_widgets', widget_type: 'judgeme_preview_badge', jm_style: '', concierge_install: true, product: product %}
               <div class="no-mobile">
                   {%- if product.metafields.field.short_description != blank and section.settings.select_position_short_description == "before" -%}
                 <div class="meta-short-description"{%- if section.settings.enable_short_description == false -%} style="display: none;"{%- endif -%}>  {{ product.metafields.field.short_description }} </div>
