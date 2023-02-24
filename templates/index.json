@@ -29,7 +29,7 @@
         "6387f68d-af18-45c4-8cd9-942d907c65c6"
       ],
       "settings": {
-        "enable_custom_margins_paddings": false,
+        "enable_custom_margins_paddings": true,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
@@ -374,7 +374,7 @@
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
         "title": "",
-        "social_icon_color": "#000",
+        "social_icon_color": "#000000",
         "section_title_text_transform": "unset",
         "position_social_and_info": "center",
         "show_title": false,
