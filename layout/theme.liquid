@@ -4,6 +4,7 @@
 <html lang="{{- shop.locale -}}">
 <!--<![endif]-->
   <head>
+{% include 'limespot' %}
     <link rel="dns-prefetch" href="https://shopify.vastaweb.com">
     <link rel="dns-prefetch" href="https://cdn.shopify.com">
     <link rel="dns-prefetch" href="https://ajax.googleapis.com">
@@ -140,6 +141,7 @@
         <h2 class="hide">{{- template.name | capitalize -}} Content</h2>
 
         {{ content_for_layout }}
+<limespot></limespot>
 
         {%- assign enable_recently_viewed_product = true -%}
         {%- if settings.disable_recently_viewed_on_product_page and template contains 'product' -%}
