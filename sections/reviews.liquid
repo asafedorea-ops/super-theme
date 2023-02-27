@@ -1,105 +1,96 @@
-<!-- start reviews.liquid (SECTION) -->
+{%- capture section_reviews_css -%}
+    {%- render 'style-section-reviews' -%}
+{%- endcapture -%}
 
 <link data-href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link data-href="{{ 'section-reviews.css' | asset_url }}"/>
 
+{%- capture section_reviews_content -%}
 
-{% if section.settings.enable_reviews %}
-  <section data-section-type="reviews" id="slider-reviews-{{ section.id }}" data-slider="{{ section.id }}" class="{{ section.settings.custom_class }}">
-      <h3 class="hide">Reviews</h3>
-      <div class="reviews-content">
-        <div class="wrapper">
-          {%- if section.settings.title != blank -%}
-            <h2 class="section-title">{{ section.settings.title | escape }}</h2>
-          {%- endif -%}
+  {{- section_reviews_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- section_reviews_css | replace: 'data-vasta', 'type="lazyload2"' -}}
+  {% if section.settings.enable_reviews %}
+    <!-- start reviews.liquid (SECTION) -->
+    <section data-section-type="reviews" id="slider-reviews-{{ section.id }}" data-slider="{{ section.id }}" class="{{ section.settings.custom_class }}">
+        <h3 class="hide">Reviews</h3>
+        <div class="reviews-content">
+          <div class="wrapper">
+            {%- if section.settings.title != blank -%}
+              <h2 class="section-title">{{ section.settings.title | escape }}</h2>
+            {%- endif -%}
 
-          <div id="slider-{{ section.id }}" class="slick-slider" data-autoplay="{{ section.settings.slider_autoplay }}" data-speed="{{ section.settings.slider_speed }}">
-            {%- for block in section.blocks -%}
-              {%- if "select" == block.type -%}
-                <div class="slick-content" {{ block.shopify_attributes }}>
-                  <div class="star-reviews">
-                    {%- for i in (1..block.settings.stars_review) -%}
-                      {%- render "icon-star" -%}
-                    {%- endfor -%}
-                  </div>
-
-                  <div class="text-reviews">
-                    {%- if block.settings.title_review != blank -%}
-                    <strong class="review-title">{{ block.settings.title_review }}</strong>
-                    {%- endif -%}
-                    {{ block.settings.content_review }}
-                  </div>
-
-                  {%- if block.settings.author_review != blank -%}
-                  <div class="athor-reviews">
-                    <strong>{{ block.settings.author_review }}</strong>
-                  </div>
-                  {%- endif -%}
-
-                  {%- if block.settings.date_review != blank -%}
-                  <div class="date-reviews">
-                    {{ block.settings.date_review }}
-                  </div>
-                  {%- endif -%}
-
-                  {%- if block.settings.product_image != blank -%}
-                    <div class="img-reviews">
-                      <a title="{{ block.settings.title_review | strip_html | escape }}" id="ReviewsLink-{{ forloop.index }}" href="{{ block.settings.link_product_review }}">
-                        {%- assign image_id_prefix = 'reviews-img' | append: forloop.index -%}
-
-                        {%- if block.settings.product_image != blank -%}
-                          {% assign image = block.settings.product_image %}
-                        {% else %}
-                          {%- assign product_temp = all_products[block.settings.product] -%}
-                          {%- assign image = product_temp.featured_image -%}
-                        {% endif %}
-
-                        {%- if image.alt != blank -%}
-                          {%- assign image_alt = image.alt | strip_html | escape -%}
-                        {%- elsif block.settings.title_review != blank -%}
-                          {%- assign image_alt = block.settings.title_review | strip_html | escape -%}
-                        {%- else -%}
-                          {%- assign image_alt = "Image without description." -%}
-                        {%- endif -%}
-
-                        {%- if image != blank -%}
-                          {%- render 'responsive-image',
-                              id_prefix: image_id_prefix,
-                              image: image,
-                              active_lazy: true,
-                              max_width: 150,
-                              no_wrap: true,
-                              alt_text: image_alt
-                          -%}
-                        {%- endif -%}
-                        {{ block.settings.product_review }}
-                      </a>
+            <div id="slider-{{ section.id }}" class="slick-slider" data-autoplay="{{ section.settings.slider_autoplay }}" data-speed="{{ section.settings.slider_speed }}">
+              {%- for block in section.blocks -%}
+                {%- if "select" == block.type -%}
+                  <div class="slick-content" {{ block.shopify_attributes }}>
+                    <div class="star-reviews">
+                      {%- for i in (1..block.settings.stars_review) -%}
+                        {%- render "icon-star" -%}
+                      {%- endfor -%}
                     </div>
-                  {%- endif -%}
-                </div>
-              {%- endif -%}
-            {%- endfor -%}
+
+                    <div class="text-reviews">
+                      {%- if block.settings.title_review != blank -%}
+                      <strong class="review-title">{{ block.settings.title_review }}</strong>
+                      {%- endif -%}
+                      {{ block.settings.content_review }}
+                    </div>
+
+                    {%- if block.settings.author_review != blank -%}
+                    <div class="athor-reviews">
+                      <strong>{{ block.settings.author_review }}</strong>
+                    </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.date_review != blank -%}
+                    <div class="date-reviews">
+                      {{ block.settings.date_review }}
+                    </div>
+                    {%- endif -%}
+
+                    {%- if block.settings.product_image != blank -%}
+                      <div class="img-reviews">
+                        <a title="{{ block.settings.title_review | strip_html | escape }}" id="ReviewsLink-{{ forloop.index }}" href="{{ block.settings.link_product_review }}">
+                          {%- assign image_id_prefix = 'reviews-img' | append: forloop.index -%}
+
+                          {%- if block.settings.product_image != blank -%}
+                            {% assign image = block.settings.product_image %}
+                          {% else %}
+                            {%- assign product_temp = all_products[block.settings.product] -%}
+                            {%- assign image = product_temp.featured_image -%}
+                          {% endif %}
+
+                          {%- if image.alt != blank -%}
+                            {%- assign image_alt = image.alt | strip_html | escape -%}
+                          {%- elsif block.settings.title_review != blank -%}
+                            {%- assign image_alt = block.settings.title_review | strip_html | escape -%}
+                          {%- else -%}
+                            {%- assign image_alt = "Image without description." -%}
+                          {%- endif -%}
+
+                          {%- if image != blank -%}
+                            {%- render 'responsive-image',
+                                id_prefix: image_id_prefix,
+                                image: image,
+                                active_lazy: true,
+                                max_width: 150,
+                                no_wrap: true,
+                                alt_text: image_alt
+                            -%}
+                          {%- endif -%}
+                          {{ block.settings.product_review }}
+                        </a>
+                      </div>
+                    {%- endif -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
           </div>
         </div>
-      </div>
-
-  </section>
-
-{% endif %}
-
-<style scoped>
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-</style>
-
+    </section>
+  {% endif %}
+{%- endcapture -%}
+{{- section_reviews_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 {% schema %}
 {
   "name": "Reviews",

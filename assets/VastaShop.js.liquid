@@ -25,7 +25,6 @@
                 var enableOutOffStockButton = {{ settings.enable_out_of_stock_button | default: false }};
 
                 this.current.variants.forEach(function (e) {
-                    // Only available variant is added.
 
                     if (e.available || enableOutOffStockButton) {
                         if (typeof variations[e.option1] === 'undefined')
@@ -242,14 +241,6 @@
 })(window, jQuery);
 
 
-
-
-
-
-// *****************************************************************************
-// *****************************************************************************
-// *****************************************************************************
-
 /** Functions */
 
 /**
@@ -327,7 +318,6 @@ function plusItem(buttom_plus, item_qtd) {
     } else if (input_qtd.attr('data-max') == -1) {
         input_qtd.val(parseInt(input_qtd.val()) + 1);
     }
-    // inventoryControl(jQuery(buttom_plus).attr('name'));
 }
 
 
@@ -579,7 +569,6 @@ function cart_line(prod, index, oldQtd, id_variant) {
         isDiscount = '';
     }
 
-    // var variant = JSON.parse(window.localStorage.getItem('all_products'));
     prod.image = image_resize(prod.image, 100, 100);
 
     variant_title = prod.variant_title != null ? prod.variant_title : '';
@@ -1089,7 +1078,6 @@ function productInventory(item, variant_id) {
     } else if (item != null && variant_id == item.variant_id) {
         VastaShop.Variables.itemqtdRest = VastaShop.Variables.variant_inventory - item.quantity;
         if (VastaShop.Variables.itemqtdRest == 0) {
-            //   disableInputs(variant_id);
         }
     } else {
         VastaShop.Variables.itemqtdRest = VastaShop.Variables.variant_inventory;
@@ -1149,10 +1137,6 @@ function size_chart(event) {
 }
 
 
-// *****************************************************************************
-// *****************************************************************************
-// *****************************************************************************
-
 
 (function ($) {
     jQuery(document).ready(function () {
@@ -1199,7 +1183,6 @@ function size_chart(event) {
             $("#AddToCart").trigger('click');
             e.preventDefault();
         });
-        // Size chart
         $document.on('click', '.vasta-size-chart-link', size_chart);
     });
 })(jQuery);

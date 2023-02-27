@@ -197,7 +197,7 @@
 
   <script type="lazyload2">
     setTimeout(function(){
-      // Open Menu Mobile
+      /* Open Menu Mobile */
       document.querySelector('.header__icon__wrap.icon--menu').addEventListener("click", function() {
         if (document.body.classList.contains('js-drawer-open-left')) {
           document.body.classList.remove('js-drawer-open-left');
@@ -208,17 +208,17 @@
         }
       });
   
-      // Close Nav
+      /* Close Nav */
       const closeNav = function(elClass) {
         document.querySelector(`${elClass}`).addEventListener('click', function() {
           document.querySelector('body').classList.remove('js-drawer-open-left','cart-open','cart-drawer-open' );
         });
-      }
+      };
   
       closeNav('.sidenav__close');
       closeNav('.DrawerOverlay');
   
-      // Toggle Plus / Minus 
+      /* Toggle Plus / Minus */
       let allSideNavIcon = document.querySelectorAll('.sidenav__icon');
   
       document.querySelectorAll('.js-dropdown').forEach(el => {
@@ -239,7 +239,7 @@
             
             if (listType === "grandchild") {
               this.closest('.list--child').style.height = "auto";
-            }
+            };
     
             size = 0;
             let allChildEl = listEl.querySelectorAll(`.list--${listType} > .sidenav__list__item`);
@@ -257,7 +257,7 @@
             let listEl = this.closest('.sidenav__list__item');
             if (listType === "child") {
               const menuHeight = listEl.querySelector('.list--child').offsetHeight;
-            }
+            };
             
             this.querySelector('.toggle').classList.remove('rotateVerticalLine','rotateHorizontalLine');
             this.querySelector('.toggle').classList.remove('toggle--minus');
@@ -269,8 +269,8 @@
       });
   });
   </script>
-{%- endcapture -%}
-{{- main_menu_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+  {%- endcapture -%}
+  {{- main_menu_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

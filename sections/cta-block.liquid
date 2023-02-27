@@ -84,7 +84,7 @@
                 width: '30%'
             }, 250);
 
-            $('#add-to-cart-error').empty().hide()
+            $('#add-to-cart-error').empty().hide();
 
             VastaShop.Cart.addItem(jQuery(this).serialize()).then(function(prod, status) {
                 if ('success' == status) {

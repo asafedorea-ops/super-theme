@@ -25,10 +25,6 @@
               {%- endif -%}
               {%- if section.settings.homepage_banner_style_2.alt != blank -%}
                   {%- assign image01_alt = section.settings.homepage_banner_style_2.alt | strip_html | escape -%}
-              {%- elsif section.settings.homepage_title != blank -%}
-                  
-              {%- else -%}
-                  
               {%- endif -%}
               <picture>
                 <source media="(min-width: {%- if section.settings.mobile_banner_style_2 != blank -%}768px{%- else -%}0px{%- endif -%})"
@@ -101,7 +97,7 @@
   </div>
   </section>
 {%- endcapture -%}
-{{- banner_style_2_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- banner_style_2_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 {% schema %}
 {
   "name": "Banner(With Two Images)",
