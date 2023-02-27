@@ -459,6 +459,65 @@
         "enable_videos_slider": false,
         "enable_full_width": false
       }
+    },
+    "152db996-38c7-4ba4-a031-92eba5449967": {
+      "type": "slider-promotional",
+      "blocks": {
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-0": {
+          "type": "slide",
+          "settings": {
+            "title_slide_promotional": "Example",
+            "link_Image_slide_promotional": "#",
+            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+          }
+        },
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-1": {
+          "type": "slide",
+          "settings": {
+            "title_slide_promotional": "Example",
+            "link_Image_slide_promotional": "#",
+            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+          }
+        },
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-2": {
+          "type": "slide",
+          "settings": {
+            "title_slide_promotional": "Example",
+            "link_Image_slide_promotional": "#",
+            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+          }
+        },
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-3": {
+          "type": "slide",
+          "settings": {
+            "title_slide_promotional": "Example",
+            "link_Image_slide_promotional": "#",
+            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-0",
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-1",
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-2",
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-3"
+      ],
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "section_title": "Promotional Slider",
+        "background_slide_promotional": "#444",
+        "text_color_slider_promotional": "#fff",
+        "top_margin_slide": 0,
+        "headline_text_transform_title_slider": "capitalize",
+        "text_transform_title_slider": "capitalize",
+        "slider_autoplay": false,
+        "slider_speed": 800
+      }
     }
   },
   "order": [
@@ -475,6 +534,7 @@
     "ab058aba-9f1d-437d-8982-0a2b628ba83a",
     "21396dd5-f8ce-4ff3-8673-fced962bdbdd",
     "bf5f7e85-16c2-44be-8fba-335d8dac1256",
-    "b1adacd4-10b5-4ecd-8d5b-ad07cc307c19"
+    "b1adacd4-10b5-4ecd-8d5b-ad07cc307c19",
+    "152db996-38c7-4ba4-a031-92eba5449967"
   ]
 }
