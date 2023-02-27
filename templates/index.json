@@ -494,13 +494,22 @@
             "link_Image_slide_promotional": "#",
             "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
           }
+        },
+        "567fde8b-339e-4191-a732-fa88d2fe0a99": {
+          "type": "slide",
+          "settings": {
+            "title_slide_promotional": "Example",
+            "link_Image_slide_promotional": "#",
+            "image_slide_promotional": "shopify:\/\/shop_images\/MIPL592CHGRY_720x_24759b9a-bf69-412a-9cc5-aaa3164c7029.jpg"
+          }
         }
       },
       "block_order": [
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-0",
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-1",
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-2",
-        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-3"
+        "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-3",
+        "567fde8b-339e-4191-a732-fa88d2fe0a99"
       ],
       "settings": {
         "enable_custom_margins_paddings": false,
