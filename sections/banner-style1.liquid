@@ -116,7 +116,7 @@
     }
   </style>
 {%- endcapture -%}
-{{- banner_style_1_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- banner_style_1_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
 {% schema %}
 {
   "name": "Banner(Three Buttons)",

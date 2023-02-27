@@ -327,7 +327,7 @@
 </style>
 
 {% endcapture %}
-{{- footer_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- footer_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

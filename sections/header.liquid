@@ -64,7 +64,7 @@
 
 {% endcapture %}
 
-{{- header_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- header_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

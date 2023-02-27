@@ -94,4 +94,4 @@
     </div>
   </div>
 {%- endcapture -%}
-{{- component_card_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- component_card_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}

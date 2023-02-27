@@ -127,7 +127,7 @@
   });
   </script>
 {%- endcapture -%}
-{{- cta_block_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- cta_block_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 {% schema %}
 {
 "name": "CTA Section",

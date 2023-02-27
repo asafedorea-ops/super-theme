@@ -270,7 +270,7 @@
   });
   </script>
 {%- endcapture -%}
-{{- main_menu_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- main_menu_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

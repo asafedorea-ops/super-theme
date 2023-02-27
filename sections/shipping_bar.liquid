@@ -105,7 +105,7 @@
     });
   </script>
 {%- endcapture -%}
-{{- shipping_bar_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- shipping_bar_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

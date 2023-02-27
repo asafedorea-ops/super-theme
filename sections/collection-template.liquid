@@ -131,7 +131,7 @@
   {%- endif -%}
 
 {% endcapture %}
-{{- collection_template_content | strip_newlines | replace: '  ' , ' ' -}}
+{{- collection_template_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
   {
