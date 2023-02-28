@@ -3,12 +3,6 @@
 {%- endcapture -%}
 
 {%- capture banner_style_3_content -%}
-<<<<<<< HEAD
-
-{{- banner_style_3_css | replace: 'data-vasta', 'class="critical2"' -}}
-{{- banner_style_3_css | replace: 'data-vasta', 'type="lazyload2"' -}}
-=======
->>>>>>> fd270110333d3ecb86e0e6f81d99ac503dd2a07f
 
   {{- banner_style_3_css | replace: 'data-vasta', 'class="critical2"' -}}
   {{- banner_style_3_css | replace: 'data-vasta', 'type="lazyload2"' -}}
@@ -19,34 +13,11 @@
 
   {%- if section.settings.mobile_banner_style_3 == blank -%}
       {%- assign paddingTopDesktop = 40 -%}
-    {%- endif -%}
+  {%- endif -%}
 
   {%- assign image_desktop_width = 1440 -%}
   {%- assign image_desktop_height = image_desktop_width | divided_by: imageDesktop.aspect_ratio -%}
-{% capture banner_content %}
-<!-- start banner-style3.liquid (SECTION) -->
-<section class="homepage-style-3 banner-style-3-{{ section.id }} {{ section.settings.custom_class }} ">
-    <div class="title-banner-3-{{ section.id }} banner-style-3-titles">
-      <a href="{{ section.settings.homepage_banner_link }}" class="banner-style-3-titles-link"></a>
-      {%- assign enable_lazy = section.settings.enable_lazy_load -%}
-      {%- if section.settings.enable_h1 -%}
-        {% if section.settings.homepage_banner_text != blank %}
-            <h1 class="banner-title">{{ section.settings.homepage_banner_text }}</h1>
-        {% else %}
-            <h1 class="banner-title hide">Banner-Desktop-{{ section.id }}</h1>
-        {% endif %}
-      {%- else -%}
-        {% if section.settings.homepage_banner_text != blank %}
-            <h2 class="banner-title">{{ section.settings.homepage_banner_text }}</h2>
-        {% else %}
-            <h2 class="banner-title hide">{{ section.settings.homepage_banner_text }}</h2>
-        {% endif %}
-      {%- endif -%}
-        <div class="banner-sub-title" >{{ section.settings.main_banner_sub_title }}</div>
-    </div>
-
-    {%- assign image_desktop_width = 1440 -%}
-    {%- assign image_desktop_height = image_desktop_width | divided_by: imageDesktop.aspect_ratio -%}
+  {% capture banner_content %}
   <!-- start banner-style3.liquid (SECTION) -->
   <section class="homepage-style-3 banner-style-3-{{ section.id }} {{ section.settings.custom_class }} ">
       <div class="title-banner-3-{{ section.id }} banner-style-3-titles">
@@ -68,45 +39,71 @@
           <div class="banner-sub-title" >{{ section.settings.main_banner_sub_title }}</div>
       </div>
 
-      <a class="banner-img background-banner-style-3-{{ section.id }} {% if section.settings.enable_custom_banner_height == false %} banner-padding-top-desktop{% endif %}{% if section.settings.enable_custom_banner_height == false %} banner-padding-top-mobile{% endif %}" href="{{ section.settings.homepage_banner_link }}">
+      {%- assign image_desktop_width = 1440 -%}
+      {%- assign image_desktop_height = image_desktop_width | divided_by: imageDesktop.aspect_ratio -%}
+    <!-- start banner-style3.liquid (SECTION) -->
+    <section class="homepage-style-3 banner-style-3-{{ section.id }} {{ section.settings.custom_class }} ">
+        <div class="title-banner-3-{{ section.id }} banner-style-3-titles">
+          <a href="{{ section.settings.homepage_banner_link }}" class="banner-style-3-titles-link"></a>
+          {%- assign enable_lazy = section.settings.enable_lazy_load -%}
+          {%- if section.settings.enable_h1 -%}
+            {% if section.settings.homepage_banner_text != blank %}
+                <h1 class="banner-title">{{ section.settings.homepage_banner_text }}</h1>
+            {% else %}
+                <h1 class="banner-title hide">Banner-Desktop-{{ section.id }}</h1>
+            {% endif %}
+          {%- else -%}
+            {% if section.settings.homepage_banner_text != blank %}
+                <h2 class="banner-title">{{ section.settings.homepage_banner_text }}</h2>
+            {% else %}
+                <h2 class="banner-title hide">{{ section.settings.homepage_banner_text }}</h2>
+            {% endif %}
+          {%- endif -%}
+            <div class="banner-sub-title" >{{ section.settings.main_banner_sub_title }}</div>
+        </div>
 
-        {%- if section.settings.homepage_banner_style_3.alt != blank -%}
-          {%- assign banner_alt = section.settings.homepage_banner_style_3.alt | strip_html | escape -%}
-        {%- endif -%}
+        <a class="banner-img background-banner-style-3-{{ section.id }} {% if section.settings.enable_custom_banner_height == false %} banner-padding-top-desktop{% endif %}{% if section.settings.enable_custom_banner_height == false %} banner-padding-top-mobile{% endif %}" href="{{ section.settings.homepage_banner_link }}">
 
-        <picture>
-          {%- assign default_image = section.settings.homepage_banner_style_3 -%}
-          {%- assign desktop_widths = '1500,1400,1300,1200,1100,1000,900,800' | split: ',' -%}
-          {%- assign mobile_widths = '700,600,500,400' | split: ',' -%}
-
-          <source class="lazy2 lazy3" media="(min-width: 768px)" {% if enable_lazy %}data-{% endif %}srcset="
-            {%- for desktop_width in desktop_widths -%}
-              https:{{- default_image | image_url: width: desktop_width }} {{ desktop_width }}w,
-            {%- endfor -%}
-          "/>
-
-          {%- if section.settings.mobile_banner_style_3 != blank -%}
-            {%- assign default_image = section.settings.mobile_banner_style_3 -%}
+          {%- if section.settings.homepage_banner_style_3.alt != blank -%}
+            {%- assign banner_alt = section.settings.homepage_banner_style_3.alt | strip_html | escape -%}
           {%- endif -%}
 
-          <source class="lazy2 lazy3" media="(max-width: 767px)" {% if enable_lazy %}data-{% endif %}srcset="
-            {%- for mobile_width in mobile_widths -%}
-              https:{{- default_image | image_url: width: mobile_width }} {{ mobile_width }}w,
-            {%- endfor -%}
-          "/>
-          <img width="{{ image_desktop_width }}" height="{{ image_desktop_height }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Banner"/>
-        </picture>
-      </a>
-  </section>
-  {% if section.settings.vasta_banner_width == 'full_width' %}
-    {{ banner_content }}
-  {% else %}
-  <div class="wrapper">
-  {{ banner_content }}
-  </div>
-{% endif %}
-{% endif %}
+          <picture>
+            {%- assign default_image = section.settings.homepage_banner_style_3 -%}
+            {%- assign desktop_widths = '1500,1400,1300,1200,1100,1000,900,800' | split: ',' -%}
+            {%- assign mobile_widths = '700,600,500,400' | split: ',' -%}
 
+            <source class="lazy2 lazy3" media="(min-width: 768px)" {% if enable_lazy %}data-{% endif %}srcset="
+              {%- for desktop_width in desktop_widths -%}
+                https:{{- default_image | image_url: width: desktop_width }} {{ desktop_width }}w,
+              {%- endfor -%}
+            "/>
+
+            {%- if section.settings.mobile_banner_style_3 != blank -%}
+              {%- assign default_image = section.settings.mobile_banner_style_3 -%}
+            {%- endif -%}
+
+            <source class="lazy2 lazy3" media="(max-width: 767px)" {% if enable_lazy %}data-{% endif %}srcset="
+              {%- for mobile_width in mobile_widths -%}
+                https:{{- default_image | image_url: width: mobile_width }} {{ mobile_width }}w,
+              {%- endfor -%}
+            "/>
+            <img width="{{ image_desktop_width }}" height="{{ image_desktop_height }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Banner"/>
+          </picture>
+        </a>
+    </section>
+    {% endcapture %}
+    {% if section.settings.vasta_banner_width == 'full_width' %}
+      {{ banner_content }}
+    {% else %}
+      {% if section.settings.vasta_banner_width == 'keep_image_size' %}
+        {{ banner_content }}
+      {% else %}
+      <div class="wrapper">
+      {{ banner_content }}
+      </div>
+      {% endif %}
+    {% endif %}
 {% endcapture %}
 {{- banner_style_3_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
 {% schema %}
