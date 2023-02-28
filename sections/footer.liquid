@@ -324,8 +324,71 @@
       padding: 0 20px;
     }
   {% endif %}
-</style>
+  </style>
+  <script type="lazyload2">
+    setTimeout(function(){
+    window.SectionFooter = (function(){
+      function SectionFooter() {
+        this._run();
+      }
 
+      SectionFooter.prototype = {
+        _run: function() {
+
+          if ( window.innerWidth < 768 )
+            $('.site-footer .menu-footer-grid').addClass('clickable');
+          else
+            $('.site-footer .menu-footer-grid').removeClass('clickable');
+
+        $(window).resize(function(){
+          if ( window.innerWidth < 768 ) {
+            $('.site-footer .menu-footer-grid').addClass('clickable');
+            $('.site-footer .menu-footer-grid .no-bullets').hide();
+          } else {
+            $('.site-footer .menu-footer-grid').removeClass('clickable');
+            $('.site-footer .menu-footer-grid .no-bullets').show();
+          }
+        });
+
+        $('.site-footer .menu-footer-grid').click(function(){
+            if (window.innerWidth < 768 && $(this).hasClass('clickable')) {
+
+              $('.site-footer .menu-footer-grid .no-bullets').stop().slideUp();
+
+              if ($('.no-bullets', this).is(':visible')){
+                $('.no-bullets', this).stop().slideUp();
+                $('.nav-title', this).removeClass('row-rotate');
+              }else {
+                $('.nav-title', this).addClass('row-rotate');
+                $('.no-bullets', this).stop().slideDown();
+                $(this).siblings().children('.nav-title').removeClass('row-rotate');
+            }
+          }
+          });
+        },
+
+        onLoad: function() {
+          this._run();
+        },
+
+        onPagehide: function() {
+
+        }
+      };
+
+      return new SectionFooter;
+    })();
+  });
+  </script>
+
+  <style scoped type="lazyload2">
+    :root{
+      --font-size-title-footer: {{ section.settings.font_size_title_footer }}px;
+      --font-size-itens-footer: {{ section.settings.font_size_itens_footer }}px;
+      --font-size-pop-itens-footer: {{ section.settings.font_size_pop_itens_footer }}px;
+      --font-size-pop-itens-footer-mobile: {{ section.settings.font_size_pop_itens_footer_mobile }}px;
+    }
+  </style>
 {% endcapture %}
 {{- footer_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
@@ -848,67 +911,3 @@
 }
 {% endschema %}
 
-<script type="lazyload2">
-  setTimeout(function(){
-  window.SectionFooter = (function(){
-    function SectionFooter() {
-      this._run();
-    }
-
-    SectionFooter.prototype = {
-      _run: function() {
-
-        if ( window.innerWidth < 768 )
-          $('.site-footer .menu-footer-grid').addClass('clickable');
-        else
-          $('.site-footer .menu-footer-grid').removeClass('clickable');
-
-      $(window).resize(function(){
-        if ( window.innerWidth < 768 ) {
-          $('.site-footer .menu-footer-grid').addClass('clickable');
-          $('.site-footer .menu-footer-grid .no-bullets').hide();
-        } else {
-          $('.site-footer .menu-footer-grid').removeClass('clickable');
-          $('.site-footer .menu-footer-grid .no-bullets').show();
-        }
-      });
-
-      $('.site-footer .menu-footer-grid').click(function(){
-          if (window.innerWidth < 768 && $(this).hasClass('clickable')) {
-
-            $('.site-footer .menu-footer-grid .no-bullets').stop().slideUp();
-
-            if ($('.no-bullets', this).is(':visible')){
-              $('.no-bullets', this).stop().slideUp();
-              $('.nav-title', this).removeClass('row-rotate');
-            }else {
-              $('.nav-title', this).addClass('row-rotate');
-              $('.no-bullets', this).stop().slideDown();
-              $(this).siblings().children('.nav-title').removeClass('row-rotate');
-          }
-        }
-        });
-      },
-
-      onLoad: function() {
-        this._run();
-      },
-
-      onPagehide: function() {
-
-      }
-    };
-
-    return new SectionFooter;
-  })();
-});
-</script>
-
-<style scoped type="lazyload2">
-  :root{
-    --font-size-title-footer: {{ section.settings.font_size_title_footer }}px;
-    --font-size-itens-footer: {{ section.settings.font_size_itens_footer }}px;
-    --font-size-pop-itens-footer: {{ section.settings.font_size_pop_itens_footer }}px;
-    --font-size-pop-itens-footer-mobile: {{ section.settings.font_size_pop_itens_footer_mobile }}px;
-  }
-</style>

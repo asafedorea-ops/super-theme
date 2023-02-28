@@ -8,7 +8,13 @@
     <link rel="dns-prefetch" href="https://cdn.shopify.com">
     <link rel="dns-prefetch" href="https://ajax.googleapis.com">
     
-    {%- render 'style-css'-%}
+    {%- capture style_css -%}
+      {%- render 'style-css'-%}
+    {%- endcapture -%}
+    
+    {{- style_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+    {{- style_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+
 
     <link rel="stylesheet" data-href="{{- 'layout.theme.styleLiquid.css' | asset_url -}}"/>
 

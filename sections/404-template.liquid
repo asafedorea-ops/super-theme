@@ -1,9 +1,9 @@
+<!-- start 404.liquid (SECTION) -->
 {%- capture section_404_template_css -%}
     {%- render 'style-404-template' -%}
 {%- endcapture -%}
 
 {%- capture section_404_template_content -%}
-    <!-- start 404.liquid (SECTION) -->
     {{- section_404_template_css | replace: 'data-vasta', 'class="critical2"' -}}
     {{- section_404_template_css | replace: 'data-vasta', 'type="lazyload2"' -}}
     <div class="wrapper">

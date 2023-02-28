@@ -211,12 +211,4 @@
 
 {%- render 'critical-style-sitewide' -%}
 
-{%- if template contains 'collection' -%}
-  {%- render 'critical-style-collection' -%}
-{%- elsif template contains 'product' -%}
-  {%- render 'critical-style-product' -%}
-{%- elsif template contains 'index' -%}
-  {%- render 'critical-style-index' -%}
-{%- else -%}
-  {%- render 'critical-style-general' -%}
-{%- endif -%}
+{%- render 'critical-style-general' -%}
