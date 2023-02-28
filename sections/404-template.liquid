@@ -1,8 +1,14 @@
-<!-- start 404.liquid (SECTION) -->
+{%- capture section_404_template_css -%}
+    {%- render 'style-404-template' -%}
+{%- endcapture -%}
 
-<link rel="stylesheet" data-href="{{ 'section-404.css' | asset_url }}"/>
-
-<div class="wrapper">
-    <h2 class="content-h2">{{ 'general.404.title' | t }}</h2>
-    <p class="content-p">{{ 'general.404.subtext_html' | t }}</p>
-</div>
+{%- capture section_404_template_content -%}
+    <!-- start 404.liquid (SECTION) -->
+    {{- section_404_template_css | replace: 'data-vasta', 'class="critical2"' -}}
+    {{- section_404_template_css | replace: 'data-vasta', 'type="lazyload2"' -}}
+    <div class="wrapper">
+        <h2 class="content-h2">{{ 'general.404.title' | t }}</h2>
+        <p class="content-p">{{ 'general.404.subtext_html' | t }}</p>
+    </div>
+{%- endcapture -%}
+{{- section_404_template_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 

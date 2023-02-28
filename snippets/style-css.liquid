@@ -14,14 +14,14 @@
     <link rel="preload" href="{{ copy_bold_body_font_url }}" as="font" crossorigin/>
 {%- endif -%}
 
-<style>
+<style scoped data-vasta>
   {{ settings.copy_body_font | font_face: font_display: 'swap' }}
   {{ settings.general_font | font_face: font_display: 'swap' }}
   {{ settings.copy_bold_body_font | font_face: font_display: 'swap' }}
 </style>
 
   
-  {%- style -%}
+  <style scoped data-vasta>
   :root {
     --color-link: {{ settings.color_link }};
     --color-sale: {{ settings.color_sale }};
@@ -207,7 +207,7 @@
     --tooltip-size: {{ settings.tooltip_size }}px;
     --iconCheckmarkChecked: #fff;
   }
-{%- endstyle -%}
+</style>
 
 {%- render 'critical-style-sitewide' -%}
 
