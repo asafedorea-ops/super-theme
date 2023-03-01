@@ -1,12 +1,12 @@
 <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
         {% if section.settings.enable_custom_margins_paddings %}
-          margin-top: {{ section.settings.custom-margin-top }}px;
-          margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-          padding-top: {{ section.settings.custom-padding-top }}px;
-          padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+            margin-top: {{ section.settings.custom-margin-top }}px;
+            margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+            padding-top: {{ section.settings.custom-padding-top }}px;
+            padding-bottom: {{ section.settings.custom-padding-bottom }}px;
         {% else %}
-          margin: 20px 0;
+            margin: 20px 0;
         {% endif %}
     }
     #shopify-section-{{ section.id }} .collection-list__item {
@@ -140,12 +140,12 @@
     }
     @media (min-width: 768px) {
         .shopify-section.banner + #shopify-section-{{ section.id }} {
-          top: {{ section.settings.top_margin_featured | times: -1 }}px;
-          {% if section.settings.enable_custom_margins_paddings %}
-            margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: section.settings.custom-margin-bottom }}px;
-          {% else %}
-            margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: 20 }}px;
-          {% endif %}
+            top: {{ section.settings.top_margin_featured | times: -1 }}px;
+            {% if section.settings.enable_custom_margins_paddings %}
+                margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+            {% else %}
+                margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: 20 }}px;
+            {% endif %}
         }
     }
     @media (max-width: 767px) {
