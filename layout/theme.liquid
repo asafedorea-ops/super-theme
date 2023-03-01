@@ -177,10 +177,7 @@
       {%- endif -%}
     </footer> 
     
-    {%- capture vasta_scritps -%} 
       {%- render 'vasta-scripts' -%}
-    {%- endcapture -%}
-    {{- vasta_scritps | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
     {{- settings.enable_html_body -}}
 

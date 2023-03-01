@@ -5,6 +5,9 @@
 
 {%- capture cart_content -%}
 
+  {{- section_cart_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- section_cart_css | replace: 'data-vasta', 'type="lazyload2"' -}}
+
   <!-- Begin ReCharge code -->
   {%- if settings.product_enabled_recharge -%}
     {%- render 'subscription-cart-footer' -%}
