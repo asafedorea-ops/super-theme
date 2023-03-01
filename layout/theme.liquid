@@ -11,13 +11,15 @@
     {%- capture style_css -%}
       {%- render 'style-css'-%}
     {%- endcapture -%}
-    
+    {%- capture layout_theme_css -%}
+      {%- render 'layout.theme.style'-%}
+    {%- endcapture -%}
+
     {{- style_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
     {{- style_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
-
-
-    <link rel="stylesheet" data-href="{{- 'layout.theme.styleLiquid.css' | asset_url -}}"/>
-
+    {{- layout_theme_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+    {{- layout_theme_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+    
     <!-- Meta Tags -->
     <meta name="theme-name" content="Super Theme BV" />
     <meta name="theme-version" content="2.2.1"/>
@@ -45,7 +47,10 @@
     <link rel="canonical" href="{{ canonical_url }}">
 
     {%- if settings.enable_custom_style -%}
-      {%- render 'custom_head' -%}
+      {%- capture custom_head-%}
+        {%- render 'custom_head' -%}
+      {%- endcapture -%}
+      {{- custom_head | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
     {%- endif -%}
 
     {%- if settings.enable_zoom_feature_for_desktop and template contains 'product' -%}
@@ -170,9 +175,12 @@
       {%- if settings.enable_button_to_the_top -%}
         {%- render 'scrollbutton' -%}
       {%- endif -%}
-    </footer>
-
-    {%- render 'vasta-scripts' -%}
+    </footer> 
+    
+    {%- capture vasta_scritps -%} 
+      {%- render 'vasta-scripts' -%}
+    {%- endcapture -%}
+    {{- vasta_scritps | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
     {{- settings.enable_html_body -}}
 

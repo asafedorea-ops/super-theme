@@ -1,5 +1,6 @@
-<!-- start list-collections-template.liquid (SECTION) -->
+'<!-- start list-collections-template.liquid (SECTION) -->
 
+{%- capture list_collection_content -%}
 {%- assign floating_items_class = '' -%}
 
 {%- if section.settings.product_title_position == 'center' -%}
@@ -164,6 +165,8 @@
     }
   }
 </style>
+{%- endcapture -%}
+{{- list_collection_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

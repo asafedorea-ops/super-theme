@@ -1,10 +1,13 @@
 <!-- start article.liquid (TEMPLATE) -->
 
-{%- capture section_404_template_css -%}
+{%- capture section_article_css -%}
     {%- render 'style-section-article-blog' -%}
 {%- endcapture -%}
 
 {%- capture article_template_content-%}
+  {{- section_article_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- section_article_css | replace: 'data-vasta', 'type="lazyload2"' -}}
+
   {%- if comment.status == 'pending' -%}
     {%- assign number_of_comments = article.comments_count | plus: 1 -%}
   {%- else -%}

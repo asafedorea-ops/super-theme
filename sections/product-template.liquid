@@ -1,242 +1,252 @@
 <!-- start product-template.liquid (SECTION) -->
+{%- capture section_product_css -%}
+  {%- render 'style-section-product' -%}
+{%- endcapture-%}
+{%- capture slick_slider_css -%}
+  {%- render 'style-slick-slider'-%}
+{%- endcapture -%}
 
-<link rel="stylesheet" data-href="{{ 'section-product.css' | asset_url }}"/>
-<link rel="stylesheet" data-href="{{ 'component-slick-slider.css' | asset_url }}"/>
+{%- capture section_product_content -%}
 
+  {{- section_product_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- section_product_css | replace: 'data-vasta', 'type="lazyload2"' -}}
+  {{- slick_slider_css | replace: 'data-vasta', 'class="critical2"' -}}
+  {{- slick_slider_css | replace: 'data-vasta', 'type="lazyload2"' -}}
 
-<section id="product" class="product-page" data-section-type="product-template">
-  <div class="wrapper product-mobile-wrapper {% if settings.product_info_mobile_position == "below" %}product-info-below-slider{% endif %}">
-      {% if settings.enable_product_breadcrumbs %}
-          {% render 'breadcrumb' %}
-      {% endif %}
-      {%- if settings.product_info_mobile_position == "above" -%}
-          {%- render 'product-info-mobile', product -%}
-      {%- endif -%}
+  <section id="product" class="product-page" data-section-type="product-template">
+    <div class="wrapper product-mobile-wrapper {% if settings.product_info_mobile_position == "below" %}product-info-below-slider{% endif %}">
+        {% if settings.enable_product_breadcrumbs %}
+            {% render 'breadcrumb' %}
+        {% endif %}
+        {%- if settings.product_info_mobile_position == "above" -%}
+            {%- render 'product-info-mobile', product -%}
+        {%- endif -%}
 
-      <div class="products-info">
-          <div class="product-half half-img {% if settings.prodct_slider_vertical %} flex flex-align-start flex-space-between{% endif %}{{ settings.product_slider_direction }}{% if settings.enable_sticky_product_slider and settings.product_tab_full_width == false %}product-slider-sticky{% endif %}">
-              {%- render 'product-sliders' -%}
-          </div>
+        <div class="products-info">
+            <div class="product-half half-img {% if settings.prodct_slider_vertical %} flex flex-align-start flex-space-between{% endif %}{{ settings.product_slider_direction }}{% if settings.enable_sticky_product_slider and settings.product_tab_full_width == false %}product-slider-sticky{% endif %}">
+                {%- render 'product-sliders' -%}
+            </div>
 
-          {%- if settings.product_info_mobile_position == "below" -%}
-              {%- render 'product-info-mobile', product -%}
-          {%- endif -%}
-
-          <div class="product-half rte">
-              <h1 class="product-title no-mobile">
-                  {{ product.title }}
-              </h1>
-
-              <div class="no-mobile">
-                  {%- if product.metafields.field.short_description != blank and section.settings.select_position_short_description == "before" -%}
-                <div class="meta-short-description"{%- if section.settings.enable_short_description == false -%} style="display: none;"{%- endif -%}>  {{ product.metafields.field.short_description }} </div>
-              {%- endif -%}
-
-                  {%- render 'product-price-new-layout' -%}
-              </div>
-
-              {%- render 'product-form' with settings: settings, product: product, section.id: section.id -%}
-
-              {%- if settings.enabled_social_share and settings.social_share_position == "above" -%}
-                  {%- render 'social-sharing' -%}
-              {%- endif -%}
-              
-                {%- render 'product-video' with settings: settings, product: product, section.id: section.id -%}
-
-              {%- unless settings.product_tab_full_width -%}
-
-                {%- if section.settings.enabled_tabs_accordion -%}
-                  {%- render 'product-tabs-accordion' with settings: settings, product: product, section.id: section.id -%}
-                    {% else %}
-                  {%- render 'product-tabs' with settings: settings, product: product, section.id: section.id -%}
-                {%- endif -%}
-
-                  {%- if settings.enabled_social_share and settings.social_share_position == "below" -%}
-                      {%- render 'social-sharing' -%}
-                  {%- endif -%}
-              {%- endunless -%}
-          </div>
-
-          {%- if settings.product_tab_full_width -%}
-
-          {%- if section.settings.enabled_tabs_accordion -%}
-              {%- render 'product-tabs-accordion' with settings: settings, product: product, section.id: section.id -%}
-            {% else %}
-              {%- render 'product-tabs' with settings: settings, product: product, section.id: section.id -%}
+            {%- if settings.product_info_mobile_position == "below" -%}
+                {%- render 'product-info-mobile', product -%}
             {%- endif -%}
 
-              {%- if settings.enabled_social_share and  settings.social_share_position == "below" -%}
-                  {%- render 'social-sharing' -%}
+            <div class="product-half rte">
+                <h1 class="product-title no-mobile">
+                    {{ product.title }}
+                </h1>
+
+                <div class="no-mobile">
+                    {%- if product.metafields.field.short_description != blank and section.settings.select_position_short_description == "before" -%}
+                  <div class="meta-short-description"{%- if section.settings.enable_short_description == false -%} style="display: none;"{%- endif -%}>  {{ product.metafields.field.short_description }} </div>
+                {%- endif -%}
+
+                    {%- render 'product-price-new-layout' -%}
+                </div>
+
+                {%- render 'product-form' with settings: settings, product: product, section.id: section.id -%}
+
+                {%- if settings.enabled_social_share and settings.social_share_position == "above" -%}
+                    {%- render 'social-sharing' -%}
+                {%- endif -%}
+                
+                  {%- render 'product-video' with settings: settings, product: product, section.id: section.id -%}
+
+                {%- unless settings.product_tab_full_width -%}
+
+                  {%- if section.settings.enabled_tabs_accordion -%}
+                    {%- render 'product-tabs-accordion' with settings: settings, product: product, section.id: section.id -%}
+                      {% else %}
+                    {%- render 'product-tabs' with settings: settings, product: product, section.id: section.id -%}
+                  {%- endif -%}
+
+                    {%- if settings.enabled_social_share and settings.social_share_position == "below" -%}
+                        {%- render 'social-sharing' -%}
+                    {%- endif -%}
+                {%- endunless -%}
+            </div>
+
+            {%- if settings.product_tab_full_width -%}
+
+            {%- if section.settings.enabled_tabs_accordion -%}
+                {%- render 'product-tabs-accordion' with settings: settings, product: product, section.id: section.id -%}
+              {% else %}
+                {%- render 'product-tabs' with settings: settings, product: product, section.id: section.id -%}
               {%- endif -%}
-          {%- endif -%}
-      </div>
-  </div>
-</section>
 
-{%- if settings.app_review != 'none' and settings.product_enabled_app_reviews_slider -%}
-  <div class="wrapper">
-      {%- render 'all-reviews' -%}
-  </div>
-{%- endif -%}
+                {%- if settings.enabled_social_share and  settings.social_share_position == "below" -%}
+                    {%- render 'social-sharing' -%}
+                {%- endif -%}
+            {%- endif -%}
+        </div>
+    </div>
+  </section>
 
-<!-- SWATCH STYLE -->
-<style scoped>
-{% for product_option in product.options_with_values %}
-  {% for value in product_option.values %}
-      {% assign css_value = value | handle %}
-      {% assign img_value = css_value | join: '.png' %}
-      body .swatch-element .swatch-background-{{ css_value }} {
-          background-image: url('{{ img_value | asset_url }}');
-      }
-  {% endfor %}
-{% endfor %}
-
-.shopify-section.special-offer-badge-wrapper img,
-.shopify-section.special-offer-badge-wrapper svg {
-  width: {{ section.settings.svg_special_offer_badge_size }}px;
-  height: auto;
-}
-#shopify-section-{{ section.id }} .title-delivery, #shopify-section-{{ section.id }} .date {
-  color: {{ section.settings.shipping_calculator_text_color }};
-  font-size: {{ section.settings.shipping_calculator_font_size }}px;
-  font-weight: {{ section.settings.shipping_calculator_font_weight }};
-}
-.price-per-unit-edits {
-font-size: {{ section.settings.product_per_unit_font_size }}px;
-  display: block;
-  padding-top: 5px;
-  color: {{ section.settings.product_per_unit_text_color }};
-  font-weight: {{ section.settings.font_weight_product_per_unit }};
-}
-
-{% if section.settings.enable_new_layout %}
-.price-per-unit-edits {
-  padding-top: 0px;
-  padding-bottom: 1px;
-}
-{% endif %}
-
-.meta-short-description{
-  font-size: {{ section.settings.font_size_short_description }}px;
-  font-weight: {{ section.settings.font_weight_short_description }};
-  font-style: {{ section.settings.font_style_short_description }};
-}
-
-{%- if settings.enable_zoom_feature_for_mobile -%}
-.product-page .slick-slider {
-  -ms-touch-action: pan-y pinch-zoom;
-  touch-action: pan-y pinch-zoom;
-}
-{%- endif -%}
-
-{%- if settings.position_product_tag_badge == "ribbon-top-right" -%}
-  .products-info .product-half .ribbon-top-right span {
-    left: -22px;
-  }
-
-  .products-info .product-half .ribbon-top-right {
-    top: -5px;
-    right: 10px;
-  }
-{%- endif -%}
-
-{%- if settings.position_product_tag_badge == "ribbon-top-left" -%}
-  .products-info .product-half .ribbon-top-left {
-    top: -5px;
-    left: 9px;
-  }
-{%- endif -%}
-
-@media (min-width:768px){
-  {%- if settings.select_position_thumbnails != 'below' -%}
-    .product-page .product-slider-widget .product-slider .slick-list {
-      width: 100%;
-      max-width: 100%;
-    }
-    .product-slider-widget {
-      width: 100%;
-      display: flex;
-      justify-content: center;
-    }
-    .product-page .product-slider-widget .product-slider.product-slider-thumbnails {
-      flex-direction: column;
-      justify-content: center;
-    }
-    .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-list {
-      flex-grow: 0;
-    }
-    .product-half.half-img {
-      display: flex;
-    }
-    .product-page .product-slider-widget .product-slider. .slick-list .slick-track {
-      display: block;
-    }
-    .product-slider.product-slider-featured {
-      width: 88%;
-    }
-    .product-slider.product-slider-thumbnails {
-      width: 11%;
-    }
-    .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-prev.slick-arrow,
-    .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-next.slick-arrow {
-      transform: rotateZ(90deg)
-    }
-    .product-page .product-slider-widget .product-slider-thumbnails .slick-prev {
-      margin-right: 0px;
-      margin-left: 4px;
-    }
-    {%- if settings.select_position_thumbnails == 'left' -%}
-    .product-slider-widget {
-      flex-direction: row-reverse;
-    } 
-    .product-page .ribbon-top-left {
-      left: 12%;
-    }
-    {%- endif -%}
-
-    {%- if settings.position_product_tag_badge == "ribbon-top-left"-%}
-      .products-info .product-half .ribbon-top-left {
-        top:-7px;
-        {%- if settings.select_position_thumbnails == "left" -%}
-          left: 13.5%;
-        {%- else -%}
-          left: 11px;
-        {%- endif -%}
-      }
-    {%- endif -%}
-
-    {%- if settings.position_product_tag_badge == "ribbon-top-right" -%}
-      .products-info .product-half .ribbon-top-right {
-        top: -7px;
-        {%- if settings.select_position_thumbnails == "right" -%}
-          right: 13.5%;
-        {%- else -%}
-          right: 12px;
-        {%- endif -%}
-      }
-    {%- endif -%}
+  {%- if settings.app_review != 'none' and settings.product_enabled_app_reviews_slider -%}
+    <div class="wrapper">
+        {%- render 'all-reviews' -%}
+    </div>
   {%- endif -%}
-}
 
-{% if settings.enabled_descp == 'false' %}
-@media (max-width: 767px) {
-  .new-product-price {
-  {% if settings.product_info_mobile_direction == 'center' %}
-  justify-content: center;
-  {% else %}
-  justify-content: flex-start;
-  {% endif %}
+  <!-- SWATCH STYLE -->
+  <style scoped>
+  {% for product_option in product.options_with_values %}
+    {% for value in product_option.values %}
+        {% assign css_value = value | handle %}
+        {% assign img_value = css_value | join: '.png' %}
+        body .swatch-element .swatch-background-{{ css_value }} {
+            background-image: url('{{ img_value | asset_url }}');
+        }
+    {% endfor %}
+  {% endfor %}
+
+  .shopify-section.special-offer-badge-wrapper img,
+  .shopify-section.special-offer-badge-wrapper svg {
+    width: {{ section.settings.svg_special_offer_badge_size }}px;
+    height: auto;
   }
-}
-{% endif %}
-
-@media (max-width: 1019px) {
   #shopify-section-{{ section.id }} .title-delivery, #shopify-section-{{ section.id }} .date {
-    font-size: calc({{ section.settings.shipping_calculator_font_size }}px - 0.2rem);
+    color: {{ section.settings.shipping_calculator_text_color }};
+    font-size: {{ section.settings.shipping_calculator_font_size }}px;
+    font-weight: {{ section.settings.shipping_calculator_font_weight }};
   }
-}
+  .price-per-unit-edits {
+  font-size: {{ section.settings.product_per_unit_font_size }}px;
+    display: block;
+    padding-top: 5px;
+    color: {{ section.settings.product_per_unit_text_color }};
+    font-weight: {{ section.settings.font_weight_product_per_unit }};
+  }
 
-</style>
+  {% if section.settings.enable_new_layout %}
+  .price-per-unit-edits {
+    padding-top: 0px;
+    padding-bottom: 1px;
+  }
+  {% endif %}
+
+  .meta-short-description{
+    font-size: {{ section.settings.font_size_short_description }}px;
+    font-weight: {{ section.settings.font_weight_short_description }};
+    font-style: {{ section.settings.font_style_short_description }};
+  }
+
+  {%- if settings.enable_zoom_feature_for_mobile -%}
+  .product-page .slick-slider {
+    -ms-touch-action: pan-y pinch-zoom;
+    touch-action: pan-y pinch-zoom;
+  }
+  {%- endif -%}
+
+  {%- if settings.position_product_tag_badge == "ribbon-top-right" -%}
+    .products-info .product-half .ribbon-top-right span {
+      left: -22px;
+    }
+
+    .products-info .product-half .ribbon-top-right {
+      top: -5px;
+      right: 10px;
+    }
+  {%- endif -%}
+
+  {%- if settings.position_product_tag_badge == "ribbon-top-left" -%}
+    .products-info .product-half .ribbon-top-left {
+      top: -5px;
+      left: 9px;
+    }
+  {%- endif -%}
+
+  @media (min-width:768px){
+    {%- if settings.select_position_thumbnails != 'below' -%}
+      .product-page .product-slider-widget .product-slider .slick-list {
+        width: 100%;
+        max-width: 100%;
+      }
+      .product-slider-widget {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+      .product-page .product-slider-widget .product-slider.product-slider-thumbnails {
+        flex-direction: column;
+        justify-content: center;
+      }
+      .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-list {
+        flex-grow: 0;
+      }
+      .product-half.half-img {
+        display: flex;
+      }
+      .product-page .product-slider-widget .product-slider. .slick-list .slick-track {
+        display: block;
+      }
+      .product-slider.product-slider-featured {
+        width: 88%;
+      }
+      .product-slider.product-slider-thumbnails {
+        width: 11%;
+      }
+      .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-prev.slick-arrow,
+      .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-next.slick-arrow {
+        transform: rotateZ(90deg)
+      }
+      .product-page .product-slider-widget .product-slider-thumbnails .slick-prev {
+        margin-right: 0px;
+        margin-left: 4px;
+      }
+      {%- if settings.select_position_thumbnails == 'left' -%}
+      .product-slider-widget {
+        flex-direction: row-reverse;
+      } 
+      .product-page .ribbon-top-left {
+        left: 12%;
+      }
+      {%- endif -%}
+
+      {%- if settings.position_product_tag_badge == "ribbon-top-left"-%}
+        .products-info .product-half .ribbon-top-left {
+          top:-7px;
+          {%- if settings.select_position_thumbnails == "left" -%}
+            left: 13.5%;
+          {%- else -%}
+            left: 11px;
+          {%- endif -%}
+        }
+      {%- endif -%}
+
+      {%- if settings.position_product_tag_badge == "ribbon-top-right" -%}
+        .products-info .product-half .ribbon-top-right {
+          top: -7px;
+          {%- if settings.select_position_thumbnails == "right" -%}
+            right: 13.5%;
+          {%- else -%}
+            right: 12px;
+          {%- endif -%}
+        }
+      {%- endif -%}
+    {%- endif -%}
+  }
+
+  {% if settings.enabled_descp == 'false' %}
+  @media (max-width: 767px) {
+    .new-product-price {
+    {% if settings.product_info_mobile_direction == 'center' %}
+    justify-content: center;
+    {% else %}
+    justify-content: flex-start;
+    {% endif %}
+    }
+  }
+  {% endif %}
+
+  @media (max-width: 1019px) {
+    #shopify-section-{{ section.id }} .title-delivery, #shopify-section-{{ section.id }} .date {
+      font-size: calc({{ section.settings.shipping_calculator_font_size }}px - 0.2rem);
+    }
+  }
+  </style>
+{%- endcapture -%}
+{{- section_product_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
 
 {% schema %}
 {

@@ -7,7 +7,7 @@
   {{- banner_style_1_css | replace: 'data-vasta', 'class="critical2"' -}}
   {{- banner_style_1_css | replace: 'data-vasta', 'type="lazyload2"' -}}
   {% capture banner_content %}
-  {%- assign enable_lazy = section.settings.enable_lazy_load | default: false -%}`
+  {%- assign enable_lazy = section.settings.enable_lazy_load | default: false -%}
 
   <!-- start banner-style1.liquid (SECTION) -->
   <section class="shopify-section banner homepage-style-1 {{ section.settings.custom_class }}">
