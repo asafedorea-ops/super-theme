@@ -1,12 +1,9 @@
-
 <style scoped data-vasta>
     .mobile-menu {margin-top: 0;}
-    
     .js-drawer-open-left .DrawerOverlay {
       visibility: visible;
       opacity: 1;
     }
-    
     .js-drawer-open-left .sidenav--drawer-left {
       -ms-transform: translateX(400px);
       -webkit-transform: translateX(400px);
@@ -14,7 +11,6 @@
       overflow: auto;
       z-index: 999;
     }
-  
     .toggle--plus:before, .toggle--minus:before {
       height: 17px;
       content: "";
@@ -26,7 +22,6 @@
       display: block;
       transition: 0.4s transform ease-out;
     }
-  
     .toggle--plus:after, .toggle--minus:after {
       width: 17px;
       content: "";
@@ -39,15 +34,12 @@
       transform: rotate(0);
       transition: 0.4s transform ease-out;
     }
-  
     .rotateVerticalLine:before, .toggle--minus:before {
       transform: rotate(270deg);
     }
-  
     .rotateHorizontalLine:after {
       transform: rotate(180deg);
     }
-  
     .sidenav__icon {
       background-color: transparent;
       position: relative;
@@ -57,7 +49,6 @@
       align-items: center;
       justify-content: center;
     }
-  
     .sidenav {
       display: flex;
       flex-direction: column;
@@ -70,23 +61,19 @@
       transition: all 400ms cubic-bezier(0.46, 0.01, 0.32, 1);
       z-index: 99;
     }
-    
     .sidenav svg {
       width: 19px;
       height: 19px;
     }
-  
     .sidenav--drawer-left {
       width: 400px;
       left: -400px;
       border-right: 1px solid var(--vasta-background-menu-mobile, #fff);
       max-width: 85%;
     }
-  
     .sidenav__header {
       padding: 0 15px 5px;
     }
-  
     .sidenav__top__wrapper {
       position: relative;
       display: flex;
@@ -103,7 +90,6 @@
     .sidenav__close {
       cursor: pointer;
     }
-  
     .sidenav__close {
       position: relative;
       right: 0;
@@ -111,16 +97,13 @@
       background-color: transparent;
       border: none;
     }
-  
     .sidenav__close svg {
       width: 20px;
       height: 20px;
     }
-  
     .sidenav__list {
       width: 100%;
     }
-    
     .sidenav__list__item {
       width: 100%;
       border-top: 1px solid #ccc;
@@ -130,23 +113,19 @@
       justify-content: center;
       padding: 0 16px;
     }
-  
     .sidenav__list--shop .sidenav__list__item:last-child {
       border-bottom: 1px solid #ccc;
     }
-  
     .list--child .sidenav__list__item {
       border-top: unset;
       padding: 0;
     }
-  
     .sidenav__item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
     }
-  
     .sidenav__item__anchor, .sidenav__shop__text__wrapper {
       width: 100%;
       padding: 12px;
@@ -155,61 +134,49 @@
       justify-content: flex-start;
       color: var(--vasta-font-color-menu-mobile, #444);
     }
-  
     .sidenav__item__img {
       width: 20px;
       margin-right: 10px;
     }
-  
     .sidenav .list--grandchild {
       height: 0;
       padding-left: 48px;
       transition: 0.4s height ease-in-out;
       overflow: hidden;
     }
-  
     .sidenav .list--child {
       display: block;
       padding-left: 24px;
-      
       height: 0;
       transition: 0.4s height ease-in-out;
       overflow: hidden;
     }
-  
     .sidenav__item__anchor svg {
       margin-right: 7px;
       fill: var(--vasta-font-color-menu-mobile, #000)
     }
-  
     .sidenav__footer {
       padding: 12px 15px 0;
     }
-  
     .sidenav__footer .news_letter_title {
       text-align: center;
       margin-bottom: 12px;
     }
-  
     .sidenav__footer input#k_id_email-menu-mobile {
       width: 100%;
       height: 44px;
     }
-  
     .sidenav__footer .klaviyo_field_group {
       margin-right: 0;
       width: 60%;
     }
-  
     .sidenav__footer .klaviyo_form_actions {
       width: 40%;
     }
-  
     .sidenav__footer .klaviyo_field_group {
       width: 60%;
       padding: 0;
     }
-  
     .sidenav__footer .klaviyo_condensed_float .klaviyo_field_group {
       margin-right: unset;
     }
