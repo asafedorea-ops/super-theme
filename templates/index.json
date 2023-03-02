@@ -80,6 +80,34 @@
         "vasta_buttons_hover_text_color_1": "#ffffff"
       }
     },
+    "97ac46d4-7e33-440e-adaa-4dd12b085bd2": {
+      "type": "banner-style2",
+      "settings": {
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "custom_class": "",
+        "homepage_banner_style_2": "shopify:\/\/shop_images\/travel-flatlay.jpg",
+        "mobile_banner_style_2": "shopify:\/\/shop_images\/cool-pool-pineapple.jpg",
+        "homepage_title": "Headline Example",
+        "homepage_text_under_banner": "Text Example",
+        "homepage_banner_product_2": "shopify:\/\/shop_images\/MIPL592CHGRY_720x_24759b9a-bf69-412a-9cc5-aaa3164c7029.jpg",
+        "enable_lazy_load": false,
+        "homepage_link_button": "",
+        "homepage_text_button": "Text Example",
+        "homepage_text_under_button": "",
+        "vasta_banner_font_style": "normal",
+        "primary_title_color": "#000000",
+        "primary_below_color": "#000000",
+        "secondary_below_color": "#000000",
+        "banner_2_button_text_color": "#ffffff",
+        "banner_2_button_background_color": "#000000",
+        "banner_2_button_hover_text_color": "#000000",
+        "banner_2_button_hover_background_color": "#ffffff"
+      }
+    },
     "16351881143a2d10e5": {
       "type": "collection-list",
       "blocks": {
@@ -519,8 +547,8 @@
         "custom-padding-bottom": 0,
         "custom_class": "",
         "section_title": "Promotional Slider",
-        "background_slide_promotional": "#444",
-        "text_color_slider_promotional": "#fff",
+        "background_slide_promotional": "#444444",
+        "text_color_slider_promotional": "#ffffff",
         "top_margin_slide": 0,
         "headline_text_transform_title_slider": "capitalize",
         "text_transform_title_slider": "capitalize",
@@ -531,6 +559,7 @@
   },
   "order": [
     "16351850661ed94a47",
+    "97ac46d4-7e33-440e-adaa-4dd12b085bd2",
     "16351881143a2d10e5",
     "163518802243d59863",
     "163518791261981d42",
