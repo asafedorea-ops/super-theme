@@ -3,24 +3,49 @@
 {%- assign copy_bold_body_font_url = settings.copy_bold_body_font | font_url -%}
 
 {%- if general_font_url != blank -%}
-    <link rel="preload" href="{{ general_font_url }}" as="font" crossorigin/>
+    <link rel="stylesheet" href="{{ general_font_url }}" media="print" as="font" crossorigin onload="this.media='all'" />
 {%- endif -%}
 
 {%- if copy_body_font_url != blank -%}
-    <link rel="preload" href="{{ copy_body_font_url }}" as="font" crossorigin/>
+    <link rel="stylesheet" href="{{ copy_body_font_url }}" media="print" as="font" crossorigin onload="this.media='all'" />
 {%- endif -%}
 
 {%- if copy_bold_body_font_url != blank -%}
-    <link rel="preload" href="{{ copy_bold_body_font_url }}" as="font" crossorigin/>
+    <link href="{{ copy_bold_body_font_url }}" rel="stylesheet" media="print" as="font" crossorigin onload="this.media='all'" />
 {%- endif -%}
 
-<style scoped data-vasta>
+<noscript>
+
+  {%- if general_font_url != blank -%}
+    <link href="{{ general_font_url }}" rel="stylesheet" type="text/css"/>
+  {%- endif -%}
+
+  {%- if copy_body_font_url != blank -%}
+    <link href="{{ copy_body_font_url }}" rel="stylesheet" type="text/css" />
+  {%- endif -%}
+
+  {%- if copy_bold_body_font_url != blank -%}
+    <link href="{{ copy_bold_body_font_url }}" rel="stylesheet" type="text/css" />
+  {%- endif -%}
+
+</noscript>
+
+<style>
   {{ settings.copy_body_font | font_face: font_display: 'swap' }}
   {{ settings.general_font | font_face: font_display: 'swap' }}
   {{ settings.copy_bold_body_font | font_face: font_display: 'swap' }}
 </style>
 
-<style scoped data-vasta>
+<style>
+  * {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+</style>
+
+
+  {%- style -%}
   :root {
     --color-link: {{ settings.color_link }};
     --color-sale: {{ settings.color_sale }};
@@ -206,6 +231,6 @@
     --tooltip-size: {{ settings.tooltip_size }}px;
     --iconCheckmarkChecked: #fff;
   }
-</style>
+{%- endstyle -%}
 
 {%- render 'critical-style-sitewide' -%}
