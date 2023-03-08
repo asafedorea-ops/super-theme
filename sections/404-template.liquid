@@ -1,39 +1,35 @@
 <!-- start 404.liquid (SECTION) -->
 {%- capture section_404_template_content -%}
-{{- section_404_template_css | replace: 'data-vasta', 'class="critical2"' -}}
-{{- section_404_template_css | replace: 'data-vasta', 'type="lazyload2"' -}}
-
 <div class="wrapper">
     <h2 class="content-h2">{{ 'general.404.title' | t }}</h2>
     <p class="content-p">{{ 'general.404.subtext_html' | t }}</p>
 </div>
-{%- endcapture -%}
 
-{%- capture section_404_template_css -%}
-    <style data-vasta>
-        .template-404 .main-content {
-            width: 100%;
-            float: left;
-            padding-top: 40px;
-        }
-        .template-404 .main-content .section-collection-list,
-        .template-404 .main-content .section-slide-promotional {
-            margin-top: 40px;
-        }
-        .template-404 .main-content .section-collection-list .section-title,
-        .template-404 .main-content .section-slide-promotional .section-title {
-            display: block;
-            padding-top: 0;
-        }
-        .template-404 .footer-section {
-            float: left;
-        }
-        .template-404 .content-p {
-            margin-bottom: 30px;
-        }
-        .template-404 .sld-promotional {
-            margin-bottom: 40px;
-        }    
-    </style>
+<style >
+    .template-404 .main-content {
+        width: 100%;
+        float: left;
+        padding-top: 40px;
+    }
+    .template-404 .main-content .section-collection-list,
+    .template-404 .main-content .section-slide-promotional {
+        margin-top: 40px;
+    }
+    .template-404 .main-content .section-collection-list .section-title,
+    .template-404 .main-content .section-slide-promotional .section-title {
+        display: block;
+        padding-top: 0;
+    }
+    .template-404 .footer-section {
+        float: left;
+    }
+    .template-404 .content-p {
+        margin-bottom: 30px;
+    }
+    .template-404 .sld-promotional {
+        margin-bottom: 40px;
+    }    
+</style>
+
 {%- endcapture -%}
 {{- section_404_template_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 

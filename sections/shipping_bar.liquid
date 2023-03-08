@@ -1,7 +1,56 @@
 <!-- start shipping_bar.liquid (SECTION) -->
 
-{%- capture shipping_bar_css -%}
-  <style scoped data-vasta>
+{%- capture shipping_bar_content -%}
+
+  {%- assign shipping_bar_style = section.settings.shipping_bar_style -%}
+
+  {%- assign shipping_bar_type = blank -%}
+
+  {%- case shipping_bar_style -%}
+    {%- when 'sections_style' -%}
+        {%- assign shipping_bar_type = 'shipping-bar--sections-style' -%}
+    {%- when 'info_style' -%}
+        {%- assign shipping_bar_type = 'shipping-bar--info-style' -%}
+    {%- else -%}
+        {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
+  {%- endcase -%}
+  {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
+    {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
+    {%- assign shipping_bar_style = 'dicount_style' -%}
+  {%- endif -%}
+
+  <div id="shipping-bar" class="shipping-bar {{ shipping_bar_type }} lazybg" data-style="{{- shipping_bar_style -}}">
+    <div class="wrapper">
+        <div class="shipping-bar__wrapper">
+            {%- for block in section.blocks -%}
+                {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
+                  {%- render 'shipping-bar-discount' with block: block -%}
+                {% break %}
+              {% else %}
+                {%- if shipping_bar_style == 'sections_style' and block.type == 'sections-style' -%}
+                    {%- render 'shipping-bar-sections' with block: block -%}
+                    {%- break -%}
+                {%- elsif shipping_bar_style == 'info_style' and block.type == 'info-style' -%}
+                    {%- render 'shipping-bar-informational' with message: block.settings.shipping_bar_info_text -%}
+                    {%- break -%}
+                {%- elsif shipping_bar_style == 'dicount_style' and block.type == 'discount-style' -%}
+                    {%- render 'shipping-bar-discount' with block: block -%}
+                    {%- break -%}
+                {%- endif -%}
+              {% endif %}
+            {%- endfor -%}
+        </div>
+    </div>
+  </div>
+
+  <style scoped>
+    :root {
+      {%- if section.settings.position -%}
+        --shipping-bar-height: 40px;
+      {%- else -%}
+        --shipping-bar-height: 0;
+      {%- endif -%}
+    }
     #shopify-section-{{ section.id }} .shipping-bar__section-item,
     #shopify-section-{{ section.id }} .shipping-bar__message,
     #shopify-section-{{ section.id }} .shipping-bar__item--small {
@@ -169,61 +218,7 @@
       }
     }
   </style>
-{%- endcapture -%}
 
-{%- capture shipping_bar_content -%}
-  {{- shipping_bar_css | replace: 'data-vasta', 'class="critical2"' -}}
-  {{- shipping_bar_css | replace: 'data-vasta', 'type="lazyload2"' -}}
-  {%- assign shipping_bar_style = section.settings.shipping_bar_style -%}
-
-  {%- assign shipping_bar_type = blank -%}
-
-  {%- case shipping_bar_style -%}
-    {%- when 'sections_style' -%}
-        {%- assign shipping_bar_type = 'shipping-bar--sections-style' -%}
-    {%- when 'info_style' -%}
-        {%- assign shipping_bar_type = 'shipping-bar--info-style' -%}
-    {%- else -%}
-        {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
-  {%- endcase -%}
-  {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
-    {%- assign shipping_bar_type = 'shipping-bar--discount-style' -%}
-    {%- assign shipping_bar_style = 'dicount_style' -%}
-  {%- endif -%}
-
-  <div id="shipping-bar" class="shipping-bar {{ shipping_bar_type }} lazybg" data-style="{{- shipping_bar_style -}}">
-    <div class="wrapper">
-        <div class="shipping-bar__wrapper">
-            {%- for block in section.blocks -%}
-                {% if template contains 'cart' and section.settings.enable_discount_in_cart  %}
-                  {%- render 'shipping-bar-discount' with block: block -%}
-                {% break %}
-              {% else %}
-                {%- if shipping_bar_style == 'sections_style' and block.type == 'sections-style' -%}
-                    {%- render 'shipping-bar-sections' with block: block -%}
-                    {%- break -%}
-                {%- elsif shipping_bar_style == 'info_style' and block.type == 'info-style' -%}
-                    {%- render 'shipping-bar-informational' with message: block.settings.shipping_bar_info_text -%}
-                    {%- break -%}
-                {%- elsif shipping_bar_style == 'dicount_style' and block.type == 'discount-style' -%}
-                    {%- render 'shipping-bar-discount' with block: block -%}
-                    {%- break -%}
-                {%- endif -%}
-              {% endif %}
-            {%- endfor -%}
-        </div>
-    </div>
-  </div>
-
-  <style scoped>
-    :root {
-      {%- if section.settings.position -%}
-        --shipping-bar-height: 40px;
-      {%- else -%}
-        --shipping-bar-height: 0;
-      {%- endif -%}
-    }
-  </style>
   <script type="lazyload2">
     var shipping_bar = shipping_bar || {};
     {% for block in section.blocks %}

@@ -65,6 +65,46 @@
           {%- endfor -%}
       </div>
   </section>
+  
+  <style scoped>
+    #shopify-section-{{ section.id }} {
+      {% if section.settings.enable_custom_margins_paddings %}
+        margin-top: {{ section.settings.custom-margin-top }}px;
+        margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+        padding-top: {{ section.settings.custom-padding-top }}px;
+        padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+      {% else %}
+        margin: 20px 0;
+      {% endif %}
+    }
+      #shopify-section-{{ section.id }} .dynamic-video-wrapper {
+          {% if section.settings.enable_videos_slider %}
+              display: block;
+              height: auto;
+          {% else %}
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+          {% endif %}
+      }
+  
+      #shopify-section-{{ section.id }} .dynamic-video-wrapper {
+          {% if section.settings.enable_videos_slider %}
+              margin-bottom: 0;
+          {% else %}
+              margin-bottom: 32px;
+          {% endif %}
+      }
+  
+      #shopify-section-{{ section.id }} .dynamic-video-wrapper .dynamic-video .video {
+          {% if section.settings.enable_videos_slider %}
+              padding-top: 0;
+          {% else %}
+              padding-top: 25px;
+          {% endif %}
+      }
+  </style>
+  
 {%- endcapture -%}
 {{- videos_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
 {% schema %}
@@ -244,41 +284,3 @@
 });
 </script>
 
-<style scoped>
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-    #shopify-section-{{ section.id }} .dynamic-video-wrapper {
-        {% if section.settings.enable_videos_slider %}
-            display: block;
-            height: auto;
-        {% else %}
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        {% endif %}
-    }
-
-    #shopify-section-{{ section.id }} .dynamic-video-wrapper {
-        {% if section.settings.enable_videos_slider %}
-            margin-bottom: 0;
-        {% else %}
-            margin-bottom: 32px;
-        {% endif %}
-    }
-
-    #shopify-section-{{ section.id }} .dynamic-video-wrapper .dynamic-video .video {
-        {% if section.settings.enable_videos_slider %}
-            padding-top: 0;
-        {% else %}
-            padding-top: 25px;
-        {% endif %}
-    }
-</style>
