@@ -1,7 +1,7 @@
 <!-- start product-sliders (SNIPPET) -->
+{%- capture product_sliders_content -%}
 
-{%- assign lazyload = enable_lazy | default: true -%}
-
+    {%- assign lazyload = enable_lazy | default: true -%}
     {%- for tagBadge in product.tags -%}
         {%- if tagBadge == settings.product_badge_tag and settings.product_badge_text_tag != blank -%}
             <label class="product_tag_badge ribbon {{ settings.position_product_tag_badge }}">
