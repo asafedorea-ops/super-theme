@@ -29,7 +29,7 @@
         "6387f68d-af18-45c4-8cd9-942d907c65c6"
       ],
       "settings": {
-        "enable_custom_margins_paddings": true,
+        "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,

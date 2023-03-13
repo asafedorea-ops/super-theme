@@ -1,116 +1,140 @@
-<!-- start featured-collection.liquid (SECTION) -->
+{%- capture section_featured_collection_content -%}
 
-<link rel="stylesheet" data-href="{{ 'section-featured-collection.css' | asset_url }}"/>
+  {%- assign max_width = 280 -%}
+  {%- assign width_mobile = 45 -%}
+  {%- assign width_desk = 20 -%}
 
-{%- assign max_width = 280 -%}
-{%- assign width_mobile = 45 -%}
-{%- assign width_desk = 20 -%}
+  {%- case section.settings.products_per_rows -%}
+  {%- when '2' -%}
+    {%- assign max_width = 560 -%}
+    {%- assign items_qtd_per_row = "grid-uniform--s2" -%}
+  {%- when '3' -%}
+    {%- assign max_width = 380 -%}
+    {%- assign items_qtd_per_row = "grid-uniform--s3" -%}
+  {%- when '4' -%}
+    {%- assign items_qtd_per_row = "grid-uniform--s4" -%}
+  {%- endcase -%}
 
-{%- case section.settings.products_per_rows -%}
-{%- when '2' -%}
-  {%- assign max_width = 560 -%}
-  {%- assign items_qtd_per_row = "grid-uniform--s2" -%}
-{%- when '3' -%}
-  {%- assign max_width = 380 -%}
-  {%- assign items_qtd_per_row = "grid-uniform--s3" -%}
-{%- when '4' -%}
-  {%- assign items_qtd_per_row = "grid-uniform--s4" -%}
-{%- endcase -%}
+  {%- assign temp_collection = collections[section.settings.collection].products -%}
+  {%- assign rows = section.settings.rows | default: 1 -%}
+  {%- assign items_per_row = section.settings.products_per_rows | default: 4 -%}
+  {%- assign item_count = items_per_row | times: rows -%}
 
-{%- assign temp_collection = collections[section.settings.collection].products -%}
-{%- assign rows = section.settings.rows | default: 1 -%}
-{%- assign items_per_row = section.settings.products_per_rows | default: 4 -%}
-{%- assign item_count = items_per_row | times: rows -%}
+  {%- assign enable_lazy = true -%}
 
-{%- assign enable_lazy = true -%}
+  {%- if section.settings.top_margin_featured_products > 0 -%}
+  {%- assign enable_lazy = false -%}
+  {%- endif -%}
 
-{%- if section.settings.top_margin_featured_products > 0 -%}
-{%- assign enable_lazy = false -%}
-{%- endif -%}
+  {%- if settings.enable_out_of_stock_button == false -%}
+    {% assign temp_collection = temp_collection | where: "available" %}
+  {%- endif -%}
 
-{%- if settings.enable_out_of_stock_button == false -%}
-  {% assign temp_collection = temp_collection | where: "available" %}
-{%- endif -%}
+  <!-- start featured-collection.liquid (SECTION) -->
+  <section class="featured-collection{% if section.settings.custom_class != blank %} {{ section.settings.custom_class | handleize }}{% endif %}">
+  <div class="wrapper">
+    {%- if section.settings.title != blank -%}
+    <div class="featured-collection__wrapper">
+        <h2 class="featured-collection__title">{{- section.settings.title -}}</h2>
+      {%- else -%}
+        <h2 class="hide">Featured Products</h2>
+      {%- endif -%}
 
-
-<section class="featured-collection{% if section.settings.custom_class != blank %} {{ section.settings.custom_class | handleize }}{% endif %}">
-<div class="wrapper">
-  {%- if section.settings.title != blank -%}
-  <div class="featured-collection__wrapper">
-      <h2 class="featured-collection__title">{{- section.settings.title -}}</h2>
-    {%- else -%}
-      <h2 class="hide">Featured Products</h2>
-    {%- endif -%}
-
-    <div class="grid-uniform {{ items_qtd_per_row }}">
-      {%- for temp_product in temp_collection limit: item_count -%}
-        {%- render 'product-card',
-          prod: temp_product,
-          max_width: max_width,
-          width_large: width_large,
-          width_mobile: width_mobile,
-          index: forloop.index,
-          width_desk: width_desk,
-          show_reviews: settings.feat_prod_enabled_app_reviews,
-          show_price: section.settings.show_price,
-          enable_lazy: enable_lazy
-          show_swatch: section.settings.show_swatch
-        -%}
-      {%- endfor -%}
+      <div class="grid-uniform {{ items_qtd_per_row }}">
+        {%- for temp_product in temp_collection limit: item_count -%}
+          {%- render 'product-card',
+            prod: temp_product,
+            max_width: max_width,
+            width_large: width_large,
+            width_mobile: width_mobile,
+            index: forloop.index,
+            width_desk: width_desk,
+            show_reviews: settings.feat_prod_enabled_app_reviews,
+            show_price: section.settings.show_price,
+            enable_lazy: enable_lazy
+            show_swatch: section.settings.show_swatch
+          -%}
+        {%- endfor -%}
+      </div>
     </div>
   </div>
-</div>
-</section>
+  </section>
 
-<style scoped>
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-#shopify-section-{{ section.id }} .featured-collection__title {
-text-transform: {{ section.settings.text_transform_title }}
-}
-#shopify-section-{{ section.id }} .grid__item-title-link {
-text-transform: {{ section.settings.text_transform_product_title }};
-color: #000
-}
-@media (min-width: 768px) {
-.shopify-section.banner + #shopify-section-{{ section.id }} {
-  top: {{ section.settings.top_margin_featured_products | times: -1 }}px;
-  {% if section.settings.enable_custom_margins_paddings %}
-    margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 | plus: section.settings.custom-margin-bottom }}px;
-  {% else %}
-    margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 | plus: 20 }}px;
-  {% endif %}
-  position: relative;
-}
-}
-@media (max-width: 479px){
-  #shopify-section-{{ section.id }} .grid-uniform .grid__item {
-    flex-basis: {{section.settings.products_per_rows_feature_collection}}%;
-  }
-}
-</style>
-
-<style scoped type="lazyload2">
-.featured-collection__wrapper {
-  background-color: #fff;
-}
-.featured-collection__title {
-  text-align: center;
-  padding: 21px 0 20px;
-}
-.featured-collection .grid-uniform {
-  justify-content: center;
-}
-</style>
-
+  <style scoped>
+    #shopify-section-{{ section.id }} {
+        {% if section.settings.enable_custom_margins_paddings %}
+            margin-top: {{ section.settings.custom-margin-top }}px;
+            margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+            padding-top: {{ section.settings.custom-padding-top }}px;
+            padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+        {% else %}
+            margin: 20px 0;
+        {% endif %}
+    }
+    #shopify-section-{{ section.id }} .featured-collection__title {
+        text-transform: {{ section.settings.text_transform_title }};
+    }
+    #shopify-section-{{ section.id }} .grid__item-title-link {
+        text-transform: {{ section.settings.text_transform_product_title }};
+        color: #000
+    }
+    @media (min-width: 768px) {
+        .shopify-section.banner + #shopify-section-{{ section.id }} {
+            top: {{ section.settings.top_margin_featured_products | times: -1 }}px;
+            {% if section.settings.enable_custom_margins_paddings %}
+                margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+            {% else %}
+                margin-bottom: {{ section.settings.top_margin_featured_products | times: -1 | plus: 20 }}px;
+            {% endif %}
+            position: relative;
+        }
+    }
+    @media (max-width: 479px){
+        #shopify-section-{{ section.id }} .grid-uniform .grid__item {
+            flex-basis: {{section.settings.products_per_rows_feature_collection}}%;
+        }
+    }
+    .section-collection-list .section-title {
+        padding: 25px 0 25px;
+    }
+    .grid-uniform .stamped-product-reviews-badge,
+    .grid-uniform .stamped-badge {
+        margin: 0;
+    }
+    .grid-uniform .grid-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+    .grid-uniform .no-price span {
+        display: none;
+    }
+    .featured .box-bottom-text {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-grow: 1;
+        align-items: center;
+    }
+    .featured-collection__wrapper {
+      background-color: #fff;
+    }
+    .featured-collection__title {
+      text-align: center;
+      padding: 21px 0 20px;
+    }
+    .featured-collection .grid-uniform {
+      justify-content: center;
+    }
+    @media (max-width: 767px) {
+        .section-collection-list .section-title {
+            padding: 15px 0 13px;
+        }
+    }
+  </style>
+{%- endcapture -%}
+{{- section_featured_collection_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
 {% schema %}
 {
 "name": "Featured Products",

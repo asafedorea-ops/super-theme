@@ -1,6 +1,5 @@
 <!-- start slider-promotional.liquid (SECTION) -->
-
-<link rel="stylesheet" data-href="{{ 'component-slick-slider.css' | asset_url }}"/>
+{%- capture slider_promotional_content -%}
 
 <section class="wrapper {{ section.settings.custom_class }}" data-section-type="slider-promotional" id="slider-promotional-{{ section.id }}" data-slider="{{ section.id }}">
     {%- if section.settings.section_title != blank -%}
@@ -28,6 +27,268 @@
       {%- endfor -%}
     </div>
 </section>
+
+<script type="lazyload2">
+  setTimeout(function(){
+  window.SectionSliderPromotional = (function(){
+    function SectionSliderPromotional() {
+      this.settings = {
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
+        nextArrow: '<button type="button" class="slick-next">&rang;</button>',
+        arrows: true,
+        responsive: [
+            {
+                breakpoint: 1180,
+                settings: {
+                  slidesToShow: 4,
+                  slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 1019,
+                settings: {
+                  slidesToShow: 3,
+                  slidesToScroll: 1,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                  slidesToShow: 2,
+                  slidesToScroll: 1,
+                }
+            }
+        ]
+      };
+
+      this._run();
+    }
+
+    SectionSliderPromotional.prototype = {
+      onLoad: function() {
+        this._run();
+      },
+
+      _run: function() {
+        var slider, autoplay, autoplaySpeed, settings = this.settings;
+
+        jQuery('[id^="slider-promotional-"]').each(function(){
+          slider = '#promotional-' + $(this).data('slider');
+
+          autoplay = jQuery(slider).data('autoplay');
+          autoplaySpeed = jQuery(slider).data('speed');
+
+          if (typeof autoplay !== 'undefined' && autoplay != true && autoplay != false) {
+            autoplay = true;
+          }
+
+          if (typeof autoplaySpeed !== 'undefined' && autoplaySpeed < 800 && autoplaySpeed > 3000) {
+            autoplaySpeed = 800;
+          }
+
+          settings.autoplay = autoplay;
+          settings.autoplaySpeed = autoplaySpeed;
+
+          jQuery(slider).not('.slick-initialized').slick( settings );
+        });
+      }
+    };
+
+    return new SectionSliderPromotional;
+  })();
+});
+</script>
+
+<style scoped>
+    .slick-list,
+    .slick-slider,
+    .slick-track {
+      position: relative;
+      display: block;
+    }
+    .slick-loading .slick-slide,
+    .slick-loading .slick-track {
+      visibility: hidden;
+    }
+    .slick-slider {
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      -khtml-user-select: none;
+      -ms-touch-action: pan-y;
+      touch-action: pan-y;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .slick-list {
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .slick-list:focus {
+      outline: 0;
+    }
+    .slick-list.dragging {
+      cursor: pointer;
+    }
+    .slick-slider .slick-list,
+    .slick-slider .slick-track {
+      -webkit-transform: translate3d(0, 0, 0);
+      -moz-transform: translate3d(0, 0, 0);
+      -ms-transform: translate3d(0, 0, 0);
+      -o-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+    .slick-track {
+      top: 0;
+      left: 0;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .slick-track:after,
+    .slick-track:before {
+      display: table;
+      content: '';
+    }
+    .slick-track:after {
+      clear: both;
+    }
+    .slick-slide {
+      float: left;
+      height: 100%;
+      min-height: 1px;
+    }
+    [dir=rtl] .slick-slide {
+      float: right;
+    }
+    .slick-slide img {
+      display: block;
+      width: 100%;
+    margin: 0 auto;
+    }
+    .slick-slide.slick-loading img {
+      display: none;
+    }
+    .slick-slide.dragging img {
+      pointer-events: none;
+    }
+    .slick-initialized .slick-slide {
+      display: block;
+    }
+    .slick-vertical .slick-track .slick-slide {
+      height: auto;
+      display: block;
+    }
+    .slick-arrow {
+      background: transparent;
+    }
+    .slick-arrow.slick-hidden {
+      display: none;
+    }
+    .center-slick-track .draggable .slick-track{
+      transform: translate3d(0px, 0px, 0px)!important;
+    }
+    #shopify-section-{{ section.id }} {
+      {% if section.settings.enable_custom_margins_paddings %}
+        margin-top: {{ section.settings.custom-margin-top }}px;
+        margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+        padding-top: {{ section.settings.custom-padding-top }}px;
+        padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+      {% else %}
+        margin: 20px 0;
+      {% endif %}
+  }
+  #slider-promotional-{{ section.id }} .slick-list {
+    width: 100%;
+  }
+  #slider-promotional-{{ section.id }} .section-title {
+    text-transform: {{ section.settings.headline_text_transform_title_slider }};
+  }
+  .shopify-section.banner+  #shopify-section-{{ section.id }} {
+    position: relative;
+    top: -{{ section.settings.top_margin_slide }}px;
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-bottom: {{ section.settings.top_margin_slide | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+    {% else %}
+      margin-bottom: {{ section.settings.top_margin_slide | times: -1 | plus: 20 }}px;
+    {% endif %}
+    float: left;
+    width: 100%;
+  }
+
+  #shopify-section-{{ section.id }}.section-slide-promotional .grid-uniform .grid__item.featured {
+    border: 2px solid {{ section.settings.background_slide_promotional }};
+  }
+
+  #slider-promotional-{{ section.id }} .grid-product-title {
+    background-color: {{ section.settings.background_slide_promotional }};
+    display: flex;
+  }
+
+  #slider-promotional-{{ section.id }} .grid-product-title .grid-product-title-link {
+    text-transform: {{ section.settings.text_transform_title_slider }};
+    color:{{ section.settings.text_color_slider_promotional }};
+    width: 100%;
+  }
+
+  {%- if section.settings.top_margin_slide -%}
+    .shopify-section.banner+  #shopify-section-{{ section.id }} > .wrapper {
+      display: block;
+      margin: 0 auto;
+      background: #fff;
+    }
+  {%- endif -%}
+
+  @media only screen and (max-width: 767px ){
+    .shopify-section.banner + #shopify-section-{{ section.id }}{
+      top: 0;
+      margin-bottom: 0;
+    }
+  }
+  
+.section-slide-promotional .slick-slide .slick-prev,
+.section-slide-promotional .slick-slide .slick-next {
+    position: absolute;
+    z-index: 1;
+    top: 39%;
+    border: none;
+    background-color: #fff;
+    height: 50px;
+    border-radius: 50%;
+    width: 50px;
+    box-shadow: 0 1px 2px #0003;
+}
+
+.section-slide-promotional .slick-slide .slick-next {
+  right: -20px;
+}
+
+.section-slide-promotional .slick-slide .slick-prev {
+  left: -20px;
+}
+
+.section-slide-promotional .grid-uniform {
+  position: relative;
+  background: var(--slider-promotional-background-color, #fff);
+}
+
+/*RESPONSIVE STYLES*/
+@media (max-width: 767px) {
+	.section-slide-promotional {
+		margin-top: 0;
+	}
+}
+</style>
+
+{%- endcapture -%}
+
+{{- slider_promotional_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
 
 {% schema %}
 {
@@ -231,172 +492,3 @@
   ]
 }
 {% endschema %}
-
-<script type="lazyload2">
-  setTimeout(function(){
-  window.SectionSliderPromotional = (function(){
-    function SectionSliderPromotional() {
-      this.settings = {
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 2000,
-        prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
-        nextArrow: '<button type="button" class="slick-next">&rang;</button>',
-        arrows: true,
-        responsive: [
-            {
-                breakpoint: 1180,
-                settings: {
-                  slidesToShow: 4,
-                  slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 1019,
-                settings: {
-                  slidesToShow: 3,
-                  slidesToScroll: 1,
-                }
-            },
-            {
-                breakpoint: 767,
-                settings: {
-                  slidesToShow: 2,
-                  slidesToScroll: 1,
-                }
-            }
-        ]
-      };
-
-      this._run();
-    }
-
-    SectionSliderPromotional.prototype = {
-      onLoad: function() {
-        this._run();
-      },
-
-      _run: function() {
-        var slider, autoplay, autoplaySpeed, settings = this.settings;
-
-        jQuery('[id^="slider-promotional-"]').each(function(){
-          slider = '#promotional-' + $(this).data('slider');
-
-          autoplay = jQuery(slider).data('autoplay');
-          autoplaySpeed = jQuery(slider).data('speed');
-
-          if (typeof autoplay !== 'undefined' && autoplay != true && autoplay != false) {
-            autoplay = true;
-          }
-
-          if (typeof autoplaySpeed !== 'undefined' && autoplaySpeed < 800 && autoplaySpeed > 3000) {
-            autoplaySpeed = 800;
-          }
-
-          settings.autoplay = autoplay;
-          settings.autoplaySpeed = autoplaySpeed;
-
-          jQuery(slider).not('.slick-initialized').slick( settings );
-        });
-      }
-    };
-
-    return new SectionSliderPromotional;
-  })();
-});
-</script>
-
-<style scoped type="lazyload2">
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-  #slider-promotional-{{ section.id }} .slick-list {
-    width: 100%;
-  }
-  #slider-promotional-{{ section.id }} .section-title {
-    text-transform: {{ section.settings.headline_text_transform_title_slider }};
-  }
-  .shopify-section.banner+  #shopify-section-{{ section.id }} {
-    position: relative;
-    top: -{{ section.settings.top_margin_slide }}px;
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-bottom: {{ section.settings.top_margin_slide | times: -1 | plus: section.settings.custom-margin-bottom }}px;
-    {% else %}
-      margin-bottom: {{ section.settings.top_margin_slide | times: -1 | plus: 20 }}px;
-    {% endif %}
-    float: left;
-    width: 100%;
-  }
-
-  #shopify-section-{{ section.id }}.section-slide-promotional .grid-uniform .grid__item.featured {
-    border: 2px solid {{ section.settings.background_slide_promotional }};
-  }
-
-  #slider-promotional-{{ section.id }} .grid-product-title {
-    background-color: {{ section.settings.background_slide_promotional }};
-    display: flex;
-  }
-
-  #slider-promotional-{{ section.id }} .grid-product-title .grid-product-title-link {
-    text-transform: {{ section.settings.text_transform_title_slider }};
-    color:{{ section.settings.text_color_slider_promotional }};
-    width: 100%;
-  }
-
-  {%- if section.settings.top_margin_slide -%}
-    .shopify-section.banner+  #shopify-section-{{ section.id }} > .wrapper {
-      display: block;
-      margin: 0 auto;
-      background: #fff;
-    }
-  {%- endif -%}
-
-  @media only screen and (max-width: 767px ){
-    .shopify-section.banner + #shopify-section-{{ section.id }}{
-      top: 0;
-      margin-bottom: 0;
-    }
-  }
-  
-.section-slide-promotional .slick-slide .slick-prev,
-.section-slide-promotional .slick-slide .slick-next {
-    position: absolute;
-    z-index: 1;
-    top: 39%;
-    border: none;
-    background-color: #fff;
-    height: 50px;
-    border-radius: 50%;
-    width: 50px;
-    box-shadow: 0 1px 2px #0003;
-}
-
-.section-slide-promotional .slick-slide .slick-next {
-  right: -20px;
-}
-
-.section-slide-promotional .slick-slide .slick-prev {
-  left: -20px;
-}
-
-.section-slide-promotional .grid-uniform {
-  position: relative;
-  background: var(--slider-promotional-background-color, #fff);
-}
-
-/*RESPONSIVE STYLES*/
-@media (max-width: 767px) {
-	.section-slide-promotional {
-		margin-top: 0;
-	}
-}
-
-</style>

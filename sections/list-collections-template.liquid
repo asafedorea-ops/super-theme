@@ -1,5 +1,7 @@
+'
 <!-- start list-collections-template.liquid (SECTION) -->
 
+{%- capture list_collection_content -%}
 {%- assign floating_items_class = '' -%}
 
 {%- if section.settings.product_title_position == 'center' -%}
@@ -88,7 +90,7 @@
   </div>
 </div>
 
-<style scoped type="lazyload2">
+<style scoped>
   #shopify-section-{{ section.id }} .list-collections__title {
     background-color: {{ section.settings.collection_list_background_color }};
     color: {{ section.settings.collection_list_font_color }};
@@ -164,6 +166,8 @@
     }
   }
 </style>
+{%- endcapture -%}
+{{- list_collection_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
 
 {% schema %}
 {

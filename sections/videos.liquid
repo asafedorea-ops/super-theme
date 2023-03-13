@@ -1,69 +1,138 @@
-<!-- start videos.liquid (SECTION) -->
-<section id="video-slider-{{ section.id }}" data-slider="{{ section.id }}" data-section-type="video" class="wrapper {{ section.settings.video_custom_class }}">
-    {%- if section.settings.enable_section_title and section.settings.section_title != blank -%}
-        <h2 class="section-title">{{ section.settings.section_title }}</h2>
-    {%- endif -%}
+{%- capture videos_content -%}
 
-    <div id="slider-{{ section.id }}" class="dynamic-video-wrapper wrapper {% if section.settings.enable_videos_slider %} dynamic-video__slider-container {% endif %} {{ section.settings.custom_class }}" style="{% if section.settings.enable_full_width %} max-width: 100%; {% else %} max-width: 600px;{% endif %}">
-        {%- for block in section.blocks -%}
-            {%- if "video" == block.type -%}
-                {%- assign show_videos = false -%}
-                {%- if block.settings.enable_video_by_tag -%}
-                    {%- if product.tags contains block.settings.tag_name -%}
-                        {%- assign show_videos = true -%}
-                    {%- endif -%}
-                {%- else -%}
-                    {%- assign show_videos = true -%}
-                {%- endif -%}
-                
-                {%- if show_videos == true -%}
-                    {%- assign url = block.settings.url -%}
-                    <div class="dynamic-video" style="{% if section.settings.enable_full_width %} max-width: 100%; {% else %} max-width: 560px;{% endif %}">
-                        {% if section.settings.enable_videos_title and block.settings.title != blank %}
-                            <h3 class="videos-title">{{ block.settings.title }}</h3>
+  <!-- start videos.liquid (SECTION) -->
+  <section id="video-slider-{{ section.id }}" data-slider="{{ section.id }}" data-section-type="video" class="wrapper {{ section.settings.video_custom_class }}">
+      {%- if section.settings.enable_section_title and section.settings.section_title != blank -%}
+          <h2 class="section-title">{{ section.settings.section_title }}</h2>
+      {%- endif -%}
+
+      <div id="slider-{{ section.id }}" class="dynamic-video-wrapper wrapper {% if section.settings.enable_videos_slider %} dynamic-video__slider-container {% endif %} {{ section.settings.custom_class }}" style="{% if section.settings.enable_full_width %} max-width: 100%; {% else %} max-width: 600px;{% endif %}">
+          {%- for block in section.blocks -%}
+              {%- if "video" == block.type -%}
+                  {%- assign show_videos = false -%}
+                  {%- if block.settings.enable_video_by_tag -%}
+                      {%- if product.tags contains block.settings.tag_name -%}
+                          {%- assign show_videos = true -%}
+                      {%- endif -%}
+                  {%- else -%}
+                      {%- assign show_videos = true -%}
+                  {%- endif -%}
+                  
+                  {%- if show_videos == true -%}
+                      {%- assign url = block.settings.url -%}
+                      <div class="dynamic-video" style="{% if section.settings.enable_full_width %} max-width: 100%; {% else %} max-width: 560px;{% endif %}">
+                          {% if section.settings.enable_videos_title and block.settings.title != blank %}
+                              <h3 class="videos-title">{{ block.settings.title }}</h3>
+                          {% endif %}
+                          {%- assign platform = '' -%}
+                          {%- if url contains 'youtube' or url contains 'youtu.be' -%}
+                          {%- assign platform = 'youtube' -%}
+                          {%- if url contains 'youtu.be' -%}
+                              {%- assign videoID = url | split: '/' | last -%}
+                          {%- elsif url contains '&' -%}
+                              {%- assign videoID = url | split: '?v=' | last | split: '&' | first -%}
+                          {%- elsif url contains 'embed' -%}
+                              {%- assign videoID = url | split: 'embed/' | last -%}
+                          {%- else -%}
+                              {%- assign videoID = url | split: '?v=' | last -%}
+                          {%- endif -%}
+                          {%- elsif url contains 'vimeo' -%}
+                              {%- assign platform = 'vimeo' -%}
+                          {%- endif -%}
+                          {% if platform == 'youtube' %}
+                            <div class="youtube-player" data-id="{{- videoID -}}"></div>
+                          {% else %}
+                            <div class="video" data-video="{{ platform }}">
+                              <iframe class="{{ platform }}{% if slideshow %}hide-player{% endif %}"
+                                  data-video-url="{{ url }}"
+                                  loading="lazy"
+                                  width="560"
+                                  height="315"
+                                  src="{{- url -}}"
+                                  frameborder="0"
+                                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                                  allowfullscreen>
+                              </iframe>
+                          </div>
                         {% endif %}
-                        {%- assign platform = '' -%}
-                        {%- if url contains 'youtube' or url contains 'youtu.be' -%}
-                        {%- assign platform = 'youtube' -%}
-                        {%- if url contains 'youtu.be' -%}
-                            {%- assign videoID = url | split: '/' | last -%}
-                        {%- elsif url contains '&' -%}
-                            {%- assign videoID = url | split: '?v=' | last | split: '&' | first -%}
-                        {%- elsif url contains 'embed' -%}
-                            {%- assign videoID = url | split: 'embed/' | last -%}
-                        {%- else -%}
-                            {%- assign videoID = url | split: '?v=' | last -%}
-                        {%- endif -%}
-                        {%- elsif url contains 'vimeo' -%}
-                            {%- assign platform = 'vimeo' -%}
-                        {%- endif -%}
-                        {% if platform == 'youtube' %}
-                          <div class="youtube-player" data-id="{{- videoID -}}"></div>
-                        {% else %}
-                          <div class="video" data-video="{{ platform }}">
-                            <iframe class="{{ platform }}{% if slideshow %}hide-player{% endif %}"
-                                data-video-url="{{ url }}"
-                                loading="lazy"
-                                width="560"
-                                height="315"
-                                src="{{- url -}}"
-                                frameborder="0"
-                                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                                allowfullscreen>
-                            </iframe>
-                        </div>
-                      {% endif %}
 
-                        {% if section.settings.enable_videos_description and block.settings.video_description != blank %}
-                            <p class="videos-description">{{ block.settings.video_description }}</p>
-                        {% endif %}
-                    </div>
-                {%- endif -%}
-            {%- endif -%}
-        {%- endfor -%}
-    </div>
-</section>
+                          {% if section.settings.enable_videos_description and block.settings.video_description != blank %}
+                              <p class="videos-description">{{ block.settings.video_description }}</p>
+                          {% endif %}
+                      </div>
+                  {%- endif -%}
+              {%- endif -%}
+          {%- endfor -%}
+      </div>
+  </section>
+  
+  <style scoped>
+    #shopify-section-{{ section.id }} {
+      {% if section.settings.enable_custom_margins_paddings %}
+        margin-top: {{ section.settings.custom-margin-top }}px;
+        margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+        padding-top: {{ section.settings.custom-padding-top }}px;
+        padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+      {% else %}
+        margin: 20px 0;
+      {% endif %}
+    }
+      #shopify-section-{{ section.id }} .dynamic-video-wrapper {
+          {% if section.settings.enable_videos_slider %}
+              display: block;
+              height: auto;
+          {% else %}
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+          {% endif %}
+      }
+  
+      #shopify-section-{{ section.id }} .dynamic-video-wrapper {
+          {% if section.settings.enable_videos_slider %}
+              margin-bottom: 0;
+          {% else %}
+              margin-bottom: 32px;
+          {% endif %}
+      }
+  
+      #shopify-section-{{ section.id }} .dynamic-video-wrapper .dynamic-video .video {
+          {% if section.settings.enable_videos_slider %}
+              padding-top: 0;
+          {% else %}
+              padding-top: 25px;
+          {% endif %}
+      }
+  </style>
+  <script type='lazyload2'>
+    setTimeout(function () {
+      window.SectionVideoSlider = (function () {
+        function SectionVideoSlider() {
+          this._run()
+        }
 
+        SectionVideoSlider.prototype = {
+          onSelect: function () {
+            this._run()
+          },
+
+          _run: function () {
+            $('.dynamic-video__slider-container').slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
+              nextArrow: '<button type="button" class="slick-next">&rang;</button>',
+              infinite: true,
+            })
+          },
+        }
+
+        return new SectionVideoSlider()
+      })()
+    })
+  </script>
+{%- endcapture -%}
+{{- videos_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
 {% schema %}
 {
   "name": "Videos",
@@ -178,10 +247,7 @@
           "type": "video_url",
           "id": "url",
           "label": "Link",
-          "accept": [
-            "youtube",
-            "vimeo"
-          ],
+          "accept": ["youtube", "vimeo"],
           "info": "The Vimeo Link should be added like this: https://player.vimeo.com/video/ID_HERE"
         },
         {
@@ -213,69 +279,3 @@
 }
 {% endschema %}
 
-<script type="lazyload2">
-  setTimeout(function(){
-    window.SectionVideoSlider = (function(){
-      function SectionVideoSlider() {
-        this._run();
-      }
-
-      SectionVideoSlider.prototype = {
-        onSelect: function() {
-          this._run();
-        },
-
-        _run: function() {
-          $('.dynamic-video__slider-container').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
-            nextArrow: '<button type="button" class="slick-next">&rang;</button>',
-            infinite: true
-          });
-        }
-      };
-
-      return new SectionVideoSlider;
-  })();
-});
-</script>
-
-<style scoped>
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-    #shopify-section-{{ section.id }} .dynamic-video-wrapper {
-        {% if section.settings.enable_videos_slider %}
-            display: block;
-            height: auto;
-        {% else %}
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        {% endif %}
-    }
-
-    #shopify-section-{{ section.id }} .dynamic-video-wrapper {
-        {% if section.settings.enable_videos_slider %}
-            margin-bottom: 0;
-        {% else %}
-            margin-bottom: 32px;
-        {% endif %}
-    }
-
-    #shopify-section-{{ section.id }} .dynamic-video-wrapper .dynamic-video .video {
-        {% if section.settings.enable_videos_slider %}
-            padding-top: 0;
-        {% else %}
-            padding-top: 25px;
-        {% endif %}
-    }
-</style>

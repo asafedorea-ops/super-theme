@@ -1,167 +1,246 @@
 <!-- start collection-list.liquid (SECTION) -->
+{%- capture collection_list_content -%}
 
-<link rel="stylesheet" data-href="{{ 'section-collection-list.css' | asset_url }}"/>
-
-<div id="shopify-section-{{ section.id }}-content" class="collection-list {{ section.settings.custom_class | handleize }}">
-  <div class="wrapper">
-    <div class="collection-list__wrapper">
-      {%- if section.settings.title != blank -%}
-        <h2 class="collection-list__title section-title">{{- section.settings.title -}}</h2>
-      {%- endif -%}
-
-      <div class="collection-list__list collection-list__list--centered">
-        {%- assign limit = 4 -%}
-
-        {%- if section.settings. products_per_rows_desktop_collection_list  == "49" -%}
-          {%- assign limit = 2 -%}
-        {%- elsif section.settings. products_per_rows_desktop_collection_list  == "32" -%}
-          {%- assign limit = 3 -%}
+  <div id="shopify-section-{{ section.id }}-content" class="collection-list {{ section.settings.custom_class | handleize }}">
+    <div class="wrapper">
+      <div class="collection-list__wrapper">
+        {%- if section.settings.title != blank -%}
+          <h2 class="collection-list__title section-title">{{- section.settings.title -}}</h2>
         {%- endif -%}
-        {% for block in section.blocks limit: limit %}
-          <div class="collection-list__item">
-            {%- case block.type -%}
-              {%- when 'collection' -%}
-                {%- assign item = collections[block.settings.collection]-%}
-              {%- else -%}
-                {%- assign item = all_products[block.settings.id_product]-%}
-            {%- endcase -%}
 
-            {%- assign title = block.settings.collection_title | default: block.settings.product_title -%}
+        <div class="collection-list__list collection-list__list--centered">
+          {%- assign limit = 4 -%}
 
-            <div id="FeatColl-{{ forloop.index }}" >
-              <span class="collection-list__image-wrapper">
-                {%- assign image = block.settings.collection_image | default: block.settings.product_image -%}
-                {%- assign image = image | default: item -%}
-                <a href="{{- item.url -}}" class="collection-list__link" title="{{- title | default: item.title | escape -}}">
-                {%- render 'responsive-image' with
-                  image: image,
-                  max_width: 300,
-                  image_class: 'collection-list__image',
-                  active_lazy: true,
-                  id_prefix: index,
-                  size_large: 300,
-                  size_mobile: 40,
-                  size_desk: 32
-                -%}
-                </a>
-              </span>
+          {%- if section.settings. products_per_rows_desktop_collection_list  == "49" -%}
+            {%- assign limit = 2 -%}
+          {%- elsif section.settings. products_per_rows_desktop_collection_list  == "32" -%}
+            {%- assign limit = 3 -%}
+          {%- endif -%}
+          {% for block in section.blocks limit: limit %}
+            <div class="collection-list__item">
+              {%- case block.type -%}
+                {%- when 'collection' -%}
+                  {%- assign item = collections[block.settings.collection]-%}
+                {%- else -%}
+                  {%- assign item = all_products[block.settings.id_product]-%}
+              {%- endcase -%}
 
-              {%- if title != blank or item.title != blank -%}
-                <h3 class="collection-list__item-title"><a href="{{- item.url -}}" class="collection-list__item-title_link">{{- title | default: item.title -}}</a></h3>
-              {%- endif -%}
+              {%- assign title = block.settings.collection_title | default: block.settings.product_title -%}
+
+              <div id="FeatColl-{{ forloop.index }}" >
+                <span class="collection-list__image-wrapper">
+                  {%- assign image = block.settings.collection_image | default: block.settings.product_image -%}
+                  {%- assign image = image | default: item -%}
+                  <a href="{{- item.url -}}" class="collection-list__link" title="{{- title | default: item.title | escape -}}">
+                  {%- render 'responsive-image' with
+                    image: image,
+                    max_width: 300,
+                    image_class: 'collection-list__image',
+                    active_lazy: true,
+                    id_prefix: index,
+                    size_large: 300,
+                    size_mobile: 40,
+                    size_desk: 32
+                  -%}
+                  </a>
+                </span>
+
+                {%- if title != blank or item.title != blank -%}
+                  <h3 class="collection-list__item-title"><a href="{{- item.url -}}" class="collection-list__item-title_link">{{- title | default: item.title -}}</a></h3>
+                {%- endif -%}
+              </div>
             </div>
-          </div>
-        {%- endfor -%}
+          {%- endfor -%}
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<style scoped>
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
-  }
-
-  #shopify-section-{{ section.id }} .collection-list__item {
-    border-color: {{ section.settings.border_color_collection_list }};
-    width: {{section.settings.products_per_rows_desktop_collection_list}}%;
-  }
-
-  #shopify-section-{{ section.id }} .collection-list__item-title {
-    background-color: {{ section.settings.text_bg_color_collection_list }};
-  }
-
-  #shopify-section-{{ section.id }} .collection-list__item-title_link {
-    color: {{ section.settings.text_color_collection_list }};
-    text-transform: {{ section.settings.collection_product_title_text_transform }};
-  } 
-
-  #shopify-section-{{ section.id }} .collection-list__title {
-    text-transform: {{ section.settings.text_transform_title }};
-  }
-
-  @media (min-width: 768px) {
-    .shopify-section.banner + #shopify-section-{{ section.id }} {
-      top: {{ section.settings.top_margin_featured | times: -1 }}px;
+  <style scoped>
+    #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
-        margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+          margin-top: {{ section.settings.custom-margin-top }}px;
+          margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+          padding-top: {{ section.settings.custom-padding-top }}px;
+          padding-bottom: {{ section.settings.custom-padding-bottom }}px;
       {% else %}
-        margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: 20 }}px;
+          margin: 20px 0;
       {% endif %}
     }
-  }
-  @media (max-width: 767px){
-    #shopify-section-{{ section.id }}  .collection-list__item {
-      width: {{section.settings.products_per_rows_collection_list}}%;
+    #shopify-section-{{ section.id }} .collection-list__item {
+        border-color: {{ section.settings.border_color_collection_list }};
+        width: {{section.settings.products_per_rows_desktop_collection_list}}%;
     }
-  }
-</style>
-
-<style scoped type="lazyload2">
-  .section-collection-list {
-    position: relative;
-  }
-
-  .collection-list__image-wrapper,
-  .collection-list__item-title {
-    display: block;
-  }
-
-  .collection-list__wrapper {
-    background-color: #fff;
-  }
-
-  .collection-list__list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2vw 2%;
-    padding-bottom: 0;
-  }
-
-  .collection-list__list--centered {
-    justify-content: center;
-  }
-
-  .collection-list__item {
-    width: 23.5%;
-    border-width: 2px;
-    border-style: solid;
-  }
-
-  .collection-list__image-wrapper {
-    position: relative;
-    height: 0;
-    padding-top: 100%;
-    overflow: hidden;
-  }
-
-  .collection-list__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .collection-list__item-title {
-    text-align: center;
-    padding: 10px 0;
-  }
-
-  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .collection-list__item-title {
+        background-color: {{ section.settings.text_bg_color_collection_list }};
+    }
+    #shopify-section-{{ section.id }} .collection-list__item-title_link {
+        color: {{ section.settings.text_color_collection_list }};
+        text-transform: {{ section.settings.collection_product_title_text_transform }};
+    } 
+    #shopify-section-{{ section.id }} .collection-list__title {
+        text-transform: {{ section.settings.text_transform_title }};
+    }
+    .section-collection-list {
+        position: relative;
+    }
+    .collection-list__image-wrapper,
+    .collection-list__item-title {
+        display: block;
+    }
+    .collection-list__wrapper {
+        background-color: #fff;
+    }
+    .collection-list__list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2vw 2%;
+        padding-bottom: 0;
+    }
+    .collection-list__list--centered {
+        justify-content: center;
+    }
     .collection-list__item {
-      width: 49%;
+        width: 23.5%;
+        border-width: 2px;
+        border-style: solid;
     }
-  }
-</style>
+    .collection-list__image-wrapper {
+        position: relative;
+        height: 0;
+        padding-top: 100%;
+        overflow: hidden;
+    }
+    .collection-list__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .collection-list__item-title {
+        text-align: center;
+        padding: 10px 0;
+    }
+    .list-collection {
+        display: flex;
+        width: 100%;
+    }
+    ul.list-collections {
+        margin-top: 20px;
+        list-style: none;
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    li.list-item-collection {
+        display: block;
+        width: 23.5%;
+        margin-right: 2%;
+    }
+    li.list-item-collection:nth-of-type(n + 5) {
+        margin-top: 30px;
+    }
+    li.list-item-collection:nth-of-type(4n) {
+        margin-right: 0;
+    }
+    li.list-item-collection img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .list-item-collection .collection-link-2 {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 0;
+        padding-top: 100%;
+    }
+    .list-item-collection .collection-link-2 img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+    }
+    .template-list-collections .list-item-collection-title {
+        font-weight: bold;
+        z-index: 1;
+        padding: 4px;
+        background-color: var(--collectionListBackgroundColor);
+        display: block;
+        width: 100%;
+        color: var(--collectionListFontColor);
+        text-transform: uppercase;
+        text-align: center;
+        font-weight: bold;
+    }
+    .template-list-collections .list-item-collection .collection-link .list-item-collection-title {
+        position: absolute;
+        top: 50%;
+        transform: translatey(-50%);
+    }
+    a.collection-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+    .template-list-collections .rte-h1 {
+        clear: both;
+        font-weight: 400;
+    }
+    @media (min-width: 768px) {
+        .shopify-section.banner + #shopify-section-{{ section.id }} {
+            top: {{ section.settings.top_margin_featured | times: -1 }}px;
+            {% if section.settings.enable_custom_margins_paddings %}
+                margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: section.settings.custom-margin-bottom }}px;
+            {% else %}
+                margin-bottom: {{ section.settings.top_margin_featured | times: -1 | plus: 20 }}px;
+            {% endif %}
+        }
+    }
+    @media (max-width: 767px) {
+        #shopify-section-{{ section.id }}  .collection-list__item {
+            width: {{section.settings.products_per_rows_collection_list}}%;
+        }
+        .template-list-collections .list-collections {
+            width: 100%;
+        }
+        .template-list-collections .list-collections .list-item-collection {
+            width: 49%;
+            margin-bottom: 30px;
+            padding-top: 0;
+            margin-right: 2%;
+        }
+        .template-list-collections .list-collections .list-item-collection:nth-of-type(2n) {
+            margin-right: 0;
+        }
+        .collection-list__item {
+            width: 49%;
+        }
+    }
+    @media (max-width: 479px) {
+        .template-list-collections .list-collections {
+            grid-template-columns: 100%;
+        }
+        .template-list-collections .list-collections .list-item-collection {
+            width: 100%;
+            margin-bottom: 30px;
+            padding-top: 0;
+            margin-right: 0;
+        }
+    }
+  </style>
+
+{%- endcapture -%}
+{{- collection_list_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
 
 {% schema %}
 {

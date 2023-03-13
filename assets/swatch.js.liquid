@@ -41,8 +41,7 @@
             swatch_radio  = swatch.find('.swatch-variant-value');
         $('.product-variant', swatch).prop('disabled', false);
         swatch_radio.parent().addClass('swatch-disabled');
-        // BEGIN_TAG_SELECT
-            swatch_select.prop({
+                swatch_select.prop({
                 disabled: true,
                 checked: false
             });
@@ -54,9 +53,7 @@
             first_select_value = swatch_select.filter(':not(:disabled):first').val();
             if (enable_atc_button)
                 swatch_select.parent().val(first_select_value).trigger('change');
-        // END_TAG_SELECT
-        // BEGIN_RADIO_BUTTON
-            swatch_radio.prop({
+                swatch_radio.prop({
                 disabled: true,
                 checked: false
             });
@@ -68,8 +65,7 @@
             });
             if (enable_atc_button)
                 swatch_radio.filter(':not(:disabled):first').trigger('click');
-        // END_RADIO_BUTTON
-        swatch.prev().find('.choose-option').removeClass('choose-option');
+            swatch.prev().find('.choose-option').removeClass('choose-option');
     }
     function choose_before_option( i ) {
         $('.swatch-type[data-index="'+ i +'"] .swatch-element').on('click', function(){
@@ -106,14 +102,12 @@
         _choosed_variant = $('.all-variant'),
         _price = $(':selected', _choosed_variant).attr('data-price'),
         _global_variant_compare_at_price = $(':selected', $('.all-variant')).attr('data-compare-at-price') === "" ? "" : VastaShop.formatMoney($(':selected', $('.all-variant')).attr('data-compare-at-price'));
-    // Product Options
-    _product_options.change(function(){
+        _product_options.change(function(){
         var options = prepare_variants($('.jq-product-variant option:selected,.swatch-variant-value:checked', $productSwatch));
 
         get_variation(_choosed_variant, options);
         $(this).parent().removeClass('choose-option');
-        // Filter Variants
-        filter_variants(VastaShop.Product.current, options, $(this).val(), parseInt($(this).attr('data-swatch-index')), (options.length == VastaShop.Product.current.options.length) );
+            filter_variants(VastaShop.Product.current, options, $(this).val(), parseInt($(this).attr('data-swatch-index')), (options.length == VastaShop.Product.current.options.length) );
         if (options.length === VastaShop.Product.current.options.length) {
             $('.btn-add-tocart').prop('disabled', false);
             $('.product-form-buttons-wrapper,.btn-add-tocart').removeClass('hide');
@@ -126,8 +120,7 @@
         return false;
     });
     var temp = '${{ amount }}';
-    // Choosed Variant
-
+    
     _choosed_variant.change(function() {
         try {
             $('#add-to-cart-error').addClass('hide');
@@ -161,8 +154,7 @@
             variant_price = parseInt(variant_price);
             compare_at_price = parseInt(compare_at_price !== '' ? compare_at_price: 0);
 
-            // Old Layout
-            if (_current_price.length > 0) {
+                if (_current_price.length > 0) {
                 _current_price.html(VastaShop.formatMoney(variant_price));
             }
 
@@ -170,8 +162,7 @@
                 _current_compare_price.html(VastaShop.formatMoney(compare_at_price));
             }
 
-            // New Layout
-            if (_new_current_price.length > 0) {
+                if (_new_current_price.length > 0) {
                 _new_current_price.html(VastaShop.formatMoney(variant_price).replace(/[^0-9,.]/gi, ''));
             }
 

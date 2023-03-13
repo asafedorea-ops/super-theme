@@ -8,11 +8,11 @@
 
 {%- if copy_body_font_url != blank -%}
     <link rel="preload" href="{{ copy_body_font_url }}" as="font" crossorigin/>
-{%- endif -%}
+  {%- endif -%}
 
-{%- if copy_bold_body_font_url != blank -%}
+  {%- if copy_bold_body_font_url != blank -%}
     <link rel="preload" href="{{ copy_bold_body_font_url }}" as="font" crossorigin/>
-{%- endif -%}
+  {%- endif -%}
 
 <style>
   {{ settings.copy_body_font | font_face: font_display: 'swap' }}
@@ -20,8 +20,15 @@
   {{ settings.copy_bold_body_font | font_face: font_display: 'swap' }}
 </style>
 
-  
-  {%- style -%}
+<style>
+  * {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+</style>
+
+{%- style -%}
   :root {
     --color-link: {{ settings.color_link }};
     --color-sale: {{ settings.color_sale }};
@@ -210,13 +217,3 @@
 {%- endstyle -%}
 
 {%- render 'critical-style-sitewide' -%}
-
-{%- if template contains 'collection' -%}
-  {%- render 'critical-style-collection' -%}
-{%- elsif template contains 'product' -%}
-  {%- render 'critical-style-product' -%}
-{%- elsif template contains 'index' -%}
-  {%- render 'critical-style-index' -%}
-{%- else -%}
-  {%- render 'critical-style-general' -%}
-{%- endif -%}
