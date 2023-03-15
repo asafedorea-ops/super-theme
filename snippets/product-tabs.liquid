@@ -108,48 +108,46 @@
 
 <script type="lazyload2">
   setTimeout(function(){
-  const $document = $(document);
-    
-            $('.tabs-accordion-content').each(function(index){
-                if(index==0){
-                    $(this).css('display', 'block')
-                }
-            })
-    
-            $document.on('click', '.product-tabs__nav-item', function(){
-                var tabs = $(this),
-                    scope = tabs.parent().attr('data-tabs-scope');
-    
-                tabs.addClass('product-tabs__nav-item--active').siblings().removeClass('product-tabs__nav-item--active');
-    
-                $('.product-tabs__content-wrapper[data-tabs-scope="' + scope + '"] .product-tabs__content[data-identifier="' + tabs.attr('data-target') + '"]').addClass('product-tabs__content--active').siblings().removeClass('product-tabs__content--active');
-    
-                return false;
-            });
-    
-            $document.find('.tabs-accordion-content').hide();
-    
-            $document.on('click', '.tabs-accordion-title', function(){
-                var self = $(this),
-                  accordion = self.closest('.tabs-accordion'),
-                  item = self.closest('.tabs-accordion-title'),
-                  content = self.siblings('.tabs-accordion-content');
-              var allTitles = accordion.find('.tabs-accordion-title').not(item),
-                  allContents = accordion.find('.tabs-accordion-content').not(content);
-              allTitles.removeClass('active');
-              allContents.slideUp();
-    
-              if (item.hasClass('active')){
-                item.removeClass('active')
-              } else {
-                item.addClass('active');
-              }
-                
-              content.slideToggle();
-            });
-    
-        });</script>
+    const $document = $(document);
 
+    $('.tabs-accordion-content').each(function(index){
+        if(index==0){
+            $(this).css('display', 'block');
+        }
+    });
+    
+    $document.on('click', '.product-tabs__nav-item', function(){
+        var tabs = $(this), scope = tabs.parent().attr('data-tabs-scope');
+
+        tabs.addClass('product-tabs__nav-item--active').siblings().removeClass('product-tabs__nav-item--active');
+
+        $('.product-tabs__content-wrapper[data-tabs-scope="' + scope + '"] .product-tabs__content[data-identifier="' + tabs.attr('data-target') + '"]').addClass('product-tabs__content--active').siblings().removeClass('product-tabs__content--active');
+
+        return false;
+    });
+    
+    $document.find('.tabs-accordion-content').hide();
+
+    $document.on('click', '.tabs-accordion-title', function(){
+        var self = $(this),
+          accordion = self.closest('.tabs-accordion'),
+          item = self.closest('.tabs-accordion-title'),
+          content = self.siblings('.tabs-accordion-content');
+      var allTitles = accordion.find('.tabs-accordion-title').not(item),
+          allContents = accordion.find('.tabs-accordion-content').not(content);
+      allTitles.removeClass('active');
+      allContents.slideUp();
+
+      if (item.hasClass('active')){
+        item.removeClass('active');
+      } else {
+        item.addClass('active');
+      }
+        
+      content.slideToggle();
+    })
+  })
+</script>
 
 <style scoped>
   :root {
