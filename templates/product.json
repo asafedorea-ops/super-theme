@@ -102,7 +102,7 @@
         "trust_badges_text_transform": "uppercase",
         "color_text_trust_badges": "#696969",
         "enabled_tabs": true,
-        "enabled_tabs_accordion": true,
+        "enabled_tabs_accordion": false,
         "enabled_descp": true,
         "enabled_bullet_points": false,
         "enabled_tabs_max_height": false,
