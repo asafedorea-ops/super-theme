@@ -215,13 +215,13 @@
 			*
 			*/
 
-			$(document).ready(function() {
-				$('.all-variant').on('change', function() {
-					inventoryControl($(this).val());
-					VastaShop.Variables._button_plus.add(VastaShop.Variables._button_minus).removeAttr('disabled');
-					$("#StockWarning").removeClass('stock-wrn--active');
-				});
+
+			$('.all-variant').on('change', function() {
+				inventoryControl($(this).val());
+				VastaShop.Variables._button_plus.add(VastaShop.Variables._button_minus).removeAttr('disabled');
+				$("#StockWarning").removeClass('stock-wrn--active');
 			});
+
 
 			$(' .product-quantity-wrapper > .btn-plus').click(function () {
 				var quantity_value = parseInt(VastaShop.Variables._quantity.val()) + 1,
