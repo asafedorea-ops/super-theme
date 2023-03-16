@@ -16,10 +16,8 @@
       {%- render 'layout.theme.style'-%}
     {%- endcapture -%}
 
-    {{- style_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
-    {{- style_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
-    {{- layout_theme_css | replace: 'data-vasta', 'class="critical2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
-    {{- layout_theme_css | replace: 'data-vasta', 'type="lazyload2"' | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+    {{- style_css | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+    {{- layout_theme_css | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
     
     <!-- Meta Tags -->
     <meta name="theme-name" content="Super Theme BV" />

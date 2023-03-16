@@ -119,7 +119,7 @@
     "out_of_stock_label": "(Out of Stock)",
     "out_of_stock_text_color": "#fff",
     "out_of_stock_background_color": "#FF0000",
-    "product_tab_full_width": true,
+    "product_tab_full_width": false,
     "product_disabled_other_fine_products_section": false,
     "enabled_social_share": false,
     "social_share_title": "SOCIAL SHARE",

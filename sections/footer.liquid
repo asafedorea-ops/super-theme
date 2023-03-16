@@ -71,9 +71,9 @@
           <div class="info">
             {%- for block in section.blocks -%}
               {%- if "infos" == block.type -%}
-                {%- if block.settings.enable_phone != blank -%}<a title="Telephone" id="ftr-info-tel" href="tel:{{ settings.text_tel | replace: '+', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' | replace: ' ', '' }}" target="_blank"> {%- render "icon-phone" -%}  <p>{{ settings.text_tel }}</p> </a>{%- endif -%}
-                {%- if block.settings.enable_email != blank -%}<a title="E-mail" id="ftr-info-mail" href="mailto:{{ settings.text_email }}" target="_blank"> {%- render "icon-envelope" -%}   <p>{{ settings.text_email }}</p> </a> {%- endif -%}
-                {%- if block.settings.address != blank -%}<a title="Adress" id="ftr-info-adress" href="{%- if block.settings.address_link -%}{{ block.settings.address_link }}{%- else -%} # {%- endif -%}" target="_blank"> {%- render "icon-pin" -%}<p>{{ block.settings.address }}</p></a>{%- endif -%}
+                {%- if block.settings.enable_phone != blank -%}<a title="Telephone" id="ftr-info-tel" href="tel:{{ settings.text_tel | replace: '+', '' | replace: '(', '' | replace: ')', '' | replace: '-', '' | replace: ' ', '' }}" target="_blank"> {%- render "icon-phone" -%}  <span>{{ settings.text_tel }}</span> </a>{%- endif -%}
+                {%- if block.settings.enable_email != blank -%}<a title="E-mail" id="ftr-info-mail" href="mailto:{{ settings.text_email }}" target="_blank"> {%- render "icon-envelope" -%}   <span>{{ settings.text_email }}</span> </a> {%- endif -%}
+                {%- if block.settings.address != blank -%}<a title="Adress" id="ftr-info-adress" href="{%- if block.settings.address_link -%}{{ block.settings.address_link }}{%- else -%} # {%- endif -%}" target="_blank"> {%- render "icon-pin" -%}<span>{{ block.settings.address }}</span></a>{%- endif -%}
               {%- endif -%}
             {%- endfor -%}
 

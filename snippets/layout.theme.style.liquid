@@ -1,9 +1,12 @@
-<style data-vasta scoped>
+<style scoped>
     /******************************************************************************* # STYLE SITEWIDE *******************************************************************************/
     .drawer__title, .grid-product-title, .item-title, .item-title a, .page-title, .product-title, .section-title, .title,h1,h2,h3,h4,h5,h6,span,a,p,br,b,i,strong {
         -webkit-font-smoothing: antialiased;
         -webkit-text-size-adjust: 100%;
         text-rendering: optimizeLegibility;
+    }
+    html {
+        scroll-behavior: smooth;
     }
     .visually-hidden {
         display: none;
@@ -709,7 +712,7 @@
         margin-left: -36px;
         margin-top: -36px;
         position: absolute;
-        background: url('//i.imgur.com/TxzC70f.png') no-repeat;
+        background: url({{ 'botao-play.png' | asset_img_url: '72x' }}) no-repeat;
         cursor: pointer;
     }
     /*******************************************************************************
