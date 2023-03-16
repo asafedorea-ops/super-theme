@@ -33,7 +33,7 @@
 			_product_featured.on('init', function (event, slick) {
 				$('.lds-css.ng-scope').remove();
 				$('.product-slider').removeClass('invisible');
-				
+
 				{%- if settings.enable_zoom_feature_for_desktop -%}
 					if ($(window).width() >= 768) {
 						$('.magnify-zoom img').magnify();
@@ -57,7 +57,7 @@
 				if (swatch_locked === false) {
 					const current_slide = $('.product-slider-thumbnails .slick-current .product-slider__image-wrapper').data('forloop-index');
 					let variant_option = $('.all-variant option[data-image-position="' + current_slide + '"]');
-					
+
 					if (variant_option.length > 0 && current_slide != '') {
 						variant_option = variant_option.eq(0);
 
@@ -152,7 +152,7 @@
 					VastaShop.Variables._button_minus.attr('disabled', 'disabled');
 					$("#StockWarning").removeClass('stock-wrn--active');
 				}
-				
+
 				if (quantity_value < 1) {
 					quantity_value = 1;
 				}
@@ -214,6 +214,15 @@
 			* @param: none
 			*
 			*/
+
+
+			$('.all-variant').on('change', function() {
+				inventoryControl($(this).val());
+				VastaShop.Variables._button_plus.add(VastaShop.Variables._button_minus).removeAttr('disabled');
+				$("#StockWarning").removeClass('stock-wrn--active');
+			});
+
+
 			$(' .product-quantity-wrapper > .btn-plus').click(function () {
 				var quantity_value = parseInt(VastaShop.Variables._quantity.val()) + 1,
                     tag_current_price = $('#all-product-variants option:selected').data('price'),
@@ -268,7 +277,7 @@
 					inventoryControl($('.all-variant').val());
 				}
 				$("#StockWarning").removeClass('stock-wrn--active');
-				
+
 				VastaShop.Variables._quantity.val(quantity_value);
 
 				VastaShop.Product.calculateTotalPrice({
