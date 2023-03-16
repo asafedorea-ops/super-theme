@@ -112,6 +112,7 @@
       --color-price-cartDrawer:{{ section.settings.color_price_cartDrawer }};
       --color-continue-shopping-color:{{ section.settings.color_to_continue_shopping }};
       --review-style:{{ section.settings.review_style }};
+      --color-product-discount: {{ settings.color_product_discount }};
     }
   .cart-drawer .shipping-bar__discount-value {
     background: var(--bg-color-price-free-shipping-text-color);
@@ -569,7 +570,6 @@
         line-height: 1.2;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .price {
-        margin-bottom: 10px;
         display: flex;
         justify-content: center;
         color: var(--color-price-cartDrawer, #b22222);
@@ -942,9 +942,6 @@
         display: flex;
         flex-direction: column;
   }
-    .cart-products-wrapper .cart-product .cart-product-wrapper .price {
-        margin-bottom: 2px;
-  }
     .cart_discount_price {
         margin-bottom: 4px;
         color: var(--color-price-cartDrawer, #b22222);
@@ -1073,7 +1070,6 @@
         justify-content: center;
         color: var(--color-price-cartDrawer, #b22222);
         font-size: 16px;
-        margin-bottom: 2px;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper small.product-variant {
         color: var(--color-font-cart-meta-product, gray);
@@ -1823,9 +1819,14 @@
         display: flex;
         justify-content: center;
   }
-    .template-cart .main-content .cart-product-wrapper .product-price .price.discount-price {
-        font-size: 13px;
+    .main-content .cart-product-wrapper .product-price .price.discount-price {
+        font-size: 12px;
         color: var(--color-product-discount);
+  }
+  .discount-price__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
     @media (max-width: 1019px) {
         span.shipping-discount-drawer {
@@ -1925,10 +1926,6 @@
       }
         .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper .btn.icon-plus:after, .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper .btn.icon-minus:after {
             right: 8px;
-      }
-        .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper .price {
-            font-weight: bold;
-            font-size: 16px;
       }
         .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper button.bt-remove-cart {
             padding: 5px 15px;
@@ -2341,6 +2338,7 @@
                       Cart = cart;
 
                       this.renderCartHeader(cart);
+                      this.addCompareAtPrice(cart);
                       this.renderCartItems(cart);
                       this.renderTotalPriceItems(cart);
                       this.updateShippingBar(cart);
@@ -2474,6 +2472,23 @@
                       drawerItemsContainer.innerHTML = cartDrawerListItems;
                   },
 
+                  addCompareAtPrice(cart) {
+                    cart.items.forEach(function(item) {
+                      $.ajax({
+                        url: '/products/' + item.handle + '.js',
+                        dataType: 'json',
+                        async: false,
+                        success: function(product) {
+                          product.variants.forEach(function(variant) {
+                            if (variant.compare_at_price != null && variant.id == item.variant_id) {
+                              item["compare_at_price"] = variant.compare_at_price;
+                            }
+                          });
+                        } 
+                      });
+                    });
+                  },
+
                   /**
                   * Render cart header.
                   *
@@ -2546,14 +2561,14 @@
                       let isDiscount = '';
 
                       if (item.total_discount > 0) {
-                          isDiscount = '<span class="cart_discount_price">-' + VastaShop.formatMoney(item.total_discount) + '</span>';
+                        isDiscount = '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>'
                       } else {
                           isDiscount = '';
                       }
 
                       let cartItemImage = "https://cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c_100x.gif";
                       if(item.image != null ) {
-                          item.image = Shopify.Image.getSizedImageUrl(item.image, '80x');
+                        item.image = item.image;
                       }
                       else {
                           item.image = cartItemImage;
@@ -2597,7 +2612,8 @@
                           '       </div>' +
                           '   </div>' +
                           '   <div class="product-price">' +
-                          '       <strong class="price money"  id="jq-cart-item-price-' + item.id + '-' + index + '">' + VastaShop.formatMoney(item.line_price) + '</strong>' + isDiscount +
+                                  this.printCompareAtPrice(item) +
+                          '       <strong class="price money"  id="jq-cart-item-price-' + item.id + '-' + index + '">' + VastaShop.formatMoney(item.line_price) + '</strong>' +
                           '       <button type="button" aria-label="remove-cart" id="bt-remove-cart-'+ index + '" class="js-cart__btn--remove bt-remove-cart" name=' + item.id + '>Remove <span class="spinner__wrapper"><span class="spinner"></span></span></button>' +
                           '   </div>' +
                           '</div>' +
@@ -2617,6 +2633,47 @@
                       }
 
                       return '<small class="product-variant">' + all_properties.join('</small><small class="product-variant">') + '</small>';
+                  },
+
+                  printCompareAtPrice(item) {
+                    console.log(item); 
+                    let content = '';
+                    if(item.compare_at_price) {
+                      if(item.compare_at_price > item.price) {
+                        content += '<strong class="compare-price">' + VastaShop.formatMoney(item.compare_at_price * item.quantity) + '</strong>';
+
+                        if("{{ settings.cart_discount }}" != "none" ) {
+                          content += '<div class="discount-price__wrapper">-&nbsp;';
+                          if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
+                            content += '<span class="price amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.compare_at_price * item.quantity - item.line_price ) + '</span>&nbsp;';
+                          }
+
+                          if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
+                            const percentage = ((item.compare_at_price * item.quantity - item.line_price) / (item.compare_at_price * item.quantity) * 100).toFixed(2);
+                            content += '<span class="price percentage_discount discount-price" id="jq-cart-item-discount">(' + percentage + '%)</span>';
+                          }
+                          content += '</div>';
+                        }
+                      }
+                    }
+
+                    if(item.total_discount > 0) {
+                      content += '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>';
+
+                      if("{{ settings.cart_discount }}" != "none" ) {
+                        content += '<div class="discount-price__wrapper">-&nbsp;';
+                        if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
+                          content += '<span class="price amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.total_discount) + '</span>&nbsp;';
+                        }
+
+                        if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
+                          const percentage = (item.total_discount / item.original_line_price * 100).toFixed(2);
+                          content += '<span class="price percentage_discount discount-price" id="jq-cart-item-discount">(' + percentage + '%)</span>';
+                        }
+                        content += '</div>';
+                      }
+                    }                  
+                    return content; 
                   }
               },
 

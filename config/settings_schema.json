@@ -2095,15 +2095,33 @@
       },
       {
         "type": "checkbox",
-        "id": "enable_show_percentual_discount",
-        "label": "Enable Show Percentual Discount",
-        "default": true
-      },
-      {
-        "type": "checkbox",
         "id": "enable_cart_property",
         "label": "Enable Product Properties",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "cart_discount",
+        "label": "Cart Discount",
+        "default": "discount_amount_percentage",
+        "options": [
+          {
+            "value": "none",
+            "label": "None"
+          },
+          {
+            "value": "discount_amount",
+            "label": "Discount Amount"
+          },
+          {
+            "value": "discount_percentage",
+            "label": "Discount Percentage"
+          },
+          {
+            "value": "discount_amount_percentage",
+            "label": "Discount Amount and Percentage"
+          }
+        ]
       },
       {
         "type": "image_picker",

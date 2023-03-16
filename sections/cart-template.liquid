@@ -108,28 +108,49 @@
                 </div>
 
                 <div class="product-price">
-                  <strong class="price" id="jq-cart-item-price-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.original_line_price | money }}</strong>
-                  
-                  <div class="product-price">
-                    {%- if item.total_discount > 0 -%}
+                  {% if item.variant.compare_at_price > item.price %}
+                    <strong class="compare-price">{{ item.variant.compare_at_price | times: item.quantity | money }}</strong>
+
+                    {%- unless settings.cart_discount == "none" -%}
+                      <div class="discount-price__wrapper">
+                        {%- assign discount = item.variant.compare_at_price | times: item.quantity | minus: item.line_price -%}
+
+                        -&nbsp;
+                        {%- if settings.cart_discount == "discount_amount" or settings.cart_discount == "discount_amount_percentage" -%}
+                          <span class="price amount_discount discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ discount | money }}</span>&nbsp;
+                        {%- endif -%}
+
+                        {%- if settings.cart_discount == "discount_percentage" or settings.cart_discount == "discount_amount_percentage" -%}
+                          <span class="price percentage_discount discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}"> 
+                          {%- assign original_price = item.variant.compare_at_price | times: item.quantity -%}
+                          ({{ discount | plus: 0.0 | divided_by: original_price | times: 100 | round: 2 }}%)
+                          </span>
+                        {%- endif -%}
+                      </div>
+                    {%- endunless -%}
+                  {% endif %}
+
+                  {%- if item.total_discount > 0 -%}
+                    <strong class="compare-price">{{ item.original_line_price | money }}</strong>
+
+                    {%- unless settings.cart_discount == "none" -%}
                       <div class="discount-price__wrapper">
 
-                          <span class="price percentage_discount discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">-{{ item.total_discount | money}} 
-                          </span>
+                        -&nbsp;
+                        {%- if settings.cart_discount == "discount_amount" or settings.cart_discount == "discount_amount_percentage" -%}
+                          <span class="price percentage_discount discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.total_discount | money }}</span>&nbsp;
+                        {%- endif -%}
 
-                          {%- if settings.enable_show_percentual_discount == true -%}
-                            <span class="price discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}"> 
-                            ({{ item.total_discount | plus:0.0 | divided_by: item.original_line_price | times: 100 | round: 2 }}%)&nbsp;
-                            </span>
-                          {%- endif -%}
-                          
+                        {%- if settings.cart_discount == "discount_percentage" or settings.cart_discount == "discount_amount_percentage" -%}
+                          <span class="price discount-price" id="jq-cart-item-discount-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}"> 
+                          ({{ item.total_discount | plus: 0.0 | divided_by: item.original_line_price | times: 100 | round: 2 }}%)
+                          </span>
+                        {%- endif -%}
                       </div>
-                    {%- endif -%}
-                  </div>
-                  
-                  {%- if item.total_discount > 0 -%}
-                    <strong class="price" id="jq-cart-item-price-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.line_price | money }}</strong>
+                    {%- endunless -%}
                   {%- endif -%}
+
+                  <strong class="price" id="jq-cart-item-price-{{ item.variant_id }}-{{ forloop.index | minus: 1 }}">{{ item.line_price | money }}</strong>
 
                   <form action="/cart" class="jq-remove-cart-item">
                     <input aria-label="jq-cart-item" type="hidden" name="updates[{{ item.variant_id }}]" value="0" class="jq-cart-item"/>
@@ -678,6 +699,16 @@
       justify-content: space-between;
       width: -webkit-fill-available;
     }
+    .cart-product .cart-product-wrapper .product-price {
+      text-align: center;
+    }
+    .cart-product .cart-product-wrapper .product-price .compare-price {
+      color: var(--color-sale);
+      font-size: var(--collectionProductComparePriceSize);
+      margin-right: 5px;
+      text-decoration: line-through;
+      font-weight: bold;
+    }
     .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
       width: auto;
     }
@@ -692,7 +723,6 @@
       line-height: 1.2;
     }
     .cart-products-wrapper .cart-product .cart-product-wrapper .price {
-      margin-bottom: 10px;
       display: flex;
       justify-content: center;
       color: var(--color-price-cartDrawer, #b22222);
@@ -1139,9 +1169,6 @@
       display: flex;
       flex-direction: column;
     }
-    .cart-products-wrapper .cart-product .cart-product-wrapper .price {
-      margin-bottom: 2px;
-    }
     .cart_discount_price {
       margin-bottom: 4px;
       color: var(--color-price-cartDrawer, #b22222);
@@ -1279,7 +1306,6 @@
       justify-content: center;
       color: var(--color-price-cartDrawer, #b22222);
       font-size: 16px;
-      margin-bottom: 2px;
     }
     .cart-products-wrapper
       .cart-product
@@ -2193,13 +2219,14 @@
     .discount-price__wrapper {
       display: flex;
       justify-content: center;
+      align-items: center;
     }
     .template-cart
       .main-content
       .cart-product-wrapper
       .product-price
       .price.discount-price {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--color-product-discount);
     }
     @media (max-width: 1019px) {
@@ -2355,15 +2382,6 @@
         .cart-product-wrapper
         .btn.icon-minus:after {
         right: 8px;
-      }
-      .template-cart
-        .main-content
-        .cart-products-wrapper
-        .cart-product
-        .cart-product-wrapper
-        .price {
-        font-weight: bold;
-        font-size: 16px;
       }
       .template-cart
         .main-content
