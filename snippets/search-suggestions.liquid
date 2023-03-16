@@ -6,77 +6,78 @@
   <script type='lazyload2'>
     setTimeout(function () {
       $(function () {
-        var currentAjaxRequest = null
+        var currentAjaxRequest = null;
 
-        var showSearchResults = false
+        var showSearchResults = false;
 
         var searchForms = $('.main-header form[action^="/search"]')
           .css('position', 'relative')
           .each(function () {
-            var input = $(this).find('input[name="q"]')
+            var input = $(this).find('input[name="q"]');
 
-            var offSet = input.position().top + input.innerHeight()
-            var searchResultWrapper = $('.search-results-wrapper')
+            var offSet = input.position().top + input.innerHeight();
+            var searchResultWrapper = $('.search-results-wrapper');
 
-            searchResultWrapper.hide()
+            searchResultWrapper.hide();
 
             input.attr('autocomplete', 'off').bind('keyup focus', function () {
-              showSearchResults = true
+              showSearchResults = true;
 
-              var term = $(this).val()
+              var term = $(this).val();
 
-              var form = $(this).closest('form')
+              var form = $(this).closest('form');
 
-              var searchURL = '/search/suggest.json?&resources[type]=article,page,product&q=*' + term + '*'
+              var searchURL = '/search/suggest.json?&resources[type]=article,page,product&q=*' + term + '*';
 
-              var resultsList = searchResultWrapper.find('.search-results')
-              var linksWrapper = searchResultWrapper.find('.search-link-wrapper')
+              var resultsList = searchResultWrapper.find('.search-results');
+              var linksWrapper = searchResultWrapper.find('.search-link-wrapper');
 
-              var pagesList = searchResultWrapper.find('.search-results-pages')
+              var pagesList = searchResultWrapper.find('.search-results-pages');
 
               if (term.length > 2) {
-                $(this).attr('data-old-term', term)
+                $(this).attr('data-old-term', term);
 
-                if (currentAjaxRequest != null) currentAjaxRequest.abort()
+                if (currentAjaxRequest != null) {
+                  currentAjaxRequest.abort();
+                };
 
                 currentAjaxRequest = $.getJSON(searchURL + '&view=json', function (data) {
                   var resultProducts = data.resources.results.products,
                     resultPages = data.resources.results.pages,
-                    resultArticles = data.resources.results.articles
+                    resultArticles = data.resources.results.articles;
 
-                  resultsList.empty()
-                  linksWrapper.empty()
-                  pagesList.empty()
+                  resultsList.empty();
+                  linksWrapper.empty();
+                  pagesList.empty();
 
                   if (resultProducts.length == 0) {
                     resultsList.html(
                       '<p class="no-result-term">No products for “' +
                         term +
                         '”.</p><p class="no-result-message">Sorry, we couldn’t find any matches.</p>'
-                    )
-                    $('.search-link-wrapper').addClass('empty')
+                    );
+                    $('.search-link-wrapper').addClass('empty');
                   } else {
                     $.each(resultProducts, function (index, item) {
                       if (index > '{{ settings.products_per_search | minus: 1 }}') {
-                        return false
+                        return false;
                       } else {
-                        var price = VastaShop.formatMoney(item.price)
-                        var compare_price =
-                          item.variants.length > 0 ? item.variants[0].compare_at_price : item.compare_at_price_min
+                        var price = VastaShop.formatMoney(item.price);
+                        var compare_price = item.variants.length > 0 ? item.variants[0].compare_at_price : item.compare_at_price_min;
 
                         compare_price =
                           compare_price > 0
                             ? '<span class="compare-price money">' + VastaShop.formatMoney(compare_price) + '</span>'
-                            : ''
-                        var link = $('<a class="result-edits"></a>').attr('href', item.url)
-                        var no_image = '{{ settings.recently_viewed_product_without_image | image_url }}'
+                            : '';
+                        var link = $('<a class="result-edits"></a>').attr('href', item.url);
+                        var no_image = '{{ settings.recently_viewed_product_without_image | image_url }}';
                         if (no_image !== '' && item.image !== null) {
                           link.append(
                             '<span class="thumbnail"><img src="' +
                               Shopify.Image.getSizedImageUrl(item.image || no_image, '100x') +
                               '" /></span>'
-                          )
-                        }
+                          );
+                        };
                         link.append(
                           '<div class="product-info"><span class="title">' +
                             item.title +
@@ -85,74 +86,74 @@
                             '<span class="price money">' +
                             price +
                             '</span></span></div>'
-                        )
+                        );
 
                         if (no_image !== '' && item.image !== null) {
-                          link.wrap('<div class="result-item"></div>')
+                          link.wrap('<div class="result-item"></div>');
                         } else {
-                          link.wrap('<div class="result-item no-image"></div>')
-                        }
-                        resultsList.append(link.parent())
-                        $('.search__terms').html('Showing results for: “' + term + '”')
-                      }
-                    })
-                  }
+                          link.wrap('<div class="result-item no-image"></div>');
+                        };
+                        resultsList.append(link.parent());
+                        $('.search__terms').html('Showing results for: “' + term + '”');
+                      };
+                    });
+                  };
 
                   if (resultPages.length == 0 && resultArticles.length == 0) {
-                    pagesList.html('<span class="pages-no-results">No results.</span>')
+                    pagesList.html('<span class="pages-no-results">No results.</span>');
                   } else {
                     $.each(resultPages, function (index, item) {
-                      var link = $('<a></a>').attr('href', item.url)
-                      link.append('<span class="title">' + item.title + '</span>')
-                      link.wrap('<div class="result-item"></div>')
-                      pagesList.append(link.parent())
-                    })
+                      var link = $('<a></a>').attr('href', item.url);
+                      link.append('<span class="title">' + item.title + '</span>');
+                      link.wrap('<div class="result-item"></div>');
+                      pagesList.append(link.parent());
+                    });
 
                     $.each(resultArticles, function (index, item) {
-                      var link = $('<a></a>').attr('href', item.url)
-                      link.append('<span class="title">' + item.title + '</span>')
-                      link.wrap('<div class="result-item"></div>')
-                      pagesList.append(link.parent())
-                    })
-                  }
+                      var link = $('<a></a>').attr('href', item.url);
+                      link.append('<span class="title">' + item.title + '</span>');
+                      link.wrap('<div class="result-item"></div>');
+                      pagesList.append(link.parent());
+                    });
+                  };
 
-                  $('.no-result-all-results', searchResultWrapper).remove()
+                  $('.no-result-all-results', searchResultWrapper).remove();
 
                   linksWrapper.append(
                     '<p class="no-result-all-products"><a href="/collections/all">View all Products</a></p>'
-                  )
+                  );
 
                   if (resultProducts.length > 0) {
                     linksWrapper.append(
                       '<a href="/search?q=*' +
                         term +
                         '*&type=article,page,product" class="no-result-all-results">View all results</a>'
-                    )
-                  }
+                    );
+                  };
 
                   if (showSearchResults) {
-                    searchResultWrapper.fadeIn(200)
-                  }
-                })
+                    searchResultWrapper.fadeIn(200);
+                  };
+                });
               } else if (term.length == 0) {
-                $('.search-results-wrapper').hide()
-              }
-            })
-          })
+                $('.search-results-wrapper').hide();
+              };
+            });
+          });
 
         $('body').bind('click', function (e) {
-          const $elem = $(e.target)
+          const $elem = $(e.target);
 
           if (
             !$elem.is('[name="q"], .suggestion-half-to-half-flex *, .search-link-wrapper *') ||
             $elem.is('.close-suggestions')
           ) {
-            $('.search-results-wrapper').hide()
-            showSearchResults = false
-          }
-        })
-      })
-    })
+            $('.search-results-wrapper').hide();
+            showSearchResults = false;
+          };
+        });
+      });
+    });
   </script>
 {% endif %}
 
