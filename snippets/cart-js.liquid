@@ -136,7 +136,8 @@
                 var parser = new DOMParser();
                 htmlDoc = parser.parseFromString(htmldoc,"text/html");
                 const itemList = htmlDoc.querySelector('#ajax_cart');
-                $('#ajax_cart').html(itemList);
+                $('#ajax_cart').html(itemList.innerHTML);
+
 
                 if(response === "success") {
                     if (shipping_bar.enable_discount || shipping_bar.style_shipping == "dicount_style") {
