@@ -108,12 +108,12 @@
     setTimeout(function () {
       window.SectionVideoSlider = (function () {
         function SectionVideoSlider() {
-          this._run()
+          this._run();
         }
 
         SectionVideoSlider.prototype = {
           onSelect: function () {
-            this._run()
+            this._run();
           },
 
           _run: function () {
@@ -123,13 +123,13 @@
               prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
               nextArrow: '<button type="button" class="slick-next">&rang;</button>',
               infinite: true,
-            })
+            });
           },
         }
 
-        return new SectionVideoSlider()
-      })()
-    })
+        return new SectionVideoSlider();
+      })();
+    });
   </script>
 {%- endcapture -%}
 {{- videos_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
