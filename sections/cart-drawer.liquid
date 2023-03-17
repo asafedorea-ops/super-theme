@@ -2352,7 +2352,7 @@
                       this.renderCartItems(cart);
                       this.renderTotalPriceItems(cart);
                       this.updateShippingBar(cart);
-                      this.updateBtnAdd(cart.item_count);
+                      this.updateBtnAdd(cart.item_count)
                   },
 
                   /**
@@ -2789,7 +2789,7 @@
                                   methods.cart.buildCart(cart);
 
                                   let updatedItem = cart.items.filter(function(item){
-                                    return item.key === key;
+                                    return item.key === key
                                   });
 
                                   if (updatedItem.length > 0) {
@@ -2890,7 +2890,7 @@
 
                       return;
                     } else if (response.status === 400) {
-                      console.log(response);
+                      console.log(response)
                     }
 
                     const cart = await methods.cart.getCart();
@@ -2898,7 +2898,7 @@
                     methods.cart.buildCart(cart);
                     body.classList.add('cart-drawer-open', 'cart-open');
                   } catch (e) {
-                      console.error('[CART ERROR]', e);
+                      console.error('[CART ERROR]', e)
                   }
               }).catch(function(e) {
                   methods.form.setProgress(100, true);
@@ -2909,7 +2909,7 @@
                     return;
                   }
 
-                  console.error('[ADD ITEM ERROR]', e);
+                  console.error('[ADD ITEM ERROR]', e)
               });
 
               return false;
