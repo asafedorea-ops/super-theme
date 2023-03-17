@@ -561,7 +561,7 @@ function cart_line(prod, index, oldQtd, id_variant) {
     var inventory = -1;
     var strDisabled = '';
     var strDisabledMax = '';
-    var isDiscount = '';
+    var isDiscount = ''
 
     if (prod.total_discount > 0) {
         isDiscount = '<span class="cart_discount_price">-' + Shopify.formatMoney(prod.total_discount) + '</span>';

@@ -23,10 +23,10 @@
                     e.preventDefault();
 
                     if (descriptionText.classList.contains('collection-description__text--opened')) {
-                        descriptionText.classList.remove('collection-description__text--opened');
+                        descriptionText.classList.remove('collection-description__text--opened')
                         btn.innerHTML = descriptionButtonLabels.closed;
                     } else {
-                        descriptionText.classList.add('collection-description__text--opened');
+                        descriptionText.classList.add('collection-description__text--opened')
                         btn.innerHTML = descriptionButtonLabels.opened;
                     }
                 });
@@ -41,7 +41,7 @@
 
             if (filterByInterest) {
                 filterByInterest.addEventListener('change', function(){
-                    location.replace(this.value);
+                    location.replace(this.value)
                 });
             }
 
