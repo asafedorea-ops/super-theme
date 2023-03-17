@@ -187,9 +187,9 @@
             price    = parseInt($('.product-variant[name="id"] option:selected').data('price'));
             you_save(compare_at_price,parseInt(variant_price));
             if(quantity > 1) {
-                $(_add_to_cart_items).html(quantity + " ITEMS")
+                $(_add_to_cart_items).html(quantity + " ITEMS");
             } else {
-                $(_add_to_cart_items).html(quantity + " ITEM")
+                $(_add_to_cart_items).html(quantity + " ITEM");
             }
             if ('true' === variant_available) {
                 $('.product-quantity,#AddToCart2').show();
