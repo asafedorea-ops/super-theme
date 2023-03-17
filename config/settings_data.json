@@ -25,6 +25,7 @@
     "recently_viewed_section_title_text_transform": "uppercase",
     "enable_button_to_the_top": true,
     "general_font": "archivo_narrow_n4",
+    "copy_body_font": "anonymous_pro_n4",
     "vasta_copy_body": 16,
     "item_nav_menu_font_size": 16,
     "item_nav_menu_font_size_tablet": 15,
