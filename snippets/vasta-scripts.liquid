@@ -1,13 +1,7 @@
 <!-- start vasta-scripts.liquid (SNIPPET) -->
 <script>const money_format = "{{ shop.money_format | escape }}";</script>
-
-{% unless template contains 'collection' %}
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
-{% else %}
-  <script defer="defer" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script defer="defer" src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
-{% endunless %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
 
 {%- if template contains 'product' -%}
     <script src="{{ 'VastaShop.js' | asset_url }}"></script>
@@ -37,6 +31,7 @@
 
     <script type="lazyload2" data-src="{{ 'jquery.tmpl.min.js' | asset_url }}"></script>
     <script type="lazyload2" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
+
 {%- endunless -%}
 
 <script type="lazyload2">
