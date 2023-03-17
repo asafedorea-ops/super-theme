@@ -228,6 +228,18 @@
         "default": false
       },
       {
+        "type": "color",
+        "id": "color_title_search_suggestion",
+        "label": "Title Color",
+        "default": "#418bc3"
+      },
+      {
+        "type": "color",
+        "id": "color_text_search_suggestion",
+        "label": "Text Color",
+        "default": "#000"
+      },
+      {
         "type": "select",
         "id": "products_per_search",
         "label": "Number of Products to Show",
@@ -332,7 +344,7 @@
         "type": "color",
         "id": "breadcrumb_text_color",
         "label": "Text Color",
-        "default": "#000000"
+        "default": "#000"
       },
       {
         "type": "select",

@@ -272,7 +272,7 @@
   
   .search-results-wrapper .search-results-pages .title {
     white-space: normal;
-    color: #257ab1;
+    color: var(--color-link);
     width: 100%;
     padding-right: 10px;
   }
@@ -339,7 +339,7 @@
   
   .search-section-title {
     font-weight: bold;
-    color: #555;
+    color: var(--colorTitleSearchSuggestion);
     padding: 0;
   }
 
@@ -379,24 +379,21 @@
   
   .no-result-term {
     font-weight: bold;
-    color: var(--color-link);
     font-size: 18px;
     text-align: center;
+    color: var(--colorTitleSearchSuggestion);
   }
 
   .search-results-wrapper .no-result-message {
     border-top: none;
     padding-top: 0;
     text-align: center;
+    color: var(--colorTextSearchSuggestion);
   }
   
   .search-results-pages {
     margin-top: 5px;
-  }
-
-  .no-result-message, 
-  .search-results-pages {
-    color: var(--color-link);
+    color: var(--colorTextSearchSuggestion);
   }
   
   .no-result-term,
@@ -413,6 +410,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    color: var(--color-link);
   }
 
   .search-link-wrapper.empty {
@@ -445,7 +443,6 @@
     float: left;
     text-align: center;
     padding: 8px;
-    color: #257ab1;
     text-transform: capitalize;
   }
 
