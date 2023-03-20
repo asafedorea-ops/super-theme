@@ -15,6 +15,10 @@
 {%- endif -%}
 
 <style scoped>
+  {{ settings.copy_body_font | font_face: font_display: 'swap' }}
+  {{ settings.general_font | font_face: font_display: 'swap' }}
+  {{ settings.copy_bold_body_font | font_face: font_display: 'swap' }}
+
   :root {
     --color-link: {{ settings.color_link }};
     --color-sale: {{ settings.color_sale }};
