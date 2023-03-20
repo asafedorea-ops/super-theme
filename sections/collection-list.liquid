@@ -55,8 +55,9 @@
       </div>
     </div>
   </div>
-
-  <style scoped>
+{%- endcapture -%}
+{%- capture collection_list_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
           margin-top: {{ section.settings.custom-margin-top }}px;
@@ -238,9 +239,10 @@
         }
     }
   </style>
-
 {%- endcapture -%}
-{{- collection_list_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- collection_list_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- collection_list_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- collection_list_content -}}
 
 {% schema %}
 {

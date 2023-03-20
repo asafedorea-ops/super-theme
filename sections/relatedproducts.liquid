@@ -95,7 +95,10 @@
     </div>
   {%- endif -%}
 {% endunless %}
-<style scoped>
+{%- endcapture -%}
+
+{%- capture related_products_style -%}
+<style scoped data-vasta>
 
   #shopify-section-{{ section.id }} {
     {% if section.settings.enable_custom_margins_paddings %}
@@ -122,7 +125,9 @@
 }
 </style>
 {%- endcapture -%}
-{{- related_products_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- related_products_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- related_products_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- related_products_content -}}
 {% schema %}
 {
   "name": "Related Products",

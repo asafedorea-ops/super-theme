@@ -75,8 +75,13 @@
     </div>
   {%- endif -%}
 
+  {% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
+
+{%- endcapture -%}
+
+{%- capture section_product_style -%}
   <!-- SWATCH STYLE -->
-  <style scoped>
+  <style scoped data-vasta>
   {% for product_option in product.options_with_values %}
     {% for value in product_option.values %}
         {% assign css_value = value | handle %}
@@ -2218,8 +2223,9 @@
 
 </style>
 {%- endcapture -%}
-{{- section_product_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
-{% render 'judgeme_widgets', widget_type: 'judgeme_review_widget', concierge_install: true, product: product %}
+{{- section_product_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- section_product_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- section_product_content -}}
 {% schema %}
 {
 "name": "Product Template",

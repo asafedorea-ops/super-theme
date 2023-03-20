@@ -84,7 +84,6 @@
       {{ content_for_header }}
     {%- else -%}
       {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
-
       <!-- CONTENT FOR HEAD -->
       {{- content_for_header2 | strip_newlines | replace: '<script>', '<script type="lazyload2">' | replace: ' defer="defer" ', ' type="lazyload2" ' | replace: " src=", " data-src=" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('wnw_load', asyncLoad, false);" | replace: "DOMContentLoaded", "DOMContentLoaded2" -}}
       <!-- END CONTENT FOR HEAD -->
@@ -113,78 +112,81 @@
   {%- if templateSuffix == ' ' -%}
     {%- assign templateSuffix = '' -%}
   {%- endif -%}
+  {%- capture theme_content -%}
+    <body id="{{- page_title | handle -}}" class="template-{{ template.name | handle }}{{ templateSuffix }}">
+      <h2 class="hide">{{- page_title -}}</h2>
 
-  <body id="{{- page_title | handle -}}" class="template-{{ template.name | handle }}{{ templateSuffix }}">
-    <h2 class="hide">{{- page_title -}}</h2>
-
-    <header class="header-content">
-      {%- if settings.enable_shipping_bar -%}
-        {%- if settings.enable_shipping_bar_only_homepage == false or template.name contains "index" -%}
-          {%- section 'shipping_bar' -%}
+      <header class="header-content">
+        {%- if settings.enable_shipping_bar -%}
+          {%- if settings.enable_shipping_bar_only_homepage == false or template.name contains "index" -%}
+            {%- section 'shipping_bar' -%}
+          {%- endif -%}
         {%- endif -%}
-      {%- endif -%}
 
-      {%- section 'header' -%}
-    </header>
+        {%- section 'header' -%}
+      </header>
 
-    <main id="MainContent" class="main-content">
-      <aside>
-        {%- unless settings.disable_cartDrawer -%}
-          {%- unless template.name == 'cart' -%}
-            {%- section 'cart-drawer' -%}
+      <main id="MainContent" class="main-content">
+        <aside>
+          {%- unless settings.disable_cartDrawer -%}
+            {%- unless template.name == 'cart' -%}
+              {%- section 'cart-drawer' -%}
+            {%- endunless -%}
           {%- endunless -%}
-        {%- endunless -%}
-      </aside>
+        </aside>
 
-      <aside>
-        {%- unless settings.only_shipping_bar == false and template contains 'cart' -%}
-          {%- section 'menu-mobile' -%}
-        {%- endunless -%}
-      </aside>
+        <aside>
+          {%- unless settings.only_shipping_bar == false and template contains 'cart' -%}
+            {%- section 'menu-mobile' -%}
+          {%- endunless -%}
+        </aside>
 
-      <div class="DrawerOverlay"></div>
-      <section id="{{- template.name -}}-layout">
-        <h2 class="hide">{{- template.name | capitalize -}} Content</h2>
+        <div class="DrawerOverlay"></div>
+        <section id="{{- template.name -}}-layout">
+          <h2 class="hide">{{- template.name | capitalize -}} Content</h2>
 
-        {{ content_for_layout }}
-        <limespot></limespot>
+          {{ content_for_layout }}
+          <limespot></limespot>
 
-        {%- assign enable_recently_viewed_product = true -%}
-        {%- if settings.disable_recently_viewed_on_product_page and template contains 'product' -%}
-          {%- assign enable_recently_viewed_product = false -%}
-        {%- elsif settings.disable_recently_viewed_on_homepage_page and template contains 'index' -%}
-          {%- assign enable_recently_viewed_product = false -%}
-        {%- elsif settings.disable_recently_viewed_on_collection_page and template contains 'collection' -%}
-          {%- assign enable_recently_viewed_product = false -%}
-        {%- elsif settings.disable_recently_viewed_on_product_page and template contains 'cart' -%}
-          {%- assign enable_recently_viewed_product = false -%}
+          {%- assign enable_recently_viewed_product = true -%}
+          {%- if settings.disable_recently_viewed_on_product_page and template contains 'product' -%}
+            {%- assign enable_recently_viewed_product = false -%}
+          {%- elsif settings.disable_recently_viewed_on_homepage_page and template contains 'index' -%}
+            {%- assign enable_recently_viewed_product = false -%}
+          {%- elsif settings.disable_recently_viewed_on_collection_page and template contains 'collection' -%}
+            {%- assign enable_recently_viewed_product = false -%}
+          {%- elsif settings.disable_recently_viewed_on_product_page and template contains 'cart' -%}
+            {%- assign enable_recently_viewed_product = false -%}
+          {%- endif -%}
+        </section>
+
+        {%- if enable_recently_viewed_product -%}
+          {%- render 'recently-viewed-products' -%}
         {%- endif -%}
-      </section>
+      </main>
 
-      {%- if enable_recently_viewed_product -%}
-        {%- render 'recently-viewed-products' -%}
+      <footer class="footer-content">
+        {%- section 'footer' -%}
+
+        {%- if settings.enable_button_to_the_top -%}
+          {%- render 'scrollbutton' -%}
+        {%- endif -%}
+      </footer>
+
+      {%- capture vasta_scritps -%} 
+        {%- render 'vasta-scripts' -%}
+      {%- endcapture -%}
+      {{- vasta_scritps | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+
+      {{- settings.enable_html_body -}}
+
+      {%- if settings.product_enabled_recharge -%}
+        {%- render 'subscription-theme-footer' -%}
       {%- endif -%}
-    </main>
 
-    <footer class="footer-content">
-      {%- section 'footer' -%}
-
-      {%- if settings.enable_button_to_the_top -%}
-        {%- render 'scrollbutton' -%}
-      {%- endif -%}
-    </footer>
-
-    {%- capture vasta_scritps -%} 
-      {%- render 'vasta-scripts' -%}
-    {%- endcapture -%}
-    {{- vasta_scritps | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
-
-    {{- settings.enable_html_body -}}
-
-    {%- if settings.product_enabled_recharge -%}
-      {%- render 'subscription-theme-footer' -%}
-    {%- endif -%}
-
-    <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script>
-  </body>
+      <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script>
+    </body>
+  {%- endcapture -%}
+{% assign theme_content = theme_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | strip %}
+{{ theme_content }}
 </html>

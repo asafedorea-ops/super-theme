@@ -61,7 +61,9 @@
       {%- endfor -%}
     </div>
   </section>
+{%- endcapture -%}
 
+{%- capture blog_posts_style -%}
   <style scoped>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
@@ -1008,7 +1010,9 @@
   </style>
 
 {%- endcapture -%}
-{{- blog_posts_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- blog_posts_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- blog_posts_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- blog_posts_content -}}
 {% schema %}
 {
   "name": "Blog Posts",

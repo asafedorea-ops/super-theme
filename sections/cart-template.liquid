@@ -212,8 +212,10 @@
     </div>
     {%- endif -%}
   </div>
+{%- endcapture -%}
 
-  <style scoped>
+{%- capture cart_style -%}
+  <style scoped data-vasta>
     :root{
       --color-font-button-cart: {{ settings.color_font_button_cart }};
       --color-cart-item-title: {{ settings.color_cartitem }};
@@ -2690,4 +2692,6 @@
   </style>
 
 {%- endcapture -%}
-{{- cart_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+{{- cart_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- cart_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- cart_content -}}

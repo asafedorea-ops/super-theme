@@ -92,7 +92,9 @@
       {%- endfor -%}
     </div>
   </section>
-  <style scoped>
+{%- endcapture -%}
+{%- capture unique_value_proposition_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
         margin-top: {{ section.settings.custom-margin-top }}px;
@@ -179,13 +181,10 @@
     }
   </style>
 {%- endcapture -%}
-{{-
-  unique_value_proposition_content
-  | strip_newlines
-  | replace: '    ', ' '
-  | replace: '   ', ' '
-  | replace: '  ', ' '
--}}
+{{- unique_value_proposition_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- unique_value_proposition_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- unique_value_proposition_content -}}
+
 {% schema %}
 {
   "name": "Unique Value Proposition",

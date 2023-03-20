@@ -4,8 +4,10 @@
         <h2 class="content-h2">{{ 'general.404.title' | t }}</h2>
         <p class="content-p">{{ 'general.404.subtext_html' | t }}</p>
     </div>
+{%- endcapture -%}
 
-    <style >
+{%- capture section_404_template_style -%}
+    <style data-vasta>
         .template-404 .main-content {
             width: 100%;
             float: left;
@@ -31,5 +33,6 @@
         }    
     </style>
 {%- endcapture -%}
-
-{{- section_404_template_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- section_404_template_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- section_404_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- section_404_template_content -}}

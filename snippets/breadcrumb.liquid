@@ -44,8 +44,9 @@
       {%- endif -%}
     </div>
   {%- endunless -%}
-
-  <style scoped>
+{%- endcapture -%}
+{%- capture breadcrumb_style -%}
+  <style scoped data-vasta>
 
   .breadcrumbs {
     display: inline-table;
@@ -71,4 +72,6 @@
   }
   </style>
 {%- endcapture -%}
-{{- breadcrumb_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
+{{- breadcrumb_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- breadcrumb_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- breadcrumb_content -}}

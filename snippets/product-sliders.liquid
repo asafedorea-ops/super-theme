@@ -114,8 +114,9 @@
             {% endfor %}
         </div>
     </div>
-
-    <style scoped type="lazyload2">
+{%- endcapture -%}
+{%- capture product_sliders_style -%}
+    <style scoped data-vasta>
         {%- if settings.enable_zoom_feature_for_mobile -%}
         .product-page .slick-slider {
             -ms-touch-action: pan-y pinch-zoom;
@@ -174,4 +175,6 @@
     </style>
 
 {%- endcapture -%}
-{{- product_sliders_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- product_sliders_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- product_sliders_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- product_sliders_content -}}

@@ -1,8 +1,10 @@
 <!-- start empty-space.liquid (SECTION) -->
 {%- capture empty_space_content -%}
   <section id="empty-space-section-{{ section.id }}" data-slider="{{ section.id }}" class="wrapper"></section>
+{%- endcapture -%}
 
-  <style scoped>
+{%- capture empty_space_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       margin-top: {{ section.settings.custom-margin-top }}px;
       margin-bottom: {{ section.settings.custom-margin-bottom }}px;
@@ -10,7 +12,9 @@
     }
   </style>
 {%- endcapture -%}
-{{- empty_space_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- empty_space_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- empty_space_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- empty_space_content -}}
 
 {% schema %}
 {

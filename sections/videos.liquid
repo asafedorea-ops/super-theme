@@ -65,8 +65,38 @@
           {%- endfor -%}
       </div>
   </section>
-  
-  <style scoped>
+
+  <script type='lazyload2'>
+    setTimeout(function () {
+      window.SectionVideoSlider = (function () {
+        function SectionVideoSlider() {
+          this._run();
+        }
+
+        SectionVideoSlider.prototype = {
+          onSelect: function () {
+            this._run();
+          },
+
+          _run: function () {
+            $('.dynamic-video__slider-container').slick({
+              slidesToShow: 1,
+              slidesToScroll: 1,
+              prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
+              nextArrow: '<button type="button" class="slick-next">&rang;</button>',
+              infinite: true,
+            });
+          },
+        }
+
+        return new SectionVideoSlider();
+      })();
+    });
+  </script>
+{%- endcapture -%}
+
+{%- capture videos_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
         margin-top: {{ section.settings.custom-margin-top }}px;
@@ -104,35 +134,10 @@
           {% endif %}
       }
   </style>
-  <script type='lazyload2'>
-    setTimeout(function () {
-      window.SectionVideoSlider = (function () {
-        function SectionVideoSlider() {
-          this._run();
-        }
-
-        SectionVideoSlider.prototype = {
-          onSelect: function () {
-            this._run();
-          },
-
-          _run: function () {
-            $('.dynamic-video__slider-container').slick({
-              slidesToShow: 1,
-              slidesToScroll: 1,
-              prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
-              nextArrow: '<button type="button" class="slick-next">&rang;</button>',
-              infinite: true,
-            });
-          },
-        }
-
-        return new SectionVideoSlider();
-      })();
-    });
-  </script>
 {%- endcapture -%}
-{{- videos_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- videos_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- videos_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- videos_content -}}
 {% schema %}
 {
   "name": "Videos",

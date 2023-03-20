@@ -1,18 +1,20 @@
 <!-- start header.liquid (SECTION) -->
 {% capture header_content %}
-  <h3 class="hide">Header</h3>
+<h3 class="hide">Header</h3>
 
-  {%- unless template contains "cart" and settings.only_shipping_bar == false -%}
-    {%- render 'header-sitewide' -%}
+{%- unless template contains "cart" and settings.only_shipping_bar == false -%}
+  {%- render 'header-sitewide' -%}
 
-    {%- unless section.settings.enabled_search_bar == false and section.settings.enable_menu_into_header -%}
-      {%- render 'main-menu' -%}
-    {%- endunless -%}
-  {%- else -%}
-    {%- render 'header-cart' -%}
+  {%- unless section.settings.enabled_search_bar == false and section.settings.enable_menu_into_header -%}
+    {%- render 'main-menu' -%}
   {%- endunless -%}
+{%- else -%}
+  {%- render 'header-cart' -%}
+{%- endunless -%}
+{% endcapture %}
 
-  <style>
+{% capture header_style %}
+  <style scoped data-vasta>
     :root {
       --vasta_menu_title_color:{{ section.settings.vasta_menu_title_color }};
       --vasta_menu_color:{{ section.settings.vasta_menu_color }};
@@ -780,10 +782,10 @@
       }
     }  
   </style>
-
 {% endcapture %}
-
-{{- header_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- header_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- header_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- header_content -}}
 
 {% schema %}
 {

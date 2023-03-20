@@ -64,7 +64,64 @@
     </div>
   </section>
 
-  <style scoped>
+  <script type="lazyload2">
+    setTimeout(function(){
+      (function(){
+          var _add_to_cart = jQuery('.js-atc-form');
+  
+          _add_to_cart.submit(function() {
+              $('#add-to-cart-error').html('');
+              jQuery('.cart-button').prop('disabled', true);
+              jQuery('.cart-button .btn-progress').animate({
+                  width: '30%'
+              }, 250);
+  
+              $('#add-to-cart-error').empty().hide();
+  
+              VastaShop.Cart.addItem(jQuery(this).serialize()).then(function(prod, status) {
+                  if ('success' == status) {
+                      VastaShop.Cart.getAllItems().then(function(cart, status) {
+                          if ('success' === status) {
+                              jQuery('.btn-add-tocart .btn-progress').animate({
+                                  width: '100%'
+                              }, 250, function() {
+                                  jQuery(this).css('width', '0').show();
+                              });
+  
+                              VastaShop.Cart.current = cart;
+  
+                              jQuery('.cupom-text').show();
+                              render_cart_drawer(VastaShop.Cart.current, jQuery('.list-products'), 0, '');
+  
+                              update_shipping_bar(cart);
+  
+                              jQuery('.cart-button').prop('disabled', false);
+                              jQuery('body').addClass('cart-drawer-open cart-open');
+                              inventoryControl(prod.id);
+                          }
+                      }).catch(function(err) {
+                          console.log(err);
+                      });
+                  }
+              }).catch(function(err) {
+                  jQuery('.cart-button').prop('disabled', false).hide();
+  
+                  if (err.status === 422) {
+                      $('#add-to-cart-error').html('Maximum Quantity Available In Stock.').show();
+                  } else {
+                      throw err;
+                  }
+              });
+  
+              return false;
+          });
+      })();
+    });
+    </script>
+{%- endcapture -%}
+
+{%- capture cta_block_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
         {% if section.settings.enable_custom_margins_paddings %}
             margin-top: {{ section.settings.custom-margin-top }}px;
@@ -321,63 +378,10 @@
         }
     }
 </style>
-
-  <script type="lazyload2">
-  setTimeout(function(){
-    (function(){
-        var _add_to_cart = jQuery('.js-atc-form');
-
-        _add_to_cart.submit(function() {
-            $('#add-to-cart-error').html('');
-            jQuery('.cart-button').prop('disabled', true);
-            jQuery('.cart-button .btn-progress').animate({
-                width: '30%'
-            }, 250);
-
-            $('#add-to-cart-error').empty().hide();
-
-            VastaShop.Cart.addItem(jQuery(this).serialize()).then(function(prod, status) {
-                if ('success' == status) {
-                    VastaShop.Cart.getAllItems().then(function(cart, status) {
-                        if ('success' === status) {
-                            jQuery('.btn-add-tocart .btn-progress').animate({
-                                width: '100%'
-                            }, 250, function() {
-                                jQuery(this).css('width', '0').show();
-                            });
-
-                            VastaShop.Cart.current = cart;
-
-                            jQuery('.cupom-text').show();
-                            render_cart_drawer(VastaShop.Cart.current, jQuery('.list-products'), 0, '');
-
-                            update_shipping_bar(cart);
-
-                            jQuery('.cart-button').prop('disabled', false);
-                            jQuery('body').addClass('cart-drawer-open cart-open');
-                            inventoryControl(prod.id);
-                        }
-                    }).catch(function(err) {
-                        console.log(err);
-                    });
-                }
-            }).catch(function(err) {
-                jQuery('.cart-button').prop('disabled', false).hide();
-
-                if (err.status === 422) {
-                    $('#add-to-cart-error').html('Maximum Quantity Available In Stock.').show();
-                } else {
-                    throw err;
-                }
-            });
-
-            return false;
-        });
-    })();
-  });
-  </script>
 {%- endcapture -%}
-{{- cta_block_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- cta_block_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- cta_block_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- cta_block_content -}}
 {% schema %}
 {
   "name": "CTA Section",

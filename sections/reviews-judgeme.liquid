@@ -8,8 +8,10 @@
       </div>
   </section>
   {% endif %}
+{%- endcapture -%}
+{%- capture reviews_judgeme_style -%}
   <!-- start reviews home-page-judme -->
-  <style scoped>
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
         margin-top: {{ section.settings.custom-margin-top }}px;
@@ -54,7 +56,9 @@
     }
   </style>
 {%- endcapture -%}
-{{- reviews_judgeme_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- reviews_judgeme_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- reviews_judgeme_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- reviews_judgeme_content -}}
 {% schema %}
 {
   "name": "Reviews Judgeme",

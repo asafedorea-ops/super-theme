@@ -59,8 +59,10 @@
     </div>
   </div>
   </section>
+{%- endcapture -%}
 
-  <style scoped>
+{%- capture section_featured_collection_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
         {% if section.settings.enable_custom_margins_paddings %}
             margin-top: {{ section.settings.custom-margin-top }}px;
@@ -134,7 +136,9 @@
     }
   </style>
 {%- endcapture -%}
-{{- section_featured_collection_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
+{{- section_featured_collection_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- section_featured_collection_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- section_featured_collection_content -}} 
 {% schema %}
 {
 "name": "Featured Products",

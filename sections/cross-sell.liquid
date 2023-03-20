@@ -1,4 +1,4 @@
-{%- capture  cross_sell_content -%}
+{%- capture cross_sell_content -%}
   {% assign cross_sell_collection = section.settings.cross_sell_select_collection %}
   {%- assign enable_lazy = true -%}
   {%- assign temp_product = cross_sell_collection.products -%}
@@ -69,7 +69,60 @@
       </div>
   {% endif %}
 
-  <style>
+  <script type="layload2">
+    setTimeout(function() {
+      const methods = {
+        cart: {
+          /**
+              * Get all cart items.
+              */
+          getCart() {
+            return fetch('/cart.js', {
+              cache: 'default'
+            }).then(function(res) {
+              return res.json();
+            });
+          },
+          /**
+              * Add some item into cart.
+              *
+              * @param {Object} data JSON object with data for to insert in cart.
+              */
+          addItem(data) {
+            return fetch('/cart/add.js', {
+              method: 'POST',
+              body: data
+            }).then(function(res) {
+              return res.json();
+            });
+          }
+        }
+      }
+      $('.cross-sell__product-form').submit(function (e) {
+          e.preventDefault();
+          const form = this;
+          const data = new FormData(this);
+      
+          methods.cart.addItem(data).then(async function(item) {
+            try {
+              const cart = await methods.cart.getCart();
+              const btn = form.querySelector('button');
+              btn.disabled = 'disabled';
+              location.reload();
+            } catch (e) {
+              console.error('[CART ERROR]', e);
+            }
+          }).catch(function(e) {
+            console.error('[ADD ITEM ERROR]', e);
+          });
+        });
+      
+      });
+  </script>
+{%- endcapture -%}
+
+{%- capture cross_sell_style -%}
+  <style scoped data-vasta>
     :root {
         --cross-sell-title-color:{{ section.settings.title-color }};
         --cross-sell-title-font-size:{{ section.settings.title-font-size }}px;
@@ -225,59 +278,10 @@
         }
     }
   </style>
-
-  <script type="layload2">
-    setTimeout(function() {
-      const methods = {
-        cart: {
-          /**
-              * Get all cart items.
-              */
-          getCart() {
-            return fetch('/cart.js', {
-              cache: 'default'
-            }).then(function(res) {
-              return res.json();
-            });
-          },
-          /**
-              * Add some item into cart.
-              *
-              * @param {Object} data JSON object with data for to insert in cart.
-              */
-          addItem(data) {
-            return fetch('/cart/add.js', {
-              method: 'POST',
-              body: data
-            }).then(function(res) {
-              return res.json();
-            });
-          }
-        }
-      }
-      $('.cross-sell__product-form').submit(function (e) {
-          e.preventDefault();
-          const form = this;
-          const data = new FormData(this);
-      
-          methods.cart.addItem(data).then(async function(item) {
-            try {
-              const cart = await methods.cart.getCart();
-              const btn = form.querySelector('button');
-              btn.disabled = 'disabled';
-              location.reload();
-            } catch (e) {
-              console.error('[CART ERROR]', e);
-            }
-          }).catch(function(e) {
-            console.error('[ADD ITEM ERROR]', e);
-          });
-        });
-      
-      });
-  </script>
 {%- endcapture -%}
-{{- cross_sell_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
+{{- cross_sell_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- cross_sell_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- cross_sell_content -}} 
 {% schema %}
 {
   "name": "Cross Sell",

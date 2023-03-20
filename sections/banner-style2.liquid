@@ -91,8 +91,10 @@
       <div class="clear"></div>
     </div>
   </section>
+{%- endcapture -%}
 
-<style scoped>
+{%- capture banner_style_2_style -%}
+<style scoped data-vasta>
   #shopify-section-{{ section.id }} {
     {% if section.settings.enable_custom_margins_paddings %}
       margin-top: {{ section.settings.custom-margin-top }}px;
@@ -291,8 +293,10 @@
 </style>
 
 {%- endcapture -%}
+{{- banner_style_2_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- banner_style_2_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- banner_style_2_content -}}
 
-{{- banner_style_2_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
 {% schema %}
 {
   "name": "Banner(With Two Images)",

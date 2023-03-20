@@ -169,8 +169,10 @@
       {%- endif -%}
     </div>
   </div>
+{%- endcapture -%}
 
-<style scoped>
+{%- capture article_template_style -%}
+<style scoped data-vasta>
   #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
           margin-top: {{ section.settings.custom-margin-top }}px;
@@ -1115,7 +1117,9 @@
   }
 </style>
 {%- endcapture -%}
-{{- article_template_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- article_template_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- article_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- article_template_content -}}
 
 {% schema %}
 {

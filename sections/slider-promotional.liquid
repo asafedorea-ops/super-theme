@@ -102,8 +102,10 @@
   })();
 });
 </script>
+{%- endcapture -%}
 
-<style scoped>
+{%- capture slider_promotional_style -%}
+<style scoped data-vasta>
     .slick-list,
     .slick-slider,
     .slick-track {
@@ -287,8 +289,9 @@
 </style>
 
 {%- endcapture -%}
-
-{{- slider_promotional_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- slider_promotional_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- slider_promotional_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- slider_promotional_content -}}
 
 {% schema %}
 {

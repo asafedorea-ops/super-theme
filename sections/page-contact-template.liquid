@@ -46,8 +46,9 @@
       {%- endform -%}
     </div>
   </div>
-
-  <style scoped>
+{%- endcapture -%}
+{%- capture page_contact_template_style -%}
+  <style scoped data-vasta>
     .contact-wrapper{margin:10px auto 55px;padding:10px;width:50%}
     .contact-wrapper .form-success{background:#dfd;border:1px solid #7a7;padding:10px;margin-bottom:10px;max-width:initial}
     .contact-wrapper .errors{background:#fdd;border:1px solid #eaa;padding:10px;margin-bottom:10px}
@@ -62,4 +63,6 @@
 </style>
 
 {%- endcapture -%}
-{{- page_contact_template_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- page_contact_template_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- page_contact_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- page_contact_template_content -}}

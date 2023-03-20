@@ -43,7 +43,57 @@
     </div>
   </div>
 
-  <style scoped>
+  <script type="lazyload2">
+    var shipping_bar = shipping_bar || {};
+    {% for block in section.blocks %}
+        {% if "discount-style" == block.type %}
+            shipping_bar = {
+                enable_update: true,
+                style_shipping: '{{ section.settings.shipping_bar_style | escape }}',
+                enable_discount: {{ section.settings.enable_discount_in_cart }},
+                free_shipping_text: '<span class="shipping-bar__message-wrapper">{{ block.settings.shipping_bar_freeshipping_text | escape }}</span>',
+                first_free_shipping_text: '{{ block.settings.shipping_bar_free_shipping_before | escape }}',
+                second_free_shipping_text: '{{ block.settings.shipping_bar_free_shipping_after | escape }}',
+                text_cart_above_button_sucess:'<span class="shipping-bar__message-wrapper">{{ block.settings.shipping_bar_freeshipping_text | escape }}</span>',
+                text_message_initial_before:'{{ block.settings.shipping_bar_free_shipping_before | escape }}',
+                text_message_initial_after:'{{ block.settings.shipping_bar_free_shipping_after | escape }}',
+  
+                price_enable: '{{ block.settings.shipping_bar_type_freeshipping | escape }}',
+                shipping_quantity: {{ block.settings.shipping_bar_free_qtd_range }},
+                shipping_value: {{ block.settings.shipping_bar_value_discount | times: 100 }}
+            };
+        {% endif %}
+    {% endfor %}
+  </script>
+  <script type="lazyload2">
+    setTimeout(function(){
+      window.SectionShippingBar = (function(){
+        function SectionShippingBar() {
+          this._run();
+        };
+  
+        SectionShippingBar.prototype = {
+          _run: function() {
+            update_shipping_bar(VastaShop.Cart.current);
+          },
+  
+          onSelect: function() {
+            this._run();
+          },
+  
+          onBlockSelect: function() {
+            this._run();
+          }
+        };
+  
+        return new SectionShippingBar;
+      });
+    });
+  </script>
+{%- endcapture -%}
+
+{%- capture shipping_bar_style -%}
+  <style scoped data-vasta>
     :root {
       {%- if section.settings.position -%}
         --shipping-bar-height: 40px;
@@ -218,56 +268,10 @@
       }
     }
   </style>
-
-  <script type="lazyload2">
-    var shipping_bar = shipping_bar || {};
-    {% for block in section.blocks %}
-        {% if "discount-style" == block.type %}
-            shipping_bar = {
-                enable_update: true,
-                style_shipping: '{{ section.settings.shipping_bar_style | escape }}',
-                enable_discount: {{ section.settings.enable_discount_in_cart }},
-                free_shipping_text: '<span class="shipping-bar__message-wrapper">{{ block.settings.shipping_bar_freeshipping_text | escape }}</span>',
-                first_free_shipping_text: '{{ block.settings.shipping_bar_free_shipping_before | escape }}',
-                second_free_shipping_text: '{{ block.settings.shipping_bar_free_shipping_after | escape }}',
-                text_cart_above_button_sucess:'<span class="shipping-bar__message-wrapper">{{ block.settings.shipping_bar_freeshipping_text | escape }}</span>',
-                text_message_initial_before:'{{ block.settings.shipping_bar_free_shipping_before | escape }}',
-                text_message_initial_after:'{{ block.settings.shipping_bar_free_shipping_after | escape }}',
-  
-                price_enable: '{{ block.settings.shipping_bar_type_freeshipping | escape }}',
-                shipping_quantity: {{ block.settings.shipping_bar_free_qtd_range }},
-                shipping_value: {{ block.settings.shipping_bar_value_discount | times: 100 }}
-            };
-        {% endif %}
-    {% endfor %}
-  </script>
-  <script type="lazyload2">
-    setTimeout(function(){
-      window.SectionShippingBar = (function(){
-        function SectionShippingBar() {
-          this._run();
-        };
-  
-        SectionShippingBar.prototype = {
-          _run: function() {
-            update_shipping_bar(VastaShop.Cart.current);
-          },
-  
-          onSelect: function() {
-            this._run();
-          },
-  
-          onBlockSelect: function() {
-            this._run();
-          }
-        };
-  
-        return new SectionShippingBar;
-      });
-    });
-  </script>
 {%- endcapture -%}
-{{- shipping_bar_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- shipping_bar_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- shipping_bar_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- shipping_bar_content -}}
 
 {% schema %}
 {

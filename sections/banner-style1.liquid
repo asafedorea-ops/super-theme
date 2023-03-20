@@ -91,8 +91,10 @@
       </div>
     {% endif %}
   {% endif %}
+{%- endcapture -%}
 
-<style scoped>
+{%- capture banner_style_1_style -%}
+<style scoped data-vasta>
   :root {
     --banner-title-color:{{ section.settings.banner_titcolor }};
     --banner-sub-title-color:{{ section.settings.banner_sub_titcolor }};
@@ -460,8 +462,9 @@
 </style>
 
 {%- endcapture -%}
-
-{{- banner_style_1_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- banner_style_1_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- banner_style_1_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- banner_style_1_content -}}
 
 {% schema %}
 {

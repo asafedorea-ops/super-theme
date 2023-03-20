@@ -89,6 +89,8 @@
       </div>
     {% endpaginate %}
   </div>
+{%- endcapture -%}
+{%- capture blog_template_style -%}
   <style scoped>
     .template-blog .main-content .article_info .article-contents, .entry-title {
       text-align:{{ section.settings.blog_text_align }};
@@ -1068,7 +1070,9 @@
     {% endunless %}
   </style>
 {%- endcapture -%}
-{{- blog_template_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- blog_template_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- blog_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- blog_template_content -}}
 {% schema %}
 {
   "name": "Blog Template",

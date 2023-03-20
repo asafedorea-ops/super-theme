@@ -79,8 +79,10 @@
         </div>
       {% endif %}
     {% endif %} 
+  {%- endcapture -%}
 
-  <style scoped>
+  {%- capture banner_style_3_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
         margin-top: {{ section.settings.custom-margin-top }}px;
@@ -312,8 +314,9 @@
     }
   </style>
 {%- endcapture -%}
-
-{{- banner_style_3_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- banner_style_3_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- banner_style_3_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- banner_style_3_content -}}
 {% schema %}
 {
   "name": "Banner(Link)",

@@ -39,8 +39,9 @@
         {%- endif -%}
       {%- endfor -%}
   </div>
-
-  <style scoped>
+{%- endcapture -%}
+{%- capture text_column_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
         margin-top: {{ section.settings.custom-margin-top }}px;
@@ -53,7 +54,9 @@
     }
   </style>
 {%- endcapture -%}
-{{- text_column_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- text_column_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- text_column_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- text_column_content -}}
 {% schema %}
 {
   "name": "Text Columns",

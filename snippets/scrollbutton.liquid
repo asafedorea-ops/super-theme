@@ -7,7 +7,32 @@
   </a>
   <link rel='preload' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' as="style" />
   {{ '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' | stylesheet_tag }}
-  <style scoped>
+
+  <script type="lazyload2">
+    setTimeout(function(){
+      jQuery(function($) {
+        var offset = {{ vertical_offset_for_trigger }};
+        var duration = 200;
+        
+        $(window).scroll(function() {
+          if ($(this).scrollTop() > offset) {
+            $('.back-to-top').addClass('displayed');
+          } else {
+            $('.back-to-top').removeClass('displayed');
+          }
+        });
+
+        $('.back-to-top').unbind('click.smoothscroll').bind('click', function(e) {
+          e.preventDefault();
+          $('html, body').animate( { scrollTop: 0 }, duration);
+          return false;
+        });
+      });
+    });
+  </script>
+{%- endcapture -%}
+{%- capture scrollbutton_style -%}
+  <style scoped data-vasta>
 
   .back-to-top-right {
     position: fixed;
@@ -77,28 +102,7 @@
   }
   </style>
 
-  <script type="lazyload2">
-    setTimeout(function(){
-      jQuery(function($) {
-        var offset = {{ vertical_offset_for_trigger }};
-        var duration = 200;
-        
-        $(window).scroll(function() {
-          if ($(this).scrollTop() > offset) {
-            $('.back-to-top').addClass('displayed');
-          } else {
-            $('.back-to-top').removeClass('displayed');
-          }
-        });
-
-        $('.back-to-top').unbind('click.smoothscroll').bind('click', function(e) {
-          e.preventDefault();
-          $('html, body').animate( { scrollTop: 0 }, duration);
-          return false;
-        });
-      });
-    });
-  </script>
-
 {% endcapture %}
-{{- scrollbutton_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- scrollbutton_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- scrollbutton_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- scrollbutton_content -}}

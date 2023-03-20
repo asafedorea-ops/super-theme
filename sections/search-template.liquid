@@ -161,8 +161,10 @@
       </div>
     </div>
   </div>
+{%- endcapture -%}
 
-  <style scoped>
+{%- capture search_template_style -%}
+  <style scoped data-vasta>
     .section-header .zero-founds-message, .section-header .text-center{
       font-size: 18px;
     }
@@ -338,6 +340,11 @@
       .search .inner .card__content{
         width: calc(50% - 8px  / 2);
       }
+      {%- if section.settings.products_per_rows_mobile == "1" -%}
+        .grid-uniform {
+          display: block;
+        }
+      {%- endif -%}
     }
     @media (max-width: 479px) {
       .template-search .main-content .inner .large--one-quarter {
@@ -354,7 +361,9 @@
   </style>
   
 {%- endcapture -%}
-{{- search_template_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
+{{- search_template_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- search_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- search_template_content -}} 
 {% schema %}
 {
   "name": "Search Template",
@@ -456,13 +465,3 @@
   ]
 }
 {% endschema %}
-
-<style scoped> 
-  {%- if section.settings.products_per_rows_mobile == "1" -%}
-    @media(max-width: 767px) {
-        .grid-uniform {
-          display: block;
-        }
-    }
-  {%- endif -%}
-</style>

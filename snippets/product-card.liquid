@@ -87,8 +87,9 @@
       {%- endif -%}
     </div>
   </div>
-
-  <style scoped>
+{%- endcapture -%}
+{%- capture component_card_style -%}
+  <style scoped data-vasta>
     body .product-page .product-variant-wrapper,
     body .product-page #rc_container {
         margin-bottom: 3px;
@@ -216,4 +217,6 @@
     }
 </style>
 {%- endcapture -%}
-{{- component_card_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- component_card_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- component_card_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- component_card_content -}}

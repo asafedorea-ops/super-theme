@@ -44,7 +44,9 @@
       </div>
     </div>
   </div>
-  <style scoped>
+{%- endcapture -%}
+{%- capture social_icons_style -%}
+  <style scoped data-vasta>
     #shopify-section-{{ section.id }} {
       {% if section.settings.enable_custom_margins_paddings %}
         margin-top: {{ section.settings.custom-margin-top }}px;
@@ -93,7 +95,9 @@
     }
   </style>
 {%- endcapture -%}
-{{- social_icons_content | strip_newlines | replace: '    ', ' ' | replace: '   ', ' ' | replace: '  ', ' ' -}}
+{{- social_icons_style | replace: 'data-vasta', 'class="critical2"' -}}
+{{- social_icons_style | replace: 'data-vasta', 'type="lazyload2"' -}}
+{{- social_icons_content -}}
 {% schema %}
 {
   "name": "Social Icons",
