@@ -700,14 +700,14 @@
       width: -webkit-fill-available;
     }
     .cart-product .cart-product-wrapper .product-price {
-      text-align: center;
+      text-align: right;
     }
     .cart-product .cart-product-wrapper .product-price .compare-price {
       color: var(--color-sale);
-      font-size: 15px;
-      margin-right: 5px;
+      font-size: 12px;
       text-decoration: line-through;
-      font-weight: bold;
+      font-weight: 400;
+      text-align: right;
     }
     .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
       width: auto;
@@ -724,7 +724,7 @@
     }
     .cart-products-wrapper .cart-product .cart-product-wrapper .price {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       color: var(--color-price-cartDrawer, #b22222);
       font-size: 16px;
     }
@@ -1303,7 +1303,7 @@
     }
     .cart-products-wrapper .cart-product .cart-product-wrapper .price {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       color: var(--color-price-cartDrawer, #b22222);
       font-size: 16px;
     }
@@ -1927,7 +1927,7 @@
       .cart-product-wrapper
       .price {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       color: var(--color-price-cart-page, #b22222);
     }
     .template-cart
@@ -2218,8 +2218,9 @@
     }
     .discount-price__wrapper {
       display: flex;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: center;
+      width: 100%;
     }
     .template-cart
       .main-content
@@ -2300,8 +2301,7 @@
       .template-cart .main-content .product-price {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        min-width: 105px;
+        align-items: center;    
       }
       .template-cart .main-content p.text_botom_button {
         width: 100%;
@@ -2335,7 +2335,6 @@
         .cart-product
         .cart-product-wrapper
         .price {
-        width: 85%;
         line-height: 18px;
       }
       .template-cart

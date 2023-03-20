@@ -2114,7 +2114,7 @@
       {
         "type": "select",
         "id": "cart_discount",
-        "label": "Cart Discount",
+        "label": "Display Product Discount",
         "default": "discount_amount_percentage",
         "options": [
           {
