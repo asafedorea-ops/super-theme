@@ -3,144 +3,158 @@
 {% assign results_box_background_color = '#ffffff' %}
 
 {% if settings.enable_search_suggestions %}
-<script type="lazyload2">
-  setTimeout(function(){
-    $(function() {
-      // Current Ajax request.
-      var currentAjaxRequest = null;
+  <script type='lazyload2'>
+    setTimeout(function () {
+      $(function () {
+        var currentAjaxRequest = null;
 
-      var showSearchResults = false;
+        var showSearchResults = false;
 
-      // Grabbing all search forms on the page, and adding a .search-results list to each.
-      
-      var searchForms = $('.main-header form[action^="/search"]').css('position','relative').each(function() {
-        // Grabbing text input.
-        var input = $(this).find('input[name="q"]');
-        // Adding a list for showing search results.
-        var offSet = input.position().top + input.innerHeight();
-        var searchResultWrapper = $('.search-results-wrapper');
-        
-        searchResultWrapper.hide();
-        
-        // Listening to keyup and change on the text field within these search forms.
-        input.attr('autocomplete', 'off').bind('keyup focus', function() {
-          showSearchResults = true;
+        var searchForms = $('.main-header form[action^="/search"]')
+          .css('position', 'relative')
+          .each(function () {
+            var input = $(this).find('input[name="q"]');
 
+            var offSet = input.position().top + input.innerHeight();
+            var searchResultWrapper = $('.search-results-wrapper');
 
-          // What's the search term?
-          var term = $(this).val();
-          // What's the search form?
-          var form = $(this).closest('form');
-          // What's the search URL?
-          var searchURL = '/search/suggest.json?&resources[type]=article,page,product&q=*' + term + '*';
-          // What's the search results list?
-          var resultsList = searchResultWrapper.find('.search-results');
-          var linksWrapper = searchResultWrapper.find('.search-link-wrapper');
-          
-          var pagesList = searchResultWrapper.find('.search-results-pages');
-          // If that's a new term and it contains at least 3 characters.
-          if (term.length > 2) {
-            // Saving old query.
-            $(this).attr('data-old-term', term);
-            // Killing any Ajax request that's currently being processed.
-            if (currentAjaxRequest != null) currentAjaxRequest.abort();
-            // Pulling results.
-            
-            currentAjaxRequest = $.getJSON(searchURL + '&view=json', function(data) {
-              // If we have results.
-              var resultProducts = data.resources.results.products,
-                  resultPages = data.resources.results.pages,
-                  resultArticles = data.resources.results.articles;
-              
-              // Reset results.
-              resultsList.empty();
-              linksWrapper.empty();
-              pagesList.empty();
-              // If we have no results.
-              if(resultProducts.length == 0) {
-                // resultsList.html('<li><span class="title">No results.</span></li>');
-                // resultsList.fadeIn(200);
-                resultsList.html('<p class="no-result-term">No products for “' + term + '”.</p><p class="no-result-message">Sorry, we couldn’t find any matches.</p>');
-                $('.search-link-wrapper').addClass("empty")
-              } else {	
-                
-                $.each(resultProducts, function(index, item) {
-                  if(index > "{{ settings.products_per_search | minus: 1 }}" ){
-                    return false
-                  }
-                  else {
-                    var price = VastaShop.formatMoney(item.price);
-                    var compare_price = item.variants.length > 0 ? item.variants[0].compare_at_price : item.compare_at_price_min;
-                    
-                    compare_price = compare_price > 0 ? '<span class="compare-price money">' + VastaShop.formatMoney(compare_price) + '</span>': '';
-                    var link = $('<a class="result-edits"></a>').attr('href', item.url);
-                    var no_image = "{{ settings.recently_viewed_product_without_image | image_url }}"
-                    if(no_image !== "" && item.image !== null ) {
-                      link.append('<span class="thumbnail"><img src="' + Shopify.Image.getSizedImageUrl(item.image || no_image, '100x') + '" /></span>'); 
-                    }
-                    link.append('<div class="product-info"><span class="title">' + item.title + '</span><span class="money-container">'+ compare_price + '<span class="price money">' + price + '</span></span></div>');
-                   
-                    if(no_image !== "" && item.image !== null ) {
+            searchResultWrapper.hide();
+
+            input.attr('autocomplete', 'off').bind('keyup focus', function () {
+              showSearchResults = true;
+
+              var term = $(this).val();
+
+              var form = $(this).closest('form');
+
+              var searchURL = '/search/suggest.json?&resources[type]=article,page,product&q=*' + term + '*';
+
+              var resultsList = searchResultWrapper.find('.search-results');
+              var linksWrapper = searchResultWrapper.find('.search-link-wrapper');
+
+              var pagesList = searchResultWrapper.find('.search-results-pages');
+
+              if (term.length > 2) {
+                $(this).attr('data-old-term', term);
+
+                if (currentAjaxRequest != null) {
+                  currentAjaxRequest.abort();
+                };
+
+                currentAjaxRequest = $.getJSON(searchURL + '&view=json', function (data) {
+                  var resultProducts = data.resources.results.products,
+                    resultPages = data.resources.results.pages,
+                    resultArticles = data.resources.results.articles;
+
+                  resultsList.empty();
+                  linksWrapper.empty();
+                  pagesList.empty();
+
+                  if (resultProducts.length == 0) {
+                    resultsList.html(
+                      '<p class="no-result-term">No products for “' +
+                        term +
+                        '”.</p><p class="no-result-message">Sorry, we couldn’t find any matches.</p>'
+                    );
+                    $('.search-link-wrapper').addClass('empty');
+                  } else {
+                    $.each(resultProducts, function (index, item) {
+                      if (index > '{{ settings.products_per_search | minus: 1 }}') {
+                        return false;
+                      } else {
+                        var price = VastaShop.formatMoney(item.price);
+                        var compare_price = item.variants.length > 0 ? item.variants[0].compare_at_price : item.compare_at_price_min;
+
+                        compare_price =
+                          compare_price > 0
+                            ? '<span class="compare-price money">' + VastaShop.formatMoney(compare_price) + '</span>'
+                            : '';
+                        var link = $('<a class="result-edits"></a>').attr('href', item.url);
+                        var no_image = '{{ settings.recently_viewed_product_without_image | image_url }}';
+                        if (no_image !== '' && item.image !== null) {
+                          link.append(
+                            '<span class="thumbnail"><img src="' +
+                              Shopify.Image.getSizedImageUrl(item.image || no_image, '100x') +
+                              '" /></span>'
+                          );
+                        };
+                        link.append(
+                          '<div class="product-info"><span class="title">' +
+                            item.title +
+                            '</span><span class="money-container">' +
+                            compare_price +
+                            '<span class="price money">' +
+                            price +
+                            '</span></span></div>'
+                        );
+
+                        if (no_image !== '' && item.image !== null) {
+                          link.wrap('<div class="result-item"></div>');
+                        } else {
+                          link.wrap('<div class="result-item no-image"></div>');
+                        };
+                        resultsList.append(link.parent());
+                        $('.search__terms').html('Showing results for: “' + term + '”');
+                      };
+                    });
+                  };
+
+                  if (resultPages.length == 0 && resultArticles.length == 0) {
+                    pagesList.html('<span class="pages-no-results">No results.</span>');
+                  } else {
+                    $.each(resultPages, function (index, item) {
+                      var link = $('<a></a>').attr('href', item.url);
+                      link.append('<span class="title">' + item.title + '</span>');
                       link.wrap('<div class="result-item"></div>');
-                    } 
-                    else {
-                      link.wrap('<div class="result-item no-image"></div>');
-                    }
-                    resultsList.append(link.parent());
-                    $('.search__terms').html('Showing results for: “' + term + '”');
-                  }
+                      pagesList.append(link.parent());
+                    });
+
+                    $.each(resultArticles, function (index, item) {
+                      var link = $('<a></a>').attr('href', item.url);
+                      link.append('<span class="title">' + item.title + '</span>');
+                      link.wrap('<div class="result-item"></div>');
+                      pagesList.append(link.parent());
+                    });
+                  };
+
+                  $('.no-result-all-results', searchResultWrapper).remove();
+
+                  linksWrapper.append(
+                    '<p class="no-result-all-products"><a href="/collections/all">View all Products</a></p>'
+                  );
+
+                  if (resultProducts.length > 0) {
+                    linksWrapper.append(
+                      '<a href="/search?q=*' +
+                        term +
+                        '*&type=article,page,product" class="no-result-all-results">View all results</a>'
+                    );
+                  };
+
+                  if (showSearchResults) {
+                    searchResultWrapper.fadeIn(200);
+                  };
                 });
-              }
-              
-              if(resultPages.length == 0 && resultArticles.length == 0) {
-                // resultsList.html('<li><span class="title">No results.</span></li>');
-                // resultsList.fadeIn(200);
-                pagesList.html('<span class="pages-no-results">No results.</span>');
-              } else {
-                $.each(resultPages, function(index, item) {
-                  var link = $('<a></a>').attr('href', item.url);
-                  link.append('<span class="title">' + item.title + '</span>');
-                  link.wrap('<div class="result-item"></div>');
-                  pagesList.append(link.parent());
-                });
-
-                $.each(resultArticles, function(index, item) {
-                  var link = $('<a></a>').attr('href', item.url);
-                  link.append('<span class="title">' + item.title + '</span>');
-                  link.wrap('<div class="result-item"></div>');
-                  pagesList.append(link.parent());
-                });
-              }
-
-              $('.no-result-all-results', searchResultWrapper).remove();
-
-              linksWrapper.append('<p class="no-result-all-products"><a href="/collections/all">View all Products</a></p>');
-
-              if(resultProducts.length > 0) {
-                linksWrapper.append('<a href="/search?q=*' + term + '*&type=article,page,product" class="no-result-all-results">View all results</a>');
-              }
-
-              if (showSearchResults) {
-                searchResultWrapper.fadeIn(200);
-              }
+              } else if (term.length == 0) {
+                $('.search-results-wrapper').hide();
+              };
             });
-          }else if(term.length == 0){
+          });
+
+        $('body').bind('click', function (e) {
+          const $elem = $(e.target);
+
+          if (
+            !$elem.is('[name="q"], .suggestion-half-to-half-flex *, .search-link-wrapper *') ||
+            $elem.is('.close-suggestions')
+          ) {
             $('.search-results-wrapper').hide();
-          }
+            showSearchResults = false;
+          };
         });
       });
-      // Clicking outside makes the results disappear.
-      $('body').bind('click', function(e){
-        const $elem = $(e.target);
-
-        if (!$elem.is('[name="q"], .suggestion-half-to-half-flex *, .search-link-wrapper *') || $elem.is('.close-suggestions')) {
-          $('.search-results-wrapper').hide();
-          showSearchResults = false;
-        }
-      });
     });
-  });
-</script>
+  </script>
 {% endif %}
 
 <!-- Some styles to get you started. -->
@@ -189,7 +203,7 @@
     float: left;
     display: block;
     text-align: center;
-    width: 60%;
+    min-width: 60%;
     {% if settings.enable_page_post_suggestion == false %}
       width: 100%;
     {% endif %}
@@ -258,7 +272,7 @@
   
   .search-results-wrapper .search-results-pages .title {
     white-space: normal;
-    color: #257ab1;
+    color: var(--color-link);
     width: 100%;
     padding-right: 10px;
   }
@@ -298,7 +312,9 @@
   }
 
   .search-results-wrapper.w-80 {
-    width: 80%;
+    width: auto;
+    min-width: 80%;
+    max-width: 100%;
   }
 
   .search-form .search-results a {
@@ -323,7 +339,7 @@
   
   .search-section-title {
     font-weight: bold;
-    color: #555;
+    color: var(--colorTitleSearchSuggestion);
     padding: 0;
   }
 
@@ -363,24 +379,21 @@
   
   .no-result-term {
     font-weight: bold;
-    color: #3b69b3;
     font-size: 18px;
     text-align: center;
+    color: var(--colorTitleSearchSuggestion);
   }
 
   .search-results-wrapper .no-result-message {
     border-top: none;
     padding-top: 0;
     text-align: center;
+    color: var(--colorTextSearchSuggestion);
   }
   
   .search-results-pages {
     margin-top: 5px;
-  }
-
-  .no-result-message, 
-  .search-results-pages {
-    color: #333;
+    color: var(--colorTextSearchSuggestion);
   }
   
   .no-result-term,
@@ -389,6 +402,7 @@
   .no-result-all-results {
     padding: 8px;
     text-transform: capitalize;
+    word-wrap: break-word;
   }
 
   .search-link-wrapper {
@@ -396,6 +410,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    color: var(--color-link);
   }
 
   .search-link-wrapper.empty {
@@ -421,10 +436,6 @@
     justify-content: space-around;
   }
   
-  .no-result-all-products a {
-    color: #257ab1;
-  }
-  
   .no-result-all-results {
     border-top: 1px solid var(--vasta-search-border-color, #fff);
     width: 100%;
@@ -432,7 +443,6 @@
     float: left;
     text-align: center;
     padding: 8px;
-    color: #257ab1;
     text-transform: capitalize;
   }
 
@@ -460,12 +470,14 @@
 
   form.header__search__form .suggestion-half-to-half-flex {
     display: flex;
+    width: auto;
   }
 
   form.header__search__form .search-content-container {
     display: flex;
     flex-direction: row;
     width: 40%;
+    min-width: 20%;
   }
 
   <!-- If Pages & Posts are disabled -->

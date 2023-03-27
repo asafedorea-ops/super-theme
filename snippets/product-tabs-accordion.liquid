@@ -87,29 +87,29 @@
           var $document = $(document);
           $document.ready(function(){
             $document.on('click', '.tabs', function(){
-              var tabs = $(this),
+          var tabs = $(this),
                   scope = tabs.parent().attr('data-tabs-scope');
               tabs.addClass('active').siblings().removeClass('active');
               $('.tabs-content[data-tabs-scope="' + scope + '"] .tab-content[data-identifier="' + tabs.attr('data-target') + '"]').addClass('active').siblings().removeClass('active');
               return false;
             });
-      
+
             $(document).on('click', '.tabs-accordion-title', function(){
-              var self = $(this),
-                  accordion = self.closest('.tabs-accordion'),
-                  item = self.closest('.tabs-accordion-title'),
+          var self = $(this),
+            accordion = self.closest('.tabs-accordion'),
+            item = self.closest('.tabs-accordion-title'),
                   content = self.siblings('.tabs-accordion-content');
-              var allTitles = accordion.find('.tabs-accordion-title').not(item),
+          var allTitles = accordion.find('.tabs-accordion-title').not(item),
                   allContents = accordion.find('.tabs-accordion-content').not(content);
               allTitles.removeClass('active');
               allContents.slideUp();
-      
+
               if (item.hasClass('active')){
-                item.removeClass('active')
-              } else {
+            item.removeClass('active');
+          } else {
                 item.addClass('active');
-              }
-                
+          }
+
               content.slideToggle();
             });
           });
@@ -134,5 +134,5 @@
   {% endunless %}
   }
   .flex-control-paging li a {
-                        display: initial;
-                    }</style>
+      display: initial;
+  }</style>
