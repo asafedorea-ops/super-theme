@@ -244,6 +244,18 @@
     var playButton = document.createElement('div');
     playButton.setAttribute('class', 'play');
     div.appendChild(playButton);
+    var background = document.createElement('div');
+    background.setAttribute('class', 'play-background');
+    playButton.appendChild(background);
+    var icon = document.createElement('div');
+    icon.setAttribute('class', 'play-icon');
+    playButton.appendChild(icon);
+    var leftSide = document.createElement('div');
+    leftSide.setAttribute('class', 'play-left-side');
+    icon.appendChild(leftSide);
+    var rightSide = document.createElement('div');
+    rightSide.setAttribute('class', 'play-right-side');
+    icon.appendChild(rightSide);
       div.onclick = function () {
         labnolIframe(this);
     };
