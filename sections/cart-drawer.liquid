@@ -538,40 +538,51 @@
 
                 printCompareAtPrice(item) {
                   let content = '';
-                  if(item.compare_at_price) {
-                    if(item.compare_at_price > item.price && item.total_discount == 0) {
-                      content += '<strong class="compare-price">' + VastaShop.formatMoney(item.compare_at_price * item.quantity) + '</strong>';
+                  if(item.compare_at_price && item.total_discount == 0) {
+                    content += '<div class="discount-price__wrapper">';
+                    content += '<strong class="compare-price">' + VastaShop.formatMoney(item.compare_at_price * item.quantity) + '</strong>';
 
-                      if("{{ settings.cart_discount }}" != "none" ) {
-                        content += '<div class="discount-price__wrapper">-&nbsp;';
-                        if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                          content += '<span class="price amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.compare_at_price * item.quantity - item.line_price ) + '</span>&nbsp;';
-                        }
-
-                        if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                          const percentage = ((item.compare_at_price * item.quantity - item.line_price) / (item.compare_at_price * item.quantity) * 100).toFixed(2);
-                          content += '<span class="price percentage_discount discount-price" id="jq-cart-item-discount">(' + percentage + '%)</span>';
-                        }
-                        content += '</div>';
+                    if("{{ settings.cart_discount }}" != "none" ) {
+                      content += '<div class="price-discount">&lpar;';
+                      if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
+                        content += '<span class="amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.compare_at_price * item.quantity - item.line_price ) + '</span>';
                       }
+
+                      if("{{ settings.cart_discount}}" == "discount_amount_percentage"){
+                        content += '<span>,</span>&nbsp;'
+                      }
+
+                      if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
+                        const percentage = ((item.compare_at_price * item.quantity - item.line_price) / (item.compare_at_price * item.quantity) * 100).toFixed(2);
+                        content += '<span class="percentage_discount discount-price" id="jq-cart-item-discount">' + percentage + '%</span>';
+                      }
+                      content += '<span>&nbsp;OFF&rpar;</span>';
+                      content += '</div>';
                     }
+                    content += '</div>';
                   }
 
                   if(item.total_discount > 0) {
+                    content += '<div class="discount-price__wrapper">';
                     content += '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>';
-
                     if("{{ settings.cart_discount }}" != "none" ) {
-                      content += '<div class="discount-price__wrapper">-&nbsp;';
+                      content += '<div class="price-discount">&lpar;';
                       if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                        content += '<span class="price amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.total_discount) + '</span>&nbsp;';
+                        content += '<span class="amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.total_discount) + '</span>';
+                      }
+
+                      if("{{ settings.cart_discount}}" == "discount_amount_percentage"){
+                        content += '<span>,</span>&nbsp;'
                       }
 
                       if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
                         const percentage = (item.total_discount / item.original_line_price * 100).toFixed(2);
-                        content += '<span class="price percentage_discount discount-price" id="jq-cart-item-discount">(' + percentage + '%)</span>';
+                        content += '<span class="percentage_discount discount-price" id="jq-cart-item-discount">' + percentage + '%</span>';
                       }
+                      content += '<span>&nbsp;OFF&rpar;</span>';
                       content += '</div>';
                     }
+                    content += '</div>';
                   }                  
                   return content; 
                 }
@@ -1288,15 +1299,15 @@
         border-bottom: 1px solid #dddcdc;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper {
-        width: 100%;
         padding: 8px 0 10px 0;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         width: -webkit-fill-available;
+        gap: 5px;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
-        width: auto;
+        width: 75%;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .free-shipping-message, .cart-products-wrapper .cart-product .cart-product-wrapper .price, .cart-products-wrapper .cart-product .cart-product-wrapper .title-item-cart {
         font-weight: 700;
@@ -1590,12 +1601,11 @@
         margin: 20px 10px;
   }
     .cart-container .product-content .product-price {
-        font-weight: 600;
         color: var(--color-price-cartDrawer, #b22222);
         text-align: center;
-        margin-left: 10px;
         display: flex;
         flex-direction: column;    
+        align-items: flex-end;
   }
     .cart-container .total-price {
         text-align: center;
@@ -1770,17 +1780,6 @@
     .cart-products-wrapper .cart-product {
         display: flex;
         border-bottom: 1px solid #dddcdc;
-  }
-    .cart-products-wrapper .cart-product .cart-product-wrapper {
-        width: 100%;
-        padding: 8px 0 13px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        width: -webkit-fill-available;
-  }
-    .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
-        width: auto;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .title-item-cart {
         font-weight: 700;
@@ -1993,20 +1992,13 @@
         padding: 10px 5px;
         margin: 20px 10px;
   }
-    .cart-container .product-content .product-price {
-        font-weight: 600;
-        color: var(--color-price-cartDrawer, #b22222);
-        text-align: center;
-        margin: 0 0 0 13px;
-        display: flex;
-        flex-direction: column;
-  }
   .cart-product .cart-product-wrapper .product-price .compare-price {
     color: var(--color-sale);
     font-size: 12px;
     text-decoration: line-through;
     font-weight: 400;
     text-align: right;
+    width: auto;
   }
     .cart-container .cart-bottom .paypal {
         text-align: center;
@@ -2188,9 +2180,6 @@
   }
     .template-cart .main-content .btn-wrapper.btn-wrapper-2 form p {
         font-size: 17px;
-  }
-    .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
-        width: 90%;
   }
     .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper small.product-variant {
         font-weight: 100;
@@ -2556,8 +2545,13 @@
     .cart-products-wrapper .cart-product .cart-product-wrapper .title-item-cart {
         font-size: 17px;
   }
-    .main-content .cart-product-wrapper .product-price .price.discount-price,
-    .main-content .cart-product-wrapper .product-price .discount-price__wrapper {
+  .price-discount {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+    .main-content .cart-product-wrapper .price-discount {
         font-size: 12px;
         color: var(--color-product-discount);
   }
@@ -2593,6 +2587,16 @@
       }
   }
     @media (max-width: 767px) {
+      .cart-products-wrapper .cart-product .cart-product-wrapper .js-cart__btn--remove {
+        font-size: 10px;
+      }
+      .discount-price__wrapper {
+        flex-wrap: wrap;
+      }
+      .discount-price__wrapper .compare-price,
+      .discount-price__wrapper .price-discount {
+        width: 100%;
+      }
         .template-cart .header-cart-wrapper {
             padding-top: 8px;
             padding-bottom: 10px;
@@ -2626,11 +2630,6 @@
       }
         .template-cart .main-content .btn-wrapper.btn-wrapper-2 .pull-right.cart-total-bottom {
             text-align: center;
-      }
-        .template-cart .main-content .product-price {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
       }
         .template-cart .main-content p.text_botom_button {
             width: 100%;
