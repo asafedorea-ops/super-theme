@@ -153,8 +153,8 @@
         "text_transform_product_title": "uppercase",
         "collection": "rastreio",
         "products_per_rows": "4",
-        "products_per_rows_feature_collection": "49",
-        "rows": "1",
+        "products_per_rows_feature_collection": "94",
+        "rows": "3",
         "show_price": true,
         "show_swatch": false
       }
