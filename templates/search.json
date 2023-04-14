@@ -3,6 +3,13 @@
     "main": {
       "type": "search-template",
       "settings": {
+        "enable_swatch_bar_inside_wrapper": false,
+        "section_title_text": "Check out these alternatives:",
+        "section_title_text_transform": "capitalize",
+        "feature_collection": "all",
+        "products_per_collection": 4,
+        "products_per_rows_desktop": "4",
+        "products_per_rows_mobile": "2"
       }
     }
   },

@@ -29,12 +29,12 @@
         "6387f68d-af18-45c4-8cd9-942d907c65c6"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "homepage_banner_style_1": "shopify:\/\/shop_images\/reflective-sunglasses.jpg",
         "mobile_banner_style_1": "shopify:\/\/shop_images\/pink-sunglasses-on-white.jpg",
         "enable_custom_banner_height": false,
@@ -121,12 +121,12 @@
         "26dcb641-695c-44e7-9210-b5a69195f968"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "border_color_collection_list": "#444444",
         "text_bg_color_collection_list": "#444444",
         "text_color_collection_list": "#ffffff",
@@ -141,12 +141,12 @@
     "163518802243d59863": {
       "type": "featured-collection",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "top_margin_featured_products": 0,
         "title": "Featured products",
         "text_transform_title": "uppercase",
@@ -162,12 +162,12 @@
     "163518791261981d42": {
       "type": "cta-block",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "buy_now_line_direction": "row",
         "box_limit": 200,
         "text_above_button": "<h3>Lorem ipsum dolor<\/h3>\nLorem ipsum dolor sit amet consectetur adipiscing elit.",
@@ -197,12 +197,12 @@
     "163518827257c845da": {
       "type": "banner-style3",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "homepage_banner_style_3": "shopify:\/\/shop_images\/comparing-black-t-shirts-on-a-clothing-rack-in-a-sun-lit-shop.jpg",
         "mobile_banner_style_3": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg",
         "enable_custom_banner_height": true,
@@ -284,12 +284,12 @@
         "03846dea-ab9d-4cc3-9fea-ad5abfa79cdb"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "enable_reviews": true,
         "title": "",
         "slider_autoplay": false,
@@ -299,12 +299,12 @@
     "163518866014942cc3": {
       "type": "blog-posts",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "title": "NEWS",
         "section_title_text_transform": "unset",
         "display_post_image": true,
@@ -317,12 +317,12 @@
     "09985f82-026f-43d5-9602-59d1b0af41d6": {
       "type": "custom-area",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "title": "Custom Area",
         "html_area": "<p style=\"text-align: center\">HTML Example<\/p>"
       }
@@ -330,12 +330,12 @@
     "5ae62c0c-1183-4c19-9892-adb4cdce71cd": {
       "type": "reviews",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "enable_reviews": true,
         "title": "REVIEWS",
         "slider_autoplay": false,
@@ -345,12 +345,12 @@
     "8cb22b35-2d15-4d72-b123-fc22896e46e4": {
       "type": "reviews-judgeme",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "title": ""
       }
     },
@@ -368,6 +368,7 @@
         "d4c36f08-217a-490b-9a10-08a0a966ff8d"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
@@ -397,23 +398,23 @@
         "e7b22fdb-1866-4a74-af4a-90ebd67616ce"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
-        "custom-padding-bottom": 0,
-        "custom_class": ""
+        "custom-padding-bottom": 0
       }
     },
     "bf5f7e85-16c2-44be-8fba-335d8dac1256": {
       "type": "unique-value-proposition",
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "enable_icon_text": true,
         "title": "Unique Value Proposition",
         "title_text_transform": "capitalize",
@@ -446,12 +447,12 @@
         "311a1995-dd37-45e6-ac78-a15479afe945"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "enable_section_title": true,
         "section_title": "Videos",
         "enable_videos_title": true,
@@ -512,12 +513,12 @@
         "567fde8b-339e-4191-a732-fa88d2fe0a99"
       ],
       "settings": {
+        "custom_class": "",
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "custom_class": "",
         "section_title": "Promotional Slider",
         "background_slide_promotional": "#444444",
         "text_color_slider_promotional": "#ffffff",
@@ -526,6 +527,13 @@
         "text_transform_title_slider": "capitalize",
         "slider_autoplay": false,
         "slider_speed": 800
+      }
+    },
+    "34de63c8-a841-4ab9-89d6-e7c92ac17483": {
+      "type": "empty-space",
+      "settings": {
+        "custom-margin-top": 30,
+        "custom-margin-bottom": 30
       }
     }
   },
@@ -544,6 +552,7 @@
     "21396dd5-f8ce-4ff3-8673-fced962bdbdd",
     "bf5f7e85-16c2-44be-8fba-335d8dac1256",
     "b1adacd4-10b5-4ecd-8d5b-ad07cc307c19",
-    "152db996-38c7-4ba4-a031-92eba5449967"
+    "152db996-38c7-4ba4-a031-92eba5449967",
+    "34de63c8-a841-4ab9-89d6-e7c92ac17483"
   ]
 }
