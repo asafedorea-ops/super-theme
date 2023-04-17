@@ -71,7 +71,7 @@
     "swatch_round": false,
     "check_color_collection_swatch": "#26b522",
     "check_color_collection_swatch_svg": "#fff",
-    "select_swatch_collection": "size",
+    "select_swatch_collection": "color",
     "label_swatch_color_collection": "",
     "link_sub_collection": "",
     "collection_enabled_filter_sticky": true,
