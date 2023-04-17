@@ -52,7 +52,7 @@
         "banner_sub_titcolor": "#3d3d3d",
         "banner_titles_background_color": "none",
         "enable_max_width": false,
-        "banner_headline_width": 370,
+        "banner_headline_width": 100,
         "main_banner_headline_size": 60,
         "main_banner_sub_headline_size": 25,
         "main_banner_headline_size_tablet": 26,
