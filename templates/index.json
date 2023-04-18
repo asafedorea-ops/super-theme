@@ -189,7 +189,7 @@
         "button_hover_border_color": "#ffffff",
         "id_product_block": "accessories",
         "use_add_to_cart": true,
-        "use_external_link": false,
+        "use_external_link": true,
         "url_product": "",
         "url_call_to_action": "shopify:\/\/shop_images\/travel-flatlay.jpg"
       }
