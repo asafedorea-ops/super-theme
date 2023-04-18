@@ -1,8 +1,8 @@
 <script
-  type="lazyload2"
+  type="lazyload_int"
   data-src="https://edge.personalizer.io/storefront/2.0.0/js/shopify/storefront.min.js?key=vqchm-g1itc3w9vyb7tc5dv8y-cmfn0&shop=testvasta.myshopify.com"
 ></script>
-<script type="lazyload2">
+<script type="lazyload_int">
   window.LimeSpot = window.LimeSpot === undefined ? {} : LimeSpot;{% assign t = template | prepend: '/' | append: '.' %}
   {% if t contains '/product.' %}LimeSpot.PageInfo = { Type: "Product", ReferenceIdentifier: "{{ product.id }}"};
   {% elsif t contains '/collection.' %}LimeSpot.PageInfo = { Type: "Collection", ReferenceIdentifier: "{{ collection.id }}", Personalized: {%if collection.metafields.LimeSpot['Personalized'] == "true"%}true{%else%}false{%endif%} };

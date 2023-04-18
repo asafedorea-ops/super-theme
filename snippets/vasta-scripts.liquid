@@ -14,9 +14,9 @@
     })();
   </script>
 {%- else -%}
-    <script type="lazyload2" data-src="{{ 'VastaShop.js' | asset_url }}" onload="alert(1)"></script>
+    <script type="lazyload_int" data-src="{{ 'VastaShop.js' | asset_url }}" onload="alert(1)"></script>
 
-    <script type="lazyload2">
+    <script type="lazyload_int">
     (function(){
         VastaShop.Cart.current = {{ cart | json }};
         VastaShop.Cart.total_price = {{ cart.total_price }};
@@ -29,12 +29,12 @@
     <script src="{{ 'slick.min.js' | asset_url }}"></script>
 
 
-    <script type="lazyload2" data-src="{{ 'jquery.tmpl.min.js' | asset_url }}"></script>
-    <script type="lazyload2" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
+    <script type="lazyload_int" data-src="{{ 'jquery.tmpl.min.js' | asset_url }}"></script>
+    <script type="lazyload_int" data-src="{{ 'jquery.products.min.js' | asset_url }}"></script>
 
 {%- endunless -%}
 
-<script type="lazyload2">
+<script type="lazyload_int">
   {%- if settings.recently_viewed_product_without_image != blank -%}
       const product_without_image = '{{ settings.recently_viewed_product_without_image | image_url }}';
   {%- else -%}
@@ -63,7 +63,7 @@
   update_discount_cart({{ cart.total_price }}, {{ cart.item_count }});
 </script>
 
-<script type="lazyload2">
+<script type="lazyload_int">
   setTimeout(function () {
         var is_IE =  /*@cc_on!@*/false || !!document.documentMode;
 
@@ -127,7 +127,7 @@
     var slideCounter = 0;
   </script>
 
-    <script type="lazyload2" data-src="{{ 'swatch.js' | asset_url }}"></script>
+    <script type="lazyload_int" data-src="{{ 'swatch.js' | asset_url }}"></script>
 
   {%- render 'product-js' -%}
 
@@ -144,7 +144,7 @@
     <script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script>
 {%- endif -%}
 
-<script type="lazyload2">
+<script type="lazyload_int">
   /**
    * Swatch Item
    */
@@ -173,8 +173,8 @@
 </script>
 
 {%- if settings.enable_klaviyo_id -%}
-    <script type="lazyload2" data-src="https://www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
-    <script type="lazyload2">
+    <script type="lazyload_int" data-src="https://www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
+    <script type="lazyload_int">
         setTimeout(function(){
       /** Begin Klaviyo Script */
       KlaviyoSubscribe.attachToForms('.klaviyo_condensed_styling', {
@@ -191,7 +191,7 @@
   </script>
 {%- endif -%}
 
-<script type="lazyload2">
+<script type="lazyload_int">
   setTimeout(function(){
       Shopify.Products.recordRecentlyViewed();
 
@@ -262,7 +262,7 @@
     playerElements[n].appendChild(div);
     }
   }
-document.addEventListener('DOMContentLoaded', initYouTubeVideos);
+document.addEventListener('w3-DOMContentLoaded', initYouTubeVideos);
 </script>
 
 {%- if settings.enable_custom_scripts -%}

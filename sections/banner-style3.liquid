@@ -47,7 +47,7 @@
           {%- assign desktop_widths = '1500,1400,1300,1200,1100,1000,900,800' | split: ',' -%}
           {%- assign mobile_widths = '700,600,500,400' | split: ',' -%}
 
-          <source class="lazy2 lazy3" media="(min-width: 768px)" {% if enable_lazy %}data-{% endif %}srcset="
+          <source data-class="LazyLoad" media="(min-width: 768px)" {% if enable_lazy %}data-{% endif %}srcset="
             {%- for desktop_width in desktop_widths -%}
               https:{{- default_image | image_url: width: desktop_width }} {{ desktop_width }}w,
             {%- endfor -%}
@@ -57,7 +57,7 @@
             {%- assign default_image = section.settings.mobile_banner_style_3 -%}
           {%- endif -%}
 
-          <source class="lazy2 lazy3" media="(max-width: 767px)" {% if enable_lazy %}data-{% endif %}srcset="
+          <source data-class="LazyLoad" media="(max-width: 767px)" {% if enable_lazy %}data-{% endif %}srcset="
             {%- for mobile_width in mobile_widths -%}
               https:{{- default_image | image_url: width: mobile_width }} {{ mobile_width }}w,
             {%- endfor -%}

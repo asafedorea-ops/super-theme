@@ -88,7 +88,7 @@
 
   {{ product.metafields.custom.comparison_chart }}
 
-  <script type="lazyload2">
+  <script type="lazyload_int">
     const drawer_texts = {
         empty_cart: "{{ section.settings.cartDrawer_empty | strip_newlines }}",
         not_empty_cart: '{{ not_empty_cart | strip_newlines }}',
@@ -115,7 +115,7 @@
     cart_success_message = "{{ settings.cart_discount_text }}";
   </script>
 
-  <script type="lazyload2">
+  <script type="lazyload_int">
     setTimeout(function(){
       window.CartDrawerAPI = (function(global, opt) {
         const settings = Object.assign({

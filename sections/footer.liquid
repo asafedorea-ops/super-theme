@@ -14,7 +14,7 @@
                 {% if block.settings.enable_svg_logo %}
                   <a title="{{ block.settings.shop_logo_alt }}" class="footer__logo-anchor" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}>{{ block.settings.logo_svg_html }}</a>
                 {% elsif block.settings.logo_url != blank %}
-                  <a title="{{ block.settings.shop_logo_alt }}" class="footer__logo-anchor" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.logo_url | img_url:"250x" }}" alt="{{ block.settings.shop_logo_alt }}" width="90" height="90" /></a>
+                  <a title="{{ block.settings.shop_logo_alt }}" class="footer__logo-anchor" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}><img data-class="LazyLoad" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.logo_url | img_url:"250x" }}" alt="{{ block.settings.shop_logo_alt }}" width="90" height="90" /></a>
                 {% else %}
                   <a title="{{ block.settings.shop_logo_alt }}" class="footer__logo-anchor" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}>{{ block.settings.shop_logo_alt }}</a>
                 {% endif %}
@@ -182,7 +182,7 @@
               {% if block.settings.enable_svg_logo %}
                 <a class="footer__logo-anchor" title="{{ block.settings.shop_logo_alt }}" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}>{{ block.settings.logo_svg_html }}</a>
               {% elsif block.settings.logo_url != blank %}
-                <a class="footer__logo-anchor" title="{{ block.settings.shop_logo_alt }}" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}><img class="lazy2" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.logo_url | img_url:"250x" }}" alt="{{ block.settings.shop_logo_alt }}" width="90" height="90" /></a>
+                <a class="footer__logo-anchor" title="{{ block.settings.shop_logo_alt }}" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}><img data-class="LazyLoad" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ block.settings.logo_url | img_url:"250x" }}" alt="{{ block.settings.shop_logo_alt }}" width="90" height="90" /></a>
               {% else %}
                 <a class="footer__logo-anchor" title="{{ block.settings.shop_logo_alt }}" {% if template.name contains "index" %}href="#shopify-section-shipping_bar"{% else %}href="/"{% endif %}>{{ block.settings.shop_logo_alt }}</a>
               {% endif %}
@@ -281,7 +281,7 @@
                     {%- else -%}
                       {%- assign snippet_icon_trust_badge = 'icon-' | append: block.settings.svg_trust_badge | append: '.svg' -%}
 
-                      <img width="60" height="60" id="trust-badge-footer-{{ block.id }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ snippet_icon_trust_badge | asset_url }}" alt="{{ block.settings.svg_trust_badge | escape | replace: "-" , " " | capitalize | default: 'Image without description.' }}" class="lazy2 lazy3" />
+                      <img width="60" height="60" id="trust-badge-footer-{{ block.id }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ snippet_icon_trust_badge | asset_url }}" alt="{{ block.settings.svg_trust_badge | escape | replace: "-" , " " | capitalize | default: 'Image without description.' }}" data-class="LazyLoad" />
                     {%- endif -%}
                   {%- endif -%}
                 </div>
@@ -293,7 +293,7 @@
     </div>
   </section>
 
-  <script type="lazyload2">
+  <script type="lazyload_int">
     setTimeout(function(){
     window.SectionFooter = (function(){
       function SectionFooter() {

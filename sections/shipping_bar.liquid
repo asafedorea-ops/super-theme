@@ -43,7 +43,7 @@
     </div>
   </div>
 
-  <script type="lazyload2">
+  <script type="lazyload_int">
     var shipping_bar = shipping_bar || {};
     {% for block in section.blocks %}
         {% if "discount-style" == block.type %}
@@ -65,7 +65,7 @@
         {% endif %}
     {% endfor %}
   </script>
-  <script type="lazyload2">
+  <script type="lazyload_int">
     setTimeout(function(){
       window.SectionShippingBar = (function(){
         function SectionShippingBar() {
