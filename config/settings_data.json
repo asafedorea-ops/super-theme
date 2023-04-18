@@ -534,6 +534,24 @@
               "enable_img_trust_badge": false,
               "trust_badge_image_height": 35
             }
+          },
+          "2c730219-e82a-4886-9e99-801bbdd900db": {
+            "type": "social",
+            "settings": {
+              "social_media": "icon-facebook"
+            }
+          },
+          "aa84a017-7382-47dc-a002-aedf182c3919": {
+            "type": "social",
+            "settings": {
+              "social_media": "icon-facebook"
+            }
+          },
+          "f9251a11-012d-4fab-9036-97c66e0e4e5a": {
+            "type": "social",
+            "settings": {
+              "social_media": "icon-facebook"
+            }
           }
         },
         "block_order": [
@@ -550,16 +568,19 @@
           "e674eaf1-5430-4e8e-84d2-52d653c1e525",
           "19cb74d1-5fae-4694-aa3a-9ac4fb336813",
           "d5f02746-ce78-490c-aad6-9f8c0108a67a",
-          "d1670d3d-77f6-486b-9119-ac2457f3e782"
+          "d1670d3d-77f6-486b-9119-ac2457f3e782",
+          "2c730219-e82a-4886-9e99-801bbdd900db",
+          "aa84a017-7382-47dc-a002-aedf182c3919",
+          "f9251a11-012d-4fab-9036-97c66e0e4e5a"
         ],
         "settings": {
           "background_color": "#dcdcdc",
-          "border_color": "#c95555",
+          "border_color": "#000000",
           "title_font_color": "#000000",
-          "font_color": "#313131",
+          "font_color": "#000000",
           "popular_collection_text": "#ffffff",
           "popular_collection_background": "#000000",
-          "social_color": "#ffffff",
+          "social_color": "#204a80",
           "collection_title": "Popular Collections",
           "font_size_title_footer": 16,
           "font_size_itens_footer": 12,
