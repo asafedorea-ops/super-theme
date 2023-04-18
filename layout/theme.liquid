@@ -4,7 +4,7 @@
 <html lang="{{- shop.locale -}}">
 <!--<![endif]-->
   <head>
-    {%- render 'custom-lazyload-head' -%}
+    {%- render 'lazyload-head' -%}
     {% include 'limespot' %}
     <link rel="dns-prefetch" href="https://shopify.vastaweb.com">
     <link rel="dns-prefetch" href="https://cdn.shopify.com">
@@ -190,6 +190,6 @@
   {%- endcapture -%}
   {% assign theme_content = theme_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | strip %}
   {{ theme_content }}
-  {%- render 'custom-lazyload-video' -%}
-  {%- render 'custom-lazyload-body' -%}
+  {%- render 'lazyload-video' -%}
+  {%- render 'lazyload-body' -%}
 </html>
