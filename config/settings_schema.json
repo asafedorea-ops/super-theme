@@ -195,7 +195,7 @@
       {
         "type": "select",
         "id": "enable_products_pages_article",
-        "label": "Search Terms",
+        "label": "Results to display on the search page",
         "options": [
           {
             "value": "",
