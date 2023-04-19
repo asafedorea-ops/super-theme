@@ -77,12 +77,11 @@
     width="{{ image_width }}"
     height="{{ image_height }}"
     id="{{ id_prefix | escape | handleize | default: 'img' }}-{{ image.id }}-{{ randomNumber }}"
-    class="{% if custom_class == false %}responsive-image__image{% endif %} {{ image_class }}"
-    {% if active_lazy == true %}data-class="LazyLoad"{% endif %}
-    {% if custom_style %} style="{{ custom_style }}"{% endif %}
+    class="{% if custom_class == false %}responsive-image__image{% endif %} {% if active_lazy == true %}lazy2{% endif %} {{ image_class }}"
+    {% if custom_style %} style="{{ custom_style }}" {% endif %}
     {% if active_lazy == false %}
        loading="eager"
-    {% if active_lazy == true %}data-src="{{ image | img_url: max_width }}"{%- else -%}-src="{{ image | img_url: max_width }}"{% endif %}
+       src="{{ image | img_url: max_width }}"
        srcset="{{ image_srcset }}"
        sizes="(min-width: 1200px) {{ size_large }}px, (max-width: 767px) {{ size_mobile }}vw, (min-width: 768px) {{ size_desk }}vw"
     {% else %}
@@ -92,6 +91,7 @@
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       {%- endif -%}
         loading="lazy"
+        data-class="LazyLoad"
         data-src="{{ image | img_url: max_width }}"
         data-srcset="{{ image_srcset }}"
         data-sizes="(min-width: 1200px) {{ size_large }}px, (max-width: 767px) {{ size_mobile }}vw, (min-width: 768px) {{ size_desk }}vw"
@@ -113,4 +113,3 @@
     </div>
   {%- endif -%}
 {%- endunless -%}
-
