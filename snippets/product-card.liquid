@@ -5,7 +5,6 @@
 {%- assign max_width_mobile_large = width_mobile | default: 45 -%}
 {%- assign max_width_desk = width_desk | default: 20 -%}
 {%- assign prefix = 'Image' | append: variant.id -%}
-{%- assign lazyload = enable_lazy | default: true -%}
 
 <div class="grid__item">
   {%- for tagBadge in prod.tags -%}
@@ -29,7 +28,7 @@
             max_width: 800,
             image: final_image,
             image_class:'grid__item-image one',
-            active_lazy: true
+            active_lazy: lazyload
           -%}
 
         {%- else -%}
@@ -41,14 +40,14 @@
             max_width: 800,
             image: secondary_image,
             image_class: 'grid__item-image one',
-            active_lazy: true
+            active_lazy: lazyload
           -%}
           {%-
             render 'responsive-image' with
             max_width: 800,
             image: final_image,
             image_class: 'grid__item-image',
-            active_lazy: true
+            active_lazy: lazyload
           -%}
         {%- endif -%}
       </a>

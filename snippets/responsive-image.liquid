@@ -79,10 +79,10 @@
     id="{{ id_prefix | escape | handleize | default: 'img' }}-{{ image.id }}-{{ randomNumber }}"
     class="{% if custom_class == false %}responsive-image__image{% endif %} {{ image_class }}"
     {% if active_lazy == true %}data-class="LazyLoad"{% endif %}
-    {% if custom_style %} style="{{ custom_style }}" {% endif %}
+    {% if custom_style %} style="{{ custom_style }}"{% endif %}
     {% if active_lazy == false %}
        loading="eager"
-       src="{{ image | img_url: max_width }}"
+    {% if active_lazy == true %}data-src="{{ image | img_url: max_width }}"{%- else -%}-src="{{ image | img_url: max_width }}"{% endif %}
        srcset="{{ image_srcset }}"
        sizes="(min-width: 1200px) {{ size_large }}px, (max-width: 767px) {{ size_mobile }}vw, (min-width: 768px) {{ size_desk }}vw"
     {% else %}

@@ -66,7 +66,16 @@
 
       <div class="wrapper">
         <div class="collection-page__grid-products grid-uniform {{ grid_uniform_class }}">
+            {%- assign temp = 0 -%}
             {%- for product in collection.products -%}
+                
+                {%- assign temp = temp | plus: 1 -%}
+                {%- if temp < 4 -%}
+                    {%- assign lazy = false -%}
+                {%- else -%}
+                    {%- assign lazy = true -%}
+                {%- endif -%}
+
                 {%- assign show_product = true -%}
                 {%- if product.available == false and settings.enable_out_of_stock_button == false -%}
                     {%- assign show_product = false -%}
@@ -75,7 +84,7 @@
                     {%- render 'product-card',
                         prod: product,
                         max_width: image_width,
-                        lazyload: true,
+                        lazyload: lazy,
                         width_large: image_width,
                         width_mobile: image_width,
                         width_desk: image_width,
