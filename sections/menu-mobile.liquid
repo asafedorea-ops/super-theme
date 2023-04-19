@@ -424,10 +424,14 @@
             
             allChildEl.forEach(item => {
               size += item.offsetHeight;
+              
             });
     
-            listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${size}px`;         
-  
+            listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${size}px`; 
+
+            setTimeout(function () { listEl.querySelector(`.sidenav .list--${listType}`).style.height = `auto`; }, 350);
+
+
             this.querySelector('.toggle').classList.remove('toggle--plus');
             this.querySelector('.toggle').classList.add('toggle--minus');
           }
