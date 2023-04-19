@@ -1,5 +1,4 @@
 <!-- start cart.liquid (TEMPLATE) -->
-{%- capture cart_content -%}
 <!-- Begin ReCharge code -->
   {%- if settings.product_enabled_recharge -%}
     {%- render 'subscription-cart-footer' -%}
@@ -226,10 +225,7 @@
     </div>
     {%- endif -%}
   </div>
-{%- endcapture -%}
-
-{%- capture cart_style -%}
-  <style scoped data-vasta>
+  <style scoped>
     :root{
       --color-font-button-cart: {{ settings.color_font_button_cart }};
       --color-cart-item-title: {{ settings.color_cartitem }};
@@ -2687,8 +2683,3 @@
       }
     }
   </style>
-
-{%- endcapture -%}
-{{- cart_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- cart_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- cart_content -}}

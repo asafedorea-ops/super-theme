@@ -10,7 +10,7 @@
 {%- else-%} 
     <div class="custom-img">
         {%- assign icon_cart_img = section.settings.img_icon_cart -%}
-        <img width="60" height="60" class= "image-icon-header lazy2 lazy3" data-src="{{ icon_cart_img | image_url: width: 90 }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
+        <img width="60" height="60" class= "image-icon-header" data-class="LazyLoad" data-src="{{ icon_cart_img | image_url: width: 90 }}" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="">
     </div>
 {%- endif -%}
 <style>

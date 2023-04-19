@@ -1,4 +1,3 @@
-{%- capture search_template_content -%}
   <!-- start search-template.liquid (SECTION) -->
   {%- assign image_width = 560 -%}
   {%- assign width_mobile = 200 -%}
@@ -153,10 +152,7 @@
       </div>
     </div>
   </div>
-{%- endcapture -%}
-
-{%- capture search_template_style -%}
-  <style scoped data-vasta>
+  <style scoped>
     .section-header .zero-founds-message, .section-header .text-center{
       font-size: 18px;
     }
@@ -352,10 +348,6 @@
     }
   </style>
   
-{%- endcapture -%}
-{{- search_template_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- search_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- search_template_content -}} 
 {% schema %}
 {
   "name": "Search Template",

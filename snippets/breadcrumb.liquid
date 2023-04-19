@@ -1,5 +1,4 @@
 <!-- start breadcrumb.liquid (SNIPPET) -->
-{%- capture breadcrumb_content -%}
   {%- unless template == 'index' or template == 'cart' -%}
     <div class="breadcrumbs" aria-label="breadcrumbs">
       <a id="breadcrumbs__homepage" class="breadcrumbs__item breadcrumbs__link" href="/" title="Home">Home page</a>
@@ -44,9 +43,7 @@
       {%- endif -%}
     </div>
   {%- endunless -%}
-{%- endcapture -%}
-{%- capture breadcrumb_style -%}
-  <style scoped data-vasta>
+<style scoped>
 
   .breadcrumbs {
     display: inline-table;
@@ -70,8 +67,4 @@
     margin: 0 5px;
     font-family: initial;
   }
-  </style>
-{%- endcapture -%}
-{{- breadcrumb_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- breadcrumb_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- breadcrumb_content -}}
+</style>

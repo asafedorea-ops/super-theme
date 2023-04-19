@@ -1,275 +1,284 @@
-<link data-href='//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css'>
+<link data-href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
 
-{%- capture section_reviews_content -%}
-  {% if section.settings.enable_reviews %}
-    <!-- start reviews.liquid (SECTION) -->
-    <section data-section-type="reviews" id="slider-reviews-{{ section.id }}" data-slider="{{ section.id }}" class="{{ section.settings.custom_class }}">
-        <h3 class="hide">Reviews</h3>
-        <div class="reviews-content">
-          <div class="wrapper">
-            {%- if section.settings.title != blank -%}
-              <h2 class="section-title">{{ section.settings.title | escape }}</h2>
-            {%- endif -%}
+{% if section.settings.enable_reviews %}
+  <!-- start reviews.liquid (SECTION) -->
+  <section
+    data-section-type="reviews"
+    id="slider-reviews-{{ section.id }}"
+    data-slider="{{ section.id }}"
+    class="{{ section.settings.custom_class }}"
+  >
+    <h3 class="hide">Reviews</h3>
+    <div class="reviews-content">
+      <div class="wrapper">
+        {%- if section.settings.title != blank -%}
+          <h2 class="section-title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
 
-            <div id="slider-{{ section.id }}" class="slick-slider" data-autoplay="{{ section.settings.slider_autoplay }}" data-speed="{{ section.settings.slider_speed }}">
-              {%- for block in section.blocks -%}
-                {%- if "select" == block.type -%}
-                  <div class="slick-content" {{ block.shopify_attributes }}>
-                    <div class="star-reviews">
-                      {%- for i in (1..block.settings.stars_review) -%}
-                        {%- render "icon-star" -%}
-                      {%- endfor -%}
-                    </div>
+        <div
+          id="slider-{{ section.id }}"
+          class="slick-slider"
+          data-autoplay="{{ section.settings.slider_autoplay }}"
+          data-speed="{{ section.settings.slider_speed }}"
+        >
+          {%- for block in section.blocks -%}
+            {%- if 'select' == block.type -%}
+              <div class="slick-content" {{ block.shopify_attributes }}>
+                <div class="star-reviews">
+                  {%- for i in (1..block.settings.stars_review) -%}
+                    {%- render 'icon-star' -%}
+                  {%- endfor -%}
+                </div>
 
-                    <div class="text-reviews">
-                      {%- if block.settings.title_review != blank -%}
-                      <strong class="review-title">{{ block.settings.title_review }}</strong>
-                      {%- endif -%}
-                      {{ block.settings.content_review }}
-                    </div>
+                <div class="text-reviews">
+                  {%- if block.settings.title_review != blank -%}
+                    <strong class="review-title">{{ block.settings.title_review }}</strong>
+                  {%- endif -%}
+                  {{ block.settings.content_review }}
+                </div>
 
-                    {%- if block.settings.author_review != blank -%}
-                    <div class="athor-reviews">
-                      <strong>{{ block.settings.author_review }}</strong>
-                    </div>
-                    {%- endif -%}
-
-                    {%- if block.settings.date_review != blank -%}
-                    <div class="date-reviews">
-                      {{ block.settings.date_review }}
-                    </div>
-                    {%- endif -%}
-
-                    {%- if block.settings.product_image != blank -%}
-                      <div class="img-reviews">
-                        <a title="{{ block.settings.title_review | strip_html | escape }}" id="ReviewsLink-{{ forloop.index }}" href="{{ block.settings.link_product_review }}">
-                          {%- assign image_id_prefix = 'reviews-img' | append: forloop.index -%}
-
-                          {%- if block.settings.product_image != blank -%}
-                            {% assign image = block.settings.product_image %}
-                          {% else %}
-                            {%- assign product_temp = all_products[block.settings.product] -%}
-                            {%- assign image = product_temp.featured_image -%}
-                          {% endif %}
-
-                          {%- if image.alt != blank -%}
-                            {%- assign image_alt = image.alt | strip_html | escape -%}
-                          {%- elsif block.settings.title_review != blank -%}
-                            {%- assign image_alt = block.settings.title_review | strip_html | escape -%}
-                          {%- else -%}
-                            {%- assign image_alt = "Image without description." -%}
-                          {%- endif -%}
-
-                          {%- if image != blank -%}
-                            {%- render 'responsive-image',
-                                id_prefix: image_id_prefix,
-                                image: image,
-                                active_lazy: true,
-                                max_width: 150,
-                                no_wrap: true,
-                                alt_text: image_alt
-                            -%}
-                          {%- endif -%}
-                          {{ block.settings.product_review }}
-                        </a>
-                      </div>
-                    {%- endif -%}
+                {%- if block.settings.author_review != blank -%}
+                  <div class="athor-reviews">
+                    <strong>{{ block.settings.author_review }}</strong>
                   </div>
                 {%- endif -%}
-              {%- endfor -%}
-            </div>
-          </div>
+
+                {%- if block.settings.date_review != blank -%}
+                  <div class="date-reviews">
+                    {{ block.settings.date_review }}
+                  </div>
+                {%- endif -%}
+
+                {%- if block.settings.product_image != blank -%}
+                  <div class="img-reviews">
+                    <a
+                      title="{{ block.settings.title_review | strip_html | escape }}"
+                      id="ReviewsLink-{{ forloop.index }}"
+                      href="{{ block.settings.link_product_review }}"
+                    >
+                      {%- assign image_id_prefix = 'reviews-img' | append: forloop.index -%}
+
+                      {%- if block.settings.product_image != blank -%}
+                        {% assign image = block.settings.product_image %}
+                      {% else %}
+                        {%- assign product_temp = all_products[block.settings.product] -%}
+                        {%- assign image = product_temp.featured_image -%}
+                      {% endif %}
+
+                      {%- if image.alt != blank -%}
+                        {%- assign image_alt = image.alt | strip_html | escape -%}
+                      {%- elsif block.settings.title_review != blank -%}
+                        {%- assign image_alt = block.settings.title_review | strip_html | escape -%}
+                      {%- else -%}
+                        {%- assign image_alt = 'Image without description.' -%}
+                      {%- endif -%}
+
+                      {%- if image != blank -%}
+                        {%- render 'responsive-image',
+                          id_prefix: image_id_prefix,
+                          image: image,
+                          active_lazy: true,
+                          max_width: 150,
+                          no_wrap: true,
+                          alt_text: image_alt
+                        -%}
+                      {%- endif -%}
+                      {{ block.settings.product_review }}
+                    </a>
+                  </div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
         </div>
-    </section>
-  {% endif %}
+      </div>
+    </div>
+  </section>
+{% endif %}
 
-  <script type="lazyload2">
-    setTimeout(function(){
-      window.SectionReviews = (function(){
-        function SectionReviews() {
-          this.settings = {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            autoplay: true,
-            autoplaySpeed: 2000,
-            arrows: false,
-            responsive: [
-                {
-                  breakpoint: 1280,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1,
-                  }
-                },
-                {
-                  breakpoint: 1019,
-                  settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 1
-                  }
-                },
-                {
-                    breakpoint: 767,
-                    settings: {
-                      slidesToShow: 1,
-                      slidesToScroll: 1,
-                    }
-                }
-            ]
-          };
-    
-          this._run();
-        }
-    
-        SectionReviews.prototype = {
-          onLoad: function() {
-            this._run();
-          },
-    
-          _run: function() {
-            var slider, autoplay, autoplaySpeed,
-                settings = this.settings;
-    
-            jQuery('[id^="slider-reviews-"]').each(function(){
-              slider = '#slider-' + $(this).data('slider');
-    
-              autoplay = jQuery(slider).data('autoplay');
-              autoplaySpeed = jQuery(slider).data('speed');
-    
-              if (typeof autoplay !== 'undefined' && autoplay != true && autoplay != false) {
-                autoplay = true;
-              }
-    
-              if (typeof autoplaySpeed !== 'undefined' && autoplaySpeed < 800 && autoplaySpeed > 3000) {
-                autoplaySpeed = 800;
-              }
-    
-              settings.autoplay = autoplay;
-              settings.autoplaySpeed = autoplaySpeed;
-    
-              jQuery(slider).not('.slick-initialized').slick( settings );
-            });
-          }
+<script type="lazyload_int">
+  setTimeout(function () {
+    window.SectionReviews = (function () {
+      function SectionReviews() {
+        this.settings = {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          arrows: false,
+          responsive: [
+            {
+              breakpoint: 1280,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 1019,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+              },
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              },
+            },
+          ],
         };
-        return new SectionReviews;
-      })();
-    });
-    </script>
-{%- endcapture -%}
 
-{%- capture section_reviews_style -%}
-  <style scoped data-vasta>
-    #shopify-section-{{ section.id }} {
-      {% if section.settings.enable_custom_margins_paddings %}
-        margin-top: {{ section.settings.custom-margin-top }}px;
-        margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-        padding-top: {{ section.settings.custom-padding-top }}px;
-        padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-      {% else %}
-        margin: 20px 0;
-      {% endif %}
+        this._run();
+      }
+
+      SectionReviews.prototype = {
+        onLoad: function () {
+          this._run();
+        },
+
+        _run: function () {
+          var slider,
+            autoplay,
+            autoplaySpeed,
+            settings = this.settings;
+
+          jQuery('[id^="slider-reviews-"]').each(function () {
+            slider = '#slider-' + $(this).data('slider');
+
+            autoplay = jQuery(slider).data('autoplay');
+            autoplaySpeed = jQuery(slider).data('speed');
+
+            if (typeof autoplay !== 'undefined' && autoplay != true && autoplay != false) {
+              autoplay = true;
+            }
+
+            if (typeof autoplaySpeed !== 'undefined' && autoplaySpeed < 800 && autoplaySpeed > 3000) {
+              autoplaySpeed = 800;
+            }
+
+            settings.autoplay = autoplay;
+            settings.autoplaySpeed = autoplaySpeed;
+
+            jQuery(slider).not('.slick-initialized').slick(settings);
+          });
+        },
+      };
+      return new SectionReviews();
+    })();
+  });
+</script>
+
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
+  .slick-track {
+    display: flex;
+  }
+  .slick-list {
+    overflow: hidden;
+  }
+  .reviews .reviews-content,
+  .reviews .img-reviews,
+  .reviews .slick-list {
+    display: flex;
+  }
+  .reviews .reviews-content,
+  .reviews .img-reviews,
+  .reviews .slick-list {
+    flex-direction: column;
+  }
+  .reviews .star-reviews svg,
+  .reviews .star-reviews i {
+    display: inline-block;
+  }
+  .reviews .star-reviews i,
+  .reviews .slick-list {
+    text-align: center;
+  }
+  .reviews .img-reviews,
+  .reviews .reviews-content {
+    align-items: center;
+  }
+  .reviews .review-title {
+    font-size: var(--titleReview);
+  }
+  .reviews .reviews-content {
+    float: left;
+    width: 100%;
+  }
+  .reviews .text-reviews {
+    line-height: 23px;
+  }
+  .reviews .athor-reviews {
+    margin: 10px 0 10px;
+  }
+  .reviews .date-reviews {
+    font-style: italic;
+    margin-bottom: 15px;
+    font-size: var(--smallFont);
+  }
+  .reviews .img-reviews a {
+    margin-top: 10px;
+    color: #000;
+  }
+  .reviews .star-reviews svg {
+    height: 16px;
+    width: 16px;
+    fill: #f9c52c;
+  }
+  .jdgm-star.jdgm--off:before,
+  .jdgm-star.jdgm--on:before,
+  .reviews .star-reviews i {
+    color: #f9c52c;
+  }
+  .reviews .reviews-content p:before,
+  .reviews .reviews-content p::after {
+    content: '"';
+  }
+  .reviews .slick-initialized .slick-slide {
+    padding: 0 25px;
+  }
+  .reviews .slick-initialized .slick-slide img {
+    margin: 0 auto;
+    max-width: 100px;
+  }
+  .template-cart .reviews .reviews-content {
+    margin-bottom: 50px;
+  }
+  @media (max-width: 1279px) {
+    .reviews-sm-desktop .slick-initialized .slick-slide {
+      padding: 0 8px;
     }
-    .slick-track {
-      display: flex;
+  }
+  @media (max-width: 1019px) {
+    .reviews-tablet .slick-initialized .slick-slide {
+      padding: 0 10px;
     }
-    .slick-list {
-      overflow: hidden;
+  }
+  @media (max-width: 767px) {
+      /* Changes on pages */
+    .reviews-mobile .slick-initialized .slick-slide {
+      padding: 0 0;
     }
-    .reviews .reviews-content,
-    .reviews .img-reviews,
-    .reviews .slick-list {
-      display: flex;
-    }
-    .reviews .reviews-content,
-    .reviews .img-reviews,
-    .reviews .slick-list {
-      flex-direction: column;
-    }
-    .reviews .star-reviews svg,
-    .reviews .star-reviews i {
-      display: inline-block;
-    }
-    .reviews .star-reviews i,
-    .reviews .slick-list {
-      text-align: center;
-    }
-    .reviews .img-reviews,
-    .reviews .reviews-content {
-      align-items: center;
-    }
-    .reviews .review-title {
-      font-size: var(--titleReview);
-    }
-    .reviews .reviews-content {
-      float: left;
-      width: 100%;
-    }
-    .reviews .text-reviews {
-      line-height: 23px;
-    }
-    .reviews .athor-reviews {
-      margin: 10px 0 10px;
-    }
-    .reviews .date-reviews {
-      font-style: italic;
-      margin-bottom: 15px;
-      font-size: var(--smallFont);
-    }
-    .reviews .img-reviews a {
-      margin-top: 10px;
-      color: #000;
-    }
-    .reviews .star-reviews svg {
-      height: 16px;
-      width: 16px;
-      fill: #f9c52c;
-    }
-    .jdgm-star.jdgm--off:before,
-    .jdgm-star.jdgm--on:before,
-    .reviews .star-reviews i {
-      color: #f9c52c;
-    }
-    .reviews .reviews-content p:before,
-    .reviews .reviews-content p::after {
-      content: '"';
-    }
-    .reviews .slick-initialized .slick-slide {
-      padding: 0 25px;
-    }
-    .reviews .slick-initialized .slick-slide img {
-      margin: 0 auto;
-      max-width: 100px;
+    .reviews-mobile .section-reviews-title {
+      font-size: 18px;
     }
     .template-cart .reviews .reviews-content {
-      margin-bottom: 50px;
+      margin-bottom: 20px;
     }
-    @media (max-width: 1279px) {
-      .reviews-sm-desktop .slick-initialized .slick-slide {
-        padding: 0 8px;
-      }
-    }
-    @media (max-width: 1019px) {
-      .reviews-tablet .slick-initialized .slick-slide {
-        padding: 0 10px;
-      }
-    }
-    @media (max-width: 767px) {
-        /* Changes on pages */
-      .reviews-mobile .slick-initialized .slick-slide {
-        padding: 0 0;
-      }
-      .reviews-mobile .section-reviews-title {
-        font-size: 18px;
-      }
-      .template-cart .reviews .reviews-content {
-        margin-bottom: 20px;
-      }
-    }
-  </style>
-{%- endcapture -%}
-{{- section_reviews_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- section_reviews_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- section_reviews_content -}}
+  }
+</style>
 {% schema %}
 {
   "name": "Reviews",

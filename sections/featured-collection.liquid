@@ -1,4 +1,3 @@
-{%- capture section_featured_collection_content -%}
 
   {%- assign max_width = 280 -%}
   {%- assign width_mobile = 45 -%}
@@ -51,7 +50,7 @@
             width_desk: width_desk,
             show_reviews: settings.feat_prod_enabled_app_reviews,
             show_price: section.settings.show_price,
-            enable_lazy: enable_lazy
+            enable_lazy: enable_lazy,
             show_swatch: section.settings.show_swatch
           -%}
         {%- endfor -%}
@@ -59,10 +58,7 @@
     </div>
   </div>
   </section>
-{%- endcapture -%}
-
-{%- capture section_featured_collection_style -%}
-  <style scoped data-vasta>
+  <style scoped>
     #shopify-section-{{ section.id }} {
         {% if section.settings.enable_custom_margins_paddings %}
             margin-top: {{ section.settings.custom-margin-top }}px;
@@ -135,10 +131,6 @@
         }
     }
   </style>
-{%- endcapture -%}
-{{- section_featured_collection_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- section_featured_collection_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- section_featured_collection_content -}} 
 {% schema %}
 {
 "name": "Featured Products",

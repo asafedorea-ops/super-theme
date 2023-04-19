@@ -14,7 +14,7 @@
 
         {%- assign css_value = val | handle -%}
         {%- assign bg_image_css_value = css_value | append: '.jpg' | file_img_url: '50x' -%}
-        <span class="lazybg {% if custom_colors %} {{ value | handle }}-custom-color {% endif %}swatch-value swatch-background-{{ css_value }} {{value | handle}}"  data-style="background-color: {{css_value}};"></span>
+        <span data-class="LazyLoad" class=" {% if custom_colors %} {{ value | handle }}-custom-color {% endif %}swatch-value swatch-background-{{ css_value }} {{value | handle}}" style="background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=);" data-style="background-color: {{css_value}}; background-image: url('{{ bg_image_css_value }}');"></span>
         <span class="{% if settings.swatch_round_color_product_page %}swatch-value-color-circle-checked{% else %}swatch-value-checked{% endif %}"></span>
         {%- if settings.enable_tooltip -%}
             <span class="tooltip">{{ value }}</span>

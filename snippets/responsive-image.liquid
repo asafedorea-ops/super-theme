@@ -77,7 +77,8 @@
     width="{{ image_width }}"
     height="{{ image_height }}"
     id="{{ id_prefix | escape | handleize | default: 'img' }}-{{ image.id }}-{{ randomNumber }}"
-    class="{% if custom_class == false %}responsive-image__image{% endif %} {% if active_lazy == true %}lazy2{% endif %} {{ image_class }}"
+    class="{% if custom_class == false %}responsive-image__image{% endif %} {{ image_class }}"
+    {% if active_lazy == true %}data-class="LazyLoad"{% endif %}
     {% if custom_style %} style="{{ custom_style }}" {% endif %}
     {% if active_lazy == false %}
        loading="eager"
@@ -113,13 +114,3 @@
   {%- endif -%}
 {%- endunless -%}
 
-<noscript>
-  {% if image.alt != blank %}
-      {% assign image_alt = image.alt | strip_html | escape %}
-    {% elsif alt_text != blank %}
-      {% assign image_alt = alt_text | strip_html | escape %}
-    {% else %}
-      {% assign image_alt = "Image without description." %}
-    {% endif %}
-  <img width="{{ image_width }}" height="{{ image_height }}" class="{{ image_class }} lazy" src="{{ image | img_url: max_width }}" alt="{{ image_alt }}">
-</noscript>
