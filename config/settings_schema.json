@@ -1412,6 +1412,7 @@
         "id": "select_position_thumbnails",
         "label": "Position Thumbnails Images",
         "default": "below",
+        "info": "Only Desktop Version",
         "options": [
           {
             "value": "below",
