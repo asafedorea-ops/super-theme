@@ -66,26 +66,27 @@
 
       <div class="wrapper">
         <div class="collection-page__grid-products grid-uniform {{ grid_uniform_class }}">
-          {%- for product in collection.products -%}
-            {%- assign show_product = true -%}
+            {%- for product in collection.products -%}
+                {%- assign show_product = true -%}
                 {%- if product.available == false and settings.enable_out_of_stock_button == false -%}
                     {%- assign show_product = false -%}
                 {%- endif -%}
-            {%- if show_product -%}
-            {%- render 'product-card',
-              prod: product,
-              max_width: image_width,
-              width_large: image_width,
-              width_mobile: image_width,
-              width_desk: image_width,
-              show_swatch: settings.enable_swatch_collection,
-              show_reviews: true,
-              show_price: true
-            -%}
-          {%- endif -%}
-          {%- else -%}
-            <span class="collection-page__no-items">{{- settings.collection_text_no_products -}}</span>
-          {%- endfor -%}
+                {%- if show_product -%}
+                    {%- render 'product-card',
+                        prod: product,
+                        max_width: image_width,
+                        lazyload: true,
+                        width_large: image_width,
+                        width_mobile: image_width,
+                        width_desk: image_width,
+                        show_swatch: settings.enable_swatch_collection,
+                        show_reviews: true,
+                        show_price: true
+                    -%}
+                {%- endif -%}
+            {%- else -%}
+                <span class="collection-page__no-items">{{- settings.collection_text_no_products -}}</span>
+            {%- endfor -%}
         </div>
 
         {%- if settings.desc_collection-position == "bottom" -%}
