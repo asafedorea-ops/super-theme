@@ -190,6 +190,5 @@
   {%- endcapture -%}
   {% assign theme_content = theme_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | strip %}
   {{ theme_content }}
-  {%- render 'lazyload-video' -%}
   {%- render 'lazyload-body' -%}
 </html>
