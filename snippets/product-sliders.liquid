@@ -104,7 +104,8 @@
                     </div>
                 {%- elsif image.media_type == 'image' -%}
                     <div class="product-slider__image-wrapper" data-forloop-index="{{forloop.index}}">
-                        {%- if forloop.index > 5 -%}
+                        {%- assign thumbOptions = settings.thumbnails_options | plus: 0 -%}
+                        {%- if forloop.index > thumbOptions -%}
                             <img width="120" height="120" data-src="{{ image | image_url: width: 120 }}" alt="{{- image.alt | escape -}}" class="product-slider-thumbnails__slick-img lazy2"/>
                         {%- else -%}
                             <img width="120" height="120" src="{{ image | image_url: width: 120 }}" alt="{{- image.alt | escape -}}" class="product-slider-thumbnails__slick-img"/>
@@ -147,12 +148,6 @@
                 }
                 .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-list .slick-track {
                     display: block;
-                }
-                .product-slider.product-slider-featured{
-                width: 89%;
-                }
-                .product-slider.product-slider-thumbnails{
-                width:10%;
                 }
                 .product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-prev.slick-arrow,.product-page .product-slider-widget .product-slider.product-slider-thumbnails .slick-next.slick-arrow{
                 transform: rotateZ(90deg)
