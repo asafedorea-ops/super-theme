@@ -409,7 +409,7 @@
 
           {%- for block in section.blocks -%}
             {%- if block.type == 'trust_badges_footer' -%}
-              <style type="lazyload2">
+              <style scoped>
                 {% if block.settings.enable_img_trust_badge %}
                 #trust-badges-img{{ block.id }} img{
                   height:{{ block.settings.trust_badge_image_height }}px;
