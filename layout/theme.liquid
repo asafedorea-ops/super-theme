@@ -6,9 +6,9 @@
   <head>
     {%- render 'lazyload-head' -%}
     {% include 'limespot' %}
-    <link rel="dns-prefetch" href="https://shopify.vastaweb.com">
-    <link rel="dns-prefetch" href="https://cdn.shopify.com">
-    <link rel="dns-prefetch" href="https://ajax.googleapis.com">
+    <link rel="dns-prefetch" data-href="https://shopify.vastaweb.com">
+    <link rel="dns-prefetch" data-href="https://cdn.shopify.com">
+    <link rel="dns-prefetch" data-href="https://ajax.googleapis.com">
 
     {%- capture style_css -%}
       {%- render 'style-css'-%}
@@ -44,7 +44,7 @@
       <meta name="description" content="{{- meta_description | strip_html | escape -}}">
     {%- endif -%}
 
-    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="canonical" data-href="{{ canonical_url }}">
 
     {%- if settings.enable_custom_style -%}
       {%- render 'custom_head' -%}
@@ -57,7 +57,7 @@
     {%- render 'meta-tags' -%}
 
     {%- if settings.favicon != blank -%}
-      <link rel="shortcut icon" href="{{- settings.favicon | img_url: '32x' -}}" type="image/png">
+      <link rel="shortcut icon" data-href="{{- settings.favicon | img_url: '32x' -}}" type="image/png">
     {%- else -%}
       <link rel="shortcut icon" data-href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" type="image/png">
     {%- endif -%}

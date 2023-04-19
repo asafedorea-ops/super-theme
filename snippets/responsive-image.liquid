@@ -77,7 +77,8 @@
     width="{{ image_width }}"
     height="{{ image_height }}"
     id="{{ id_prefix | escape | handleize | default: 'img' }}-{{ image.id }}-{{ randomNumber }}"
-    class="{% if custom_class == false %}responsive-image__image{% endif %} {% if active_lazy == true %}lazy2{% endif %} {{ image_class }}"
+    class="{% if custom_class == false %}responsive-image__image{% endif %} {{ image_class }}"
+    {% if active_lazy == true %}data-class="LazyLoad"{% endif %}
     {% if custom_style %} style="{{ custom_style }}" {% endif %}
     {% if active_lazy == false %}
        loading="eager"
