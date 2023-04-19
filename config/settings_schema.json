@@ -195,7 +195,7 @@
       {
         "type": "select",
         "id": "enable_products_pages_article",
-        "label": "Results to display on the search page",
+        "label": "Results To Display On The Search Page",
         "options": [
           {
             "value": "",
