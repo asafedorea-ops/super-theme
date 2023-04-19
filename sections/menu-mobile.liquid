@@ -419,19 +419,17 @@
               this.closest('.list--child').style.height = "auto";
             };
     
-            size = 0;
+            let size = 0;
             let allChildEl = listEl.querySelectorAll(`.list--${listType} > .sidenav__list__item`);
             
             allChildEl.forEach(item => {
               size += item.offsetHeight;
-              
             });
     
             listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${size}px`; 
 
             setTimeout(function () { listEl.querySelector(`.sidenav .list--${listType}`).style.height = `auto`; }, 350);
-
-
+            
             this.querySelector('.toggle').classList.remove('toggle--plus');
             this.querySelector('.toggle').classList.add('toggle--minus');
           }
@@ -445,6 +443,13 @@
             this.querySelector('.toggle').classList.remove('toggle--minus');
             this.querySelector('.toggle').classList.add('toggle--plus');
   
+            let sizeDown = 0;
+            let allChildEl = listEl.querySelectorAll(`.list--${listType} > .sidenav__list__item`);
+            allChildEl.forEach(item => {
+              sizeDown += item.offsetHeight;
+              
+            });
+            listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${sizeDown}px`; 
             setTimeout(function() {listEl.querySelector(`.sidenav .list--${listType}`).style.height = `0`}, 50);
           }
         });  
