@@ -2,17 +2,6 @@
 {%- assign copy_body_font_url = settings.general_font | font_url -%}
 {%- assign copy_bold_body_font_url = settings.copy_bold_body_font | font_url -%}
 
-{%- if general_font_url != blank -%}
-  <link rel="preconnect" data-href="{{ general_font_url }}" as="font" crossorigin/>
-{%- endif -%}
-
-{%- if copy_body_font_url != blank -%}
-  <link rel="preconnect" data-href="{{ copy_body_font_url }}" as="font" crossorigin/>
-{%- endif -%}
-
-{%- if copy_bold_body_font_url != blank -%}
-  <link rel="preconnect" data-href="{{ copy_bold_body_font_url }}" as="font" crossorigin/>
-{%- endif -%}
 
 <style scoped>
   {{ settings.copy_body_font | font_face: font_display: 'swap' }}

@@ -14,7 +14,7 @@
       {%- render 'style-css'-%}
     {%- endcapture -%}
     {%- capture layout_theme_css -%}
-      {%- render 'layout.theme.style'-%}
+      <link rel="stylesheet" data-href="{{- 'layout.theme.styleLiquid.css' | asset_url -}}"/>
     {%- endcapture -%}
 
     {{- style_css | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
@@ -93,7 +93,7 @@
     {{- settings.enable_html_head -}}
 
     {%- if settings.custom_css != blank -%}
-      <style type="lazyload_int">
+      <style>
         {{- settings.custom_css -}}
       </style>
     {%- endif -%}
