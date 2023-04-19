@@ -5,7 +5,7 @@
 <!--<![endif]-->
   <head>
     {%- render 'lazyload-head' -%}
-    
+    {% include 'limespot' %}
     <link rel="preconnect" data-href="https://shopify.vastaweb.com">
     <link rel="preconnect" data-href="https://cdn.shopify.com">
     <link rel="preconnect" data-href="https://ajax.googleapis.com">
@@ -147,6 +147,7 @@
           <h2 class="hide">{{- template.name | capitalize -}} Content</h2>
 
           {{ content_for_layout }}
+          <limespot></limespot>
 
           {%- assign enable_recently_viewed_product = true -%}
           {%- if settings.disable_recently_viewed_on_product_page and template contains 'product' -%}
