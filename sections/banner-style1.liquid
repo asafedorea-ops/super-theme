@@ -1,5 +1,4 @@
 <!-- start banner-style1.liquid (SECTION) -->
-{%- capture banner_style_1_content -%}
   {% capture banner_content %}
     {%- assign enable_lazy = section.settings.enable_lazy_load | default: false -%}
 
@@ -91,10 +90,8 @@
       </div>
     {% endif %}
   {% endif %}
-{%- endcapture -%}
-
-{%- capture banner_style_1_style -%}
-<style scoped data-vasta>
+  
+<style scoped>
   :root {
     --banner-title-color:{{ section.settings.banner_titcolor }};
     --banner-sub-title-color:{{ section.settings.banner_sub_titcolor }};
@@ -460,11 +457,6 @@
     }
   {% endif %}
 </style>
-
-{%- endcapture -%}
-{{- banner_style_1_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- banner_style_1_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- banner_style_1_content -}}
 
 {% schema %}
 {

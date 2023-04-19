@@ -113,13 +113,3 @@
   {%- endif -%}
 {%- endunless -%}
 
-<noscript>
-  {% if image.alt != blank %}
-      {% assign image_alt = image.alt | strip_html | escape %}
-    {% elsif alt_text != blank %}
-      {% assign image_alt = alt_text | strip_html | escape %}
-    {% else %}
-      {% assign image_alt = "Image without description." %}
-    {% endif %}
-  <img width="{{ image_width }}" height="{{ image_height }}" class="{{ image_class }} lazy" src="{{ image | img_url: max_width }}" alt="{{ image_alt }}">
-</noscript>

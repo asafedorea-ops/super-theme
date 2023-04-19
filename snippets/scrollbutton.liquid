@@ -1,39 +1,40 @@
 <!-- start scrollbutton.liquid (SNIPPET) -->
-{%- capture scrollbutton_content -%}
-  {%- assign vertical_offset_for_trigger = 300 -%}
-  {%- assign position_from_bottom = '6em' -%}
-  <a href="#" title="Back to the top" class="back-to-top {% if settings.button_back_to_the_top_position == 'right' %} back-to-top-right {% else %} back-to-top-left {% endif %}" >
-      {%- render 'icon-arrow-up' -%} <span>{{ settings.text_to_the_top }}</span> 
-  </a>
-  <link rel='preload' href='https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' as="style" />
-  {{ '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' | stylesheet_tag }}
+{%- assign vertical_offset_for_trigger = 300 -%}
+{%- assign position_from_bottom = '6em' -%}
+<a
+  href="#"
+  title="Back to the top"
+  class="back-to-top {% if settings.button_back_to_the_top_position == 'right' %} back-to-top-right {% else %} back-to-top-left {% endif %}"
+>
+  {%- render 'icon-arrow-up' -%}
+  <span>{{ settings.text_to_the_top }}</span>
+</a>
+<link rel="preload" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" as="style">
+{{ '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css' | stylesheet_tag }}
 
-  <script type="lazyload_int">
-    setTimeout(function(){
-      jQuery(function($) {
-        var offset = {{ vertical_offset_for_trigger }};
-        var duration = 200;
-        
-        $(window).scroll(function() {
-          if ($(this).scrollTop() > offset) {
-            $('.back-to-top').addClass('displayed');
-          } else {
-            $('.back-to-top').removeClass('displayed');
-          }
-        });
+<script type="lazyload_int">
+  setTimeout(function(){
+    jQuery(function($) {
+      var offset = {{ vertical_offset_for_trigger }};
+      var duration = 200;
 
-        $('.back-to-top').unbind('click.smoothscroll').bind('click', function(e) {
-          e.preventDefault();
-          $('html, body').animate( { scrollTop: 0 }, duration);
-          return false;
-        });
+      $(window).scroll(function() {
+        if ($(this).scrollTop() > offset) {
+          $('.back-to-top').addClass('displayed');
+        } else {
+          $('.back-to-top').removeClass('displayed');
+        }
+      });
+
+      $('.back-to-top').unbind('click.smoothscroll').bind('click', function(e) {
+        e.preventDefault();
+        $('html, body').animate( { scrollTop: 0 }, duration);
+        return false;
       });
     });
-  </script>
-{%- endcapture -%}
-{%- capture scrollbutton_style -%}
-  <style scoped data-vasta>
-
+  });
+</script>
+<style scoped>
   .back-to-top-right {
     position: fixed;
     bottom: {{ position_from_bottom }};
@@ -100,9 +101,4 @@
   [class*=" fa-"]:before, [class*=" stamped-fa-"]:before, [class*=" stamped-icon-"]:before, [class^=fa-]:before, [class^=stamped-fa-]:before, [class^=stamped-icon-]:before {
       margin-right: 0px;
   }
-  </style>
-
-{% endcapture %}
-{{- scrollbutton_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- scrollbutton_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- scrollbutton_content -}}
+</style>

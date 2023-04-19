@@ -185,7 +185,7 @@
         {%- render 'subscription-theme-footer' -%}
       {%- endif -%}
 
-      <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script>
+      {%- comment -%} <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script> {%- endcomment -%}
   </body>
   {%- endcapture -%}
   {% assign theme_content = theme_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | strip %}

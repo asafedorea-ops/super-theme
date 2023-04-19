@@ -1,5 +1,4 @@
 <!-- start collection-template.liquid (TEMPLATE) -->
-{% capture collection_template_content %}
   
   {%- assign items_per_row = settings.products_per_row | default: 4 -%}
   {%- assign grid_uniform_class = "grid-uniform--s" | append: items_per_row -%}
@@ -116,10 +115,7 @@
         }
     </script>
   {%- endif -%}
-{% endcapture %}
-
-{% capture collection_template_style %}
-  <style scoped data-vasta>
+  <style scoped>
     #shopify-section-{{ section.id }} .grid__item-title-link {
         text-transform: {{ settings.collection_page_product_title_text_transform }};
         color: {{ settings.product_title_color_collection }};
@@ -873,10 +869,6 @@
         }
     }
   </style>
-{% endcapture %}
-{{- collection_template_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- collection_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- collection_template_content -}}
 
 {% schema %}
   {
