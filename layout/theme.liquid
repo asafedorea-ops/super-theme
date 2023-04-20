@@ -4,7 +4,7 @@
 <html lang="{{- shop.locale -}}">
 <!--<![endif]-->
   <head>
-    {% include 'limespot' %}
+    {%- render 'lazyload-head' -%}
     <link rel="dns-prefetch" href="https://shopify.vastaweb.com">
     <link rel="dns-prefetch" href="https://cdn.shopify.com">
     <link rel="dns-prefetch" href="https://ajax.googleapis.com">
@@ -13,7 +13,7 @@
       {%- render 'style-css'-%}
     {%- endcapture -%}
     {%- capture layout_theme_css -%}
-      {%- render 'layout.theme.style'-%}
+      <link rel="stylesheet" data-href="{{- 'layout.theme.styleLiquid.css' | asset_url -}}"/>
     {%- endcapture -%}
 
     {{- style_css | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}}
@@ -21,7 +21,7 @@
 
     <!-- Meta Tags -->
     <meta name="theme-name" content="Super Theme BV" />
-    <meta name="theme-version" content="2.2.1"/>
+    <meta name="theme-version" content="2.3"/>
     <meta name="theme-color" content="{{- settings.color_accent -}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="UTF-8">
@@ -43,7 +43,7 @@
       <meta name="description" content="{{- meta_description | strip_html | escape -}}">
     {%- endif -%}
 
-    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="canonical" data-href="{{ canonical_url }}">
 
     {%- if settings.enable_custom_style -%}
       {%- render 'custom_head' -%}
@@ -56,7 +56,7 @@
     {%- render 'meta-tags' -%}
 
     {%- if settings.favicon != blank -%}
-      <link rel="shortcut icon" href="{{- settings.favicon | img_url: '32x' -}}" type="image/png">
+      <link rel="shortcut icon" data-href="{{- settings.favicon | img_url: '32x' -}}" type="image/png">
     {%- else -%}
       <link rel="shortcut icon" data-href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" type="image/png">
     {%- endif -%}
@@ -85,20 +85,20 @@
     {%- else -%}
       {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
       <!-- CONTENT FOR HEAD -->
-      {{- content_for_header2 | strip_newlines | replace: '<script>', '<script type="lazyload2">' | replace: ' defer="defer" ', ' type="lazyload2" ' | replace: " src=", " data-src=" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('wnw_load', asyncLoad, false);" | replace: "DOMContentLoaded", "DOMContentLoaded2" -}}
+      {{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload_int" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "w3-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('w3-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('w3-DOMContentLoaded', prefetchAssets);" }}
       <!-- END CONTENT FOR HEAD -->
     {%- endif -%}
 
     {{- settings.enable_html_head -}}
 
     {%- if settings.custom_css != blank -%}
-      <style type="lazyload2">
+      <style>
         {{- settings.custom_css -}}
       </style>
     {%- endif -%}
 
     {%- if settings.app_review == 'yotpo' -%}
-      <script type="lazyload2">(function e() { var e = document.createElement("script"); e.type = "text/javascript", e.async = true, e.src = "https://staticw2.yotpo.com/{{- settings.yotpo_key -}}/widget.js"; var t = document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(e, t) })();</script>
+      <script type="lazyload_int">(function e() { var e = document.createElement("script"); e.type = "text/javascript", e.async = true, e.src = "https://staticw2.yotpo.com/{{- settings.yotpo_key -}}/widget.js"; var t = document.getElementsByTagName("script")[0]; t.parentNode.insertBefore(e, t) })();</script>
     {%- endif -%}
 
     {% if settings.app_review == 'judgeme' %}
@@ -184,9 +184,10 @@
         {%- render 'subscription-theme-footer' -%}
       {%- endif -%}
 
-      <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script>
-    </body>
+      {%- comment -%} <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script> {%- endcomment -%}
+  </body>
   {%- endcapture -%}
-{% assign theme_content = theme_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | strip %}
-{{ theme_content }}
+  {% assign theme_content = theme_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' | replace: '; ', ';' | replace: '} ', '}' | replace: '{ ', '{' | replace: ' {', '{' | strip %}
+  {{ theme_content }}
+  {%- render 'lazyload-body' -%}
 </html>

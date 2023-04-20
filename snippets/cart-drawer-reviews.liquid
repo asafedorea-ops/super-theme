@@ -31,7 +31,7 @@
                         <span class="user-name">{{ block.settings.author_review_cart }}</span>
                     </div>
                     <span class="review-stars-verified">
-                        <img width="80" height="80" class="stars-img lazy2 lazy3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'stars-review.png' | asset_img_url: '80x' }}" alt="Stars reviews"/>
+                        <img width="80" height="80" class="stars-img" data-class="LazyLoad" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="{{ 'stars-review.png' | asset_img_url: '80x' }}" alt="Stars reviews"/>
                         Verified Purchase
                     </span>
                     {{ block.settings.content_review_cart }}

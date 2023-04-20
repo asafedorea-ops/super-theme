@@ -45,7 +45,7 @@
                         {%- assign snippet_icon_trust_badge = 'icon-' | append: block.settings.svg_trust_badge_cart | append: '.svg' -%}
                         {%- assign image_alt = block.settings.svg_trust_badge_cart | escape | replace: "-" , " " | capitalize | default: 'Image without description.' -%}
                         {%- assign image_id_prefix = 'cart-drawer-trust-badges-svg' | append: forloop.index | append: '-' | append: position | append: '-' -%}
-                        <img width="120" height="120" class="lazy2 lazy3" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="  data-src="{{ snippet_icon_trust_badge | asset_url }}" alt="{{ block.settings.svg_trust_badge_cart | escape | replace: "-" , " " | capitalize | default: 'Image without description.' }}" />
+                        <img width="120" height="120" data-class="LazyLoad" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="  data-src="{{ snippet_icon_trust_badge | asset_url }}" alt="{{ block.settings.svg_trust_badge_cart | escape | replace: "-" , " " | capitalize | default: 'Image without description.' }}" />
 
                     {%- endif -%}
                 {%- endif -%}

@@ -1,6 +1,5 @@
 <!-- start menu-mobile.liquid (SECTION) -->
 
-{%- capture menu_mobile_content -%}
   <div id="NavDrawer" class="sidenav sidenav--drawer-left " data-section-type="menu-mobile">
     <div class="sidenav__header">
       <div class="sidenav__top__wrapper">
@@ -177,9 +176,7 @@
       {%- endif -%}
     </div>
   </div>
-
-{% capture menu_mobile_style %}
-  <style scoped data-vasta>
+  <style scoped>
     :root {
       --vasta-background-menu-mobile:{{ section.settings.background_color_mobile }};
       --vasta-border-menu-mobile:{{ section.settings.border_color_mobile }};
@@ -371,9 +368,8 @@
       margin-right: unset;
     }
   </style>
-{% endcapture %}
 
-  <script type="lazyload2">
+  <script type="lazyload_int">
     setTimeout(function(){
       /* Open Menu Mobile */
       document.querySelector('.header__icon__wrap.icon--menu').addEventListener("click", function() {
@@ -456,10 +452,6 @@
       });
   });
   </script>
-  {%- endcapture -%}
-  {{- menu_mobile_style | replace: 'data-vasta', 'class="critical2"' -}}
-  {{- menu_mobile_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-  {{- menu_mobile_content -}}
 
 {% schema %}
 {

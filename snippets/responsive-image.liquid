@@ -91,6 +91,7 @@
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
       {%- endif -%}
         loading="lazy"
+        data-class="LazyLoad"
         data-src="{{ image | img_url: max_width }}"
         data-srcset="{{ image_srcset }}"
         data-sizes="(min-width: 1200px) {{ size_large }}px, (max-width: 767px) {{ size_mobile }}vw, (min-width: 768px) {{ size_desk }}vw"
@@ -112,14 +113,3 @@
     </div>
   {%- endif -%}
 {%- endunless -%}
-
-<noscript>
-  {% if image.alt != blank %}
-      {% assign image_alt = image.alt | strip_html | escape %}
-    {% elsif alt_text != blank %}
-      {% assign image_alt = alt_text | strip_html | escape %}
-    {% else %}
-      {% assign image_alt = "Image without description." %}
-    {% endif %}
-  <img width="{{ image_width }}" height="{{ image_height }}" class="{{ image_class }} lazy" src="{{ image | img_url: max_width }}" alt="{{ image_alt }}">
-</noscript>

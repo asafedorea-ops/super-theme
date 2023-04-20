@@ -195,7 +195,7 @@
       {
         "type": "select",
         "id": "enable_products_pages_article",
-        "label": "Results to display on the search page",
+        "label": "Results To Display On The Search Page",
         "options": [
           {
             "value": "",
@@ -207,11 +207,11 @@
           },
           {
             "value": "article",
-            "label": "Products and Articles"
+            "label": "Products And Articles"
           },
           {
             "value": "page",
-            "label": "Products and Pages"
+            "label": "Products And Pages"
           }
         ]
       },
@@ -230,7 +230,7 @@
       {
         "type": "color",
         "id": "color_title_search_suggestion",
-        "label": "Error Message Title Color",
+        "label": "Title Color",
         "default": "#418bc3"
       },
       {
@@ -1412,6 +1412,7 @@
         "id": "select_position_thumbnails",
         "label": "Position Thumbnails Images",
         "default": "below",
+        "info": "Only Desktop Version",
         "options": [
           {
             "value": "below",

@@ -1,5 +1,4 @@
 <!-- start collection-template.liquid (TEMPLATE) -->
-{% capture collection_template_content %}
   
   {%- assign items_per_row = settings.products_per_row | default: 4 -%}
   {%- assign grid_uniform_class = "grid-uniform--s" | append: items_per_row -%}
@@ -67,26 +66,36 @@
 
       <div class="wrapper">
         <div class="collection-page__grid-products grid-uniform {{ grid_uniform_class }}">
-          {%- for product in collection.products -%}
-            {%- assign show_product = true -%}
+            {%- assign temp = 0 -%}
+            {%- for product in collection.products -%}
+                
+                {%- assign temp = temp | plus: 1 -%}
+                {%- if temp < 4 -%}
+                    {%- assign lazy = false -%}
+                {%- else -%}
+                    {%- assign lazy = true -%}
+                {%- endif -%}
+
+                {%- assign show_product = true -%}
                 {%- if product.available == false and settings.enable_out_of_stock_button == false -%}
                     {%- assign show_product = false -%}
                 {%- endif -%}
-            {%- if show_product -%}
-            {%- render 'product-card',
-              prod: product,
-              max_width: image_width,
-              width_large: image_width,
-              width_mobile: image_width,
-              width_desk: image_width,
-              show_swatch: settings.enable_swatch_collection,
-              show_reviews: true,
-              show_price: true
-            -%}
-          {%- endif -%}
-          {%- else -%}
-            <span class="collection-page__no-items">{{- settings.collection_text_no_products -}}</span>
-          {%- endfor -%}
+                {%- if show_product -%}
+                    {%- render 'product-card',
+                        prod: product,
+                        max_width: image_width,
+                        lazyload: lazy,
+                        width_large: image_width,
+                        width_mobile: image_width,
+                        width_desk: image_width,
+                        show_swatch: settings.enable_swatch_collection,
+                        show_reviews: true,
+                        show_price: true
+                    -%}
+                {%- endif -%}
+            {%- else -%}
+                <span class="collection-page__no-items">{{- settings.collection_text_no_products -}}</span>
+            {%- endfor -%}
         </div>
 
         {%- if settings.desc_collection-position == "bottom" -%}
@@ -116,10 +125,7 @@
         }
     </script>
   {%- endif -%}
-{% endcapture %}
-
-{% capture collection_template_style %}
-  <style scoped data-vasta>
+  <style scoped>
     #shopify-section-{{ section.id }} .grid__item-title-link {
         text-transform: {{ settings.collection_page_product_title_text_transform }};
         color: {{ settings.product_title_color_collection }};
@@ -873,10 +879,6 @@
         }
     }
   </style>
-{% endcapture %}
-{{- collection_template_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- collection_template_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- collection_template_content -}}
 
 {% schema %}
   {
