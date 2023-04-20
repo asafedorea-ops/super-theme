@@ -58,7 +58,7 @@
 
                 <form id="template-search-form" action="/search" method="get" class="search-page-form">
                   <input type="hidden" name="type" value="products">
-                  <input aria-label="search-text" type="text" class="search-text" name="q" id="Search-Template-Input" value="{{ search.terms | escape }}" placeholder="{{ header_searchbar_placeholder }}">
+                  <input aria-label="search-text" type="text" class="search-text" name="q" id="Search-Template-Input" value="{{ search.terms | escape }}" placeholder="{{ section.settings.header_searchbar_placeholder }}">
                   <button id="Template-SearchButton" type="submit" class="button">
                       <span class="icon-fallback-text">{{ 'general.search.submit' | t }}</span>
                   </button>
@@ -82,60 +82,81 @@
                 {%- assign is_search = false -%}
               {%- endif -%}
 
+          
+              {% assign productList = search.results | where: 'object_type', 'product' %}
+              {% assign articleList = search.results | where: 'object_type', 'article' %}
+              {% assign pageList = search.results | where: 'object_type', 'page' %}
+
+
               {%- capture list_of_products -%}
               
-
-               {{ source.object_type | json}}
-
-
                 {%- for item in source -%}
-                  {{ item.object_type}}
-                {%- endfor -%}
-                  {% if settings.enable_products_pages_article == 'article' or settings.enable_products_pages_article == 'article,page' %} 
-                    <h1>ARTICLES</h1>
-                  {%- endif -%}
-                  {%- for item in source -%}
-                    {%- if is_search -%}
-                      {%- case item.object_type -%}
-                      {%- when 'article' -%}
-                            {%- render 'article-card',
-                              article: item,
-                              width_large: width_large,
-                              width_mobile: width_mobile,
-                              width_desk: width_desk,
-                              max_width: image_width,
-                              show_image: true,
-                            -%}
+                  {%- if is_search -%}
+                    {%- case item.object_type -%}
+                      {%- when 'product' -%}
+                      {%- render 'product-card',
+                        prod: item,
+                        width_large: width_large,
+                        width_mobile: width_mobile,
+                        width_desk: width_desk,
+                        max_width: image_width,
+                        show_swatch: false,
+                        show_reviews: true,
+                        show_price: true
+                      -%}
                     {%- endcase -%}
                   {%- endif -%}
                 {%- endfor -%}
-                {% if settings.enable_products_pages_article == 'page' or settings.enable_products_pages_article == 'article,page' %} 
-                    <h1>PAGES</h1>
 
-                    <div class="grid__card">
-                      {%- for item in source -%}
-                      {%- if is_search -%}
-                        {%- case item.object_type -%}
-                          {%- when 'page' -%}
-                            <div class="card__content" >
-                            <div class="card__information">
-                              <h3 class="card__heading">
-                                <a href="{{ item.url }}" class="page-title">
-                                  {{ item.title | truncate: 50 | escape | upcase }}
-                                </a>
-                              </h3>
-                              <a class="page-content" href="{{ item.url }}">{{ item.content | strip_html | truncatewords: 15 }}</a>
-                            </div>
-                            <div class="card__badge ">
-                              <span class="badge color-background-1">{{ item.object_type }}</span>
-                            </div>
-                          </div>
+                  {% if settings.enable_products_pages_article == 'article' or settings.enable_products_pages_article == 'article,page' %} 
+                    {%- if articleList.size > 0 -%}
+                      <h1>ARTICLES</h1>
+                      {%- for item in articleList -%}
+                        {%- if is_search -%}
+                          {%- case item.object_type -%}
+                          {%- when 'article' -%}
+                                {%- render 'article-card',
+                                  article: item,
+                                  width_large: width_large,
+                                  width_mobile: width_mobile,
+                                  width_desk: width_desk,
+                                  max_width: image_width,
+                                  show_image: true,
+                                -%}
                           {%- endcase -%}
-                      {%- endif -%}
+                        {%- endif -%}
+                      {%- endfor -%}
+                    {%- endif -%}
+                  {%- endif -%}
+                 
+                {% if settings.enable_products_pages_article == 'page' or settings.enable_products_pages_article == 'article,page' %} 
+                  {%- if  pageList.size > 0 -%}
+                    <h1>PAGES</h1>
+                    <div class="grid__card">
+                      {%- for item in pageList -%}
+                        {%- if is_search -%}
+                          {%- case item.object_type -%}
+                            {%- when 'page' -%}
+                              <div class="card__content" >
+                              <div class="card__information">
+                                <h3 class="card__heading">
+                                  <a href="{{ item.url }}" class="page-title">
+                                    {{ item.title | truncate: 50 | escape | upcase }}
+                                  </a>
+                                </h3>
+                                <a class="page-content" href="{{ item.url }}">{{ item.content | strip_html | truncatewords: 15 }}</a>
+                              </div>
+                             
+                            </div>
+                            {%- endcase -%}
+                        {%- endif -%}
                       {%- endfor -%}
                     </div>
+                    
+                  {%- endif -%}
+                    
                 {%- endif -%}
-                
+                     
               {%- endcapture -%}
 
               <div class="grid-uniform grid-uniform--s4 ">
@@ -152,6 +173,10 @@
       </div>
     </div>
   </div>
+<<<<<<< HEAD
+
+=======
+>>>>>>> adfafea8cc7ea8d41c29a2a24eb4bbf7d69d7768
   <style scoped>
     .section-header .zero-founds-message, .section-header .text-center{
       font-size: 18px;
@@ -328,11 +353,6 @@
       .search .inner .card__content{
         width: calc(50% - 8px  / 2);
       }
-      {%- if section.settings.products_per_rows_mobile == "1" -%}
-        .grid-uniform {
-          display: block;
-        }
-      {%- endif -%}
     }
     @media (max-width: 479px) {
       .template-search .main-content .inner .large--one-quarter {
@@ -348,6 +368,11 @@
     }
   </style>
   
+<<<<<<< HEAD
+{%- endcapture -%}
+{{- search_template_content | strip_newlines | replace: '    ' , ' ' | replace: '   ' , ' ' | replace: '  ' , ' ' -}} 
+=======
+>>>>>>> adfafea8cc7ea8d41c29a2a24eb4bbf7d69d7768
 {% schema %}
 {
   "name": "Search Template",
@@ -449,3 +474,13 @@
   ]
 }
 {% endschema %}
+
+<style scoped> 
+  {%- if section.settings.products_per_rows_mobile == "1" -%}
+    @media(max-width: 767px) {
+        .grid-uniform {
+          display: block;
+        }
+    }
+  {%- endif -%}
+</style>

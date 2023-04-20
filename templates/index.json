@@ -30,7 +30,7 @@
       ],
       "settings": {
         "custom_class": "",
-        "enable_custom_margins_paddings": false,
+        "enable_custom_margins_paddings": true,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
