@@ -233,6 +233,7 @@
 
   @media (max-width: 767px) {
     .collection-filter__item-label {
+      width: 100%;
       max-width: 100px;
     }
 
@@ -246,7 +247,8 @@
 
     .collection-filter__dropdown {
       max-width: unset;
-      flex-grow: 1;
+      flex: 0 1 100%;
+      width: 100px;
     }
 
     .collection-filter__item + .collection-filter__item {
