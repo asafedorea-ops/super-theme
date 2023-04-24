@@ -381,6 +381,49 @@
         "slider_autoplay": false,
         "slider_speed": 800
       }
+    },
+    "35413abf-6528-440d-b1f8-ee350686ea22": {
+      "type": "videos",
+      "blocks": {
+        "da29dfe1-bbc2-4e9e-ba22-fd262d1c1b0b": {
+          "type": "video",
+          "settings": {
+            "title": "Video Title",
+            "url": "https:\/\/www.youtube.com\/watch?v=4L8VbGRibj8",
+            "video_description": "Text Example",
+            "enable_video_by_tag": false,
+            "tag_name": ""
+          }
+        },
+        "9b4340aa-bb3f-4b71-b345-45ca91e6d925": {
+          "type": "video",
+          "settings": {
+            "title": "Video Title",
+            "url": "https:\/\/www.youtube.com\/watch?v=4L8VbGRibj8",
+            "video_description": "Text Example",
+            "enable_video_by_tag": false,
+            "tag_name": ""
+          }
+        }
+      },
+      "block_order": [
+        "da29dfe1-bbc2-4e9e-ba22-fd262d1c1b0b",
+        "9b4340aa-bb3f-4b71-b345-45ca91e6d925"
+      ],
+      "settings": {
+        "custom_class": "",
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "enable_section_title": true,
+        "section_title": "Videos",
+        "enable_videos_title": true,
+        "enable_videos_description": true,
+        "enable_videos_slider": true,
+        "enable_full_width": false
+      }
     }
   },
   "order": [
@@ -391,6 +434,7 @@
     "163518827257c845da",
     "163518853512c34568",
     "163518866014942cc3",
-    "152db996-38c7-4ba4-a031-92eba5449967"
+    "152db996-38c7-4ba4-a031-92eba5449967",
+    "35413abf-6528-440d-b1f8-ee350686ea22"
   ]
 }
