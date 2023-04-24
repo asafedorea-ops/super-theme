@@ -108,20 +108,24 @@
 
 {%- if settings.enable_out_of_stock_button == false -%}
   <script>
-    const enable_out_stock = {{settings.enable_out_of_stock_button}};
-    if ( !enable_out_stock && window.location.search.indexOf("?filter.v.availability=1") === -1 ){
-        location.assign("?filter.v.availability=1");
-    }
+    window.addEventListener('w3-DOMContentLoaded', function(){
+      const enable_out_stock = {{settings.enable_out_of_stock_button}};
+      if ( !enable_out_stock && window.location.search.indexOf("?filter.v.availability=1") === -1 ){
+          location.assign("?filter.v.availability=1");
+      }
+    });
   </script>
 {%- else -%}
   <script>
-    const enable_out_stock = {{ settings.enable_out_of_stock_button }};
-    if ( enable_out_stock && window.location.search.indexOf("?filter.v.availability=1") > -1){
-      let url = location.search;
-      let params = new URLSearchParams(url.search);
-      params.delete('filter.v.availability');
-      location.search = params.toString();
-    }
+    window.addEventListener('w3-DOMContentLoaded', function(){
+      const enable_out_stock = {{ settings.enable_out_of_stock_button }};
+      if ( enable_out_stock && window.location.search.indexOf("?filter.v.availability=1") > -1){
+        let url = location.search;
+        let params = new URLSearchParams(url.search);
+        params.delete('filter.v.availability');
+        location.search = params.toString();
+      }
+    });
   </script>
 {%- endif -%}
 
