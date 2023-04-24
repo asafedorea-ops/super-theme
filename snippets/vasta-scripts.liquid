@@ -63,54 +63,6 @@
   update_discount_cart({{ cart.total_price }}, {{ cart.item_count }});
 </script>
 
-<script type="lazyload_int">
-  setTimeout(function () {
-    var is_IE = /*@cc_on!@*/ false || !!document.documentMode;
-
-    if (is_IE) {
-      (function ($) {
-        $.getScript('//unpkg.com/css-vars-ponyfill@1/dist/css-vars-ponyfill.min.js', function () {
-          cssVars({
-            onlyLegacy: false,
-          });
-
-          setTimeout(function () {
-            jQuery('.loaderIE').removeClass('active');
-          }, 1000);
-        });
-
-        var script = document.createElement('script');
-        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/stickyfill/2.1.0/stickyfill.js';
-
-        script.onload = function () {
-          var elements = $('.template-blog .main-content .blog-sidebar');
-          var elements_2 = $('.template-article .main-content .blog-sidebar');
-          Stickyfill.add(elements);
-          Stickyfill.add(elements_2);
-          window.addEventListener('mousemove', Stickyfill.refreshAll);
-        };
-
-        document.body.appendChild(script);
-      })(jQuery);
-    } else {
-      jQuery('.loaderIE').removeClass('active');
-    }
-
-    if (typeof window.CustomEvent === 'function') {
-      return false;
-    }
-
-    function CustomEvent(event, params) {
-      params = params || { bubbles: false, cancelable: false, detail: undefined };
-      var evt = document.createEvent('CustomEvent');
-      evt.initCustomEvent(event, params.bubbles, params.cancelable, params.detail);
-      return evt;
-    }
-
-    CustomEvent.prototype = window.Event.prototype;
-    window.CustomEvent = CustomEvent;
-  });
-</script>
 {%- if template contains 'product' -%}
   {%- if settings.enable_zoom_feature_for_desktop -%}
     <script
