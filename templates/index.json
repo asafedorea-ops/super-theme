@@ -381,6 +381,49 @@
         "slider_autoplay": false,
         "slider_speed": 800
       }
+    },
+    "d98f2e4d-af19-4607-b9b0-9ef0c117a1c8": {
+      "type": "videos",
+      "blocks": {
+        "ea23c969-6d4f-4d47-9a52-c29db3eab5e9": {
+          "type": "video",
+          "settings": {
+            "title": "Video Title",
+            "url": "",
+            "video_description": "Text Example",
+            "enable_video_by_tag": false,
+            "tag_name": ""
+          }
+        },
+        "e3b78a5a-bed5-4fd1-821c-3b9da5c571e4": {
+          "type": "video",
+          "settings": {
+            "title": "Video Title",
+            "url": "",
+            "video_description": "Text Example",
+            "enable_video_by_tag": false,
+            "tag_name": ""
+          }
+        }
+      },
+      "block_order": [
+        "ea23c969-6d4f-4d47-9a52-c29db3eab5e9",
+        "e3b78a5a-bed5-4fd1-821c-3b9da5c571e4"
+      ],
+      "settings": {
+        "custom_class": "",
+        "enable_custom_margins_paddings": false,
+        "custom-margin-top": 0,
+        "custom-margin-bottom": 0,
+        "custom-padding-top": 0,
+        "custom-padding-bottom": 0,
+        "enable_section_title": true,
+        "section_title": "Videos",
+        "enable_videos_title": true,
+        "enable_videos_description": true,
+        "enable_videos_slider": true,
+        "enable_full_width": false
+      }
     }
   },
   "order": [
@@ -391,6 +434,7 @@
     "163518827257c845da",
     "163518853512c34568",
     "163518866014942cc3",
-    "152db996-38c7-4ba4-a031-92eba5449967"
+    "152db996-38c7-4ba4-a031-92eba5449967",
+    "d98f2e4d-af19-4607-b9b0-9ef0c117a1c8"
   ]
 }
