@@ -25,7 +25,7 @@
           {%- assign final_image = settings.recently_viewed_product_without_image -%}
           {%-
             render 'responsive-image' with
-            max_width: 800,
+            max_width: max_width_large,
             image: final_image,
             image_class:'grid__item-image one',
             active_lazy: lazyload
@@ -37,14 +37,14 @@
 
           {%-
             render 'responsive-image' with
-            max_width: 800,
+            max_width: max_width_large,
             image: secondary_image,
             image_class: 'grid__item-image one',
             active_lazy: lazyload
           -%}
           {%-
             render 'responsive-image' with
-            max_width: 800,
+            max_width: max_width_large,
             image: final_image,
             image_class: 'grid__item-image',
             active_lazy: lazyload
