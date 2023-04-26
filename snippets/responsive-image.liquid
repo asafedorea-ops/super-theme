@@ -81,9 +81,9 @@
     {% if custom_style %} style="{{ custom_style }}" {% endif %}
     {% if active_lazy == false %}
        loading="eager"
-       src="{{ image | img_url: max_width }}"
+       src="{{ image | image_url: width: max_width }}"
        srcset="{{ image_srcset }}"
-       sizes="(min-width: 1200px) {{ size_large }}px, (max-width: 767px) {{ size_mobile }}vw, (min-width: 768px) {{ size_desk }}vw"
+       sizes="(max-width: 479px) 479px, (max-width: 767px) 767px, (max-width: 1019px) 1019px, (max-width: 1279px) 1279px, (min-width: 1280px) 1280px"
     {% else %}
       {%- if template contains 'product' -%}
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw0AcxV9Ta0UqDkYQcchQnSyIijhqFYpQIdQKrTqYXPohNGlIUlwcBdeCgx+LVQcXZ10dXAVB8APE0clJ0UVK/F9SaBHrwXE/3t173L0DhFqJ6XbHGKAbjpVKxKVMdkUKvyKETojoh6gw25yV5STajq97BPh6F+NZ7c/9OXq0nM2AgEQ8w0zLIV4nntp0TM77xCIrKhrxOfGoRRckfuS66vMb54LHAs8UrXRqjlgklgotrLYwK1o68SRxVNMNyhcyPmuctzjrpQpr3JO/MJIzlpe4TnMICSxgETIkqKhgAyU4iNFqkGIjRfvxNv5Bzy+TSyXXBhg55lGGDsXzg//B727t/MS4nxSJA6EX1/0YBsK7QL3qut/Hrls/AYLPwJXR9JdrwPQn6dWmFj0CereBi+umpu4BlzvAwJOpWIonBWkK+TzwfkbflAX6boHuVb+3xj5OH4A0dZW8AQ4OgZECZa+1eXdXa2//nmn09wMjG3KHDOS4EQAAAAlwSFlzAAAuIwAALiMBeKU/dgAAAAd0SU1FB+YFBhQWEhVMTaAAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAADElEQVQI12O4f/8+AAU+Ap5GJPuHAAAAAElFTkSuQmCC"
@@ -92,9 +92,9 @@
       {%- endif -%}
         loading="lazy"
         data-class="LazyLoad"
-        data-src="{{ image | image_url: max_width | image_tag: loading: 'lazy' }}"
+        data-src="{{ image | image_url: width: max_width }}"
         data-srcset="{{ image_srcset }}"
-        data-sizes="(min-width: 1200px) {{ size_large }}px, (max-width: 767px) {{ size_mobile }}vw, (min-width: 768px) {{ size_desk }}vw"
+        data-sizes="(max-width: 479px) 479px, (max-width: 767px) 767px, (max-width: 1019px) 1019px, (max-width: 1279px) 1279px, (min-width: 1280px) 1280px"
     {% endif %}
     data-widths="[{{ image_widths }}]"
     data-aspectratio="{{ image.aspect_ratio }}"
