@@ -217,6 +217,7 @@
       {%- endif -%}
 
       {%- comment -%} <script defer src="{{- 'lazyload-optimization.js' | asset_url -}}"></script> {%- endcomment -%}
+      {%- render 'lazyload-body' -%}
   </body>
   {%- endcapture -%}
   {% assign theme_content = theme_content
@@ -231,5 +232,4 @@
     | strip
   %}
   {{ theme_content }}
-  {%- render 'lazyload-body' -%}
 </html>
