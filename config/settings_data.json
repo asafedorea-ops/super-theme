@@ -84,7 +84,7 @@
     "custom_description": "",
     "enable_see_more": true,
     "select_position_thumbnails": "below",
-    "product_slider_width": 50,
+    "product_slider_width": 61,
     "enable_sticky_product_slider": true,
     "effect_options": "swipe",
     "thumbnails_options": "5",
