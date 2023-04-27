@@ -57,6 +57,7 @@
                         '”.</p><p class="no-result-message">Sorry, we couldn’t find any matches.</p>'
                     );
                     $('.search-link-wrapper').addClass('empty');
+                    $('.search__terms').html('Showing results for: “' + term + '”');
                   } else {
                     let searchResults = $('.search-results').html('<p class="search-section-title">Products</p>');
                     $.each(resultProducts, function (index, item) {
