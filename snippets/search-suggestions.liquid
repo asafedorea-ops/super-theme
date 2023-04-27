@@ -58,7 +58,7 @@
                     );
                     $('.search-link-wrapper').addClass('empty');
                   } else {
-                    let searchResults = $('.search-results').html('<p class="search-section-title">Title products</p>');
+                    let searchResults = $('.search-results').html('<p class="search-section-title">Products</p>');
                     $.each(resultProducts, function (index, item) {
                       if (index > '{{ settings.products_per_search | minus: 1 }}') {
                         return false;
