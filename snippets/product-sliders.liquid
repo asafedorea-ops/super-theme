@@ -31,7 +31,7 @@
     {% for image in product.media %}
       {%- if image.media_type == 'external_video' -%}
         {%- if image.host contains 'vimeo' -%}
-          <div class="prouct-slider__video-wrapper">
+          <div class="product-slider__video-wrapper product-slider__vimeo-video">
             <iframe
               loading="lazy"
               data-class="LazyLoad"
@@ -47,7 +47,7 @@
           <div class="youtube-player" data-id="{{ image.external_id }}"></div>
         {%- endif -%}
       {%- elsif image.media_type == 'video' -%}
-        <div class="prouct-slider__video-wrapper">
+        <div class="product-slider__video-wrapper">
           <video
             loading="lazy"
             playsinline="playsinline"
