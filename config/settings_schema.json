@@ -190,9 +190,8 @@
       },
       {
         "type": "header",
-        "content": "SEARCH PAGE AND SUGGESTIONS"
-      },
-      
+        "content": "SEARCH SUGGESTIONS"
+      },      
       {
         "type": "checkbox",
         "id": "enable_search_suggestions",
@@ -236,6 +235,10 @@
             "label": "12 Products"
           }
         ]
+      },
+      {
+        "type": "header",
+        "content": "SEARCH PAGE"
       },
       {
         "type": "select",
