@@ -45,14 +45,6 @@
 				swatch_locked = true;
 			});
 
-			_product_featured.on('beforeChange', function(event, slick, currentSlideIndex) {
-				var iframes = $('.slick-current iframe', slick.$slider);
-
-				iframes.each(function(i){
-					this.src = this.src;
-				});
-			});
-
 			_product_featured.on('afterChange', function(event, slick, currentSlideIndex) {
 				if (swatch_locked === false) {
 					const current_slide = $('.product-slider-thumbnails .slick-current .product-slider__image-wrapper').data('forloop-index');
