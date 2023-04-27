@@ -142,49 +142,52 @@
             {%- endif -%}
           {%- endfor -%}
 
-          {%- for block in section.blocks -%}
-            {%- if 'social' == block.type -%}
-              <div class="social-net">
-                {%- case block.settings.social_media -%}
-                  {%- when 'icon-facebook' -%}
-                    {%- assign social_link = settings['link-facebook'] -%}
-
-                  {%- when 'icon-instagram' -%}
-                    {%- assign social_link = settings['link-instagram'] -%}
-
-                  {%- when 'icon-pinterest' -%}
-                    {%- assign social_link = settings['link-pinterest'] -%}
-
-                  {%- when 'icon-snapchat' -%}
-                    {%- assign social_link = settings['link-snapchat'] -%}
-
-                  {%- when 'icon-tumblr' -%}
-                    {%- assign social_link = settings['link-tumblr'] -%}
-
-                  {%- when 'icon-twitter' -%}
-                    {%- assign social_link = settings['link-twitter'] -%}
-
-                  {%- when 'icon-vimeo' -%}
-                    {%- assign social_link = settings['link-vimeo'] -%}
-
-                  {%- when 'icon-youtube' -%}
-                    {%- assign social_link = settings['link-youtube'] -%}
-
-                  {%- when 'icon-tiktok' -%}
-                    {%- assign social_link = settings['link-tiktok'] -%}
-                {%- endcase -%}
-                <a
-                  title="{{ block.settings.social_media | strip_html | escape }}"
-                  aria-label="ftr-social-{{ block.id }}"
-                  id="ftr-social-{{ block.id }}"
-                  href="{{ social_link }}"
-                  target="_blank"
-                >
-                  {%- render 'icon-media-social' with icon: block.settings.social_media -%}
-                </a>
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
+          <div class="social-icons-net">
+            {%- for block in section.blocks -%}
+              {%- if 'social' == block.type -%}
+                <div class="social-net">
+                  {%- case block.settings.social_media -%}
+                    {%- when 'icon-facebook' -%}
+                      {%- assign social_link = settings['link-facebook'] -%}
+  
+                    {%- when 'icon-instagram' -%}
+                      {%- assign social_link = settings['link-instagram'] -%}
+  
+                    {%- when 'icon-pinterest' -%}
+                      {%- assign social_link = settings['link-pinterest'] -%}
+  
+                    {%- when 'icon-snapchat' -%}
+                      {%- assign social_link = settings['link-snapchat'] -%}
+  
+                    {%- when 'icon-tumblr' -%}
+                      {%- assign social_link = settings['link-tumblr'] -%}
+  
+                    {%- when 'icon-twitter' -%}
+                      {%- assign social_link = settings['link-twitter'] -%}
+  
+                    {%- when 'icon-vimeo' -%}
+                      {%- assign social_link = settings['link-vimeo'] -%}
+  
+                    {%- when 'icon-youtube' -%}
+                      {%- assign social_link = settings['link-youtube'] -%}
+  
+                    {%- when 'icon-tiktok' -%}
+                      {%- assign social_link = settings['link-tiktok'] -%}
+                  {%- endcase -%}
+                  <a
+                    title="{{ block.settings.social_media | strip_html | escape }}"
+                    aria-label="ftr-social-{{ block.id }}"
+                    id="ftr-social-{{ block.id }}"
+                    href="{{ social_link }}"
+                    target="_blank"
+                  >
+                    {%- render 'icon-media-social' with icon: block.settings.social_media -%}
+                  </a>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          
         </div>
       {%- endif -%}
 
@@ -795,8 +798,13 @@
       height:20px;
   }
   .site-footer .wrapper .info .social-net{
-      margin:10px 0 0 0;
+      margin:10px 5px 0 0;
   }
+
+  .social-icons-net{
+    display: flex;
+  } 
+
   .site-footer .wrapper .info{
       display:flex;
       width:100%;

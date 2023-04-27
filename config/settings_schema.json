@@ -190,31 +190,9 @@
       },
       {
         "type": "header",
-        "content": "SEARCH SUGGESTIONS"
+        "content": "SEARCH PAGE AND SUGGESTIONS"
       },
-      {
-        "type": "select",
-        "id": "enable_products_pages_article",
-        "label": "Results To Display On The Search Page",
-        "options": [
-          {
-            "value": "",
-            "label": "Products"
-          },
-          {
-            "value": "article,page",
-            "label": "All"
-          },
-          {
-            "value": "article",
-            "label": "Products And Articles"
-          },
-          {
-            "value": "page",
-            "label": "Products And Pages"
-          }
-        ]
-      },
+      
       {
         "type": "checkbox",
         "id": "enable_search_suggestions",
@@ -256,6 +234,29 @@
           {
             "value": "12",
             "label": "12 Products"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "enable_products_pages_article",
+        "label": "Results To Display On The Search Page",
+        "options": [
+          {
+            "value": "",
+            "label": "Products"
+          },
+          {
+            "value": "article,page",
+            "label": "All"
+          },
+          {
+            "value": "article",
+            "label": "Products And Articles"
+          },
+          {
+            "value": "page",
+            "label": "Products And Pages"
           }
         ]
       },
