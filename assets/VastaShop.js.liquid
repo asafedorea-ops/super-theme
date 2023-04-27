@@ -590,7 +590,7 @@ function cart_line(prod, index, oldQtd, id_variant) {
     return '<li class="cart-product ' + prod.handle + '" id="jq-cart-item-' + prod.id + '" data-variant="' + prod.key + '" data-line="' + index + '">' +
         '<div class="cart-product-image-wrapper">' +
         '   <a aria-label="ImgCartDrawer-' + index + '" href="' + prod.url + '" id="ImgCartDrawer-' + index + '">' +
-        '    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="' + prod.image + '" class="lazy2 lazy3" alt="' + prod.title + '"/>' +
+        '    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" data-src="' + prod.image + '" data-class="LazyLoad" alt="' + prod.title + '"/>' +
         '   </a>' +
         '</div>' +
 

@@ -2,12 +2,6 @@
   "sections": {
     "main": {
       "type": "blog-template",
-      "settings": {
-        "enable_sidebar": true,
-        "sidebar_left": true,
-        "fixed_sidebar": false,
-        "sidebar_text_align": "center"
-      },
       "blocks": {
         "1cb2e988-d4bb-46f6-afbc-43c32b8be3b5": {
           "type": "newsletter",
@@ -18,20 +12,23 @@
           }
         },
         "a436edb0-4065-44cb-8784-de0fab063d48": {
-          "type": "recent_posts"
-        },
-        "e7d2e64e-5092-4f3c-8e01-e9799081472c": {
-          "type": "categories",
+          "type": "recent_posts",
           "settings": {
-            "filter_by_tags": ""
           }
         }
       },
       "block_order": [
         "1cb2e988-d4bb-46f6-afbc-43c32b8be3b5",
-        "a436edb0-4065-44cb-8784-de0fab063d48",
-        "e7d2e64e-5092-4f3c-8e01-e9799081472c"
-      ]
+        "a436edb0-4065-44cb-8784-de0fab063d48"
+      ],
+      "settings": {
+        "enable_sidebar": true,
+        "sidebar_left": true,
+        "fixed_sidebar": false,
+        "blog_text_align": "left",
+        "blog_button_align": "center",
+        "sidebar_text_align": "right"
+      }
     }
   },
   "order": [

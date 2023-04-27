@@ -3,7 +3,7 @@
 {% assign results_box_background_color = '#ffffff' %}
 
 {% if settings.enable_search_suggestions %}
-  <script type='lazyload2'>
+  <script type='lazyload_int'>
     setTimeout(function () {
       $(function () {
         var currentAjaxRequest = null;
@@ -57,7 +57,9 @@
                         '”.</p><p class="no-result-message">Sorry, we couldn’t find any matches.</p>'
                     );
                     $('.search-link-wrapper').addClass('empty');
+                    $('.search__terms').html('Showing results for: “' + term + '”');
                   } else {
+                    let searchResults = $('.search-results').html('<p class="search-section-title">Products</p>');
                     $.each(resultProducts, function (index, item) {
                       if (index > '{{ settings.products_per_search | minus: 1 }}') {
                         return false;
@@ -78,6 +80,7 @@
                               '" /></span>'
                           );
                         };
+                        console.log("item", item);
                         link.append(
                           '<div class="product-info"><span class="title">' +
                             item.title +
@@ -203,7 +206,8 @@
     float: left;
     display: block;
     text-align: center;
-    min-width: 60%;
+    width: 70%;
+    padding-top: 16px;
     {% if settings.enable_page_post_suggestion == false %}
       width: 100%;
     {% endif %}
@@ -312,9 +316,7 @@
   }
 
   .search-results-wrapper.w-80 {
-    width: auto;
-    min-width: 80%;
-    max-width: 100%;
+    width: 100%;
   }
 
   .search-form .search-results a {
@@ -341,6 +343,22 @@
     font-weight: bold;
     color: var(--colorTitleSearchSuggestion);
     padding: 0;
+  }
+
+  .search-results .search-section-title{
+    text-align: left;
+    padding-left: 16px;
+    padding-bottom: 10px;
+  }
+
+  .search-results .search-section-title,
+  .search-results-pages-wrapper .search-section-title {
+    text-transform: {{ settings.title_text_transform_search_suggestion }}
+  }
+
+  .search-results .result-item .product-info .title,
+  .search-results-pages .result-item .title{
+    text-transform: {{ settings.results_title_text_transform_search_suggestion }}
   }
 
   .result-item .result-edits:hover,
@@ -372,16 +390,15 @@
     padding: 0 16px;
     transition: opacity .1s;
   }
-
-  .search-results .result-item:not(:first-child) {
-    border-top: 0.5px solid var(--vasta-search-border-color, #fff);
-  }
   
   .no-result-term {
     font-weight: bold;
     font-size: 18px;
     text-align: center;
     color: var(--colorTitleSearchSuggestion);
+    word-wrap: break-word;
+    padding: 0 8px 8px;
+    text-transform: {{ settings.title_text_transform_search_suggestion }}
   }
 
   .search-results-wrapper .no-result-message {
@@ -396,7 +413,6 @@
     color: var(--colorTextSearchSuggestion);
   }
   
-  .no-result-term,
   .no-result-message,
   .no-result-all-products,
   .no-result-all-results {
@@ -448,8 +464,10 @@
 
   .result-item .result-edits .title {
       text-transform: uppercase;
+      color: var(--color-link);
   }
-  .search-results-pages-wrapper .search-section-title {
+  
+  .search-section-title {
     font-size: 1rem;
   }
   .search-results-pages-wrapper .pages-no-results {
@@ -476,8 +494,7 @@
   form.header__search__form .search-content-container {
     display: flex;
     flex-direction: row;
-    width: 40%;
-    min-width: 20%;
+    width: 30%;
   }
 
   <!-- If Pages & Posts are disabled -->
@@ -597,8 +614,7 @@
       float: right;
       text-align: center;
       padding: 8px;
-      border-top: 1px solid var(--vasta-search-border-color, #fff);
-      border-left: none;
+
     }
   }
 

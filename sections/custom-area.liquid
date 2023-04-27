@@ -1,40 +1,37 @@
 <!-- start custom-area.liquid (SECTION) -->
-{%- capture custom_area_content -%}
-  <section id="shopify-section-{{ section.id }}-content" data-section-type="custom-area" class="{{ section.settings.custom_class }} custom-area">
-      {%- if section.settings.html_area != blank -%}
-        {%- if section.settings.title != blank -%}
-          <h2 class="section-title">{{ section.settings.title }}</h2>
-        {%- else -%}
-          <h2 class="hide">Custom Area</h2>
-        {%- endif -%}
-        {{ section.settings.html_area }}
-      {%- else -%}
-        <h2 class="hide" style="display: none;">Custom Area</h2>
-      {%- endif -%}
-  </section>
-{%- endcapture -%}
+<section
+  id="shopify-section-{{ section.id }}-content"
+  data-section-type="custom-area"
+  class="{{ section.settings.custom_class }} custom-area"
+>
+  {%- if section.settings.html_area != blank -%}
+    {%- if section.settings.title != blank -%}
+      <h2 class="section-title">{{ section.settings.title }}</h2>
+    {%- else -%}
+      <h2 class="hide">Custom Area</h2>
+    {%- endif -%}
+    {{ section.settings.html_area }}
+  {%- else -%}
+    <h2 class="hide" style="display: none;">Custom Area</h2>
+  {%- endif -%}
+</section>
 
-{%- capture custom_area_style -%}
-  <style scoped data-vasta>
-    #shopify-section-{{ section.id }} {
-      {% if section.settings.enable_custom_margins_paddings %}
-        margin-top: {{ section.settings.custom-margin-top }}px;
-        margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-        padding-top: {{ section.settings.custom-padding-top }}px;
-        padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-      {% else %}
-        margin: 20px 0;
-      {% endif %}
-    }
-    .wrapper.custom-area  .section-title {
-      padding: 17px 0 10px;
-      margin-bottom: 0;
-    }
-  </style>
-{%- endcapture -%}
-{{- custom_area_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- custom_area_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- custom_area_content -}}
+<style scoped>
+  #shopify-section-{{ section.id }} {
+    {% if section.settings.enable_custom_margins_paddings %}
+      margin-top: {{ section.settings.custom-margin-top }}px;
+      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+      padding-top: {{ section.settings.custom-padding-top }}px;
+      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+    {% else %}
+      margin: 20px 0;
+    {% endif %}
+  }
+  .wrapper.custom-area  .section-title {
+    padding: 17px 0 10px;
+    margin-bottom: 0;
+  }
+</style>
 {% schema %}
 {
   "name": "Custom Area",
@@ -43,6 +40,12 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Custom class to apply css styles for specific sections"
     },
     {
       "type": "checkbox",
@@ -89,12 +92,6 @@
       "unit": "px",
       "label": "Padding Bottom",
       "default": 0
-    },
-    {
-      "type": "text",
-      "id": "custom_class",
-      "label": "Custom Class",
-      "info": "Custom class to apply css styles for specific sections"
     },
     {
       "type": "text",

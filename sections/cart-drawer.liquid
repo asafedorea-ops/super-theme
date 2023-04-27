@@ -1,411 +1,426 @@
 <!-- start cart-drawer.liquid (SECTION) -->
-{%- capture cart_drawer_content -%}
-  <div id="CartDrawer" class="cart-drawer drawer--right" tabindex="-1" data-section-type="cart-drawer">
-    {%- render 'cart-drawer-header' with section_settings: section.settings, cart: cart -%}
+<div id="CartDrawer" class="cart-drawer drawer--right" tabindex="-1" data-section-type="cart-drawer">
+  {%- render 'cart-drawer-header' with section_settings: section.settings, cart: cart -%}
 
-    <div class="cart-container {% if cart.item_count < 1 %}empty{% endif %}">
-      <div class="cart-top">
-        {%- if section.settings.enable_dynamic_free_shipping -%}
-          {%- render 'cart-drawer-shipping-bar' with shipping_bar_template: 'counter' -%}
-        {%- endif -%}
-        
-        {%- unless section.settings.disable_proceed -%}
-          {%- render 'cart-drawer-btn-checkout' with position: 'Top', cart: cart -%}
-        {%- endunless -%}
-        
-        <div class="product-content cart-products-wrapper">
-          <form method="post" action="/checkout" class="cart-products-wrapper">
-            <ul class="list-products">
-              <li class="cart__empty text-center" data-cart-view="data-cart-view">
-                <p class="empty-cart"></p>
-              </li>
-            </ul>
-          </form>
-        </div>
-      </div>
-
-      <div class="total-price">
-        <span>{{ settings.text_total }} </span>
-        <span class="jq-total-price price money">{{ cart.total_price | money }}</span>
-
-        {%- if settings.enable_freeshipping_msg -%}
-          <span id="cart-drawer-freeshipping-msg" class="free-shipping-message"></span>
-        {%- endif -%}
-      </div>
-
-      {%- render 'cart-drawer-btn-checkout' with position: "Bottom", cart: cart -%}
-
-      {%- if section.settings.enable_html_area_drawer -%}
-        <div class="custom-html">{{ section.settings.drawer_html_area }}</div>
+  <div class="cart-container {% if cart.item_count < 1 %}empty{% endif %}">
+    <div class="cart-top">
+      {%- if section.settings.enable_dynamic_free_shipping -%}
+        {%- render 'cart-drawer-shipping-bar' with shipping_bar_template: 'counter' -%}
       {%- endif -%}
 
-      <div class="cart-bottom">
-        <div class="cupom-code-drawer">
-          {%- if section.settings.review_style_drawer == "above" -%}
-            {%- render 'cart-drawer-continue-shopping' with id: 'continue-shopping-link-top', position: 'top', show_view_cart: true,  -%}
-          {%- endif -%}
+      {%- unless section.settings.disable_proceed -%}
+        {%- render 'cart-drawer-btn-checkout' with position: 'Top', cart: cart -%}
+      {%- endunless -%}
 
-          {%- if section.settings.cupom_enable -%}
-            <span id="cart-drawer-coupon-msg" class="cupom-text"></span>
-          {% endif %}
+      <div class="product-content cart-products-wrapper">
+        <form method="post" action="/checkout" class="cart-products-wrapper">
+          <ul class="list-products">
+            <li class="cart__empty text-center" data-cart-view="data-cart-view">
+              <p class="empty-cart"></p>
+            </li>
+          </ul>
+        </form>
+      </div>
+    </div>
 
-          {%- if section.settings.trustBadges_enable -%}
-            {%- render 'cart-drawer-trust-badges' with section_blocks: section.blocks, vasta_badges_size: section.settings.vasta_badges_size, position: 'top' -%}
-          {%- endif -%}
+    <div class="total-price">
+      <span>{{ settings.text_total }} </span>
+      <span class="jq-total-price price money">{{ cart.total_price | money }}</span>
 
-          {%- if section.settings.paypal_enable -%}
-            <div class="paypal-div">
-              <span class="paypal"><strong><span style="color:#00298b;">Pay</span><span style="color: #0096e5;">Pal</span> Accepted</strong></span><br>
-            </div>
-          {%- endif -%}
+      {%- if settings.enable_freeshipping_msg -%}
+        <span id="cart-drawer-freeshipping-msg" class="free-shipping-message"></span>
+      {%- endif -%}
+    </div>
 
-          {%- if section.settings.review_style_drawer == "below" -%}
-            {%- render 'cart-drawer-continue-shopping' with id: 'continue-shopping-link-bellow', position: 'bottom', show_view_cart: true,  -%}
-          {%- endif -%}
-        </div>
+    {%- render 'cart-drawer-btn-checkout' with position: "Bottom", cart: cart -%}
 
-        {%- if section.settings.enable-reviews-drawer -%}
-          {%- if section.settings.section_reviews_title != blank -%}
-            <span class="section-title cart__reviews-title">{{ section.settings.section_reviews_title }}</span>
-          {%- endif -%}
+    {%- if section.settings.enable_html_area_drawer -%}
+      <div class="custom-html">{{ section.settings.drawer_html_area }}</div>
+    {%- endif -%}
 
-          {%- render 'cart-drawer-reviews' with section_blocks: section.blocks -%}
-
-          {%- if section.settings.trustBadges_enable and section.settings.disable_trust_badges_bottom == false -%}
-            {%- render 'cart-drawer-trust-badges' with section_blocks: section.blocks, vasta_badges_size: section.settings.vasta_badges_size, position: 'bottom' -%}
-          {%- endif -%}
-
-          {%- if section.settings.enable_continue_shopping_above_reviews -%}
-            {%- render 'cart-drawer-continue-shopping' with id: 'continue-shopping-link-bottom', continue_bellow_review: section.settings.enable_continue_shopping_above_reviews -%}
-          {%- endif -%}
+    <div class="cart-bottom">
+      <div class="cupom-code-drawer">
+        {%- if section.settings.review_style_drawer == 'above' -%}
+          {%- render 'cart-drawer-continue-shopping' with id: 'continue-shopping-link-top', position: 'top', show_view_cart: true, -%}
         {%- endif -%}
-      </div><!-- Cart Bottom -->
-    </div><!-- Cart Container -->
+
+        {%- if section.settings.cupom_enable -%}
+          <span id="cart-drawer-coupon-msg" class="cupom-text"></span>
+        {% endif %}
+
+        {%- if section.settings.trustBadges_enable -%}
+          {%- render 'cart-drawer-trust-badges' with section_blocks: section.blocks, vasta_badges_size: section.settings.vasta_badges_size, position: 'top' -%}
+        {%- endif -%}
+
+        {%- if section.settings.paypal_enable -%}
+          <div class="paypal-div">
+            <span class="paypal"
+              ><strong
+                ><span style="color:#00298b;">Pay</span><span style="color: #0096e5;">Pal</span> Accepted</strong
+              ></span
+            ><br>
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.review_style_drawer == 'below' -%}
+          {%- render 'cart-drawer-continue-shopping' with id: 'continue-shopping-link-bellow', position: 'bottom', show_view_cart: true, -%}
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings['enable-reviews-drawer'] -%}
+        {%- if section.settings.section_reviews_title != blank -%}
+          <span class="section-title cart__reviews-title">{{ section.settings.section_reviews_title }}</span>
+        {%- endif -%}
+
+        {%- render 'cart-drawer-reviews' with section_blocks: section.blocks -%}
+
+        {%- if section.settings.trustBadges_enable and section.settings.disable_trust_badges_bottom == false -%}
+          {%- render 'cart-drawer-trust-badges' with section_blocks: section.blocks, vasta_badges_size: section.settings.vasta_badges_size, position: 'bottom' -%}
+        {%- endif -%}
+
+        {%- if section.settings.enable_continue_shopping_above_reviews -%}
+          {%- render 'cart-drawer-continue-shopping' with id: 'continue-shopping-link-bottom', continue_bellow_review: section.settings.enable_continue_shopping_above_reviews -%}
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    <!-- Cart Bottom -->
   </div>
-  {%- capture not_empty_cart -%}
+  <!-- Cart Container -->
+</div>
+{%- capture not_empty_cart -%}
     <span class="drawer-title">{% render "icon-check" %}{{ section.settings.text__head_cartDrawer | escape }}</span>
   {%- endcapture -%}
 
-  {{ product.metafields.custom.comparison_chart }}
+{{ product.metafields.custom.comparison_chart }}
 
-  <script type="lazyload2">
-    const drawer_texts = {
-        empty_cart: "{{ section.settings.cartDrawer_empty | strip_newlines }}",
-        not_empty_cart: '{{ not_empty_cart | strip_newlines }}',
-        cupom: "{{ section.settings.drawer_cuopon_text | replace: '"' , '\"' | strip_newlines }}",
+<script type="lazyload_int">
+  const drawer_texts = {
+      empty_cart: "{{ section.settings.cartDrawer_empty | strip_newlines }}",
+      not_empty_cart: '{{ not_empty_cart | strip_newlines }}',
+      cupom: "{{ section.settings.drawer_cuopon_text | replace: '"' , '\"' | strip_newlines }}",
 
-        free_shipping_msg: {
-          enabled: {{ settings.enable_freeshipping_msg | default: false }},
-          text: "{{ settings.freeshipping_msg }}"
-        }
-    };
+      free_shipping_msg: {
+        enabled: {{ settings.enable_freeshipping_msg | default: false }},
+        text: "{{ settings.freeshipping_msg }}"
+      }
+  };
 
-    const drawer_progress_bar = {
-        progress_bar: "{{ section.settings.enable_dynamic_free_shipping }}"
-    };
+  const drawer_progress_bar = {
+      progress_bar: "{{ section.settings.enable_dynamic_free_shipping }}"
+  };
 
-    var shipping_bar = shipping_bar || {};
-    let text_message_initial_before = '{{ section.settings.shipping_bar_free_shipping_before | escape }}';
-    let text_message_initial_after = '{{ section.settings.shipping_bar_free_shipping_after | escape }}';
-    let free_shipping_text = '<span class="shipping-bar__message-wrapper">{{ section.settings.shipping_bar_freeshipping_text | escape }}</span>';
-    const cartDrawerSettings = { 
-      shipping_bar: shipping_bar 
-    };
-    let cart_discount_by = "{{ settings.enabled_discount_cart_page | escape }}",    
-    cart_success_message = "{{ settings.cart_discount_text }}";
-  </script>
+  var shipping_bar = shipping_bar || {};
+  let text_message_initial_before = '{{ section.settings.shipping_bar_free_shipping_before | escape }}';
+  let text_message_initial_after = '{{ section.settings.shipping_bar_free_shipping_after | escape }}';
+  let free_shipping_text = '<span class="shipping-bar__message-wrapper">{{ section.settings.shipping_bar_freeshipping_text | escape }}</span>';
+  const cartDrawerSettings = {
+    shipping_bar: shipping_bar
+  };
+  let cart_discount_by = "{{ settings.enabled_discount_cart_page | escape }}",
+  cart_success_message = "{{ settings.cart_discount_text }}";
+</script>
 
-  <script type="lazyload2">
-    setTimeout(function(){
-      window.CartDrawerAPI = (function(global, opt) {
-        const settings = Object.assign({
-            selectors: {
-                openDrawer: '.main-header .icon--cart',
-                closeDrawer: '.drawer-close',
-                ATCForm: '[action^="/cart/add"]',
-                plusItem: '.js-cart__btn--plus',
-                minusItem: '.js-cart__btn--minus',
-                inputQtdy: '.input-qtd',
-                removeItem: '.js-cart__btn--remove',
-                itemsAmount: '.header__cart__count',
-                shippingBar: '.cart-drawer .shipping-bar__message',
-                cart: {
-                    widget: '.cart-drawer',
-                    header: '.cart-drawer .drawer-title',
-                    container: '.cart-drawer .cart-container',
-                    lineItem: '.cart-drawer .cart-product',
-                    listItemsContainer: '.cart-drawer .list-products',
-                    totalPrice: '.cart-drawer .jq-total-price'
-                }
-            },
-            shipping_bar: {
-                enable_discount: true,
-                first_free_shipping_text: "",
-                free_shipping_text: "",
-                price_enable: "",
-                second_free_shipping_text: "",
-                shipping_quantity: 0,
-                shipping_value: 0,
-                style_shipping: "",
-                text_cart_above_button_sucess: "",
-                text_message_initial_after: "",
-                text_message_initial_before: ""
-            },
-            formatMoney(price, amount = null) {
-              return VastaShop.formatMoney(price, amount);
-            }
-        }, opt);
-
-        const body = document.body;
-        const selectors = settings.selectors;
-        const methods = {
+<script type="lazyload_int">
+  setTimeout(function () {
+    window.CartDrawerAPI = (function (global, opt) {
+      const settings = Object.assign(
+        {
+          selectors: {
+            openDrawer: '.main-header .icon--cart',
+            closeDrawer: '.drawer-close',
+            ATCForm: '[action^="/cart/add"]',
+            plusItem: '.js-cart__btn--plus',
+            minusItem: '.js-cart__btn--minus',
+            inputQtdy: '.input-qtd',
+            removeItem: '.js-cart__btn--remove',
+            itemsAmount: '.header__cart__count',
+            shippingBar: '.cart-drawer .shipping-bar__message',
             cart: {
-                /**
-                * Get all cart items.
-                */
-                getCart() {
-                    return fetch('/cart.js', {
-                        cache: 'default'
-                    }).then(function(res) {
-                        return res.json();
-                    });
-                },
+              widget: '.cart-drawer',
+              header: '.cart-drawer .drawer-title',
+              container: '.cart-drawer .cart-container',
+              lineItem: '.cart-drawer .cart-product',
+              listItemsContainer: '.cart-drawer .list-products',
+              totalPrice: '.cart-drawer .jq-total-price',
+            },
+          },
+          shipping_bar: {
+            enable_discount: true,
+            first_free_shipping_text: '',
+            free_shipping_text: '',
+            price_enable: '',
+            second_free_shipping_text: '',
+            shipping_quantity: 0,
+            shipping_value: 0,
+            style_shipping: '',
+            text_cart_above_button_sucess: '',
+            text_message_initial_after: '',
+            text_message_initial_before: '',
+          },
+          formatMoney(price, amount = null) {
+            return VastaShop.formatMoney(price, amount);
+          },
+        },
+        opt
+      );
 
-                /**
-                * Add some item into cart.
-                *
-                * @param {Object} data JSON object with data for to insert in cart.
-                */
-                addItem(data) {
-                    return $.post('/cart/add.js', data, null, 'json');
-                },
+      const body = document.body;
+      const selectors = settings.selectors;
+      const methods = {
+        cart: {
+          /**
+           * Get all cart items.
+           */
+          getCart() {
+            return fetch('/cart.js', {
+              cache: 'default',
+            }).then(function (res) {
+              return res.json();
+            });
+          },
 
-                /**
-                * Update some item into cart.
-                *
-                * @param {Object} data JSON object with data for to insert in cart.
-                */
-                update(data) {
-                    return fetch('/cart/update.js', {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }).then(function(res) {
-                        return res.json();
-                    });
-                },
+          /**
+           * Add some item into cart.
+           *
+           * @param {Object} data JSON object with data for to insert in cart.
+           */
+          addItem(data) {
+            return $.post('/cart/add.js', data, null, 'json');
+          },
 
+          /**
+           * Update some item into cart.
+           *
+           * @param {Object} data JSON object with data for to insert in cart.
+           */
+          update(data) {
+            return fetch('/cart/update.js', {
+              method: 'POST',
+              body: JSON.stringify(data),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }).then(function (res) {
+              return res.json();
+            });
+          },
 
-                /**
-                * Change some item into cart.
-                *
-                * @param {Object} data JSON object with data for change some cart item.
-                */
-                change(data) {
-                    return fetch('/cart/change.js', {
-                        method: 'POST',
-                        body: JSON.stringify(data),
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    }).then(function(res) {
-                        return res.json();
-                    });
-                },
+          /**
+           * Change some item into cart.
+           *
+           * @param {Object} data JSON object with data for change some cart item.
+           */
+          change(data) {
+            return fetch('/cart/change.js', {
+              method: 'POST',
+              body: JSON.stringify(data),
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }).then(function (res) {
+              return res.json();
+            });
+          },
 
-                /**
-                * Search some variant into product variants array.
-                *
-                * @param {Object} cart Cart
-                * @param {Any} value Value for search into array.
-                * @param {String} field Item attribute for be searched.
-                */
-                searchVariant(cart, value, field = 'id') {
-                    let variant = cart.items.filter(function(item) {
-                        return item[field] == value;
-                    });
+          /**
+           * Search some variant into product variants array.
+           *
+           * @param {Object} cart Cart
+           * @param {Any} value Value for search into array.
+           * @param {String} field Item attribute for be searched.
+           */
+          searchVariant(cart, value, field = 'id') {
+            let variant = cart.items.filter(function (item) {
+              return item[field] == value;
+            });
 
-                    return (variant.length > 0) ? variant[0] : null;
-                },
+            return variant.length > 0 ? variant[0] : null;
+          },
 
-                /**
-                * Build the cart.
-                *
-                * @param {Object} cart Cart
-                */
-                buildCart(cart) {
-                    Cart = cart;
+          /**
+           * Build the cart.
+           *
+           * @param {Object} cart Cart
+           */
+          buildCart(cart) {
+            Cart = cart;
 
-                    this.renderCartHeader(cart);
-                    this.addCompareAtPrice(cart);
-                    this.renderCartItems(cart);
-                    this.renderTotalPriceItems(cart);
-                    this.updateShippingBar(cart);
-                    this.updateBtnAdd(cart.item_count);
-                },
+            this.renderCartHeader(cart);
+            this.addCompareAtPrice(cart);
+            this.renderCartItems(cart);
+            this.renderTotalPriceItems(cart);
+            this.updateShippingBar(cart);
+            this.updateBtnAdd(cart.item_count);
+          },
 
-                /**
-                * Method for update shipping bar.
-                *
-                * @param {Object} cart Cart object.
-                */
-                updateShippingBar(cart) {
-                  const bars = document.querySelectorAll(selectors.shippingBar);
+          /**
+           * Method for update shipping bar.
+           *
+           * @param {Object} cart Cart object.
+           */
+          updateShippingBar(cart) {
+            const bars = document.querySelectorAll(selectors.shippingBar);
 
-                  update_shipping_bar(cart);
+            update_shipping_bar(cart);
 
-                  if (bars.length > 0) {
-                    const shippingBar = settings.shipping_bar;
-                    const cartDrawerFreeShippingMsg = document.querySelector('#cart-drawer-freeshipping-msg') || {};
-                    const cartDrawerCouponMsg = document.querySelector('#cart-drawer-coupon-msg') || {};
-                    let remain = '';
-                    let progress = 0;
+            if (bars.length > 0) {
+              const shippingBar = settings.shipping_bar;
+              const cartDrawerFreeShippingMsg = document.querySelector('#cart-drawer-freeshipping-msg') || {};
+              const cartDrawerCouponMsg = document.querySelector('#cart-drawer-coupon-msg') || {};
+              let remain = '';
+              let progress = 0;
 
-                    if (shippingBar.price_enable === 'shipping_bar_free_price') {
-                        progress = Math.min(cart.total_price, shippingBar.shipping_value) / shippingBar.shipping_value * 100;
-                        remain = settings.formatMoney(shippingBar.shipping_value - cart.total_price);
-                    } else {
-                        progress = Math.min(cart.item_count, shippingBar.shipping_quantity) / shippingBar.shipping_quantity * 100;
-                        remain = shippingBar.shipping_quantity - cart.item_count;
-                    }
+              if (shippingBar.price_enable === 'shipping_bar_free_price') {
+                progress = (Math.min(cart.total_price, shippingBar.shipping_value) / shippingBar.shipping_value) * 100;
+                remain = settings.formatMoney(shippingBar.shipping_value - cart.total_price);
+              } else {
+                progress =
+                  (Math.min(cart.item_count, shippingBar.shipping_quantity) / shippingBar.shipping_quantity) * 100;
+                remain = shippingBar.shipping_quantity - cart.item_count;
+              }
 
-                    if (cartDrawerFreeShippingMsg && drawer_texts.free_shipping_msg.enabled) {
-                      if (progress == 100) {
-                        cartDrawerFreeShippingMsg.innerHTML = drawer_texts.free_shipping_msg.text;
-                          cartDrawerCouponMsg.innerHTML  = free_shipping_text;
-                      } else {
-                        cartDrawerFreeShippingMsg.innerHTML = '';
-                        cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
-                      }
-                    }
-                    
-                      if(cart_discount_by == "price") {
-                        if((cart.total_price / 100) >= cart_discount_price_range) {
-                          cartDrawerCouponMsg.innerHTML  = cart_success_message;
-                        }
-                        else {
-                          cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
-                        }
-                      }
-                      else if (cart_discount_by == "quantity") {
-                        if(cart.item_count >= cart_discount_quantity_range) {
-                          cartDrawerCouponMsg.innerHTML  = cart_success_message;
-                        }
-                        else {
-                          cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
-                        }
-                      }
+              if (cartDrawerFreeShippingMsg && drawer_texts.free_shipping_msg.enabled) {
+                if (progress == 100) {
+                  cartDrawerFreeShippingMsg.innerHTML = drawer_texts.free_shipping_msg.text;
+                  cartDrawerCouponMsg.innerHTML = free_shipping_text;
+                } else {
+                  cartDrawerFreeShippingMsg.innerHTML = '';
+                  cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
+                }
+              }
 
-                    bars.forEach(function(bar){
-                      const barWrapper = bar.parentNode || null;
+              if (cart_discount_by == 'price') {
+                if (cart.total_price / 100 >= cart_discount_price_range) {
+                  cartDrawerCouponMsg.innerHTML = cart_success_message;
+                } else {
+                  cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
+                }
+              } else if (cart_discount_by == 'quantity') {
+                if (cart.item_count >= cart_discount_quantity_range) {
+                  cartDrawerCouponMsg.innerHTML = cart_success_message;
+                } else {
+                  cartDrawerCouponMsg.innerHTML = drawer_texts.cupom;
+                }
+              }
 
-                      if (barWrapper && barWrapper.classList.contains('shipping-bar--counter')) {
-                          const fill = barWrapper.querySelector('.shipping-bar__counter-fill');
+              bars.forEach(function (bar) {
+                const barWrapper = bar.parentNode || null;
 
-                          if (fill) {
-                              fill.style.width = progress + '%';
-                          }
-                      }
+                if (barWrapper && barWrapper.classList.contains('shipping-bar--counter')) {
+                  const fill = barWrapper.querySelector('.shipping-bar__counter-fill');
 
-                      if ((shippingBar.price_enable === 'shipping_bar_free_price' && cart.total_price >= shippingBar.shipping_value) ||
-                          (shippingBar.price_enable === 'shipping_bar_free_qtd' && cart.item_count >= shippingBar.shipping_quantity)) {
-                            bar.innerHTML = free_shipping_text;
-                      } else if (cart.item_count > 0) {
-                        if(shippingBar.price_enable === 'shipping_bar_free_qtd') {
-                          let text_after_remain = "";
-                          remain === 1 ? text_after_remain = " item" : text_after_remain = " items";
-                          bar.innerHTML = 'Only <span class="shipping-bar__discount-value">' + remain + text_after_remain + '</span> away from free shipping!';
-                        }
-                        else {
-                          bar.innerHTML = 'Only<span class="shipping-bar__discount-value">' + remain + '</span> away from free shipping!';
-                        }
-                      } else {
-                        bar.innerHTML = '<span class="shipping-bar__message--before">' + text_message_initial_before + '&nbsp</span>';
-                          bar.innerHTML += '<span class="shipping-bar__discount-value">' + remain + '</span>';
-                          bar.innerHTML += '<span class="shipping-bar__message--after">' + text_message_initial_after + '</span>';
-                      }
-
-                      if(drawer_progress_bar.progress_bar){
-                        const progressbar = document.querySelector('.progress-done');
-
-                        if(shippingBar.price_enable === 'shipping_bar_free_price') {
-                          const dataDoneValue = remain.replace('$','');
-                          const dataShipping = shippingBar.shipping_value/100;
-                          const progressbarValue =  parseFloat(progress / dataShipping * 100);
-
-                          if (progressbar) {
-                            progressbar.setAttribute('data-done', progressbarValue);
-                          }
-                        } else {
-                          const dataDoneValue = remain;
-                          const dataShipping = shippingBar.shipping_quantity;
-
-                          if (progressbar) {
-                            progressbar.setAttribute('data-done', progress);
-                          }
-                        }
-
-                        if (progressbar) {
-                          progressbar.style.width = progressbar.getAttribute('data-done') + '%';
-                          progressbar.style.opacity = 1;
-                        }
-                      }
-                    });
+                  if (fill) {
+                    fill.style.width = progress + '%';
                   }
-                },
+                }
 
-                /**
-                * Render cart items.
-                *
-                * @param {Object} cart Cart
-                */
-                renderCartItems(cart) {
-                    const parent = this;
-                    const drawerItemsContainer = document.querySelector(selectors.cart.listItemsContainer);
-                    let cartDrawerListItems = '';
+                if (
+                  (shippingBar.price_enable === 'shipping_bar_free_price' &&
+                    cart.total_price >= shippingBar.shipping_value) ||
+                  (shippingBar.price_enable === 'shipping_bar_free_qtd' &&
+                    cart.item_count >= shippingBar.shipping_quantity)
+                ) {
+                  bar.innerHTML = free_shipping_text;
+                } else if (cart.item_count > 0) {
+                  if (shippingBar.price_enable === 'shipping_bar_free_qtd') {
+                    let text_after_remain = '';
+                    remain === 1 ? (text_after_remain = ' item') : (text_after_remain = ' items');
+                    bar.innerHTML =
+                      'Only <span class="shipping-bar__discount-value">' +
+                      remain +
+                      text_after_remain +
+                      '</span> away from free shipping!';
+                  } else {
+                    bar.innerHTML =
+                      'Only<span class="shipping-bar__discount-value">' + remain + '</span> away from free shipping!';
+                  }
+                } else {
+                  bar.innerHTML =
+                    '<span class="shipping-bar__message--before">' + text_message_initial_before + '&nbsp</span>';
+                  bar.innerHTML += '<span class="shipping-bar__discount-value">' + remain + '</span>';
+                  bar.innerHTML +=
+                    '<span class="shipping-bar__message--after">' + text_message_initial_after + '</span>';
+                }
 
-                    cart.items.forEach(function(item, i){
-                        cartDrawerListItems += parent.cartLineTemplate(item, i, item.key);
-                    });
+                if (drawer_progress_bar.progress_bar) {
+                  const progressbar = document.querySelector('.progress-done');
 
-                    drawerItemsContainer.innerHTML = cartDrawerListItems;
-                },
+                  if (shippingBar.price_enable === 'shipping_bar_free_price') {
+                    const dataDoneValue = remain.replace('$', '');
+                    const dataShipping = shippingBar.shipping_value / 100;
+                    const progressbarValue = parseFloat((progress / dataShipping) * 100);
 
-                addCompareAtPrice(cart) {
-                  cart.items.forEach(function(item) {
-                    $.ajax({
-                      url: '/products/' + item.handle + '.js',
-                      dataType: 'json',
-                      async: false,
-                      success: function(product) {
-                        product.variants.forEach(function(variant) {
-                          if (variant.compare_at_price != null && variant.id == item.variant_id) {
-                            item["compare_at_price"] = variant.compare_at_price;
-                          }
-                        });
-                      } 
-                    });
+                    if (progressbar) {
+                      progressbar.setAttribute('data-done', progressbarValue);
+                    }
+                  } else {
+                    const dataDoneValue = remain;
+                    const dataShipping = shippingBar.shipping_quantity;
+
+                    if (progressbar) {
+                      progressbar.setAttribute('data-done', progress);
+                    }
+                  }
+
+                  if (progressbar) {
+                    progressbar.style.width = progressbar.getAttribute('data-done') + '%';
+                    progressbar.style.opacity = 1;
+                  }
+                }
+              });
+            }
+          },
+
+          /**
+           * Render cart items.
+           *
+           * @param {Object} cart Cart
+           */
+          renderCartItems(cart) {
+            const parent = this;
+            const drawerItemsContainer = document.querySelector(selectors.cart.listItemsContainer);
+            let cartDrawerListItems = '';
+
+            cart.items.forEach(function (item, i) {
+              cartDrawerListItems += parent.cartLineTemplate(item, i, item.key);
+            });
+
+            drawerItemsContainer.innerHTML = cartDrawerListItems;
+          },
+
+          addCompareAtPrice(cart) {
+            cart.items.forEach(function (item) {
+              $.ajax({
+                url: '/products/' + item.handle + '.js',
+                dataType: 'json',
+                async: false,
+                success: function (product) {
+                  product.variants.forEach(function (variant) {
+                    if (variant.compare_at_price != null && variant.id == item.variant_id) {
+                      item['compare_at_price'] = variant.compare_at_price;
+                    }
                   });
                 },
+              });
+            });
+          },
 
-                /**
-                * Render cart header.
-                *
-                * @param {Object} cart Cart
-                */
-                renderCartHeader(cart) {
-                    const drawerHeader = document.querySelector(selectors.cart.header);
+          /**
+           * Render cart header.
+           *
+           * @param {Object} cart Cart
+           */
+          renderCartHeader(cart) {
+            const drawerHeader = document.querySelector(selectors.cart.header);
 
-                    if (cart.item_count > 0) {
-                        drawerHeader.innerHTML = drawer_texts.not_empty_cart;
-                    } else {
-                        drawerHeader.innerHTML = drawer_texts.empty_cart;
-                    }
-                },
+            if (cart.item_count > 0) {
+              drawerHeader.innerHTML = drawer_texts.not_empty_cart;
+            } else {
+              drawerHeader.innerHTML = drawer_texts.empty_cart;
+            }
+          },
 
-                /**
+          /**
                 /**
                 * Updat Button Add To Cart
                 * @function[<updateBtnAdd>]
@@ -416,413 +431,540 @@
                 * @param{int} item_count - Quantity items
                 *
                 */
-                updateBtnAdd(item_count) {
-                    jQuery('#cart-count .header__cart__count').html(item_count);
+          updateBtnAdd(item_count) {
+            jQuery('#cart-count .header__cart__count').html(item_count);
 
-                    if (item_count > 1)
-                        jQuery('.jq_qtd_bt_proceed').html(item_count + ' Items');
-                    else
-                        jQuery('.jq_qtd_bt_proceed').html(item_count + ' Item');
-                },
+            if (item_count > 1) jQuery('.jq_qtd_bt_proceed').html(item_count + ' Items');
+            else jQuery('.jq_qtd_bt_proceed').html(item_count + ' Item');
+          },
 
-                /**
-                * Render cart total price and items.
-                *
-                * @param {Object} cart Cart
-                */
-                renderTotalPriceItems(cart) {
-                    const cartDrawerContainer = document.querySelector(selectors.cart.container);
-                    const cartCount = document.querySelector(selectors.itemsAmount);
-                    const cartTotalPrice = document.querySelector(selectors.cart.totalPrice);
+          /**
+           * Render cart total price and items.
+           *
+           * @param {Object} cart Cart
+           */
+          renderTotalPriceItems(cart) {
+            const cartDrawerContainer = document.querySelector(selectors.cart.container);
+            const cartCount = document.querySelector(selectors.itemsAmount);
+            const cartTotalPrice = document.querySelector(selectors.cart.totalPrice);
 
-                    if (cart.item_count > 0) {
-                        cartTotalPrice.innerHTML = VastaShop.formatMoney(cart.total_price);
-                        cartDrawerContainer.classList.remove('empty');
-                    } else {
-                        cartDrawerContainer.classList.add('empty');
-                    }
-
-                    cartCount.innerHTML = cart.item_count;
-                },
-
-                /**
-                * Cart Line Template
-                *
-                * Define the structure for line item from cart.
-                *
-                * @param {Object} item Line Item object Shopify
-                * @param {Number} index Line item posision into cart.
-                * @param {Number} variantID Variant ID.
-                * @return {String} Full template.
-                */
-                cartLineTemplate(item, index, variantID) {
-                    let inventory = -1;
-                    let strDisabled = '';
-                    let strDisabledMax = '';
-                    let isDiscount = '';
-
-                    if (item.total_discount > 0) {
-                      isDiscount = '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>'
-                    } else {
-                        isDiscount = '';
-                    }
-
-                    let cartItemImage = "https://cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c_100x.gif";
-                    if(item.image != null ) {
-                      item.image = item.image;
-                    }
-                    else {
-                        item.image = cartItemImage;
-                    }
-
-                    variant_title = item.variant_title != null ? item.variant_title : '';
-
-                    if (item.quantity == 1) {
-                        strDisabled = 'disabled="disabled"';
-                    }
-
-                    if (variantID == item.id) {
-                        strDisabledMax = 'disabled="disabled"';
-                    }
-
-                    if (item.variant_title) {
-                        item.variant_title = '<small class="product-variant">' + item.variant_title + '</small>';
-                    } else {
-                        item.variant_title = '';
-                    }
-
-                    return '<li class="cart-product ' + item.handle + '" id="jq-cart-item-' + item.id + '" data-variant="' + item.key + '" data-line="' + index + '">' +
-                        '<div class="cart-product-image-wrapper">' +
-                        '   <a aria-label="ImgCartDrawer-' + index + '" href="' + item.url + '" id="ImgCartDrawer-' + index + '">' +
-                        '    <img src="' + item.image + '" alt="' + item.title + '"/>' +
-                        '   </a>' +
-                        '</div>' +
-
-                        '<div class="cart-product-wrapper">' +
-                        '    <div class="product-info">' +
-                        '       <p class="title-item-cart">' +
-                        '           <a aria-label="' + item.product_title + '" href="' + item.url + '" class="title-item-cart">' + item.product_title + '</a>' +
-                        '       </p>' +
-                        item.variant_title +
-                        this.printPropertie(item) +
-                        '       <div class="cart-product-btn-wrapper">' +
-                        '               <button type="button" aria-label="IconMinus-' + index + '" id="IconMinus-' + index + '" class="btn-minus-' + item.variant_id + ' btn icon-minus btn-minus js-cart__btn--minus" name=' + item.id + ' ' + strDisabled + '></button>' +
-                        '               <input aria-label="InputQtd-' + index + '" id="InputQtd-' + index + '" class="jq-input-qtd-' + item.id + ' input-qtd" name="quantity" min="1" data-variant-id="' + item.variant_id + '" data-max="' + inventory + '" value="' + item.quantity + '" type="number">' +
-                        '               <button type="button" aria-label="IconPlus-' + index + '" id="IconPlus-' + index + '" class="btn-plus-' + item.variant_id + ' btn icon-plus btn-plus js-cart__btn--plus" name=' + item.id + ' ' + strDisabledMax + '>' +
-                        '               <span  class="max-msg">Maximum Quantity Available In Stock</span></button>' +
-                        '       </div>' +
-                        '   </div>' +
-                        '   <div class="product-price">' +
-                                this.printCompareAtPrice(item) +
-                        '       <strong class="price money"  id="jq-cart-item-price-' + item.id + '-' + index + '">' + VastaShop.formatMoney(item.line_price) + '</strong>' +
-                        '       <button type="button" aria-label="remove-cart" id="bt-remove-cart-'+ index + '" class="js-cart__btn--remove bt-remove-cart" name=' + item.id + '>Remove <span class="spinner__wrapper"><span class="spinner"></span></span></button>' +
-                        '   </div>' +
-                        '</div>' +
-                        '</li>';
-                },
-
-                /**
-                * Define the structure for property from each cart item.
-                */
-                printPropertie(item) {
-                    const all_properties = [];
-
-                    for (var property in item.properties) {
-                        if (property[0] != '_') {
-                            all_properties.push(property.replace(/_/gi, ' ') + ': ' + item.properties[property]);
-                        }
-                    }
-
-                    return '<small class="product-variant">' + all_properties.join('</small><small class="product-variant">') + '</small>';
-                },
-
-                printCompareAtPrice(item) {
-                  let content = '';
-                  if(item.compare_at_price) {
-                    if(item.compare_at_price > item.price && item.total_discount == 0) {
-                      content += '<strong class="compare-price">' + VastaShop.formatMoney(item.compare_at_price * item.quantity) + '</strong>';
-
-                      if("{{ settings.cart_discount }}" != "none" ) {
-                        content += '<div class="discount-price__wrapper">-&nbsp;';
-                        if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                          content += '<span class="price amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.compare_at_price * item.quantity - item.line_price ) + '</span>&nbsp;';
-                        }
-
-                        if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                          const percentage = ((item.compare_at_price * item.quantity - item.line_price) / (item.compare_at_price * item.quantity) * 100).toFixed(2);
-                          content += '<span class="price percentage_discount discount-price" id="jq-cart-item-discount">(' + percentage + '%)</span>';
-                        }
-                        content += '</div>';
-                      }
-                    }
-                  }
-
-                  if(item.total_discount > 0) {
-                    content += '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>';
-
-                    if("{{ settings.cart_discount }}" != "none" ) {
-                      content += '<div class="discount-price__wrapper">-&nbsp;';
-                      if("{{settings.cart_discount}}" == "discount_amount" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                        content += '<span class="price amount_discount discount-price" id="jq-cart-item-discount">' + VastaShop.formatMoney(item.total_discount) + '</span>&nbsp;';
-                      }
-
-                      if("{{settings.cart_discount}}" == "discount_percentage" || "{{settings.cart_discount}}" == "discount_amount_percentage") {
-                        const percentage = (item.total_discount / item.original_line_price * 100).toFixed(2);
-                        content += '<span class="price percentage_discount discount-price" id="jq-cart-item-discount">(' + percentage + '%)</span>';
-                      }
-                      content += '</div>';
-                    }
-                  }                  
-                  return content; 
-                }
-            },
-
-            form: {
-                /**
-                * Method for set width for ATC progress bar.
-                *
-                * @param {Number} progress Actual status for the progress.
-                * @param {Boolean} hide Show/Hide the progress bar on finish activity.
-                */
-                setProgress(progress, hide = false){
-                    const progressBar = document.querySelectorAll('.btn-add-tocart .btn-progress');
-
-                    progressBar.forEach(function(bar) {
-                        bar.style.opacity = '1';
-                        bar.style.width = progress + '%';
-                    });
-
-                    if (hide) {
-                        setTimeout(function(){
-                            progressBar.forEach(function(bar) {
-                                bar.style.opacity = '0';
-                                bar.style.width = 0;
-                            });
-                        }, 200)
-                    }
-                }
+            if (cart.item_count > 0) {
+              cartTotalPrice.innerHTML = VastaShop.formatMoney(cart.total_price);
+              cartDrawerContainer.classList.remove('empty');
+            } else {
+              cartDrawerContainer.classList.add('empty');
             }
-        };
 
-        methods.cart.getCart().then(function(cart){
-          methods.cart.updateShippingBar(cart);
+            cartCount.innerHTML = cart.item_count;
+          },
+
+          /**
+           * Cart Line Template
+           *
+           * Define the structure for line item from cart.
+           *
+           * @param {Object} item Line Item object Shopify
+           * @param {Number} index Line item posision into cart.
+           * @param {Number} variantID Variant ID.
+           * @return {String} Full template.
+           */
+          cartLineTemplate(item, index, variantID) {
+            let inventory = -1;
+            let strDisabled = '';
+            let strDisabledMax = '';
+            let isDiscount = '';
+
+            if (item.total_discount > 0) {
+              isDiscount =
+                '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>';
+            } else {
+              isDiscount = '';
+            }
+
+            let cartItemImage =
+              'https://cdn.shopify.com/shopifycloud/shopify/assets/no-image-2048-5e88c1b20e087fb7bbe9a3771824e743c244f437e4f8ba93bbf7b11b53f7824c_100x.gif';
+            if (item.image != null) {
+              item.image = item.image;
+            } else {
+              item.image = cartItemImage;
+            }
+
+            variant_title = item.variant_title != null ? item.variant_title : '';
+
+            if (item.quantity == 1) {
+              strDisabled = 'disabled="disabled"';
+            }
+
+            if (variantID == item.id) {
+              strDisabledMax = 'disabled="disabled"';
+            }
+
+            if (item.variant_title) {
+              item.variant_title = '<small class="product-variant">' + item.variant_title + '</small>';
+            } else {
+              item.variant_title = '';
+            }
+
+            return (
+              '<li class="cart-product ' +
+              item.handle +
+              '" id="jq-cart-item-' +
+              item.id +
+              '" data-variant="' +
+              item.key +
+              '" data-line="' +
+              index +
+              '">' +
+              '<div class="cart-product-image-wrapper">' +
+              '   <a aria-label="ImgCartDrawer-' +
+              index +
+              '" href="' +
+              item.url +
+              '" id="ImgCartDrawer-' +
+              index +
+              '">' +
+              '    <img src="' +
+              item.image +
+              '" alt="' +
+              item.title +
+              '"/>' +
+              '   </a>' +
+              '</div>' +
+              '<div class="cart-product-wrapper">' +
+              '    <div class="product-info">' +
+              '       <p class="title-item-cart">' +
+              '           <a aria-label="' +
+              item.product_title +
+              '" href="' +
+              item.url +
+              '" class="title-item-cart">' +
+              item.product_title +
+              '</a>' +
+              '       </p>' +
+              item.variant_title +
+              this.printPropertie(item) +
+              '       <div class="cart-product-btn-wrapper">' +
+              '               <button type="button" aria-label="IconMinus-' +
+              index +
+              '" id="IconMinus-' +
+              index +
+              '" class="btn-minus-' +
+              item.variant_id +
+              ' btn icon-minus btn-minus js-cart__btn--minus" name=' +
+              item.id +
+              ' ' +
+              strDisabled +
+              '></button>' +
+              '               <input aria-label="InputQtd-' +
+              index +
+              '" id="InputQtd-' +
+              index +
+              '" class="jq-input-qtd-' +
+              item.id +
+              ' input-qtd" name="quantity" min="1" data-variant-id="' +
+              item.variant_id +
+              '" data-max="' +
+              inventory +
+              '" value="' +
+              item.quantity +
+              '" type="number">' +
+              '               <button type="button" aria-label="IconPlus-' +
+              index +
+              '" id="IconPlus-' +
+              index +
+              '" class="btn-plus-' +
+              item.variant_id +
+              ' btn icon-plus btn-plus js-cart__btn--plus" name=' +
+              item.id +
+              ' ' +
+              strDisabledMax +
+              '>' +
+              '               <span  class="max-msg">Maximum Quantity Available In Stock</span></button>' +
+              '       </div>' +
+              '   </div>' +
+              '   <div class="product-price">' +
+              this.printCompareAtPrice(item) +
+              '       <strong class="price money"  id="jq-cart-item-price-' +
+              item.id +
+              '-' +
+              index +
+              '">' +
+              VastaShop.formatMoney(item.line_price) +
+              '</strong>' +
+              '       <button type="button" aria-label="remove-cart" id="bt-remove-cart-' +
+              index +
+              '" class="js-cart__btn--remove bt-remove-cart" name=' +
+              item.id +
+              '>Remove <span class="spinner__wrapper"><span class="spinner"></span></span></button>' +
+              '   </div>' +
+              '</div>' +
+              '</li>'
+            );
+          },
+
+          /**
+           * Define the structure for property from each cart item.
+           */
+          printPropertie(item) {
+            const all_properties = [];
+
+            for (var property in item.properties) {
+              if (property[0] != '_') {
+                all_properties.push(property.replace(/_/gi, ' ') + ': ' + item.properties[property]);
+              }
+            }
+
+            return (
+              '<small class="product-variant">' +
+              all_properties.join('</small><small class="product-variant">') +
+              '</small>'
+            );
+          },
+
+          printCompareAtPrice(item) {
+            let content = '';
+            if (item.compare_at_price > item.price && item.total_discount == 0) {
+              content += '<div class="discount-price__wrapper">';
+              content +=
+                '<strong class="compare-price">' +
+                VastaShop.formatMoney(item.compare_at_price * item.quantity) +
+                '</strong>';
+
+              if ('{{ settings.cart_discount }}' != 'none') {
+                content += '<div class="price-discount">&lpar;';
+                if (
+                  '{{settings.cart_discount}}' == 'discount_amount' ||
+                  '{{settings.cart_discount}}' == 'discount_amount_percentage'
+                ) {
+                  content +=
+                    '<span class="amount_discount discount-price" id="jq-cart-item-discount">' +
+                    VastaShop.formatMoney(item.compare_at_price * item.quantity - item.line_price) +
+                    '</span>';
+                }
+
+                if ('{{ settings.cart_discount}}' == 'discount_amount_percentage') {
+                  content += '<span>,</span>&nbsp;';
+                }
+
+                if (
+                  '{{settings.cart_discount}}' == 'discount_percentage' ||
+                  '{{settings.cart_discount}}' == 'discount_amount_percentage'
+                ) {
+                  const percentage = (
+                    ((item.compare_at_price * item.quantity - item.line_price) /
+                      (item.compare_at_price * item.quantity)) *
+                    100
+                  ).toFixed(2);
+                  content +=
+                    '<span class="percentage_discount discount-price" id="jq-cart-item-discount">' +
+                    percentage +
+                    '%</span>';
+                }
+                content += '<span>&nbsp;OFF&rpar;</span>';
+                content += '</div>';
+              }
+              content += '</div>';
+            }
+
+            if (item.total_discount > 0) {
+              content += '<div class="discount-price__wrapper">';
+              content +=
+                '<strong class="compare-price">' + VastaShop.formatMoney(item.price * item.quantity) + '</strong>';
+              if ('{{ settings.cart_discount }}' != 'none') {
+                content += '<div class="price-discount">&lpar;';
+                if (
+                  '{{settings.cart_discount}}' == 'discount_amount' ||
+                  '{{settings.cart_discount}}' == 'discount_amount_percentage'
+                ) {
+                  content +=
+                    '<span class="amount_discount discount-price" id="jq-cart-item-discount">' +
+                    VastaShop.formatMoney(item.total_discount) +
+                    '</span>';
+                }
+
+                if ('{{ settings.cart_discount}}' == 'discount_amount_percentage') {
+                  content += '<span>,</span>&nbsp;';
+                }
+
+                if (
+                  '{{settings.cart_discount}}' == 'discount_percentage' ||
+                  '{{settings.cart_discount}}' == 'discount_amount_percentage'
+                ) {
+                  const percentage = ((item.total_discount / item.original_line_price) * 100).toFixed(2);
+                  content +=
+                    '<span class="percentage_discount discount-price" id="jq-cart-item-discount">' +
+                    percentage +
+                    '%</span>';
+                }
+                content += '<span>&nbsp;OFF&rpar;</span>';
+                content += '</div>';
+              }
+              content += '</div>';
+            }
+            return content;
+          },
+        },
+
+        form: {
+          /**
+           * Method for set width for ATC progress bar.
+           *
+           * @param {Number} progress Actual status for the progress.
+           * @param {Boolean} hide Show/Hide the progress bar on finish activity.
+           */
+          setProgress(progress, hide = false) {
+            const progressBar = document.querySelectorAll('.btn-add-tocart .btn-progress');
+
+            progressBar.forEach(function (bar) {
+              bar.style.opacity = '1';
+              bar.style.width = progress + '%';
+            });
+
+            if (hide) {
+              setTimeout(function () {
+                progressBar.forEach(function (bar) {
+                  bar.style.opacity = '0';
+                  bar.style.width = 0;
+                });
+              }, 200);
+            }
+          },
+        },
+      };
+
+      methods.cart.getCart().then(function (cart) {
+        methods.cart.updateShippingBar(cart);
+      });
+
+      function on(event, selector, callback) {
+        try {
+          if (typeof selector === 'string') {
+            const elems = document.querySelectorAll(selector);
+
+            elems.forEach(function (el) {
+              el.addEventListener(
+                event,
+                function (e) {
+                  if (callback.call(this, e) === false) {
+                    e.preventDefault();
+                  }
+                },
+                false
+              );
+            });
+          } else {
+            selector.addEventListener(
+              event,
+              function (e) {
+                if (callback.call(this, e) === false) {
+                  e.preventDefault();
+                }
+              },
+              false
+            );
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      }
+
+      /**
+       * Open Cart Drawer
+       */
+      on('click', selectors.openDrawer, function () {
+        methods.cart.getCart().then(function (cart) {
+          methods.cart.buildCart(cart);
+          body.classList.add('cart-drawer-open', 'cart-open');
         });
 
-        function on(event, selector, callback) {
-            try {
-                if (typeof selector === 'string') {
-                    const elems = document.querySelectorAll(selector);
+        return false;
+      });
 
-                    elems.forEach(function(el) {
-                        el.addEventListener(event, function(e) {
-                            if (callback.call(this, e) === false) {
-                                e.preventDefault();
-                            }
-                        }, false);
+      on('click', document, function (e) {
+        try {
+          const el = e.target;
+          const container = el.closest(selectors.cart.lineItem);
+          let runUpdate = false;
+
+          if (container) {
+            let quantity;
+            const key = container.dataset.variant;
+            const line = container.dataset.line;
+            const variant = methods.cart.searchVariant(Cart, key, 'key');
+
+            if (variant) {
+              if (el.classList.contains(selectors.minusItem.replace(/^\./, ''))) {
+                quantity = variant.quantity - 1;
+                runUpdate = true;
+              } else if (el.classList.contains(selectors.plusItem.replace(/^\./, ''))) {
+                quantity = variant.quantity + 1;
+                runUpdate = true;
+              } else if (el.classList.contains(selectors.removeItem.replace(/^\./, ''))) {
+                el.classList.add('cart__btn--removing');
+                quantity = 0;
+                runUpdate = true;
+              }
+
+              if (runUpdate) {
+                const data = {
+                  id: key,
+                  line: parseInt(line) + 1,
+                  quantity: parseInt(quantity),
+                };
+
+                methods.cart
+                  .change(data)
+                  .then(function (cart) {
+                    methods.cart.buildCart(cart);
+
+                    let updatedItem = cart.items.filter(function (item) {
+                      return item.key === key;
                     });
-                } else {
-                    selector.addEventListener(event, function(e) {
-                        if (callback.call(this, e) === false) {
-                            e.preventDefault();
-                        }
-                    }, false);
-                }
-            } catch (e) {
-                console.error(e);
+
+                    if (updatedItem.length > 0) {
+                      updatedItem = updatedItem[0];
+
+                      const lineItem = document.querySelector('[data-variant="' + updatedItem.key + '"]');
+
+                      if (lineItem && updatedItem.quantity == quantity - 1) {
+                        lineItem.classList.add('cart-product--max-items');
+                        el.disabled = true;
+                      }
+                    }
+                  })
+                  .catch(function (e) {
+                    console.error(e);
+                  });
+
+                runUpdate = false;
+              }
             }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      });
+
+      on('keyup', document, function (e) {
+        try {
+          const el = e.target;
+          const container = el.closest(selectors.cart.lineItem);
+          let runUpdate = false;
+
+          if (container) {
+            let quantity;
+            const key = container.dataset.variant;
+            const line = container.dataset.line;
+            const variant = methods.cart.searchVariant(Cart, key, 'key');
+
+            if (variant) {
+              if (el.classList.contains(selectors.inputQtdy.replace(/^\./, ''))) {
+                el.value = parseInt(el.value) || 1;
+                quantity = Math.max(el.value, 1);
+                runUpdate = true;
+
+                if (runUpdate) {
+                  const data = {
+                    id: key,
+                    line: parseInt(line) + 1,
+                    quantity: parseInt(quantity),
+                  };
+
+                  methods.cart
+                    .change(data)
+                    .then(function (cart) {
+                      methods.cart.buildCart(cart);
+                    })
+                    .catch(function (e) {
+                      console.error(e);
+                    });
+
+                  runUpdate = false;
+                }
+              }
+            }
+          }
+        } catch (e) {
+          console.error(e);
+        }
+      });
+
+      /**
+       * Close Cart Drawer
+       **/
+      on('click', selectors.closeDrawer, function () {
+        body.classList.remove('cart-drawer-open', 'cart-open');
+
+        return false;
+      });
+
+      /**
+       * Add Item to Cart
+       */
+      on('submit', selectors.ATCForm, function () {
+        const query = new URLSearchParams(new FormData(this)).toString();
+        const data = new FormData(this);
+        const atcError = document.querySelector('#add-to-cart-error');
+
+        if (atcError) {
+          atcError.innerHTML = '';
+          atcError.classList.add('hide');
         }
 
-        /**
-        * Open Cart Drawer
-        */
-        on('click', selectors.openDrawer, function() {
-            methods.cart.getCart().then(function(cart) {
-                methods.cart.buildCart(cart);
-                body.classList.add('cart-drawer-open', 'cart-open');
-            });
+        methods.form.setProgress(25);
 
-            return false;
-        });
-
-        on('click', document, function(e) {
+        methods.cart
+          .addItem(query)
+          .then(async function (response) {
             try {
-                const el = e.target;
-                const container = el.closest(selectors.cart.lineItem);
-                let runUpdate = false;
+              methods.form.setProgress(100, true);
 
-                if (container) {
-                    let quantity;
-                    const key = container.dataset.variant;
-                    const line = container.dataset.line;
-                    const variant = methods.cart.searchVariant(Cart, key, 'key');
+              if (response.status === 422 && atcError) {
+                atcError.innerHTML = "This variant can't be added anymore";
+                atcError.classList.remove('hide');
 
-                    if (variant) {
-                        if (el.classList.contains(selectors.minusItem.replace(/^\./, ''))) {
-                            quantity = variant.quantity - 1;
-                            runUpdate = true;
-                        } else if (el.classList.contains(selectors.plusItem.replace(/^\./, ''))) {
-                            quantity = variant.quantity + 1;
-                            runUpdate = true;
-                        } else if (el.classList.contains(selectors.removeItem.replace(/^\./, ''))) {
-                            el.classList.add('cart__btn--removing');
-                            quantity = 0;
-                            runUpdate = true;
-                        }
+                return;
+              } else if (response.status === 400) {
+                console.log(response);
+              }
 
-                        if (runUpdate) {
-                            const data = {
-                                id: key,
-                                line: parseInt(line) + 1,
-                                quantity: parseInt(quantity)
-                            };
+              const cart = await methods.cart.getCart();
 
-                            methods.cart.change(data).then(function(cart) {
-                                methods.cart.buildCart(cart);
-
-                                let updatedItem = cart.items.filter(function(item){
-                                  return item.key === key;
-                                });
-
-                                if (updatedItem.length > 0) {
-                                  updatedItem = updatedItem[0];
-
-                                  const lineItem = document.querySelector('[data-variant="' + updatedItem.key + '"]');
-
-                                  if (lineItem && updatedItem.quantity == (quantity - 1)) {
-                                    lineItem.classList.add('cart-product--max-items');
-                                    el.disabled = true;
-                                  }
-                                }
-                            }).catch(function(e) {
-                                console.error(e);
-                            });
-
-                            runUpdate = false;
-                        }
-                    }
-                }
+              methods.cart.buildCart(cart);
+              body.classList.add('cart-drawer-open', 'cart-open');
             } catch (e) {
-                console.error(e);
+              console.error('[CART ERROR]', e);
             }
-        });
+          })
+          .catch(function (e) {
+            methods.form.setProgress(100, true);
 
-        on('keyup', document, function(e){
-            try {
-                const el = e.target;
-                const container = el.closest(selectors.cart.lineItem);
-                let runUpdate = false;
-
-                if (container) {
-                    let quantity;
-                    const key = container.dataset.variant;
-                    const line = container.dataset.line;
-                    const variant = methods.cart.searchVariant(Cart, key, 'key');
-
-                    if (variant) {
-                        if (el.classList.contains(selectors.inputQtdy.replace(/^\./, ''))) {
-                            el.value = parseInt(el.value) || 1;
-                            quantity = Math.max(el.value, 1);
-                            runUpdate = true;
-
-                            if (runUpdate) {
-                                const data = {
-                                    id: key,
-                                    line: parseInt(line) + 1,
-                                    quantity: parseInt(quantity)
-                                };
-
-                                methods.cart.change(data).then(function(cart) {
-                                    methods.cart.buildCart(cart);
-                                }).catch(function(e) {
-                                    console.error(e);
-                                });
-
-                                runUpdate = false;
-                            }
-                        }
-                    }
-                }
-            } catch (e) {
-                console.error(e);
-            }
-        });
-
-        /**
-        * Close Cart Drawer
-        **/
-        on('click', selectors.closeDrawer, function() {
-            body.classList.remove('cart-drawer-open', 'cart-open');
-
-            return false;
-        });
-
-        /**
-        * Add Item to Cart
-        */
-        on('submit', selectors.ATCForm, function() {
-            const query = new URLSearchParams(new FormData(this)).toString();
-            const data = new FormData(this);
-            const atcError = document.querySelector('#add-to-cart-error');
-
-            if (atcError) {
-              atcError.innerHTML = "";
-              atcError.classList.add('hide');
+            if (e.status === 422) {
+              atcError.innerHTML = "This variant can't be added anymore";
+              atcError.classList.remove('hide');
+              return;
             }
 
-            methods.form.setProgress(25);
+            console.error('[ADD ITEM ERROR]', e);
+          });
 
-            methods.cart.addItem(query).then(async function(response) {
-                try {
-                  methods.form.setProgress(100, true);
+        return false;
+      });
 
-                  if (response.status === 422 && atcError) {
-                    atcError.innerHTML = "This variant can't be added anymore";
-                    atcError.classList.remove('hide');
+      on('shopify:section:select', document, async function (e) {
+        const sectionId = e.detail.sectionId || null;
 
-                    return;
-                  } else if (response.status === 400) {
-                    console.log(response);
-                  }
-
-                  const cart = await methods.cart.getCart();
-
-                  methods.cart.buildCart(cart);
-                  body.classList.add('cart-drawer-open', 'cart-open');
-                } catch (e) {
-                    console.error('[CART ERROR]', e);
-                }
-            }).catch(function(e) {
-                methods.form.setProgress(100, true);
-
-                if (e.status === 422) {
-                  atcError.innerHTML = "This variant can't be added anymore";
-                  atcError.classList.remove('hide');
-                  return;
-                }
-
-                console.error('[ADD ITEM ERROR]', e);
-            });
-
-            return false;
-        });
-
-        on('shopify:section:select', document, async function(e){
-          const sectionId = e.detail.sectionId || null;
-
-          if (sectionId && sectionId === 'cart-drawer') {
-            let cart = await methods.cart.getCart();
-            methods.cart.buildCart(cart);
-          }
-        });
-        return methods.cart;
+        if (sectionId && sectionId === 'cart-drawer') {
+          let cart = await methods.cart.getCart();
+          methods.cart.buildCart(cart);
+        }
+      });
+      return methods.cart;
     })(window, cartDrawerSettings);
   });
-  </script>
-  
-  {%- endcapture -%}
+</script>
 
-  {%- capture cart_drawer_style -%}
-  <style scoped data-vasta>
+<style scoped>
     {%- if settings.enable_cart_property == false -%}
       .cart-drawer .product-variant {
         display: none !important;
@@ -1288,15 +1430,15 @@
         border-bottom: 1px solid #dddcdc;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper {
-        width: 100%;
         padding: 8px 0 10px 0;
         display: flex;
         align-items: flex-start;
         justify-content: space-between;
         width: -webkit-fill-available;
+        gap: 5px;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
-        width: auto;
+        width: 75%;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .free-shipping-message, .cart-products-wrapper .cart-product .cart-product-wrapper .price, .cart-products-wrapper .cart-product .cart-product-wrapper .title-item-cart {
         font-weight: 700;
@@ -1590,12 +1732,11 @@
         margin: 20px 10px;
   }
     .cart-container .product-content .product-price {
-        font-weight: 600;
         color: var(--color-price-cartDrawer, #b22222);
         text-align: center;
-        margin-left: 10px;
         display: flex;
-        flex-direction: column;    
+        flex-direction: column;
+        align-items: flex-end;
   }
     .cart-container .total-price {
         text-align: center;
@@ -1770,17 +1911,6 @@
     .cart-products-wrapper .cart-product {
         display: flex;
         border-bottom: 1px solid #dddcdc;
-  }
-    .cart-products-wrapper .cart-product .cart-product-wrapper {
-        width: 100%;
-        padding: 8px 0 13px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        width: -webkit-fill-available;
-  }
-    .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
-        width: auto;
   }
     .cart-products-wrapper .cart-product .cart-product-wrapper .title-item-cart {
         font-weight: 700;
@@ -1993,20 +2123,13 @@
         padding: 10px 5px;
         margin: 20px 10px;
   }
-    .cart-container .product-content .product-price {
-        font-weight: 600;
-        color: var(--color-price-cartDrawer, #b22222);
-        text-align: center;
-        margin: 0 0 0 13px;
-        display: flex;
-        flex-direction: column;
-  }
   .cart-product .cart-product-wrapper .product-price .compare-price {
     color: var(--color-sale);
-    font-size: 12px;
+    font-size: 14px;
     text-decoration: line-through;
     font-weight: 400;
     text-align: right;
+    width: auto;
   }
     .cart-container .cart-bottom .paypal {
         text-align: center;
@@ -2188,9 +2311,6 @@
   }
     .template-cart .main-content .btn-wrapper.btn-wrapper-2 form p {
         font-size: 17px;
-  }
-    .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper .product-info {
-        width: 90%;
   }
     .template-cart .main-content .cart-products-wrapper .cart-product .cart-product-wrapper small.product-variant {
         font-weight: 100;
@@ -2556,8 +2676,13 @@
     .cart-products-wrapper .cart-product .cart-product-wrapper .title-item-cart {
         font-size: 17px;
   }
-    .main-content .cart-product-wrapper .product-price .price.discount-price,
-    .main-content .cart-product-wrapper .product-price .discount-price__wrapper {
+  .price-discount {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+    .main-content .cart-product-wrapper .price-discount {
         font-size: 12px;
         color: var(--color-product-discount);
   }
@@ -2593,6 +2718,19 @@
       }
   }
     @media (max-width: 767px) {
+      .main-content .cart-product-wrapper .price-discount {
+        font-size: 11px;
+      }
+      .cart-products-wrapper .cart-product .cart-product-wrapper .js-cart__btn--remove {
+        font-size: 10px;
+      }
+      .discount-price__wrapper {
+        flex-wrap: wrap;
+      }
+      .discount-price__wrapper .compare-price,
+      .discount-price__wrapper .price-discount {
+        width: 100%;
+      }
         .template-cart .header-cart-wrapper {
             padding-top: 8px;
             padding-bottom: 10px;
@@ -2626,11 +2764,6 @@
       }
         .template-cart .main-content .btn-wrapper.btn-wrapper-2 .pull-right.cart-total-bottom {
             text-align: center;
-      }
-        .template-cart .main-content .product-price {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
       }
         .template-cart .main-content p.text_botom_button {
             width: 100%;
@@ -2924,11 +3057,7 @@
           margin-top: 2px;
       }
     }
-  </style>
-{%- endcapture -%}
-{{- cart_drawer_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- cart_drawer_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- cart_drawer_content -}}
+</style>
 
 {% schema %}
 {

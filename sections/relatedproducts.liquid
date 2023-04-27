@@ -1,5 +1,4 @@
 <!-- start relatedproducts.liquid (SECTION) -->
-{%- capture related_products_content -%}
 {%- unless settings.product_disabled_other_fine_products_section -%}
   {%- assign number_of_related_products_per_row = 4 -%}
   {%- assign number_of_rows = 1 -%}
@@ -15,17 +14,17 @@
   {%- assign found_a_collection = false -%}
   {%- if collection and collection.all_products_count > 1 -%}
     {%- unless exclusions contains collection.handle -%}
-        {%- assign found_a_collection = true -%}
+      {%- assign found_a_collection = true -%}
     {%- endunless -%}
   {%- endif -%}
 
   {%- unless found_a_collection -%}
     {%- for c in product.collections -%}
-        {%- unless exclusions contains c.handle or c.all_products_count < 2 -%}
-          {%- assign found_a_collection = true -%}
-          {%- assign collection = c -%}
-          {%- break -%}
-        {%- endunless -%}
+      {%- unless exclusions contains c.handle or c.all_products_count < 2 -%}
+        {%- assign found_a_collection = true -%}
+        {%- assign collection = c -%}
+        {%- break -%}
+      {%- endunless -%}
     {%- endfor -%}
   {%- endunless -%}
 
@@ -33,21 +32,21 @@
     <div class="relate-content">
       <div class="wrapper">
         <div class="grid__item">
-        {%- unless heading == blank -%}
+          {%- unless heading == blank -%}
             <header class="section-header">
               <h2 class="reviewtitle section-title section-header__title" id="related_product">{{ heading }}</h2>
             </header>
-        {%- endunless -%}
+          {%- endunless -%}
 
-        {%- assign counter = 0 -%}
-        {%- assign break_at = number_of_rows | times: number_of_related_products_per_row -%}
-        {%- assign current_product = product -%}
+          {%- assign counter = 0 -%}
+          {%- assign break_at = number_of_rows | times: number_of_related_products_per_row -%}
+          {%- assign current_product = product -%}
 
-        {%- if section.settings.number_of_related_products_per_row == '2' -%}
-          {%- assign col_width = 'half' -%}
-          {%- assign width_large = 550 -%}
-          {%- assign width_mobile = 46 -%}
-          {%- assign width_desk = 45 -%}
+          {%- if section.settings.number_of_related_products_per_row == '2' -%}
+            {%- assign col_width = 'half' -%}
+            {%- assign width_large = 550 -%}
+            {%- assign width_mobile = 46 -%}
+            {%- assign width_desk = 45 -%}
 
           {%- elsif section.settings.number_of_related_products_per_row == '3' -%}
             {%- assign col_width = 'third' -%}
@@ -59,7 +58,7 @@
             {%- assign width_large = 300 -%}
             {%- assign width_mobile = 45 -%}
             {%- assign width_desk = 20 -%}
-        {%- endif -%}
+          {%- endif -%}
           <div class="grid-uniform grid-uniform--s4">
             {%- for product in collection.products -%}
               {%- unless product.handle == current_product.handle -%}
@@ -79,7 +78,8 @@
                         width_desk: width_desk,
                         show_reviews: settings.feat_prod_enabled_app_reviews,
                         show_price: section.settings.show_price,
-                        style: "opacity:1;visibility:visible;" -%}
+                        style: 'opacity:1;visibility:visible;'
+                      -%}
                       {%- assign counter = counter | plus: 1 -%}
                     {%- endif -%}
                     {%- if counter == break_at -%}
@@ -95,39 +95,31 @@
     </div>
   {%- endif -%}
 {% endunless %}
-{%- endcapture -%}
+<style scoped>
+    #shopify-section-{{ section.id }} {
+      {% if section.settings.enable_custom_margins_paddings %}
+        margin-top: {{ section.settings.custom-margin-top }}px;
+        margin-bottom: {{ section.settings.custom-margin-bottom }}px;
+        padding-top: {{ section.settings.custom-padding-top }}px;
+        padding-bottom: {{ section.settings.custom-padding-bottom }}px;
+      {% else %}
+        margin: 20px 0;
+      {% endif %}
+    }
 
-{%- capture related_products_style -%}
-<style scoped data-vasta>
-
-  #shopify-section-{{ section.id }} {
-    {% if section.settings.enable_custom_margins_paddings %}
-      margin-top: {{ section.settings.custom-margin-top }}px;
-      margin-bottom: {{ section.settings.custom-margin-bottom }}px;
-      padding-top: {{ section.settings.custom-padding-top }}px;
-      padding-bottom: {{ section.settings.custom-padding-bottom }}px;
-    {% else %}
-      margin: 20px 0;
-    {% endif %}
+  {% assign capitalization = section.settings.enable_uppercase %}
+    #related_product {
+    text-transform: {{ capitalization }};
   }
 
-{% assign capitalization = section.settings.enable_uppercase %}
-  #related_product {
-  text-transform: {{ capitalization }};
-}
+  .section-related-products .product-title.{{ section.settings.text_transform_products_title }} p {
+    text-transform: {{ section.settings.text_transform_products_title }};
+  }
 
-.section-related-products .product-title.{{ section.settings.text_transform_products_title }} p {
-  text-transform: {{ section.settings.text_transform_products_title }};
-}
-
-.related_product .reviewtitle.section-title.section-header__title {
-	text-transform: unset;
-}
+  .related_product .reviewtitle.section-title.section-header__title {
+  	text-transform: unset;
+  }
 </style>
-{%- endcapture -%}
-{{- related_products_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- related_products_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- related_products_content -}}
 {% schema %}
 {
   "name": "Related Products",
@@ -135,7 +127,13 @@
   "settings": [
     {
       "type": "header",
-      "content": "Custom Margins and Paddings"
+      "content": "General Settings"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom Class",
+      "info": "Custom class to apply css styles for specific sections"
     },
     {
       "type": "checkbox",

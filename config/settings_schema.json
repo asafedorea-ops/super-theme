@@ -191,30 +191,7 @@
       {
         "type": "header",
         "content": "SEARCH SUGGESTIONS"
-      },
-      {
-        "type": "select",
-        "id": "enable_products_pages_article",
-        "label": "Search Terms",
-        "options": [
-          {
-            "value": "",
-            "label": "Products"
-          },
-          {
-            "value": "article,page",
-            "label": "All"
-          },
-          {
-            "value": "article",
-            "label": "Products and Articles"
-          },
-          {
-            "value": "page",
-            "label": "Products and Pages"
-          }
-        ]
-      },
+      },      
       {
         "type": "checkbox",
         "id": "enable_search_suggestions",
@@ -241,6 +218,46 @@
       },
       {
         "type": "select",
+        "id": "title_text_transform_search_suggestion",
+        "label": "Title Text Transform",
+        "default": "uppercase",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "capitalize"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "results_title_text_transform_search_suggestion",
+        "label": "Results Title Text Transform",
+        "default": "capitalize",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "capitalize"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ]
+      },
+      {
+        "type": "select",
         "id": "products_per_search",
         "label": "Number of Products to Show",
         "default": "6",
@@ -256,6 +273,33 @@
           {
             "value": "12",
             "label": "12 Products"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "SEARCH PAGE"
+      },
+      {
+        "type": "select",
+        "id": "enable_products_pages_article",
+        "label": "Results To Display On The Search Page",
+        "options": [
+          {
+            "value": "",
+            "label": "Products"
+          },
+          {
+            "value": "article,page",
+            "label": "All"
+          },
+          {
+            "value": "article",
+            "label": "Products And Articles"
+          },
+          {
+            "value": "page",
+            "label": "Products And Pages"
           }
         ]
       },
@@ -1412,6 +1456,7 @@
         "id": "select_position_thumbnails",
         "label": "Position Thumbnails Images",
         "default": "below",
+        "info": "Only Desktop Version",
         "options": [
           {
             "value": "below",

@@ -1,7 +1,6 @@
 '
 <!-- start list-collections-template.liquid (SECTION) -->
 
-{%- capture list_collection_content -%}
 {%- assign floating_items_class = '' -%}
 
 {%- if section.settings.product_title_position == 'center' -%}
@@ -31,7 +30,7 @@
 
   {%- if settings.enable_breadcrumbs_list and settings.breadcrumb_position == 'below' -%}
     <div class="breadcrumb-wrapper">
-        {%- render 'breadcrumb' -%}
+      {%- render 'breadcrumb' -%}
     </div>
   {%- endif -%}
 </div>
@@ -42,7 +41,7 @@
       {%- assign collections_handles = collections_handles | split: ',' -%}
       {%- for collection in collections -%}
         {%- assign enabled_filter = section.settings.enable_custom_list_collections -%}
-        {%- if enabled_filter == "remove" -%}
+        {%- if enabled_filter == 'remove' -%}
           {%- assign show_item = true -%}
           {%- for handle in collections_handles -%}
             {%- if handle == collection.handle -%}
@@ -51,37 +50,44 @@
           {%- endfor -%}
         {%- else -%}
           {%- assign show_item = false -%}
-            {%- for handle in collections_handles -%}
-              {%- if handle == collection.handle -%}
-                {%- assign show_item = true -%}
-              {%- endif -%}
-            {%- endfor -%}
+          {%- for handle in collections_handles -%}
+            {%- if handle == collection.handle -%}
+              {%- assign show_item = true -%}
+            {%- endif -%}
+          {%- endfor -%}
         {%- endif -%}
 
         {%- if show_item -%}
           {%- assign product = collection.products | first -%}
           {%- assign image = product.featured_image | default: section.settings.share_imag -%}
-          {%- assign image_alt = image.alt | default: "Collection Image" -%}
+          {%- assign image_alt = image.alt | default: 'Collection Image' -%}
 
           <div class="list-collections__item">
-            <div id="CollectionLink-{{ forloop.index }}" class="list-collections__link" title="Collection {{ collection.title | escape -}}">
+            <div
+              id="CollectionLink-{{ forloop.index }}"
+              class="list-collections__link"
+              title="Collection {{ collection.title | escape -}}"
+            >
               <div class="list-collections__image-wrapper">
                 <a href="{{- collection.url -}}" class="list-collections__link">
-                {%- render 'responsive-image' with
-                  id_prefix: 'list-collections__image',
-                  image: image,
-                  active_lazy: true,
-                  image_class:"list-collections__image",
-                  max_width: 400,
-                  alt_text: image_alt,
-                  size_large: 400,
-                  size_mobile: 45,
-                  size_desk: 20
-                -%}
+                  {%-
+                    render 'responsive-image' with
+                    id_prefix: 'list-collections__image',
+                    image: image,
+                    active_lazy: true,
+                    image_class:"list-collections__image",
+                    max_width: 400,
+                    alt_text: image_alt,
+                    size_large: 400,
+                    size_mobile: 45,
+                    size_desk: 20
+                  -%}
                 </a>
               </div>
 
-              <h3><a href="{{- collection.url -}}" class="list-collections__title">{{- collection.title -}}</a></h3>
+              <h3>
+                <a href="{{- collection.url -}}" class="list-collections__title">{{- collection.title -}}</a>
+              </h3>
             </div>
           </div>
         {%- endif -%}
@@ -89,16 +95,13 @@
     </div>
   </div>
 </div>
-{%- endcapture -%}
-
-{%- capture list_collection_style -%}
-<style scoped data-vasta>
+<style scoped>
   #shopify-section-{{ section.id }} .list-collections__title {
     background-color: {{ section.settings.collection_list_background_color }};
     color: {{ section.settings.collection_list_font_color }};
     font-size: {{ section.settings.collection_list_font_size | plus: 0.0 | divided_by: 16 }}rem;
   }
-  
+
   .list-collections,
   .list-collections__list,
   .list-collections__title {
@@ -168,10 +171,6 @@
     }
   }
 </style>
-{%- endcapture -%}
-{{- list_collection_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- list_collection_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- list_collection_content -}}
 
 {% schema %}
 {

@@ -8,7 +8,11 @@
     {%- if part.is_link -%}
       <a class="pagination__item" href="{{- part.url -}}">{{- part.title -}}</a>
     {%- else -%}
-      <span class="pagination__item pagination__item--current">{{- part.title -}}</span>
+      {%- assign current_link_class = '' -%}
+      {%- if forloop.index == paginate.current_page -%}
+        {%- assign current_link_class = 'pagination__item--current' -%}
+      {%- endif -%}
+      <span class="pagination__item {{ current_link_class }}">{{- part.title -}}</span>
     {%- endif -%}
   {%- endfor -%}
 

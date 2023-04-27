@@ -24,7 +24,7 @@
             margin: 20px 0;
             }
         </style>
-        <script type="lazyload2">
+        <script type="lazyload_int">
             var recently_tags = {
                 product_badge_tag:"{{ settings.product_badge_tag }}",
                 product_badge_text_tag:"{{ settings.product_badge_text_tag }}",
@@ -34,7 +34,7 @@
         </script>
 
         {% raw %}
-        <script id="recently-viewed-product-template"  type="text/x-jquery-tmpl">
+        <script id="recently-viewed-product-template"  type="lazyload_int">
             <li class="grid__item" data-handle="${handle}">
                 {{if tags}}
                     {{each(i) tags}}
@@ -52,7 +52,8 @@
                         <img
                             width="300"
                             height="300"
-                            class="grid__item-image one lazy2"
+                            data-class="LazyLoad"
+                            class="grid__item-image one"
                             data-srcset="https:${Shopify.Products.resizeImage(media[1].src,"800x")} 800w,https:${Shopify.Products.resizeImage(media[1].src,"700x")} 700w,https:${Shopify.Products.resizeImage(media[1].src,"600x")} 600w,https:${Shopify.Products.resizeImage(media[1].src,"500x")} 500w,https:${Shopify.Products.resizeImage(media[1].src,"400x")} 400w,https:${Shopify.Products.resizeImage(media[1].src,"300x")} 300w"
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                             alt="${title}"
@@ -61,7 +62,8 @@
                         <img
                             width="300"
                             height="300"
-                            class="grid__item-image lazy2"
+                            class="grid__item-image"
+                            data-class="LazyLoad"
                             data-srcset="https:${Shopify.Products.resizeImage(media[0].src,"800x")} 800w,https:${Shopify.Products.resizeImage(media[0].src,"700x")} 700w,https:${Shopify.Products.resizeImage(media[0].src,"600x")} 600w,https:${Shopify.Products.resizeImage(media[0].src,"500x")} 500w,https:${Shopify.Products.resizeImage(media[0].src,"400x")} 400w,https:${Shopify.Products.resizeImage(media[0].src,"300x")} 300w"
                             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
                             alt="${title}"

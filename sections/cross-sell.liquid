@@ -1,4 +1,3 @@
-{%- capture cross_sell_content -%}
   {% assign cross_sell_collection = section.settings.cross_sell_select_collection %}
   {%- assign enable_lazy = true -%}
   {%- assign temp_product = cross_sell_collection.products -%}
@@ -69,7 +68,7 @@
       </div>
   {% endif %}
 
-  <script type="layload2">
+  <script type="lazyload_int">
     setTimeout(function() {
       const methods = {
         cart: {
@@ -119,10 +118,7 @@
       
       });
   </script>
-{%- endcapture -%}
-
-{%- capture cross_sell_style -%}
-  <style scoped data-vasta>
+  <style scoped>
     :root {
         --cross-sell-title-color:{{ section.settings.title-color }};
         --cross-sell-title-font-size:{{ section.settings.title-font-size }}px;
@@ -278,10 +274,6 @@
         }
     }
   </style>
-{%- endcapture -%}
-{{- cross_sell_style | replace: 'data-vasta', 'class="critical2"' -}}
-{{- cross_sell_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-{{- cross_sell_content -}} 
 {% schema %}
 {
   "name": "Cross Sell",

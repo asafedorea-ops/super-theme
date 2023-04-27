@@ -1,6 +1,5 @@
 <!-- start menu-mobile.liquid (SECTION) -->
 
-{%- capture menu_mobile_content -%}
   <div id="NavDrawer" class="sidenav sidenav--drawer-left " data-section-type="menu-mobile">
     <div class="sidenav__header">
       <div class="sidenav__top__wrapper">
@@ -177,9 +176,7 @@
       {%- endif -%}
     </div>
   </div>
-
-{% capture menu_mobile_style %}
-  <style scoped data-vasta>
+  <style scoped>
     :root {
       --vasta-background-menu-mobile:{{ section.settings.background_color_mobile }};
       --vasta-border-menu-mobile:{{ section.settings.border_color_mobile }};
@@ -371,9 +368,8 @@
       margin-right: unset;
     }
   </style>
-{% endcapture %}
 
-  <script type="lazyload2">
+  <script type="lazyload_int">
     setTimeout(function(){
       /* Open Menu Mobile */
       document.querySelector('.header__icon__wrap.icon--menu').addEventListener("click", function() {
@@ -419,15 +415,17 @@
               this.closest('.list--child').style.height = "auto";
             };
     
-            size = 0;
+            let size = 0;
             let allChildEl = listEl.querySelectorAll(`.list--${listType} > .sidenav__list__item`);
             
             allChildEl.forEach(item => {
               size += item.offsetHeight;
             });
     
-            listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${size}px`;         
-  
+            listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${size}px`; 
+
+            setTimeout(function () { listEl.querySelector(`.sidenav .list--${listType}`).style.height = `auto`; }, 350);
+            
             this.querySelector('.toggle').classList.remove('toggle--plus');
             this.querySelector('.toggle').classList.add('toggle--minus');
           }
@@ -441,16 +439,19 @@
             this.querySelector('.toggle').classList.remove('toggle--minus');
             this.querySelector('.toggle').classList.add('toggle--plus');
   
+            let sizeDown = 0;
+            let allChildEl = listEl.querySelectorAll(`.list--${listType} > .sidenav__list__item`);
+            allChildEl.forEach(item => {
+              sizeDown += item.offsetHeight;
+              
+            });
+            listEl.querySelector(`.sidenav .list--${listType}`).style.height = `${sizeDown}px`; 
             setTimeout(function() {listEl.querySelector(`.sidenav .list--${listType}`).style.height = `0`}, 50);
           }
         });  
       });
   });
   </script>
-  {%- endcapture -%}
-  {{- menu_mobile_style | replace: 'data-vasta', 'class="critical2"' -}}
-  {{- menu_mobile_style | replace: 'data-vasta', 'type="lazyload2"' -}}
-  {{- menu_mobile_content -}}
 
 {% schema %}
 {
