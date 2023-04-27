@@ -58,6 +58,7 @@
                     );
                     $('.search-link-wrapper').addClass('empty');
                   } else {
+                    var searchResults = $('.search-results').html('<p class="search-section-title">Title products</p>');
                     $.each(resultProducts, function (index, item) {
                       if (index > '{{ settings.products_per_search | minus: 1 }}') {
                         return false;
@@ -204,6 +205,7 @@
     display: block;
     text-align: center;
     min-width: 60%;
+    padding-top: 16px;
     {% if settings.enable_page_post_suggestion == false %}
       width: 100%;
     {% endif %}
@@ -343,6 +345,10 @@
     padding: 0;
   }
 
+  .search-results .search-section-title{
+    padding-bottom: 16px;
+  }
+
   .result-item .result-edits:hover,
   .result-item + .no-result-all-products a:hover,
   .no-result-all-results:hover,
@@ -448,9 +454,10 @@
 
   .result-item .result-edits .title {
       text-transform: uppercase;
-      color: var(--colorTextSearchSuggestion);
+      color: var(--color-link);
   }
-  .search-results-pages-wrapper .search-section-title {
+  
+  .search-section-title {
     font-size: 1rem;
   }
   .search-results-pages-wrapper .pages-no-results {

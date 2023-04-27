@@ -94,21 +94,24 @@
 				slidesToShow: 1,
 				fade: effect_fade,
 				initialSlide: initial_image,
+				append: false,
 				prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
 				nextArrow: '<button type="button" class="slick-next">&rang;</button>',
-				asNavFor: productSliderThumbnails
+				asNavFor: productSliderThumbnails,
 			});
 
 			productSliderThumbnails.slick({
 				{%- if settings.select_position_thumbnails != "below" -%}
 					vertical: true,
 					verticalSwiping: true,
+					append: false,
 				{%- endif -%}
 				lazyLoad: 'ondemand',
 				infinite: true,
 				slidesToShow: number_of_images,
 				initialSlide: initial_image,
-				focusOnSelect: true,
+				append: false,
+				focusOnSelect: true,			
 				asNavFor: productSliderFeatured,
 				prevArrow: '<button type="button" class="slick-prev">&lang;</button>',
 				nextArrow: '<button type="button" class="slick-next">&rang;</button>',
