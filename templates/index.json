@@ -194,47 +194,6 @@
         "url_call_to_action": "shopify:\/\/shop_images\/travel-flatlay.jpg"
       }
     },
-    "163518827257c845da": {
-      "type": "banner-style3",
-      "settings": {
-        "custom_class": "",
-        "enable_custom_margins_paddings": false,
-        "custom-margin-top": 0,
-        "custom-margin-bottom": 0,
-        "custom-padding-top": 0,
-        "custom-padding-bottom": 0,
-        "homepage_banner_style_3": "shopify:\/\/shop_images\/comparing-black-t-shirts-on-a-clothing-rack-in-a-sun-lit-shop.jpg",
-        "mobile_banner_style_3": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg",
-        "enable_custom_banner_height": true,
-        "banner_max_height": 410,
-        "banner_max_height_tablet": 430,
-        "banner_max_height_mobile": 400,
-        "vasta_banner_width": "full_width",
-        "enable_lazy_load": true,
-        "enable_h1": true,
-        "homepage_banner_text": "VASTA SHOP",
-        "main_banner_sub_title": "Your Best Choice\n<div>Vasta<\/div>",
-        "homepage_banner_link": "collections\/all",
-        "vasta_headline_align": "center",
-        "vasta_headline_align_mobile": "center",
-        "font_weight": "bold",
-        "banner_text_color": "#000000",
-        "desktop_text_size": 63,
-        "main_banner_sub_headline_size": 40,
-        "tablet_text_size": 30,
-        "main_banner_sub_headline_size_tablet": 20,
-        "mobile_text_size": 30,
-        "main_banner_sub_headline_size_mobile": 20,
-        "vasta_title_horizontal_position": 50,
-        "vasta_title_vertical_position": 50,
-        "vasta_title_horizontal_position_tablet": 50,
-        "vasta_title_vertical_position_tablet": 50,
-        "vasta_title_horizontal_position_mobile": 50,
-        "vasta_title_vertical_position_mobile": 50,
-        "banner_mobile_width": 100,
-        "banner_mobile_height": 200
-      }
-    },
     "163518853512c34568": {
       "type": "reviews",
       "blocks": {
@@ -381,49 +340,6 @@
         "slider_autoplay": false,
         "slider_speed": 800
       }
-    },
-    "97246dba-814c-48f3-a3e1-fb7a284540b8": {
-      "type": "videos",
-      "blocks": {
-        "14bb41b2-1fb3-4cca-923b-015ad70b793f": {
-          "type": "video",
-          "settings": {
-            "title": "Video Title",
-            "url": "",
-            "video_description": "Text Example",
-            "enable_video_by_tag": false,
-            "tag_name": ""
-          }
-        },
-        "2f02b663-b037-4e39-9e2f-b71209f615d4": {
-          "type": "video",
-          "settings": {
-            "title": "Video Title",
-            "url": "",
-            "video_description": "Text Example",
-            "enable_video_by_tag": false,
-            "tag_name": ""
-          }
-        }
-      },
-      "block_order": [
-        "14bb41b2-1fb3-4cca-923b-015ad70b793f",
-        "2f02b663-b037-4e39-9e2f-b71209f615d4"
-      ],
-      "settings": {
-        "custom_class": "",
-        "enable_custom_margins_paddings": false,
-        "custom-margin-top": 0,
-        "custom-margin-bottom": 0,
-        "custom-padding-top": 0,
-        "custom-padding-bottom": 0,
-        "enable_section_title": true,
-        "section_title": "Videos",
-        "enable_videos_title": true,
-        "enable_videos_description": true,
-        "enable_videos_slider": true,
-        "enable_full_width": false
-      }
     }
   },
   "order": [
@@ -431,10 +347,8 @@
     "16351881143a2d10e5",
     "163518802243d59863",
     "163518791261981d42",
-    "163518827257c845da",
     "163518853512c34568",
     "163518866014942cc3",
-    "152db996-38c7-4ba4-a031-92eba5449967",
-    "97246dba-814c-48f3-a3e1-fb7a284540b8"
+    "152db996-38c7-4ba4-a031-92eba5449967"
   ]
 }
