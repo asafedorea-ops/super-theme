@@ -218,6 +218,46 @@
       },
       {
         "type": "select",
+        "id": "title_text_transform_search_suggestion",
+        "label": "Title Text Transform",
+        "default": "uppercase",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "capitalize"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "results_title_text_transform_search_suggestion",
+        "label": "Results Title Text Transform",
+        "default": "capitalize",
+        "options": [
+          {
+            "label": "Normal",
+            "value": "capitalize"
+          },
+          {
+            "label": "Uppercase",
+            "value": "uppercase"
+          },
+          {
+            "label": "Lowercase",
+            "value": "lowercase"
+          }
+        ]
+      },
+      {
+        "type": "select",
         "id": "products_per_search",
         "label": "Number of Products to Show",
         "default": "6",
