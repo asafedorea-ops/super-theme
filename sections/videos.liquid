@@ -54,12 +54,13 @@
             {% else %}
               <div class="video" data-video="{{ platform }}">
                 <iframe
+                  data-class="LazyLoad"
                   class="{{ platform }}{% if slideshow %}hide-player{% endif %}"
                   data-video-url="{{ url }}"
                   loading="lazy"
                   width="560"
                   height="315"
-                  src="{{- url -}}"
+                  data-src="{{- url -}}"
                   frameborder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen
