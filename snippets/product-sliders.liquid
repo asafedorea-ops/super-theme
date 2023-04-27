@@ -101,15 +101,15 @@
       {%- if image.media_type == 'external_video' -%}
         {%- capture img_src -%}
                         {%- if image.host contains 'youtube' -%}
-                            https://img.youtube.com/vi/{{ image.external_id }}/hqdefault.jpg
+                            https://img.youtube.com/vi/{{ image.external_id }}/1.jpg
                         {%- elsif image.host contains 'vimeo' -%}
-                            https://vumbnail.com/{{ image.external_id }}.jpg
+                            https://vumbnail.com/{{ image.external_id }}_small.jpg
                         {%- endif -%}
                     {%- endcapture -%}
-
+ 
         <div class="product-slider__image-wrapper">
           <picture>
-            <img width="120" height="120" src="{{ img_src }}" class="product-slider-thumbnails__slick-img">
+            <img width="120" height="120" data-src="{{ img_src }}" class="product-slider-thumbnails__slick-img" data-class="LazyLoad">
           </picture>
         </div>
       {%- elsif image.media_type == 'video' -%}
