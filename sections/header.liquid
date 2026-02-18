@@ -1,15 +1,68 @@
 <!-- start header.liquid (SECTION) -->
 <h3 class="hide">Header</h3>
 
-{%- unless template contains 'cart' and settings.only_shipping_bar == false -%}
-  {%- render 'header-sitewide' -%}
+{{ 'section-header.css' | asset_url | stylesheet_tag }}
 
-  {%- unless section.settings.enabled_search_bar == false and section.settings.enable_menu_into_header -%}
-    {%- render 'main-menu' -%}
-  {%- endunless -%}
+{%- if section.settings.header_style == 'premium_dark' and template != 'cart' -%}
+  {%- comment -%} Premium dark header: logo left, nav center, search + login right; transparent over hero, sticky on scroll {%- endcomment -%}
+  <!-- LOGO_SOURCE: header.liquid premium (via header-logo snippet) -->
+  <header
+    class="header header--premium main-header"
+    role="banner"
+    aria-label="Header"
+    data-section-id="{{ section.id }}"
+    data-transparent="{{ section.settings.enable_transparent_background }}"
+    data-sticky="{{ section.settings.enable_sticky_header }}"
+    style="--header-bg: {{ section.settings.header_background_color }}; --header-logo-max-width: {{ section.settings.premium_logo_max_width }}px;"
+  >
+    <div class="header__premium__inner">
+      {%- render 'header-logo', section: section, variant: 'premium' -%}
+
+      <nav class="header__premium__nav no-mobile" aria-label="Main navigation">
+        {%- render 'main-menu' -%}
+      </nav>
+
+      <div class="header__premium__actions no-mobile">
+        {%- if section.settings.enabled_search_bar -%}
+          <div class="header__premium__search">
+            {%- render 'header-searchbar', mobile: false -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.login_link_url != blank -%}
+          <a href="{{ section.settings.login_link_url }}" class="header__premium__login" aria-label="{{ section.settings.login_link_text | escape }}">
+            {%- render 'icon-create-account' -%}
+            <span>{{ section.settings.login_link_text | default: 'Login' }}</span>
+          </a>
+        {%- endif -%}
+        <div id="cart-count" class="header__icon__wrap icon--cart header__premium__cart">
+          <div class="header__icon__count__wrap">
+            {%- render 'header-icon-cart' -%}
+            <span class="header__cart__count">{{ cart.item_count }}</span>
+          </div>
+          {%- if section.settings.enable_cart_title == true -%}
+            <span class="header__cart__text">{{ section.settings.cart_title_text }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <button type="button" class="header__icon__wrap icon--menu header__premium__burger" aria-label="Open menu">
+        {%- render 'icon-hamburger' -%}
+        <span>Menu</span>
+      </button>
+    </div>
+  </header>
+{%- elsif template contains 'cart' and settings.only_shipping_bar == false -%}
+  {%- render 'header-cart', section: section -%}
 {%- else -%}
-  {%- render 'header-cart' -%}
-{%- endunless -%}
+  {%- if template contains 'cart' and settings.only_shipping_bar == false -%}
+    {%- render 'header-cart', section: section -%}
+  {%- else -%}
+    {%- render 'header-sitewide', section: section -%}
+    {%- unless section.settings.enabled_search_bar == false and section.settings.enable_menu_into_header -%}
+      {%- render 'main-menu' -%}
+    {%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
 <style scoped>
   :root {
     --vasta_menu_title_color:{{ section.settings.vasta_menu_title_color }};
@@ -787,6 +840,60 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "header_style",
+      "label": "Header style",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "premium_dark", "label": "Premium dark" }
+      ],
+      "default": "default"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sticky_header",
+      "label": "Enable sticky header",
+      "default": true,
+      "info": "Only applies to Premium dark style."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_transparent_background",
+      "label": "Transparent over hero",
+      "default": true,
+      "info": "Only applies to Premium dark style. Header overlays content when at top."
+    },
+    {
+      "type": "color",
+      "id": "header_background_color",
+      "label": "Header background (when not transparent)",
+      "default": "#1a1a1a",
+      "info": "Premium dark style."
+    },
+    {
+      "type": "range",
+      "id": "premium_logo_max_width",
+      "min": 60,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo max width (Premium dark)",
+      "default": 120
+    },
+    {
+      "type": "text",
+      "id": "login_link_text",
+      "label": "Login link text",
+      "default": "Login",
+      "info": "Premium dark style. Leave link blank to hide."
+    },
+    {
+      "type": "url",
+      "id": "login_link_url",
+      "label": "Login link URL",
+      "info": "e.g. /account"
     },
     {
       "type": "image_picker",

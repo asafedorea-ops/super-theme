@@ -1,24 +1,61 @@
 <!-- start header-logo (SNIPPET) -->
-<div id="Header{{ section_title }}" class="header__logo">
-  <a class="header__logo__anchor" title="{{ section.settings.shop_logo_alt }}" href="/" >
-    {%- if section.settings.enable_svg_logo -%}
-      {{ section.settings.logo_svg_html }}
-    {%- else -%}
-      {%- if section.settings.shop_logo != blank -%}
-        {%- assign image_size = section.settings.logo_max_width | times: 2 -%}
+<!-- LOGO_SOURCE: header-logo.liquid (logitech-logo.png) - SVG removido, sempre img -->
+{%- comment -%}
+  Logo padrão: sempre assets/logitech-logo.png. SVG inline removido definitivamente.
+  section traz logo_max_width, logo_max_height, premium_logo_max_width.
+  variant: 'premium' = header premium dark.
+{%- endcomment -%}
+{%- assign section_title = section_title | default: 'Logo' -%}
+{%- assign logo_section = section -%}
 
-        {%- render 'responsive-image',
-          id_prefix: logo_alt,
-          image: section.settings.shop_logo,
-          max_width: image_size,
-          active_lazy: false,
-          no_wrap: true,
-          alt_text: section.settings.shop_logo_alt,
-          image_attributes: img_attributes
-        -%}
-      {%- else -%}
-        {{ shop.name }}
-      {%- endif -%}
+{%- if logo_section == blank -%}
+  {%- assign logo_w = 180 -%}
+  {%- assign logo_h = 60 -%}
+  {%- assign logo_alt_text = shop.name -%}
+  {%- assign is_premium = false -%}
+{%- else -%}
+  {%- assign logo_alt_text = logo_section.settings.shop_logo_alt | default: shop.name -%}
+  {%- assign variant_down = variant | default: '' | downcase -%}
+  {%- if variant_down == 'premium' -%}
+    {%- assign is_premium = true -%}
+    {%- assign logo_w = logo_section.settings.premium_logo_max_width | default: 120 -%}
+    {%- assign logo_h = logo_w | times: 1.0 | divided_by: 3 | round -%}
+  {%- else -%}
+    {%- assign is_premium = false -%}
+    {%- assign logo_w = logo_section.settings.logo_max_width | default: 180 -%}
+    {%- assign logo_h = logo_section.settings.logo_max_height | default: 60 -%}
+    {%- if logo_h == 0 or logo_h == blank -%}
+      {%- assign logo_h = logo_w | times: 1.0 | divided_by: 3 | round -%}
     {%- endif -%}
-  </a>
-</div>
+  {%- endif -%}
+{%- endif -%}
+
+{%- if is_premium -%}
+  <div class="header__premium__logo">
+    <a href="{{ routes.root_url }}" class="header__premium__logo-link" title="{{ logo_alt_text | escape }}">
+      <img
+        src="{{ 'logitech-logo.png' | asset_url }}"
+        alt="{{ logo_alt_text | escape }}"
+        width="{{ logo_w }}"
+        height="{{ logo_h }}"
+        loading="eager"
+        decoding="async"
+        class="header__premium__logo-img"
+      >
+    </a>
+  </div>
+{%- else -%}
+  <div id="Header{{ section_title }}" class="header__logo">
+    <a class="header__logo__anchor" title="{{ logo_alt_text | escape }}" href="{{ routes.root_url }}">
+      <img
+        src="{{ 'logitech-logo.png' | asset_url }}"
+        alt="{{ logo_alt_text | escape }}"
+        width="{{ logo_w }}"
+        height="{{ logo_h }}"
+        loading="eager"
+        decoding="async"
+        class="header__logo__img"
+      >
+    </a>
+  </div>
+{%- endif -%}

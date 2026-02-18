@@ -1,5 +1,39 @@
 {
   "sections": {
+    "hero_logitech_section": {
+      "type": "hero-logitech",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "custom_class": "",
+        "section_height_desktop": "80vh",
+        "section_height_mobile": "auto",
+        "background_style": "gradient",
+        "background_color": "#0d0d0d",
+        "gradient_start": "#0d0d0d",
+        "gradient_end": "#1a1a1a",
+        "spotlight_intensity": 40,
+        "content_max_width": 480,
+        "overline_text": "MASTER SERIES",
+        "heading_text": "MX MASTER 3S",
+        "description_text": "<p>A SERIES OF TOOLS DESIGNED AND ENGINEERED TO EMPOWER CREATORS, MAKERS, AND CODES TO MASTER WHAT THEY MAKE.</p>",
+        "show_reviews": true,
+        "stars_value": 5,
+        "reviews_text": "50+ Reviews",
+        "show_price": true,
+        "price_text": "$99.99",
+        "cta_label": "ADD TO CART",
+        "cta_type": "anchor",
+        "cta_url": "",
+        "cta_anchor_id": "shopify-section-16351850661ed94a47",
+        "hero_image": "",
+        "hero_image_alt": "",
+        "hero_image_max_width": 560,
+        "enable_watermark": true,
+        "watermark_text": "MX",
+        "watermark_opacity": 5
+      }
+    },
     "16351850661ed94a47": {
       "type": "banner-style1",
       "blocks": {
@@ -343,6 +377,7 @@
     }
   },
   "order": [
+    "hero_logitech_section",
     "16351850661ed94a47",
     "16351881143a2d10e5",
     "163518802243d59863",

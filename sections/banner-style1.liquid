@@ -1,4 +1,50 @@
 <!-- start banner-style1.liquid (SECTION) -->
+{%- if section.settings.banner_layout == 'landing_hero' -%}
+  {{ 'section-banner-1.css' | asset_url | stylesheet_tag }}
+  <section
+    class="shopify-section banner homepage-style-1 banner--landing-hero {{ section.settings.custom_class }}"
+    aria-label="{{ section.settings.hero_aria_label | default: 'Product hero' }}"
+    style="--hero-gradient-start: {{ section.settings.hero_gradient_start }}; --hero-gradient-end: {{ section.settings.hero_gradient_end }};"
+    id="shopify-section-{{ section.id }}"
+  >
+    <div class="banner__landing__inner">
+      <div class="banner__landing__content">
+        {%- if section.settings.hero_overline != blank -%}
+          <p class="banner__landing__overline">{{ section.settings.hero_overline }}</p>
+        {%- endif -%}
+        <h1 class="banner__landing__title">{{ section.settings.hero_title }}</h1>
+        {%- if section.settings.hero_description != blank -%}
+          <div class="banner__landing__description">{{ section.settings.hero_description }}</div>
+        {%- endif -%}
+        {%- if section.settings.hero_review_text != blank or section.settings.hero_rating_value > 0 -%}
+          {%- assign hero_stars = section.settings.hero_rating_value | default: 5 | round -%}
+          <div class="banner__landing__rating" aria-label="{{ hero_stars }} out of 5 stars">
+            {%- for i in (1..5) -%}
+              <span class="banner__landing__star" aria-hidden="true">{%- if i <= hero_stars -%}{%- render 'icon-star' -%}{%- endif -%}</span>
+            {%- endfor -%}
+            {%- if section.settings.hero_review_text != blank -%}
+              <span class="banner__landing__reviews">{{ section.settings.hero_review_text }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+        {%- if section.settings.hero_price != blank -%}
+          <p class="banner__landing__price">{{ section.settings.hero_price }}</p>
+        {%- endif -%}
+        {%- if section.settings.hero_cta_label != blank and section.settings.hero_cta_link != blank -%}
+          <a href="{{ section.settings.hero_cta_link }}" class="banner__landing__cta">{{ section.settings.hero_cta_label }}</a>
+        {%- elsif section.settings.hero_cta_label != blank -%}
+          <span class="banner__landing__cta">{{ section.settings.hero_cta_label }}</span>
+        {%- endif -%}
+      </div>
+      <div class="banner__landing__media">
+        {%- assign hero_alt = section.settings.hero_image_alt | default: section.settings.hero_title | strip_html | escape -%}
+        {%- assign hero_img_w = section.settings.hero_image_width | default: 600 -%}
+        {%- assign hero_img_h = section.settings.hero_image_height | default: 500 -%}
+        {{ 'logitech-white.png' | asset_url | image_tag: width: hero_img_w, height: hero_img_h, loading: 'eager', alt: hero_alt, class: 'banner__landing__img' }}
+      </div>
+    </div>
+  </section>
+{%- else -%}
   {% capture banner_content %}
     {%- assign enable_lazy = section.settings.enable_lazy_load | default: false -%}
 
@@ -90,7 +136,9 @@
       </div>
     {% endif %}
   {% endif %}
+{%- endif -%}
   
+{%- unless section.settings.banner_layout == 'landing_hero' -%}
 <style scoped>
   :root {
     --banner-title-color:{{ section.settings.banner_titcolor }};
@@ -457,6 +505,7 @@
     }
   {% endif %}
 </style>
+{%- endunless -%}
 
 {% schema %}
 {
@@ -467,6 +516,109 @@
     {
       "type": "header",
       "content": "General Settings"
+    },
+    {
+      "type": "select",
+      "id": "banner_layout",
+      "label": "Banner layout",
+      "options": [
+        { "value": "classic", "label": "Classic (Three Buttons)" },
+        { "value": "landing_hero", "label": "Landing hero" }
+      ],
+      "default": "classic"
+    },
+    {
+      "type": "header",
+      "content": "Landing hero (when layout is Landing hero)"
+    },
+    {
+      "type": "text",
+      "id": "hero_overline",
+      "label": "Overline text",
+      "default": "MASTER SERIES"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Title (H1)",
+      "default": "MX MASTER 3S"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_description",
+      "label": "Description",
+      "default": "A SERIES OF TOOLS DESIGNED AND ENGINEERED TO EMPOWER CREATOR, MAKER, AND CODES TO MASTER WHAT THEY MAKE"
+    },
+    {
+      "type": "range",
+      "id": "hero_rating_value",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Star rating (1-5)",
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "hero_review_text",
+      "label": "Review text",
+      "default": "50+ Reviews"
+    },
+    {
+      "type": "text",
+      "id": "hero_price",
+      "label": "Price text",
+      "default": "$99.99"
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_label",
+      "label": "CTA button label",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "CTA button link"
+    },
+    {
+      "type": "color",
+      "id": "hero_gradient_start",
+      "label": "Background gradient start",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "hero_gradient_end",
+      "label": "Background gradient end",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Hero image alt text"
+    },
+    {
+      "type": "number",
+      "id": "hero_image_width",
+      "label": "Hero image width (for CLS)",
+      "default": 600
+    },
+    {
+      "type": "number",
+      "id": "hero_image_height",
+      "label": "Hero image height (for CLS)",
+      "default": 500
+    },
+    {
+      "type": "text",
+      "id": "hero_aria_label",
+      "label": "Section aria-label",
+      "default": "Product hero"
+    },
+    {
+      "type": "header",
+      "content": "Classic banner"
     },
     {
       "type": "text",

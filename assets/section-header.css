@@ -370,3 +370,182 @@ header .wrap {
 		color: var(--vasta_icon_title_color, black);
 	}
 }
+
+/* ===== Premium dark header ===== */
+.header--premium {
+	width: 100%;
+	left: 0;
+	right: 0;
+	z-index: 100;
+	padding: 1rem 0;
+	transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.header--premium[data-sticky="true"] {
+	position: sticky;
+	top: 0;
+}
+.header--premium[data-transparent="true"] {
+	position: absolute;
+	background: transparent;
+}
+.header--premium[data-transparent="true"][data-sticky="true"] {
+	position: sticky;
+	background: transparent;
+}
+.header--premium[data-transparent="false"] {
+	background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, var(--header-bg, #1a1a1a) 100%);
+}
+.header--premium .header__premium__inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	max-width: var(--wrapperWidth, 1280px);
+	margin: 0 auto;
+	padding: 0 20px;
+}
+.header--premium .header__premium__logo {
+	flex-shrink: 0;
+}
+.header--premium .header__premium__logo-link {
+	display: block;
+}
+.header--premium .header__premium__logo-img {
+	display: block;
+	max-width: var(--header-logo-max-width, 120px);
+	width: auto;
+	height: auto;
+	object-fit: contain;
+}
+/* Logo único (logitech-logo.png): proporções e anti-CLS em todos os headers */
+.header__logo img,
+.header__logo__img {
+	display: block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	object-fit: contain;
+}
+.header--premium .header__premium__nav {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	min-width: 0;
+}
+.header--premium .header__premium__nav .header__menu {
+	background: transparent;
+}
+.header--premium .header__premium__nav .header__list.list--parent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+}
+.header--premium .header__premium__nav .header__item__anchor {
+	color: rgba(255,255,255,0.9);
+	font-size: 0.9rem;
+	letter-spacing: 0.02em;
+}
+.header--premium .header__premium__nav .header__item__anchor:hover,
+.header--premium .header__premium__nav .header__item__anchor:focus {
+	color: #fff;
+}
+.header--premium .header__premium__actions {
+	display: flex;
+	align-items: center;
+	gap: 1.25rem;
+	flex-shrink: 0;
+}
+.header--premium .header__premium__search {
+	min-width: 0;
+}
+.header--premium .header__premium__search .header__search__form__wrapper {
+	margin: 0;
+	max-width: 200px;
+}
+.header--premium .header__premium__search .header__search__input {
+	border-color: rgba(255,255,255,0.3);
+	background: rgba(255,255,255,0.08);
+	color: #fff;
+}
+.header--premium .header__premium__search .header__search__input::placeholder {
+	color: rgba(255,255,255,0.6);
+}
+.header--premium .header__premium__search .button {
+	background: rgba(255,255,255,0.2);
+	border-color: rgba(255,255,255,0.3);
+	color: #fff;
+}
+.header--premium .header__premium__login {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.35rem;
+	color: rgba(255,255,255,0.9);
+	text-decoration: none;
+	font-size: 0.9rem;
+	letter-spacing: 0.02em;
+}
+.header--premium .header__premium__login:hover,
+.header--premium .header__premium__login:focus {
+	color: #fff;
+}
+.header--premium .header__premium__login svg {
+	width: 18px;
+	height: 18px;
+	fill: currentColor;
+}
+.header--premium .header__premium__cart .header__cart__text,
+.header--premium .header__premium__cart .header__cart__count {
+	color: rgba(255,255,255,0.9);
+}
+.header--premium .header__premium__cart svg path {
+	fill: rgba(255,255,255,0.9);
+}
+.header--premium .header__premium__burger {
+	display: none;
+	background: none;
+	border: none;
+	color: rgba(255,255,255,0.9);
+	cursor: pointer;
+	padding: 0.5rem;
+}
+.header--premium .header__premium__burger svg {
+	width: 24px;
+	height: 24px;
+}
+.header--premium .header__premium__burger svg path {
+	fill: currentColor;
+}
+
+@media (max-width: 767px) {
+	.header--premium .header__premium__inner {
+		padding: 0 16px;
+	}
+	.header--premium .header__premium__nav {
+		display: none !important;
+	}
+	.header--premium .header__premium__search,
+	.header--premium .header__premium__login {
+		display: none !important;
+	}
+	.header--premium .header__premium__actions {
+		display: flex;
+	}
+	.header--premium .header__premium__burger {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		font-size: 0.75rem;
+	}
+	.header--premium .header__premium__logo-img {
+		max-width: min(var(--header-logo-max-width, 120px), 100px);
+	}
+}
+
+@media (min-width: 768px) {
+	.header--premium .header__premium__burger {
+		display: none;
+	}
+}

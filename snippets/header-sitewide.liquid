@@ -1,11 +1,12 @@
 <!-- start header-sitewide (SNIPPET) -->
+<!-- LOGO_SOURCE: header-sitewide.liquid -> header-logo -->
 <div class="header__sitewide__wrapper header__wrapper">
   <div class="header__icon__wrap icon--menu">
     {%- render 'icon-hamburger' -%}
     <span>Menu</span>
   </div>
 
-  {%- render 'header-logo' -%}
+  {%- render 'header-logo', section: section -%}
 
   {%- if section.settings.enabled_search_bar -%}
     {%- render 'header-searchbar', mobile: false -%}
