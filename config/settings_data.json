@@ -144,6 +144,7 @@
     "tag_size_chart": "Size Chart Tag",
     "size_chart_text": "Size Chart Text",
     "only_shipping_bar": false,
+    "enable_shipping_bar": false,
     "proceed_to_checkout_top": false,
     "enable_cart_property": false,
     "color_font_button_cart": "#fff",

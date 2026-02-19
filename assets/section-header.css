@@ -372,11 +372,22 @@ header .wrap {
 }
 
 /* ===== Premium dark header ===== */
+/* Override critical/layout: wrappers transparentes para efeito glass (sem :has). */
+body .header-content,
+body .header-content.header-content,
+.header-content > .shopify-section {
+	background: transparent !important;
+	min-height: 0;
+}
+.header-content > .shopify-section {
+	display: block;
+}
+
 .header--premium {
 	width: 100%;
 	left: 0;
 	right: 0;
-	z-index: 100;
+	z-index: 60;
 	padding: 1rem 0;
 	transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -384,15 +395,38 @@ header .wrap {
 	position: sticky;
 	top: 0;
 }
-.header--premium[data-transparent="true"] {
+
+/* Glass: data-glass="true" (transparente + blur, hero visível atrás) */
+.header--premium[data-glass="true"] {
 	position: absolute;
-	background: transparent;
+	top: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, var(--glass-opacity, 0.18)) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur, 12px)) saturate(120%);
+	backdrop-filter: blur(var(--glass-blur, 12px)) saturate(120%);
+	border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+	box-shadow: none;
 }
-.header--premium[data-transparent="true"][data-sticky="true"] {
+.header--premium[data-glass="true"][data-sticky="true"] {
 	position: sticky;
-	background: transparent;
+	background: rgba(0, 0, 0, calc(var(--glass-opacity, 0.18) + 0.07)) !important;
+	-webkit-backdrop-filter: blur(var(--glass-blur, 12px)) saturate(120%);
+	backdrop-filter: blur(var(--glass-blur, 12px)) saturate(120%);
 }
-.header--premium[data-transparent="false"] {
+
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+	.header--premium[data-glass="true"] {
+		background: rgba(0, 0, 0, 0.45) !important;
+	}
+	.header--premium[data-glass="true"][data-sticky="true"] {
+		background: rgba(0, 0, 0, 0.5) !important;
+	}
+}
+
+/* Sem glass: fundo sólido */
+.header--premium[data-transparent="false"],
+.header--premium:not([data-glass="true"]) {
 	background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, var(--header-bg, #1a1a1a) 100%);
 }
 .header--premium .header__premium__inner {
@@ -417,7 +451,7 @@ header .wrap {
 	height: auto;
 	object-fit: contain;
 }
-/* Logo único (logitech-logo.png): proporções e anti-CLS em todos os headers */
+/* Logo único (logitech-white-logo.png): proporções e anti-CLS em todos os headers */
 .header__logo img,
 .header__logo__img {
 	display: block;
@@ -433,7 +467,7 @@ header .wrap {
 	min-width: 0;
 }
 .header--premium .header__premium__nav .header__menu {
-	background: transparent;
+	background: transparent !important;
 }
 .header--premium .header__premium__nav .header__list.list--parent {
 	display: flex;
