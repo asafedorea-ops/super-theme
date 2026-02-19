@@ -1,92 +1,147 @@
 <link data-href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+{{ 'section-reviews.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.enable_reviews %}
-  <!-- start reviews.liquid (SECTION) -->
+  <!-- start reviews.liquid (SECTION) - DOM legado preservado para VastaShop.js -->
+  {%- liquid
+    assign bg_style = section.settings.background_style
+    assign bg_color = section.settings.background_color
+    assign grad_start = section.settings.gradient_start
+    assign grad_end = section.settings.gradient_end
+    assign fallback_assets = 'logitech-white.png,logitech-black.png,logitech-red.png' | split: ','
+  -%}
   <section
     data-section-type="reviews"
     id="slider-reviews-{{ section.id }}"
     data-slider="{{ section.id }}"
-    class="{{ section.settings.custom_class }}"
+    class="reviews reviews-premium reviews-sm-desktop reviews-tablet reviews-mobile reviews-sm-mobile {{ section.settings.custom_class }}"
+    style="
+      --reviews-premium-bg: {{ bg_color }};
+      --reviews-premium-gradient-start: {{ grad_start }};
+      --reviews-premium-gradient-end: {{ grad_end }};
+    "
+    data-background-style="{{ bg_style }}"
   >
     <h3 class="hide">Reviews</h3>
     <div class="reviews-content">
-      <div class="wrapper">
-        {%- if section.settings.title != blank -%}
-          <h2 class="section-title">{{ section.settings.title | escape }}</h2>
-        {%- endif -%}
+      <div class="wrapper reviews-premium__container">
+        <header class="reviews-premium__header">
+          {%- if section.settings.section_title != blank -%}
+            <h2 class="reviews-premium__title section-title">{{ section.settings.section_title | escape }}</h2>
+          {%- endif -%}
+          {%- if section.settings.section_subtitle != blank -%}
+            <p class="reviews-premium__subtitle">{{ section.settings.section_subtitle | escape }}</p>
+          {%- endif -%}
+        </header>
 
         <div
           id="slider-{{ section.id }}"
-          class="slick-slider"
+          class="slick-slider reviews-premium__slider reviews__slider"
           data-autoplay="{{ section.settings.slider_autoplay }}"
           data-speed="{{ section.settings.slider_speed }}"
         >
+          {%- if section.blocks.size == 0 -%}
+            <div class="reviews-premium__empty" {{ section.shopify_attributes }}>
+              <p>Add a review card above to show customer reviews here.</p>
+            </div>
+          {%- endif -%}
           {%- for block in section.blocks -%}
-            {%- if 'select' == block.type -%}
-              <div class="slick-content" {{ block.shopify_attributes }}>
-                <div class="star-reviews">
-                  {%- for i in (1..block.settings.stars_review) -%}
-                    {%- render 'icon-star' -%}
-                  {%- endfor -%}
-                </div>
-
-                <div class="text-reviews">
-                  {%- if block.settings.title_review != blank -%}
-                    <strong class="review-title">{{ block.settings.title_review }}</strong>
-                  {%- endif -%}
-                  {{ block.settings.content_review }}
-                </div>
-
-                {%- if block.settings.author_review != blank -%}
-                  <div class="athor-reviews">
-                    <strong>{{ block.settings.author_review }}</strong>
-                  </div>
-                {%- endif -%}
-
-                {%- if block.settings.date_review != blank -%}
-                  <div class="date-reviews">
-                    {{ block.settings.date_review }}
-                  </div>
-                {%- endif -%}
-
-                {%- if block.settings.product_image != blank -%}
-                  <div class="img-reviews">
-                    <a
-                      title="{{ block.settings.title_review | strip_html | escape }}"
-                      id="ReviewsLink-{{ forloop.index }}"
-                      href="{{ block.settings.link_product_review }}"
+            {%- liquid
+              assign is_review = false
+              assign is_select = false
+              if block.type == 'review'
+                assign is_review = true
+              elsif block.type == 'select'
+                assign is_select = true
+              endif
+            -%}
+            {%- if is_review or is_select -%}
+              {%- liquid
+                assign loop_index = forloop.index0 | modulo: 3
+                assign img_fallback = fallback_assets[loop_index]
+                if is_review
+                  assign card_text = block.settings.review_text
+                  assign card_author = block.settings.review_author
+                  assign card_verified = block.settings.review_verified_label
+                  assign card_stars = block.settings.manual_stars_value | default: 5 | round | at_least: 0 | at_most: 5
+                  assign card_product = block.settings.product
+                  assign card_image = block.settings.review_product_image
+                else
+                  assign card_text = block.settings.content_review
+                  assign card_author = block.settings.author_review
+                  assign card_verified = 'Verified Purchase'
+                  assign card_stars = block.settings.stars_review | default: 5 | plus: 0 | at_least: 1 | at_most: 5
+                  assign card_product = block.settings.product
+                  assign card_image = block.settings.product_image
+                endif
+                assign default_names = 'Sarah M.,James K.,Emily R.' | split: ','
+                assign display_author = card_author | default: default_names[loop_index]
+                assign default_reviews = 'Best mouse I have ever owned. The build quality is outstanding and it is incredibly comfortable for all-day use.|Fast shipping and the product exceeded my expectations. Highly recommend for anyone who works from home.|Worth every penny. Smooth tracking, great battery life, and the design looks premium on my desk.' | split: '|'
+                assign use_default_text = false
+                if card_text == blank or card_text contains 'Lorem' or card_text contains 'lorem'
+                  assign use_default_text = true
+                endif
+                assign display_text = card_text
+                if use_default_text
+                  assign display_text = default_reviews[loop_index]
+                endif
+              -%}
+              <div class="slick-content reviews-premium__card reviews__item" {{ block.shopify_attributes }}>
+                <div class="reviews-premium__image img-reviews">
+                  {%- if card_image != blank -%}
+                    <img
+                      src="{{ card_image | image_url: width: 500 }}"
+                      alt="{{ card_author | default: 'Review' | escape }}"
+                      width="300"
+                      height="300"
+                      loading="lazy"
                     >
-                      {%- assign image_id_prefix = 'reviews-img' | append: forloop.index -%}
+                  {%- else -%}
+                    <img
+                      src="{{ img_fallback | asset_url }}"
+                      alt="{{ card_author | default: 'Review' | escape }}"
+                      width="300"
+                      height="300"
+                      loading="lazy"
+                    >
+                  {%- endif -%}
+                </div>
 
-                      {%- if block.settings.product_image != blank -%}
-                        {% assign image = block.settings.product_image %}
-                      {% else %}
-                        {%- assign product_temp = all_products[block.settings.product] -%}
-                        {%- assign image = product_temp.featured_image -%}
-                      {% endif %}
-
-                      {%- if image.alt != blank -%}
-                        {%- assign image_alt = image.alt | strip_html | escape -%}
-                      {%- elsif block.settings.title_review != blank -%}
-                        {%- assign image_alt = block.settings.title_review | strip_html | escape -%}
-                      {%- else -%}
-                        {%- assign image_alt = 'Image without description.' -%}
-                      {%- endif -%}
-
-                      {%- if image != blank -%}
-                        {%- render 'responsive-image',
-                          id_prefix: image_id_prefix,
-                          image: image,
-                          active_lazy: true,
-                          max_width: 150,
-                          no_wrap: true,
-                          alt_text: image_alt
-                        -%}
-                      {%- endif -%}
-                      {{ block.settings.product_review }}
-                    </a>
+                <div class="reviews-premium__content text-reviews">
+                  <div class="reviews-premium__author-name athor-reviews">
+                    <strong>{{ display_author }}</strong>
                   </div>
-                {%- endif -%}
+                  <div class="reviews-premium__stars star-reviews">
+                    {%- if settings.app_review != blank and settings.app_review != 'none' and card_product != blank -%}
+                      {%- render 'reviews-stars', product: card_product, show_label: false -%}
+                    {%- else -%}
+                      <span class="reviews-premium__stars-manual" aria-label="{{ card_stars }} de 5 estrelas">
+                        {%- for i in (1..5) -%}
+                          {%- if i <= card_stars -%}★{%- endif -%}
+                        {%- endfor -%}
+                      </span>
+                    {%- endif -%}
+                  </div>
+
+                  {%- if display_text != blank -%}
+                    <div class="reviews-premium__text">
+                      {%- if use_default_text -%}
+                        <p>{{ display_text }}</p>
+                      {%- else -%}
+                        {{ display_text }}
+                      {%- endif -%}
+                    </div>
+                  {%- endif -%}
+
+                  <div class="reviews-premium__author athor-reviews">
+                    {%- if card_verified != blank -%}
+                      <span class="reviews-premium__verified">
+                        <span class="reviews-premium__verified-icon" aria-hidden="true">{%- render 'icon-check' -%}</span>
+                        {{ card_verified }}
+                      </span>
+                    {%- endif -%}
+                  </div>
+                </div>
               </div>
             {%- endif -%}
           {%- endfor -%}
@@ -107,62 +162,29 @@
           autoplaySpeed: 2000,
           arrows: false,
           responsive: [
-            {
-              breakpoint: 1280,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-              },
-            },
-            {
-              breakpoint: 1019,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 1,
-              },
-            },
-            {
-              breakpoint: 767,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-              },
-            },
+            { breakpoint: 1280, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+            { breakpoint: 1019, settings: { slidesToShow: 3, slidesToScroll: 1 } },
+            { breakpoint: 767, settings: { slidesToShow: 1, slidesToScroll: 1 } },
           ],
         };
-
         this._run();
       }
-
       SectionReviews.prototype = {
-        onLoad: function () {
-          this._run();
-        },
-
+        onLoad: function () { this._run(); },
         _run: function () {
-          var slider,
-            autoplay,
-            autoplaySpeed,
-            settings = this.settings;
-
+          var settings = this.settings;
           jQuery('[id^="slider-reviews-"]').each(function () {
-            slider = '#slider-' + $(this).data('slider');
-
-            autoplay = jQuery(slider).data('autoplay');
-            autoplaySpeed = jQuery(slider).data('speed');
-
-            if (typeof autoplay !== 'undefined' && autoplay != true && autoplay != false) {
-              autoplay = true;
-            }
-
-            if (typeof autoplaySpeed !== 'undefined' && autoplaySpeed < 800 && autoplaySpeed > 3000) {
-              autoplaySpeed = 800;
-            }
-
+            var $section = jQuery(this),
+                sliderId = '#slider-' + $section.data('slider'),
+                $slider = jQuery(sliderId);
+            if (!$slider.length) return;
+            var autoplay = $slider.data('autoplay'),
+                autoplaySpeed = $slider.data('speed');
+            if (typeof autoplay !== 'undefined' && autoplay !== true && autoplay !== false) autoplay = true;
+            if (typeof autoplaySpeed === 'undefined' || autoplaySpeed < 800 || autoplaySpeed > 3000) autoplaySpeed = 2000;
             settings.autoplay = autoplay;
             settings.autoplaySpeed = autoplaySpeed;
-
-            jQuery(slider).not('.slick-initialized').slick(settings);
+            $slider.not('.slick-initialized').slick(settings);
           });
         },
       };
@@ -182,122 +204,106 @@
       margin: 20px 0;
     {% endif %}
   }
-  .slick-track {
-    display: flex;
-  }
-  .slick-list {
-    overflow: hidden;
-  }
-  .reviews .reviews-content,
-  .reviews .img-reviews,
-  .reviews .slick-list {
-    display: flex;
-  }
-  .reviews .reviews-content,
-  .reviews .img-reviews,
-  .reviews .slick-list {
-    flex-direction: column;
-  }
-  .reviews .star-reviews svg,
-  .reviews .star-reviews i {
-    display: inline-block;
-  }
-  .reviews .star-reviews i,
-  .reviews .slick-list {
-    text-align: center;
-  }
-  .reviews .img-reviews,
-  .reviews .reviews-content {
-    align-items: center;
-  }
-  .reviews .review-title {
-    font-size: var(--titleReview);
-  }
-  .reviews .reviews-content {
-    float: left;
-    width: 100%;
-  }
-  .reviews .text-reviews {
-    line-height: 23px;
-  }
-  .reviews .athor-reviews {
-    margin: 10px 0 10px;
-  }
-  .reviews .date-reviews {
-    font-style: italic;
-    margin-bottom: 15px;
-    font-size: var(--smallFont);
-  }
-  .reviews .img-reviews a {
-    margin-top: 10px;
-    color: #000;
-  }
-  .reviews .star-reviews svg {
-    height: 16px;
-    width: 16px;
-    fill: #f9c52c;
-  }
-  .jdgm-star.jdgm--off:before,
-  .jdgm-star.jdgm--on:before,
-  .reviews .star-reviews i {
-    color: #f9c52c;
-  }
-  .reviews .reviews-content p:before,
-  .reviews .reviews-content p::after {
-    content: '"';
-  }
-  .reviews .slick-initialized .slick-slide {
-    padding: 0 25px;
-  }
-  .reviews .slick-initialized .slick-slide img {
-    margin: 0 auto;
-    max-width: 100px;
-  }
-  .template-cart .reviews .reviews-content {
-    margin-bottom: 50px;
-  }
-  @media (max-width: 1279px) {
-    .reviews-sm-desktop .slick-initialized .slick-slide {
-      padding: 0 8px;
-    }
-  }
-  @media (max-width: 1019px) {
-    .reviews-tablet .slick-initialized .slick-slide {
-      padding: 0 10px;
-    }
-  }
-  @media (max-width: 767px) {
-      /* Changes on pages */
-    .reviews-mobile .slick-initialized .slick-slide {
-      padding: 0 0;
-    }
-    .reviews-mobile .section-reviews-title {
-      font-size: 18px;
-    }
-    .template-cart .reviews .reviews-content {
-      margin-bottom: 20px;
-    }
-  }
 </style>
 {% schema %}
 {
-  "name": "Reviews",
-  "class": "reviews reviews-sm-desktop reviews-tablet reviews-mobile reviews-sm-mobile",
+  "name": "Customer Reviews",
+  "class": "reviews",
   "settings": [
     {
       "type": "header",
-      "content": "General Settings"
+      "content": "Content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_reviews",
+      "label": "Show section",
+      "default": true
     },
     {
       "type": "text",
-      "id": "custom_class",
-      "label": "Custom Class",
-      "info": "Custom class to apply css styles for specific sections"
+      "id": "section_title",
+      "label": "Title",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Subtitle",
+      "info": "Optional text below the title"
+    },
+    {
+      "type": "header",
+      "content": "Background"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "options": [
+        { "value": "gradient", "label": "Gradient" },
+        { "value": "solid", "label": "Solid" }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color (when solid)",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start color",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_mobile",
+      "label": "Slider on mobile",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_slider_desktop",
+      "label": "Slider on desktop",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "slider_autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "slider_speed",
+      "label": "Transition speed (ms)",
+      "min": 800,
+      "max": 3000,
+      "step": 100,
+      "unit": "ms",
+      "default": 800
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
     },
     {
       "type": "checkbox",
       "id": "enable_custom_margins_paddings",
-      "label": "Enable Custom Margins and Paddings",
+      "label": "Custom margins and padding",
       "default": false
     },
     {
@@ -307,7 +313,7 @@
       "max": 50,
       "step": 1,
       "unit": "px",
-      "label": "Margin Top",
+      "label": "Margin top",
       "default": 0
     },
     {
@@ -317,7 +323,7 @@
       "max": 50,
       "step": 1,
       "unit": "px",
-      "label": "Margin Bottom",
+      "label": "Margin bottom",
       "default": 0
     },
     {
@@ -327,7 +333,7 @@
       "max": 50,
       "step": 1,
       "unit": "px",
-      "label": "Padding Top",
+      "label": "Padding top",
       "default": 0
     },
     {
@@ -337,135 +343,103 @@
       "max": 50,
       "step": 1,
       "unit": "px",
-      "label": "Padding Bottom",
+      "label": "Padding bottom",
       "default": 0
     },
     {
-      "type": "checkbox",
-      "id": "enable_reviews",
-      "label": "Enable Reviews",
-      "default": true
-    },
-    {
       "type": "text",
-      "id": "title",
-      "label": "Headline Text",
-      "default": "REVIEWS",
-      "placeholder": "Type headline text"
-    },
-    {
-      "type": "header",
-      "content": "Slider Settings"
-    },
-    {
-      "type": "checkbox",
-      "id": "slider_autoplay",
-      "label": "Slider Autoplay",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "slider_speed",
-      "label": "Slider Speed",
-      "min": 800,
-      "max": 3000,
-      "step": 100,
-      "unit": "s",
-      "default": 800,
-      "info": "Transition time in milliseconds."
+      "id": "custom_class",
+      "label": "Custom CSS class"
     }
   ],
   "blocks": [
     {
-      "type": "select",
-      "name": "Testimonial",
+      "type": "review",
+      "name": "Review card",
       "settings": [
         {
-          "type": "select",
-          "id": "stars_review",
-          "label": "Review Rating",
-          "default": "5",
-          "options": [
-            {
-              "label": "1",
-              "value": "1"
-            },
-            {
-              "label": "2",
-              "value": "2"
-            },
-            {
-              "label": "3",
-              "value": "3"
-            },
-            {
-              "label": "4",
-              "value": "4"
-            },
-            {
-              "label": "5",
-              "value": "5"
-            }
-          ]
-        },
-        {
-          "type": "text",
-          "id": "title_review",
-          "label": "Review Title",
-          "default": "Title Example",
-          "placeholder": "Title of the review"
-        },
-        {
-          "type": "richtext",
-          "id": "content_review",
-          "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id maximus nunc, eu accumsan velit. Curabitur nec ligula quis dui auctor varius ut sit amet libero. Fusce eget sapien nec neque convallis pulvinar. Aliquam rutrum rhoncus mollis. Vivamus id risus a ligula gravida vestibulum sit amet in est. Ut eget vehicula nulla.</p>",
-          "label": "Review Content"
-        },
-        {
-          "type": "text",
-          "id": "author_review",
-          "label": "Review Author",
-          "default": "John Doe",
-          "placeholder": "Author of the review"
-        },
-        {
-          "type": "text",
-          "id": "date_review",
-          "default": "MM/DD/YYYY",
-          "label": "Review Publication Date",
-          "placeholder": "Date of the review"
+          "type": "header",
+          "content": "Product image"
         },
         {
           "type": "image_picker",
-          "id": "product_image",
-          "label": "Review Image",
-          "info": "200x200"
+          "id": "review_product_image",
+          "label": "Image",
+          "info": "Shown at the top of the card. Leave empty to use theme fallback image."
+        },
+        {
+          "type": "header",
+          "content": "Author & rating"
         },
         {
           "type": "text",
-          "id": "product_review",
-          "label": "Product Title",
-          "default": "Product Title",
-          "placeholder": "Product title"
-        },
-        {
-          "type": "text",
-          "id": "link_product_review",
-          "label": "Product Link",
-          "placeholder": "Product URL"
+          "id": "review_author",
+          "label": "Customer name",
+          "default": "Sarah M."
         },
         {
           "type": "product",
           "id": "product",
-          "label": "Product"
+          "label": "Product (for app stars)",
+          "info": "If you use a review app, link a product to show its stars. Otherwise manual stars below are used."
+        },
+        {
+          "type": "range",
+          "id": "manual_stars_value",
+          "label": "Stars (0–5)",
+          "min": 0,
+          "max": 5,
+          "step": 1,
+          "default": 5,
+          "info": "Used when no review app or no product is selected."
+        },
+        {
+          "type": "header",
+          "content": "Review text"
+        },
+        {
+          "type": "richtext",
+          "id": "review_text",
+          "label": "Comment / description",
+          "default": "<p>Best mouse I have ever owned. The build quality is outstanding and it is incredibly comfortable for all-day use.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Verified badge"
+        },
+        {
+          "type": "text",
+          "id": "review_verified_label",
+          "label": "Verified label text",
+          "default": "Verified Purchase"
         }
+      ]
+    },
+    {
+      "type": "select",
+      "name": "Testimonial (legacy)",
+      "settings": [
+        { "type": "select", "id": "stars_review", "label": "Review Rating", "default": "5", "options": [ { "label": "1", "value": "1" }, { "label": "2", "value": "2" }, { "label": "3", "value": "3" }, { "label": "4", "value": "4" }, { "label": "5", "value": "5" } ] },
+        { "type": "text", "id": "title_review", "label": "Review Title" },
+        { "type": "richtext", "id": "content_review", "label": "Review Content", "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>" },
+        { "type": "text", "id": "author_review", "label": "Review Author", "default": "John Doe" },
+        { "type": "text", "id": "date_review", "label": "Review Date" },
+        { "type": "image_picker", "id": "product_image", "label": "Review Image" },
+        { "type": "text", "id": "product_review", "label": "Product Title" },
+        { "type": "text", "id": "link_product_review", "label": "Product Link" },
+        { "type": "product", "id": "product", "label": "Product" }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Reviews",
-      "category": "Reviews"
+      "name": "Customer Reviews",
+      "category": "Social proof",
+      "blocks": [
+        { "type": "review", "settings": { "review_author": "Sarah M.", "review_text": "<p>Best mouse I have ever owned. The build quality is outstanding and it is incredibly comfortable for all-day use.</p>" } },
+        { "type": "review", "settings": { "review_author": "James K.", "review_text": "<p>Fast shipping and the product exceeded my expectations. Highly recommend for anyone who works from home.</p>" } },
+        { "type": "review", "settings": { "review_author": "Emily R.", "review_text": "<p>Worth every penny. Smooth tracking, great battery life, and the design looks premium on my desk.</p>" } }
+      ]
     }
   ]
 }

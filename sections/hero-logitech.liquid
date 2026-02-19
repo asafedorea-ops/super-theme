@@ -1,0 +1,451 @@
+<!-- start hero-logitech.liquid (SECTION) -->
+{{ 'section-hero-logitech.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign section_height_desktop = section.settings.section_height_desktop
+  assign section_height_mobile = section.settings.section_height_mobile
+  assign background_style = section.settings.background_style
+  assign bg_color = section.settings.background_color
+  assign gradient_start = section.settings.gradient_start
+  assign gradient_end = section.settings.gradient_end
+  assign spotlight = section.settings.spotlight_intensity | divided_by: 100.0
+  assign content_max_w = section.settings.content_max_width
+  assign overline = section.settings.overline_text
+  assign heading = section.settings.heading_text
+  assign description = section.settings.description_text
+  assign show_reviews = section.settings.show_reviews
+  assign stars_value = section.settings.stars_value | default: 5
+  assign reviews_text = section.settings.reviews_text
+  assign show_price = section.settings.show_price
+  assign price_text = section.settings.price_text
+  assign cta_label = section.settings.cta_label
+  assign cta_type = section.settings.cta_type
+  assign cta_url = section.settings.cta_url
+  assign cta_anchor_id = section.settings.cta_anchor_id | strip
+  assign hero_image = section.settings.hero_image
+  assign hero_alt = section.settings.hero_image_alt | default: heading | strip_html | escape
+  assign hero_max_w = section.settings.hero_image_max_width | default: 700
+  assign enable_watermark = section.settings.enable_watermark
+  assign watermark_text = section.settings.watermark_text
+  assign watermark_opacity = section.settings.watermark_opacity | divided_by: 100.0
+
+  assign cta_href = ''
+  if cta_type == 'anchor' and cta_anchor_id != blank
+    assign cta_href = '#' | append: cta_anchor_id
+  elsif cta_type == 'link' and cta_url != blank
+    assign cta_href = cta_url
+  endif
+-%}
+
+<section
+  class="hero-logitech {{ section.settings.custom_class }}"
+  id="shopify-section-{{ section.id }}"
+  aria-label="{{ heading | default: 'Hero' | escape }}"
+  style="
+    --hero-logitech-height-desk: {{ section_height_desktop }};
+    --hero-logitech-height-mob: {{ section_height_mobile }};
+    --hero-logitech-bg: {{ bg_color }};
+    --hero-logitech-gradient-start: {{ gradient_start }};
+    --hero-logitech-gradient-end: {{ gradient_end }};
+    --hero-logitech-spotlight: {{ spotlight }};
+    --hero-logitech-content-max-width: {{ content_max_w }}px;
+    --hero-logitech-watermark-opacity: {{ watermark_opacity }};
+    --hero-logitech-hero-img-max-width: {{ hero_max_w }}px;
+  "
+  data-background-style="{{ background_style }}"
+>
+  <div class="hero-logitech__wrapper">
+    <div class="hero-logitech__inner">
+      <div class="hero-logitech__content">
+        {%- if enable_watermark and watermark_text != blank -%}
+          <span class="hero-logitech__watermark" aria-hidden="true">{{ watermark_text }}</span>
+        {%- endif -%}
+
+        {%- if overline != blank -%}
+          <p class="hero-logitech__overline">{{ overline }}</p>
+        {%- endif -%}
+
+        {%- if heading != blank -%}
+          <h1 class="hero-logitech__heading">{{ heading }}</h1>
+        {%- endif -%}
+
+        {%- if description != blank -%}
+          <div class="hero-logitech__description">{{ description }}</div>
+        {%- endif -%}
+
+        {%- assign bullet_blocks = section.blocks | where: 'type', 'bullet' -%}
+        {%- if bullet_blocks.size > 0 -%}
+          <ul class="hero-logitech__bullets">
+            {%- for block in bullet_blocks -%}
+              {%- if block.settings.bullet_text != blank -%}
+                <li class="hero-logitech__bullet" {{ block.shopify_attributes }}>{{ block.settings.bullet_text }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        {%- endif -%}
+
+        {%- if show_reviews -%}
+          {%- assign stars_int = stars_value | round | at_least: 0 | at_most: 5 -%}
+          <div class="hero-logitech__reviews" aria-label="{{ stars_int }} de 5 estrelas">
+            <span class="hero-logitech__stars">
+              {%- for i in (1..5) -%}
+                <span class="hero-logitech__star" aria-hidden="true">{%- if i <= stars_int -%}{%- render 'icon-star' -%}{%- endif -%}</span>
+              {%- endfor -%}
+            </span>
+            {%- if reviews_text != blank -%}
+              <span class="hero-logitech__reviews-text">{{ reviews_text }}</span>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        <div class="hero-logitech__actions">
+          {%- if show_price and price_text != blank -%}
+            <p class="hero-logitech__price">{{ price_text }}</p>
+          {%- endif -%}
+          {%- if cta_label != blank and cta_href != blank -%}
+            <a href="{{ cta_href }}" class="hero-logitech__cta">{{ cta_label }}</a>
+          {%- elsif cta_label != blank -%}
+            <span class="hero-logitech__cta hero-logitech__cta--disabled">{{ cta_label }}</span>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <div class="hero-logitech__media">
+        {%- assign float_blocks = section.blocks | where: 'type', 'float_image' -%}
+        {%- if float_blocks.size > 0 -%}
+          <div class="hero-logitech__floats">
+            {%- for block in float_blocks -%}
+              {%- if block.settings.enable and block.settings.image != blank -%}
+                <div
+                  class="hero-logitech__float hero-logitech__float--{{ block.settings.size }} hero-logitech__float--{{ block.settings.position }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {%- render 'responsive-image',
+                    image: block.settings.image,
+                    max_width: 200,
+                    active_lazy: true,
+                    alt_text: block.settings.alt,
+                    id_prefix: 'hero-float'
+                  -%}
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="hero-logitech__image-wrap">
+          {%- if hero_image != blank -%}
+            {%- render 'responsive-image',
+              image: hero_image,
+              max_width: 900,
+              active_lazy: false,
+              alt_text: hero_alt,
+              id_prefix: 'hero-logitech-main',
+              image_attributes: 'fetchpriority="high"'
+            -%}
+          {%- else -%}
+            <img
+              src="{{ 'logitech-white.png' | asset_url }}"
+              alt="{{ hero_alt }}"
+              width="600"
+              height="500"
+              loading="eager"
+              fetchpriority="high"
+              class="hero-logitech__img"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Logitech",
+  "tag": "section",
+  "class": "shopify-section--hero-logitech",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Classe CSS customizada"
+    },
+    {
+      "type": "header",
+      "content": "Altura e fundo"
+    },
+    {
+      "type": "select",
+      "id": "section_height_desktop",
+      "label": "Altura (desktop)",
+      "options": [
+        { "value": "auto", "label": "Auto" },
+        { "value": "70vh", "label": "70vh" },
+        { "value": "80vh", "label": "80vh" },
+        { "value": "90vh", "label": "90vh" }
+      ],
+      "default": "80vh"
+    },
+    {
+      "type": "select",
+      "id": "section_height_mobile",
+      "label": "Altura (mobile)",
+      "options": [
+        { "value": "auto", "label": "Auto" },
+        { "value": "60vh", "label": "60vh" },
+        { "value": "70vh", "label": "70vh" }
+      ],
+      "default": "auto"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Estilo do fundo",
+      "options": [
+        { "value": "gradient", "label": "Gradiente" },
+        { "value": "solid", "label": "Sólido" }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo (sólido)",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradiente início",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradiente fim",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "spotlight_intensity",
+      "label": "Intensidade vinheta/spotlight",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 40,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "content_max_width",
+      "label": "Largura máxima do conteúdo (px)",
+      "min": 320,
+      "max": 720,
+      "step": 20,
+      "default": 480
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "overline_text",
+      "label": "Overline",
+      "default": "MASTER SERIES"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Título (H1)",
+      "default": "MX MASTER 3S"
+    },
+    {
+      "type": "richtext",
+      "id": "description_text",
+      "label": "Descrição",
+      "default": "<p>A SERIES OF TOOLS DESIGNED AND ENGINEERED TO EMPOWER CREATORS, MAKERS, AND CODES TO MASTER WHAT THEY MAKE.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Reviews"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_reviews",
+      "label": "Exibir reviews",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "stars_value",
+      "label": "Estrelas (0-5)",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "default": 5
+    },
+    {
+      "type": "text",
+      "id": "reviews_text",
+      "label": "Texto de reviews",
+      "default": "50+ Reviews"
+    },
+    {
+      "type": "header",
+      "content": "Preço e CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Exibir preço",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_text",
+      "label": "Preço",
+      "default": "$99.99"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto do botão CTA",
+      "default": "ADD TO CART"
+    },
+    {
+      "type": "select",
+      "id": "cta_type",
+      "label": "Tipo do CTA",
+      "options": [
+        { "value": "link", "label": "Link (URL)" },
+        { "value": "anchor", "label": "Âncora (rolar até seção)" }
+      ],
+      "default": "anchor"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "URL do CTA (quando tipo = Link)"
+    },
+    {
+      "type": "text",
+      "id": "cta_anchor_id",
+      "label": "ID da âncora (ex: shopify-section-xxxx)",
+      "info": "Usado quando tipo = Âncora. Ex.: shopify-section-16351850661ed94a47"
+    },
+    {
+      "type": "header",
+      "content": "Imagem principal"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Imagem do produto"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Alt da imagem"
+    },
+    {
+      "type": "range",
+      "id": "hero_image_max_width",
+      "label": "Largura máxima da imagem (px)",
+      "min": 320,
+      "max": 800,
+      "step": 20,
+      "default": 700
+    },
+    {
+      "type": "header",
+      "content": "Marca d'água"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_watermark",
+      "label": "Ativar marca d'água",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "watermark_text",
+      "label": "Texto da marca d'água",
+      "default": "MX"
+    },
+    {
+      "type": "range",
+      "id": "watermark_opacity",
+      "label": "Opacidade da marca d'água",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "default": 5,
+      "unit": "%"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet",
+      "settings": [
+        {
+          "type": "text",
+          "id": "bullet_text",
+          "label": "Texto do bullet"
+        }
+      ]
+    },
+    {
+      "type": "float_image",
+      "name": "Miniatura flutuante",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Alt"
+        },
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Tamanho",
+          "options": [
+            { "value": "small", "label": "Pequeno" },
+            { "value": "medium", "label": "Médio" }
+          ],
+          "default": "small"
+        },
+        {
+          "type": "select",
+          "id": "position",
+          "label": "Posição",
+          "options": [
+            { "value": "top", "label": "Topo" },
+            { "value": "middle", "label": "Meio" },
+            { "value": "bottom", "label": "Base" }
+          ],
+          "default": "top"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable",
+          "label": "Ativar",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Logitech",
+      "blocks": []
+    }
+  ]
+}
+{% endschema %}

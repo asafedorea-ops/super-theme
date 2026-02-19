@@ -1,0 +1,416 @@
+/* ===== Hero Logitech - section-hero-logitech.css ===== */
+
+.hero-logitech {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: 60px;
+}
+
+.hero-logitech[data-background-style="gradient"] {
+  background: linear-gradient(
+    135deg,
+    var(--hero-logitech-gradient-start, #0d0d0d) 0%,
+    var(--hero-logitech-gradient-end, #1a1a1a) 100%
+  );
+}
+
+.hero-logitech[data-background-style="solid"] {
+  background: var(--hero-logitech-bg, #0d0d0d);
+}
+
+/* Spotlight / vinheta: mais escuro nas bordas */
+.hero-logitech::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    transparent 0%,
+    rgba(0, 0, 0, var(--hero-logitech-spotlight, 0.4)) 100%
+  );
+  opacity: 1;
+}
+
+.hero-logitech__wrapper {
+  position: relative;
+  z-index: 1;
+  min-height: var(--hero-logitech-height-desk, 80vh);
+  display: flex;
+  align-items: center;
+}
+
+.hero-logitech__inner {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 20px;
+  width: 100%;
+}
+
+/* Coluna conteúdo */
+.hero-logitech__content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+  min-width: 0;
+  max-width: var(--hero-logitech-content-max-width, 480px);
+}
+
+.hero-logitech__watermark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(6rem, 18vw, 12rem);
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  opacity: var(--hero-logitech-watermark-opacity, 0.05);
+  pointer-events: none;
+  white-space: nowrap;
+  user-select: none;
+  z-index: 0;
+}
+
+.hero-logitech__overline {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logitech__heading {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logitech__description {
+  margin: 0;
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logitech__description p {
+  margin: 0 0 0.5em;
+}
+
+.hero-logitech__description p:last-child {
+  margin-bottom: 0;
+}
+
+.hero-logitech__bullets {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logitech__bullet {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.05em;
+}
+
+.hero-logitech__reviews {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logitech__stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+}
+
+.hero-logitech__star {
+  display: inline-flex;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-logitech__star svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.hero-logitech__reviews-text {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-logitech__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-logitech__price {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 600;
+  color: #fff;
+}
+
+.hero-logitech__cta {
+  display: inline-block;
+  padding: 0.85rem 1.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  cursor: pointer;
+}
+
+.hero-logitech__cta:hover,
+.hero-logitech__cta:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+}
+
+.hero-logitech__cta--disabled {
+  cursor: default;
+  opacity: 0.8;
+}
+
+/* Coluna mídia */
+.hero-logitech__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+
+.hero-logitech__image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: var(--hero-logitech-hero-img-max-width, 700px);
+  margin: 0 auto;
+}
+
+.hero-logitech__image-wrap .responsive-image__wrapper,
+.hero-logitech__image-wrap img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.hero-logitech__img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Miniaturas flutuantes */
+.hero-logitech__floats {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  padding-right: 0.5rem;
+  pointer-events: none;
+}
+
+.hero-logitech__float {
+  width: 60px;
+  flex-shrink: 0;
+}
+
+.hero-logitech__float--medium {
+  width: 80px;
+}
+
+.hero-logitech__float--top {
+  align-self: flex-start;
+}
+
+.hero-logitech__float--middle {
+  align-self: center;
+}
+
+.hero-logitech__float--bottom {
+  align-self: flex-end;
+}
+
+.hero-logitech__float .responsive-image__wrapper {
+  width: 100%;
+}
+
+.hero-logitech__float img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* ===== Desktop: informações +50% ===== */
+@media (min-width: 1020px) {
+  .hero-logitech__inner {
+    gap: 3rem;
+    padding: clamp(3rem, 7.5vw, 6rem) 20px;
+  }
+
+  .hero-logitech__content {
+    gap: 1.5rem;
+  }
+
+  .hero-logitech__watermark {
+    font-size: clamp(9rem, 27vw, 18rem);
+  }
+
+  .hero-logitech__overline {
+    font-size: 1.05rem;
+  }
+
+  .hero-logitech__heading {
+    font-size: clamp(3rem, 7.5vw, 5.25rem);
+  }
+
+  .hero-logitech__description {
+    font-size: clamp(1.125rem, 1.65vw, 1.35rem);
+  }
+
+  .hero-logitech__description p {
+    margin: 0 0 0.75em;
+  }
+
+  .hero-logitech__bullets {
+    gap: 0.75rem 1.5rem;
+  }
+
+  .hero-logitech__bullet {
+    font-size: 1.2rem;
+  }
+
+  .hero-logitech__reviews {
+    gap: 0.75rem;
+  }
+
+  .hero-logitech__star svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .hero-logitech__reviews-text {
+    font-size: 1.275rem;
+  }
+
+  .hero-logitech__actions {
+    gap: 1.5rem;
+  }
+
+  .hero-logitech__price {
+    font-size: clamp(1.875rem, 3vw, 2.25rem);
+  }
+
+  .hero-logitech__cta {
+    padding: 1.275rem 2.625rem;
+    font-size: 1.2rem;
+  }
+}
+
+/* ===== Responsivo tablet ===== */
+@media (max-width: 1019px) {
+  .hero-logitech__inner {
+    grid-template-columns: 1fr;
+    padding: 2.5rem 20px;
+    gap: 1.5rem;
+  }
+
+  .hero-logitech__content {
+    order: 1;
+    max-width: 100%;
+  }
+
+  .hero-logitech__media {
+    order: 2;
+  }
+
+  .hero-logitech__watermark {
+    top: 30%;
+    font-size: clamp(4rem, 20vw, 8rem);
+  }
+
+  .hero-logitech__wrapper {
+    min-height: var(--hero-logitech-height-mob, auto);
+  }
+}
+
+/* ===== Responsivo mobile ===== */
+@media (max-width: 767px) {
+  .hero-logitech {
+    padding-top: 50px;
+  }
+
+  .hero-logitech__inner {
+    padding: 2rem 16px;
+    gap: 1.25rem;
+  }
+
+  .hero-logitech__heading {
+    font-size: clamp(1.5rem, 8vw, 2.25rem);
+  }
+
+  .hero-logitech__description {
+    font-size: 0.75rem;
+  }
+
+  .hero-logitech__cta {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .hero-logitech__floats {
+    display: none;
+  }
+}
