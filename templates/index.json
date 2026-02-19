@@ -1,9 +1,16 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_logitech_section": {
       "type": "hero-logitech",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "custom_class": "",
         "section_height_desktop": "80vh",
@@ -19,14 +26,13 @@
         "description_text": "<p>A SERIES OF TOOLS DESIGNED AND ENGINEERED TO EMPOWER CREATORS, MAKERS, AND CODES TO MASTER WHAT THEY MAKE.</p>",
         "show_reviews": true,
         "stars_value": 5,
-        "reviews_text": "50+ Reviews",
+        "reviews_text": "5000+ Reviews",
         "show_price": true,
         "price_text": "$99.99",
         "cta_label": "ADD TO CART",
         "cta_type": "anchor",
         "cta_url": "",
         "cta_anchor_id": "shopify-section-16351850661ed94a47",
-        "hero_image": "",
         "hero_image_alt": "",
         "hero_image_max_width": 560,
         "enable_watermark": true,
@@ -63,14 +69,27 @@
         "6387f68d-af18-45c4-8cd9-942d907c65c6"
       ],
       "settings": {
+        "banner_layout": "classic",
+        "hero_overline": "MASTER SERIES",
+        "hero_title": "MX MASTER 3S",
+        "hero_description": "A SERIES OF TOOLS DESIGNED AND ENGINEERED TO EMPOWER CREATOR, MAKER, AND CODES TO MASTER WHAT THEY MAKE",
+        "hero_rating_value": 5,
+        "hero_review_text": "50+ Reviews",
+        "hero_price": "$99.99",
+        "hero_cta_label": "ADD TO CART",
+        "hero_cta_link": "",
+        "hero_gradient_start": "#0d0d0d",
+        "hero_gradient_end": "#1a1a1a",
+        "hero_image_alt": "",
+        "hero_image_width": 600,
+        "hero_image_height": 500,
+        "hero_aria_label": "Product hero",
         "custom_class": "",
         "enable_custom_margins_paddings": true,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "homepage_banner_style_1": "shopify:\/\/shop_images\/reflective-sunglasses.jpg",
-        "mobile_banner_style_1": "shopify:\/\/shop_images\/pink-sunglasses-on-white.jpg",
         "enable_custom_banner_height": false,
         "banner_max_height": 430,
         "banner_max_height_tablet": 430,
@@ -121,7 +140,6 @@
           "type": "collection",
           "settings": {
             "collection": "bundle",
-            "collection_image": "shopify:\/\/shop_images\/close-up-of-fresh-bread.jpg",
             "collection_title": ""
           }
         },
@@ -136,7 +154,6 @@
           "type": "collection",
           "settings": {
             "collection": "vasta-bump",
-            "collection_image": "shopify:\/\/shop_images\/promo1_230x_71bb5475-539f-4494-b1b0-ed47efcfbb52.jpg",
             "collection_title": ""
           }
         },
@@ -204,7 +221,7 @@
         "custom-padding-bottom": 0,
         "buy_now_line_direction": "row",
         "box_limit": 200,
-        "text_above_button": "<h3>Lorem ipsum dolor<\/h3>\nLorem ipsum dolor sit amet consectetur adipiscing elit.",
+        "text_above_button": "<h3>Lorem ipsum dolor</h3>\nLorem ipsum dolor sit amet consectetur adipiscing elit.",
         "block_text_align": "left",
         "text_above_font_size": 19,
         "text_above_color": "#ffffff",
@@ -224,8 +241,7 @@
         "id_product_block": "accessories",
         "use_add_to_cart": true,
         "use_external_link": true,
-        "url_product": "",
-        "url_call_to_action": "shopify:\/\/shop_images\/travel-flatlay.jpg"
+        "url_product": ""
       }
     },
     "163518853512c34568": {
@@ -236,7 +252,7 @@
           "settings": {
             "stars_review": "3",
             "title_review": "TEXT",
-            "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<\/p>",
+            "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>",
             "author_review": "",
             "date_review": "",
             "product_review": "",
@@ -249,7 +265,7 @@
           "settings": {
             "stars_review": "4",
             "title_review": "TEXT 2",
-            "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<\/p>",
+            "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>",
             "author_review": "",
             "date_review": "",
             "product_review": "",
@@ -262,7 +278,7 @@
           "settings": {
             "stars_review": "5",
             "title_review": "TEXT 3",
-            "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.<\/p>",
+            "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>",
             "author_review": "",
             "date_review": "",
             "product_review": "",
@@ -302,7 +318,6 @@
         "section_title_text_transform": "unset",
         "display_post_image": true,
         "blog_rewrite_image_home": "placeholder",
-        "blog_article_placeholder_home": "shopify:\/\/shop_images\/download.jpg",
         "homepage_blog": "news",
         "posts_amount": "2"
       }
@@ -314,40 +329,35 @@
           "type": "slide",
           "settings": {
             "title_slide_promotional": "Example",
-            "link_Image_slide_promotional": "#",
-            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+            "link_Image_slide_promotional": "#"
           }
         },
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-1": {
           "type": "slide",
           "settings": {
             "title_slide_promotional": "Example",
-            "link_Image_slide_promotional": "#",
-            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+            "link_Image_slide_promotional": "#"
           }
         },
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-2": {
           "type": "slide",
           "settings": {
             "title_slide_promotional": "Example",
-            "link_Image_slide_promotional": "#",
-            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+            "link_Image_slide_promotional": "#"
           }
         },
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-3": {
           "type": "slide",
           "settings": {
             "title_slide_promotional": "Example",
-            "link_Image_slide_promotional": "#",
-            "image_slide_promotional": "shopify:\/\/shop_images\/person-stands-on-rocks-poking-out-of-the-ocean-shoreline.jpg"
+            "link_Image_slide_promotional": "#"
           }
         },
         "567fde8b-339e-4191-a732-fa88d2fe0a99": {
           "type": "slide",
           "settings": {
             "title_slide_promotional": "Example",
-            "link_Image_slide_promotional": "#",
-            "image_slide_promotional": "shopify:\/\/shop_images\/MIPL592CHGRY_720x_24759b9a-bf69-412a-9cc5-aaa3164c7029.jpg"
+            "link_Image_slide_promotional": "#"
           }
         }
       },
