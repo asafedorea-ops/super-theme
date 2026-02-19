@@ -250,7 +250,7 @@
         "bf641e7a-f276-4bbb-853d-bbd177712fc3": {
           "type": "select",
           "settings": {
-            "stars_review": "3",
+            "stars_review": "4",
             "title_review": "TEXT",
             "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>",
             "author_review": "",
@@ -293,16 +293,23 @@
         "03846dea-ab9d-4cc3-9fea-ad5abfa79cdb"
       ],
       "settings": {
-        "custom_class": "",
+        "enable_reviews": true,
+        "section_title": "Customer Reviews",
+        "section_subtitle": "",
+        "background_style": "gradient",
+        "background_color": "#0d0d0d",
+        "gradient_start": "#0d0d0d",
+        "gradient_end": "#1a1a1a",
+        "enable_slider_mobile": true,
+        "enable_slider_desktop": false,
+        "slider_autoplay": false,
+        "slider_speed": 800,
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "enable_reviews": true,
-        "title": "",
-        "slider_autoplay": false,
-        "slider_speed": 800
+        "custom_class": ""
       }
     },
     "163518866014942cc3": {
