@@ -40,6 +40,66 @@
         "watermark_opacity": 5
       }
     },
+    "about_logitech_section": {
+      "type": "about-logitech",
+      "blocks": {
+        "about-social-1": {
+          "type": "social_link",
+          "settings": {
+            "icon": "icon-facebook",
+            "url": "",
+            "aria_label": "Facebook"
+          }
+        },
+        "about-social-2": {
+          "type": "social_link",
+          "settings": {
+            "icon": "icon-instagram",
+            "url": "",
+            "aria_label": "Instagram"
+          }
+        },
+        "about-social-3": {
+          "type": "social_link",
+          "settings": {
+            "icon": "icon-youtube",
+            "url": "",
+            "aria_label": "YouTube"
+          }
+        }
+      },
+      "block_order": [
+        "about-social-1",
+        "about-social-2",
+        "about-social-3"
+      ],
+      "settings": {
+        "custom_class": "",
+        "background_style": "gradient",
+        "background_color": "#0d0d0d",
+        "gradient_start": "#0d0d0d",
+        "gradient_end": "#1a1a1a",
+        "heading_text": "Make Your Play",
+        "highlight_word": "Play",
+        "body_text": "<p>Your Power Your Control. Conquer MOBA, MMO, And Battle Royale Gameplay With The Strategically Design G604 LIGHTSPEED Wireless Gaming Mouse. 15 Programmable Controls Join Forces With Ultra-Fast LIGHTSPEED Dual Connectivity And The Class-Leading HERO 16k Sensor. It's A Multifaceted Battle Weapon That Lets You Play Longer, Play Better, And Make Your Play.</p>",
+        "cta_label": "Buy",
+        "cta_link": "",
+        "open_in_new_tab": false,
+        "button_style": "outline",
+        "main_image_alt": "",
+        "image_max_width_desktop": 560,
+        "image_max_width_mobile": 320,
+        "image_loading": "lazy",
+        "content_alignment": "left",
+        "image_position_desktop": "left",
+        "image_position_mobile": "top",
+        "vertical_padding": 60,
+        "enable_side_dots": true,
+        "dots_count": 3,
+        "active_dot_index": 1,
+        "enable_social_icons": true
+      }
+    },
     "16351850661ed94a47": {
       "type": "banner-style1",
       "blocks": {
@@ -250,7 +310,7 @@
         "bf641e7a-f276-4bbb-853d-bbd177712fc3": {
           "type": "select",
           "settings": {
-            "stars_review": "3",
+            "stars_review": "4",
             "title_review": "TEXT",
             "content_review": "<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>",
             "author_review": "",
@@ -293,16 +353,23 @@
         "03846dea-ab9d-4cc3-9fea-ad5abfa79cdb"
       ],
       "settings": {
-        "custom_class": "",
+        "enable_reviews": true,
+        "section_title": "Customer Reviews",
+        "section_subtitle": "",
+        "background_style": "gradient",
+        "background_color": "#0d0d0d",
+        "gradient_start": "#0d0d0d",
+        "gradient_end": "#1a1a1a",
+        "enable_slider_mobile": true,
+        "enable_slider_desktop": false,
+        "slider_autoplay": false,
+        "slider_speed": 800,
         "enable_custom_margins_paddings": false,
         "custom-margin-top": 0,
         "custom-margin-bottom": 0,
         "custom-padding-top": 0,
         "custom-padding-bottom": 0,
-        "enable_reviews": true,
-        "title": "",
-        "slider_autoplay": false,
-        "slider_speed": 800
+        "custom_class": ""
       }
     },
     "163518866014942cc3": {
@@ -388,6 +455,7 @@
   },
   "order": [
     "hero_logitech_section",
+    "about_logitech_section",
     "16351850661ed94a47",
     "16351881143a2d10e5",
     "163518802243d59863",

@@ -1,9 +1,8 @@
 <!-- start header-logo (SNIPPET) -->
-<!-- LOGO_SOURCE: header-logo.liquid (logitech-logo.png) - SVG removido, sempre img -->
+<!-- LOGO_SOURCE: logitech-white-logo.png (wordmark branco). Sem SVG no DOM, apenas <img>. -->
 {%- comment -%}
-  Logo padrão: sempre assets/logitech-logo.png. SVG inline removido definitivamente.
-  section traz logo_max_width, logo_max_height, premium_logo_max_width.
-  variant: 'premium' = header premium dark.
+  Logo: assets/logitech-white-logo.png. Proporções: width = setting max_width, height = width/3 (wordmark).
+  variant 'premium' = header premium dark.
 {%- endcomment -%}
 {%- assign section_title = section_title | default: 'Logo' -%}
 {%- assign logo_section = section -%}
@@ -34,7 +33,7 @@
   <div class="header__premium__logo">
     <a href="{{ routes.root_url }}" class="header__premium__logo-link" title="{{ logo_alt_text | escape }}">
       <img
-        src="{{ 'logitech-logo.png' | asset_url }}"
+        src="{{ 'logitech-white-logo.png' | asset_url }}"
         alt="{{ logo_alt_text | escape }}"
         width="{{ logo_w }}"
         height="{{ logo_h }}"
@@ -48,7 +47,7 @@
   <div id="Header{{ section_title }}" class="header__logo">
     <a class="header__logo__anchor" title="{{ logo_alt_text | escape }}" href="{{ routes.root_url }}">
       <img
-        src="{{ 'logitech-logo.png' | asset_url }}"
+        src="{{ 'logitech-white-logo.png' | asset_url }}"
         alt="{{ logo_alt_text | escape }}"
         width="{{ logo_w }}"
         height="{{ logo_h }}"

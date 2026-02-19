@@ -1,0 +1,484 @@
+/* ===== About Logitech - section-about-logitech.css ===== */
+/* Escopo: .shopify-section--about-logitech (section root tem .about-logitech também) */
+
+.shopify-section--about-logitech .about-logitech,
+.shopify-section--about-logitech.about-logitech {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  padding-top: var(--about-logitech-padding-y, 60px);
+  padding-bottom: var(--about-logitech-padding-y, 60px);
+  box-sizing: border-box;
+}
+
+.shopify-section--about-logitech .about-logitech[data-background-style="gradient"],
+.shopify-section--about-logitech.about-logitech[data-background-style="gradient"] {
+  background: linear-gradient(
+    135deg,
+    var(--about-logitech-gradient-start, #0d0d0d) 0%,
+    var(--about-logitech-gradient-end, #1a1a1a) 100%
+  );
+}
+
+.shopify-section--about-logitech .about-logitech[data-background-style="solid"],
+.shopify-section--about-logitech.about-logitech[data-background-style="solid"] {
+  background: var(--about-logitech-bg, #0d0d0d);
+}
+
+.shopify-section--about-logitech .about-logitech::before,
+.shopify-section--about-logitech.about-logitech::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    transparent 0%,
+    rgba(0, 0, 0, 0.25) 100%
+  );
+  opacity: 1;
+}
+
+/* Efeito gamer: grade sutil (tech/grid) */
+.shopify-section--about-logitech .about-logitech::after,
+.shopify-section--about-logitech.about-logitech::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.6;
+}
+
+.shopify-section--about-logitech .about-logitech__wrapper {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Efeito gamer: cantos em L (brackets) — leves */
+.shopify-section--about-logitech .about-logitech__wrapper::before,
+.shopify-section--about-logitech .about-logitech__wrapper::after {
+  content: "";
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  border-color: rgba(255, 255, 255, 0.12);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+
+.shopify-section--about-logitech .about-logitech__wrapper::before {
+  top: 24px;
+  left: 24px;
+  border-left-width: 2px;
+  border-top-width: 2px;
+}
+
+.shopify-section--about-logitech .about-logitech__wrapper::after {
+  bottom: 24px;
+  right: 24px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+}
+
+.shopify-section--about-logitech .about-logitech__container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 48px);
+  box-sizing: border-box;
+}
+
+/* Grid: mobile primeiro — 1 coluna */
+.shopify-section--about-logitech .about-logitech__grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.shopify-section--about-logitech .about-logitech--mobile-img-bottom .about-logitech__grid {
+  flex-direction: column-reverse;
+}
+
+/* Mídia (imagem) — mesmo padrão da Hero (max-width e object-fit) */
+.shopify-section--about-logitech .about-logitech__media {
+  width: 100%;
+  max-width: var(--about-logitech-img-max-w-mob, 320px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shopify-section--about-logitech .about-logitech__image-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+/* Efeito gamer: brilho suave atrás da imagem (halo) */
+.shopify-section--about-logitech .about-logitech__image-wrap::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 85%;
+  height: 85%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 80, 80, 0.08) 0%,
+    rgba(255, 60, 60, 0.03) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.shopify-section--about-logitech .about-logitech__image-wrap .responsive-image__wrapper,
+.shopify-section--about-logitech .about-logitech__image-wrap img,
+.shopify-section--about-logitech .about-logitech__img {
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Conteúdo */
+.shopify-section--about-logitech .about-logitech__content {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+}
+
+/* Efeito gamer: linha de destaque sutil à esquerda do texto (desktop) */
+.shopify-section--about-logitech .about-logitech__content::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.2) 20%,
+    rgba(255, 255, 255, 0.2) 80%,
+    transparent
+  );
+  border-radius: 2px;
+  opacity: 0;
+}
+
+.shopify-section--about-logitech .about-logitech--align-center .about-logitech__content::before {
+  display: none;
+}
+
+.shopify-section--about-logitech .about-logitech--align-center .about-logitech__content {
+  text-align: center;
+}
+
+/* Título H2 — mesma tipografia da Hero (heading): uppercase, tamanhos iguais */
+.shopify-section--about-logitech .about-logitech__heading {
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: #fff;
+  position: relative;
+  z-index: 1;
+}
+
+.shopify-section--about-logitech .about-logitech__highlight {
+  position: relative;
+  display: inline-block;
+  z-index: 1;
+}
+
+.shopify-section--about-logitech .about-logitech__highlight::before {
+  content: "";
+  position: absolute;
+  left: -0.15em;
+  right: -0.15em;
+  top: 0.05em;
+  bottom: 0.05em;
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+  z-index: -1;
+}
+
+/* Descrição — mesma tipografia da Hero (description): uppercase, tamanho menor que o título */
+.shopify-section--about-logitech .about-logitech__body {
+  max-width: 520px;
+  margin: 0 0 1.5rem;
+  font-size: clamp(0.75rem, 1.1vw, 0.9rem);
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.8);
+  position: relative;
+  z-index: 1;
+}
+
+.shopify-section--about-logitech .about-logitech--align-center .about-logitech__body {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.shopify-section--about-logitech .about-logitech__body p {
+  margin: 0 0 0.5em;
+}
+
+.shopify-section--about-logitech .about-logitech__body p:last-child {
+  margin-bottom: 0;
+}
+
+.shopify-section--about-logitech .about-logitech__actions {
+  margin-top: 0;
+}
+
+/* CTA — mesmo estilo da Hero: pill, uppercase, letter-spacing */
+.shopify-section--about-logitech .about-logitech__cta {
+  display: inline-block;
+  padding: 0.85rem 1.75rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 999px;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.shopify-section--about-logitech .about-logitech--btn-outline .about-logitech__cta {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.shopify-section--about-logitech .about-logitech--btn-outline .about-logitech__cta:hover,
+.shopify-section--about-logitech .about-logitech--btn-outline .about-logitech__cta:focus {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
+  box-shadow: 0 0 24px rgba(255, 255, 255, 0.06);
+}
+
+.shopify-section--about-logitech .about-logitech--btn-filled .about-logitech__cta {
+  background: #ffffff;
+  color: #0d0d0d;
+  border: 2px solid #ffffff;
+}
+
+.shopify-section--about-logitech .about-logitech--btn-filled .about-logitech__cta:hover {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+  color: #0d0d0d;
+}
+
+/* Dots (decorativos) — escondidos no mobile por padrão */
+.shopify-section--about-logitech .about-logitech__dots {
+  display: none;
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+}
+
+.shopify-section--about-logitech .about-logitech__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.shopify-section--about-logitech .about-logitech__dot--active {
+  width: 12px;
+  height: 12px;
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.9);
+  box-sizing: border-box;
+}
+
+/* Social — escondidos no mobile por padrão */
+.shopify-section--about-logitech .about-logitech__social {
+  display: none;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.shopify-section--about-logitech .about-logitech__social-link {
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 0;
+  transition: color 0.2s ease;
+}
+
+.shopify-section--about-logitech .about-logitech__social-link:hover {
+  color: #ffffff;
+}
+
+.shopify-section--about-logitech .about-logitech__social-link svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+
+/* Desktop (igual Hero: 1020px): 2 colunas, mais distância entre imagem e texto */
+@media (min-width: 1020px) {
+  .shopify-section--about-logitech .about-logitech__grid {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(4rem, 8vw, 8rem);
+    min-height: 400px;
+  }
+
+  .shopify-section--about-logitech .about-logitech--img-left .about-logitech__grid {
+    flex-direction: row;
+  }
+
+  .shopify-section--about-logitech .about-logitech--img-right .about-logitech__grid {
+    flex-direction: row-reverse;
+  }
+
+  .shopify-section--about-logitech .about-logitech--mobile-img-bottom.about-logitech--img-left .about-logitech__grid,
+  .shopify-section--about-logitech .about-logitech--mobile-img-bottom.about-logitech--img-right .about-logitech__grid {
+    flex-direction: row;
+  }
+
+  .shopify-section--about-logitech .about-logitech--mobile-img-bottom.about-logitech--img-right .about-logitech__grid {
+    flex-direction: row-reverse;
+  }
+
+  .shopify-section--about-logitech .about-logitech__media {
+    flex: 0 0 auto;
+    max-width: var(--about-logitech-img-max-w-desk, 560px);
+    justify-content: flex-start;
+  }
+
+  .shopify-section--about-logitech .about-logitech--img-right .about-logitech__media {
+    justify-content: flex-end;
+  }
+
+  .shopify-section--about-logitech .about-logitech__image-wrap {
+    max-width: var(--about-logitech-img-max-w-desk, 560px);
+  }
+
+  .shopify-section--about-logitech .about-logitech__content {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 580px;
+    padding-left: 0.75rem;
+  }
+
+  .shopify-section--about-logitech .about-logitech__content::before {
+    opacity: 1;
+  }
+
+  .shopify-section--about-logitech .about-logitech__heading {
+    font-size: clamp(3rem, 7.5vw, 5.25rem);
+  }
+
+  .shopify-section--about-logitech .about-logitech__body {
+    font-size: clamp(1.125rem, 1.65vw, 1.35rem);
+  }
+
+  .shopify-section--about-logitech .about-logitech__body p {
+    margin: 0 0 0.75em;
+  }
+
+  .shopify-section--about-logitech .about-logitech__cta {
+    padding: 1.275rem 2.625rem;
+    font-size: 1.2rem;
+  }
+
+  .shopify-section--about-logitech .about-logitech__dots {
+    display: flex;
+  }
+
+  .shopify-section--about-logitech .about-logitech__social {
+    display: flex;
+  }
+}
+
+@media (max-width: 1019px) {
+  .shopify-section--about-logitech .about-logitech__body {
+    max-width: 100%;
+  }
+
+  .shopify-section--about-logitech .about-logitech__wrapper::before,
+  .shopify-section--about-logitech .about-logitech__wrapper::after {
+    width: 28px;
+    height: 28px;
+  }
+
+  .shopify-section--about-logitech .about-logitech__wrapper::before {
+    top: 16px;
+    left: 16px;
+  }
+
+  .shopify-section--about-logitech .about-logitech__wrapper::after {
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+/* Mobile (igual Hero: 767px): título e descrição com tamanhos da Hero */
+@media (max-width: 767px) {
+  .shopify-section--about-logitech .about-logitech__heading {
+    font-size: clamp(1.5rem, 8vw, 2.25rem);
+  }
+
+  .shopify-section--about-logitech .about-logitech__body {
+    font-size: 0.75rem;
+  }
+
+  .shopify-section--about-logitech .about-logitech__cta {
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .shopify-section--about-logitech .about-logitech__content::before {
+    display: none;
+  }
+
+  .shopify-section--about-logitech .about-logitech__wrapper::before,
+  .shopify-section--about-logitech .about-logitech__wrapper::after {
+    border-color: rgba(255, 255, 255, 0.08);
+    width: 20px;
+    height: 20px;
+  }
+
+  .shopify-section--about-logitech .about-logitech__wrapper::before {
+    top: 12px;
+    left: 12px;
+  }
+
+  .shopify-section--about-logitech .about-logitech__wrapper::after {
+    bottom: 12px;
+    right: 12px;
+  }
+}

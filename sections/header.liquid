@@ -5,7 +5,18 @@
 
 {%- if section.settings.header_style == 'premium_dark' and template != 'cart' -%}
   {%- comment -%} Premium dark header: logo left, nav center, search + login right; transparent over hero, sticky on scroll {%- endcomment -%}
-  <!-- LOGO_SOURCE: header.liquid premium (via header-logo snippet) -->
+  <!-- HEADER_VARIANT: premium -->
+  {%- liquid
+    assign enable_glass = section.settings.enable_transparent_background
+    assign glass_opacity = section.settings.glass_opacity | default: 18
+    assign glass_blur = section.settings.glass_blur | default: 12
+  -%}
+  {%- if enable_glass -%}
+  <style>
+    #shopify-section-{{ section.id }} { background: transparent !important; min-height: 0; }
+    .header-content { background: transparent !important; }
+  </style>
+  {%- endif -%}
   <header
     class="header header--premium main-header"
     role="banner"
@@ -13,7 +24,8 @@
     data-section-id="{{ section.id }}"
     data-transparent="{{ section.settings.enable_transparent_background }}"
     data-sticky="{{ section.settings.enable_sticky_header }}"
-    style="--header-bg: {{ section.settings.header_background_color }}; --header-logo-max-width: {{ section.settings.premium_logo_max_width }}px;"
+    {% if enable_glass %}data-glass="true"{% endif %}
+    style="--header-bg: {{ section.settings.header_background_color }}; --header-logo-max-width: {{ section.settings.premium_logo_max_width }}px; {% if enable_glass %}--glass-opacity: {{ glass_opacity | divided_by: 100.0 }}; --glass-blur: {{ glass_blur }}px;{% endif %}"
   >
     <div class="header__premium__inner">
       {%- render 'header-logo', section: section, variant: 'premium' -%}
@@ -881,6 +893,28 @@
       "unit": "px",
       "label": "Logo max width (Premium dark)",
       "default": 120
+    },
+    {
+      "type": "range",
+      "id": "glass_opacity",
+      "min": 5,
+      "max": 40,
+      "step": 1,
+      "unit": "%",
+      "label": "Glass opacity (transparent header)",
+      "default": 18,
+      "info": "Premium dark when Transparent over hero is on."
+    },
+    {
+      "type": "range",
+      "id": "glass_blur",
+      "min": 6,
+      "max": 18,
+      "step": 2,
+      "unit": "px",
+      "label": "Glass blur (transparent header)",
+      "default": 12,
+      "info": "Premium dark when Transparent over hero is on."
     },
     {
       "type": "text",

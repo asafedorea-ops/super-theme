@@ -76,20 +76,34 @@
         {%- endif -%}
       {%- endfor -%}
       <div class="popular-collection-links">
+        {%- assign footer_logitech_assets = 'logitech-black.png,logitech-white.png,logitech-red.png' | split: ',' -%}
         {%- for block in section.blocks -%}
           {%- if 'popular_collection' == block.type -%}
             {%- assign pop = pop | plus: 1 -%}
+            {%- if pop > 3 -%}{%- continue -%}{%- endif -%}
 
             {%- if pop == 1 -%}
               <h4 class="popular_collections_title">{{ section.settings.collection_title }}</h4>
             {%- endif -%}
 
+            {%- assign asset_name = footer_logitech_assets[pop | minus: 1] -%}
             <a
               title="{{ block.settings.text_editable | strip_html | escape }}"
               id="ftr-pop_col-link-{{ block.id }}"
               href="{{ block.settings.link_popular_collection }}"
             >
-              {% render 'responsive-image' with image: block.settings.url_popular_collection, custom_class: true, max_width: 300, active_lazy : true, id_prefix: index, size_large: 152, size_mobile: 39, size_desk: 10 %}
+              {%- if block.settings.url_popular_collection != blank -%}
+                {% render 'responsive-image' with image: block.settings.url_popular_collection, custom_class: true, max_width: 300, active_lazy : true, id_prefix: index, size_large: 152, size_mobile: 39, size_desk: 10 %}
+              {%- else -%}
+                <img
+                  src="{{ asset_name | asset_url }}"
+                  alt="{{ block.settings.text_editable | default: 'Logitech' | strip_html | escape }}"
+                  width="300"
+                  height="300"
+                  loading="lazy"
+                  class="responsive-image__image"
+                >
+              {%- endif -%}
               {% if block.settings.text_editable != blank %}
                 <h5 class="popular_collections_text">{{ block.settings.text_editable }}</h5>
               {% endif %}
@@ -1126,28 +1140,50 @@
       "content": "Colors"
     },
     {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "options": [
+        { "value": "gradient", "label": "Gradient" },
+        { "value": "solid", "label": "Solid" }
+      ],
+      "default": "gradient"
+    },
+    {
       "type": "color",
       "id": "background_color",
-      "label": "Background Color",
-      "default": "#006ba2"
+      "label": "Background Color (solid)",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradient start",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradient end",
+      "default": "#1a1a1a"
     },
     {
       "type": "color",
       "id": "border_color",
       "label": "Border Color",
-      "default": "#fff"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "title_font_color",
       "label": "Title Font Color",
-      "default": "#000"
+      "default": "#ffffff"
     },
     {
       "type": "color",
       "id": "font_color",
       "label": "Text Font Color",
-      "default": "#fff"
+      "default": "#ffffff"
     },
     {
       "type": "color",
@@ -1393,7 +1429,7 @@
     {
       "type": "popular_collection",
       "name": "Popular Widget",
-      "limit": 4,
+      "limit": 3,
       "settings": [
         {
           "type": "text",

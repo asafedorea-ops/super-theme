@@ -1,0 +1,414 @@
+<!-- start about-logitech.liquid (SECTION) - About / Product Story -->
+{{ 'section-about-logitech.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign heading_text = section.settings.heading_text
+  assign highlight_word = section.settings.highlight_word | strip
+  assign body_text = section.settings.body_text
+  assign cta_label = section.settings.cta_label
+  assign cta_link = section.settings.cta_link
+  assign open_new_tab = section.settings.open_in_new_tab
+  assign main_image = section.settings.main_image
+  assign main_image_alt = section.settings.main_image_alt | default: heading_text | strip_html | escape
+  assign image_max_w_desk = section.settings.image_max_width_desktop | default: 520
+  assign image_max_w_mob = section.settings.image_max_width_mobile | default: 320
+  assign image_loading = section.settings.image_loading | default: 'lazy'
+  assign content_align = section.settings.content_alignment | default: 'left'
+  assign image_pos_desk = section.settings.image_position_desktop | default: 'left'
+  assign image_pos_mob = section.settings.image_position_mobile | default: 'top'
+  assign vertical_padding = section.settings.vertical_padding | default: 60
+  assign enable_dots = section.settings.enable_side_dots
+  assign dots_count = section.settings.dots_count | default: 3
+  assign active_dot_idx = section.settings.active_dot_index | default: 1
+  assign enable_social = section.settings.enable_social_icons
+  assign button_style = section.settings.button_style | default: 'outline'
+  assign bg_color = section.settings.background_color | default: '#0d0d0d'
+  assign grad_start = section.settings.gradient_start | default: '#0d0d0d'
+  assign grad_end = section.settings.gradient_end | default: '#1a1a1a'
+
+  assign use_highlight = false
+  if highlight_word != blank and heading_text != blank and heading_text contains highlight_word
+    assign heading_parts = heading_text | split: highlight_word, 2
+    assign part_before = heading_parts[0] | default: ''
+    assign part_after = heading_parts[1] | default: ''
+    if part_before != blank or part_after != blank
+      assign use_highlight = true
+    endif
+  endif
+
+  assign active_lazy = true
+  if image_loading == 'eager'
+    assign active_lazy = false
+  endif
+-%}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="about-logitech about-logitech--img-{{ image_pos_desk }} about-logitech--mobile-img-{{ image_pos_mob }} about-logitech--align-{{ content_align }} about-logitech--btn-{{ button_style }} {{ section.settings.custom_class }}"
+  style="
+    --about-logitech-padding-y: {{ vertical_padding }}px;
+    --about-logitech-bg: {{ bg_color }};
+    --about-logitech-gradient-start: {{ grad_start }};
+    --about-logitech-gradient-end: {{ grad_end }};
+    --about-logitech-img-max-w-desk: {{ image_max_w_desk }}px;
+    --about-logitech-img-max-w-mob: {{ image_max_w_mob }}px;
+  "
+  data-background-style="{{ section.settings.background_style | default: 'gradient' }}"
+  aria-label="{{ heading_text | default: 'About product' | escape }}"
+>
+  <div class="about-logitech__wrapper">
+    <div class="wrapper about-logitech__container">
+      <div class="about-logitech__grid">
+        <div class="about-logitech__media">
+          <div class="about-logitech__image-wrap">
+            {%- if main_image != blank -%}
+              {%- render 'responsive-image',
+                image: main_image,
+                max_width: image_max_w_desk,
+                active_lazy: active_lazy,
+                alt_text: main_image_alt,
+                id_prefix: 'about-logitech-main',
+                custom_class: true,
+                image_class: 'about-logitech__img'
+              -%}
+            {%- else -%}
+              <img
+                src="{{ 'logitech-red-side.png' | asset_url }}"
+                alt="{{ main_image_alt }}"
+                width="{{ image_max_w_desk }}"
+                height="{{ image_max_w_desk | times: 1.2 | round }}"
+                loading="{{ image_loading }}"
+                class="about-logitech__img"
+                style="object-fit: contain;"
+              >
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="about-logitech__content">
+          {%- if heading_text != blank -%}
+            <h2 class="about-logitech__heading">
+              {%- if use_highlight -%}
+                {{ part_before }}<span class="about-logitech__highlight">{{ highlight_word }}</span>{{ part_after }}
+              {%- else -%}
+                {{ heading_text }}
+              {%- endif -%}
+            </h2>
+          {%- endif -%}
+
+          {%- if body_text != blank -%}
+            <div class="about-logitech__body">{{ body_text }}</div>
+          {%- endif -%}
+
+          {%- if cta_label != blank -%}
+            <div class="about-logitech__actions">
+              <a
+                href="{{ cta_link | default: '#' }}"
+                class="about-logitech__cta"
+                {% if open_new_tab %}target="_blank" rel="noopener noreferrer"{% endif %}
+              >
+                {{ cta_label }}
+              </a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    {%- if enable_dots -%}
+      <div class="about-logitech__dots" aria-hidden="true">
+        {%- assign dots_limit = dots_count | at_least: 2 | at_most: 4 -%}
+        {%- assign active_idx = active_dot_idx | at_least: 1 | at_most: dots_limit -%}
+        {%- for i in (1..dots_limit) -%}
+          <span class="about-logitech__dot{% if i == active_idx %} about-logitech__dot--active{% endif %}"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if enable_social and section.blocks.size > 0 -%}
+      <div class="about-logitech__social">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'social_link' and block.settings.url != blank -%}
+            {%- assign icon_key = block.settings.icon | default: 'icon-instagram' -%}
+            {%- assign aria = block.settings.aria_label | default: icon_key | replace: 'icon-', '' | capitalize -%}
+            <a
+              href="{{ block.settings.url }}"
+              class="about-logitech__social-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="{{ aria }}"
+              {{ block.shopify_attributes }}
+            >
+              {%- render 'icon-media-social', icon: icon_key, show_title: false -%}
+            </a>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Logitech",
+  "tag": "section",
+  "class": "shopify-section--about-logitech",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Classe CSS customizada"
+    },
+    {
+      "type": "header",
+      "content": "Fundo"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Estilo do fundo",
+      "options": [
+        { "value": "gradient", "label": "Gradiente" },
+        { "value": "solid", "label": "Sólido" }
+      ],
+      "default": "gradient"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor de fundo (sólido)",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_start",
+      "label": "Gradiente início",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "gradient_end",
+      "label": "Gradiente fim",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "heading_text",
+      "label": "Título (H2)",
+      "default": "Make Your Play"
+    },
+    {
+      "type": "text",
+      "id": "highlight_word",
+      "label": "Palavra destacada no título",
+      "info": "Primeira ocorrência no título recebe o destaque (retângulo). Se não existir, o título é exibido normal.",
+      "default": "Make Your Play"
+    },
+    {
+      "type": "richtext",
+      "id": "body_text",
+      "label": "Descrição",
+      "default": "<p>Your Power Your Control. Conquer MOBA, MMO, And Battle Royale Gameplay With The Strategically Design G604 LIGHTSPEED Wireless Gaming Mouse. 15 Programmable Controls Join Forces With Ultra-Fast LIGHTSPEED Dual Connectivity And The Class-Leading HERO 16k Sensor. It's A Multifaceted Battle Weapon That Lets You Play Longer, Play Better, And Make Your Play.</p>"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto do botão CTA",
+      "default": "Buy"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Link do botão CTA"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_in_new_tab",
+      "label": "Abrir link em nova aba",
+      "default": false
+    },
+    {
+      "type": "select",
+      "id": "button_style",
+      "label": "Estilo do botão",
+      "options": [
+        { "value": "outline", "label": "Outline (borda)" },
+        { "value": "filled", "label": "Preenchido" }
+      ],
+      "default": "outline"
+    },
+    {
+      "type": "header",
+      "content": "Imagem"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Imagem principal"
+    },
+    {
+      "type": "text",
+      "id": "main_image_alt",
+      "label": "Texto alternativo da imagem"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width_desktop",
+      "label": "Largura máxima da imagem (desktop)",
+      "min": 320,
+      "max": 800,
+      "step": 20,
+      "default": 560,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "image_max_width_mobile",
+      "label": "Largura máxima da imagem (mobile)",
+      "min": 200,
+      "max": 480,
+      "step": 20,
+      "default": 320,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "image_loading",
+      "label": "Carregamento da imagem",
+      "info": "Use 'eager' se a section estiver acima da dobra.",
+      "options": [
+        { "value": "lazy", "label": "Lazy (abaixo da dobra)" },
+        { "value": "eager", "label": "Eager (acima da dobra)" }
+      ],
+      "default": "lazy"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Alinhamento do bloco de texto",
+      "options": [
+        { "value": "left", "label": "Esquerda" },
+        { "value": "center", "label": "Centro" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "image_position_desktop",
+      "label": "Posição da imagem (desktop)",
+      "options": [
+        { "value": "left", "label": "Esquerda" },
+        { "value": "right", "label": "Direita" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "select",
+      "id": "image_position_mobile",
+      "label": "Posição da imagem (mobile)",
+      "options": [
+        { "value": "top", "label": "Acima do texto" },
+        { "value": "bottom", "label": "Abaixo do texto" }
+      ],
+      "default": "top"
+    },
+    {
+      "type": "range",
+      "id": "vertical_padding",
+      "label": "Padding vertical",
+      "min": 24,
+      "max": 120,
+      "step": 4,
+      "default": 60,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Decorativos"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_side_dots",
+      "label": "Exibir dots laterais (esquerda)",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "dots_count",
+      "label": "Quantidade de dots",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "active_dot_index",
+      "label": "Índice do dot ativo (1 a 4)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 1
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_social_icons",
+      "label": "Exibir ícones sociais (direita)",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social_link",
+      "name": "Link social",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícone",
+          "options": [
+            { "value": "icon-facebook", "label": "Facebook" },
+            { "value": "icon-twitter", "label": "Twitter" },
+            { "value": "icon-instagram", "label": "Instagram" },
+            { "value": "icon-youtube", "label": "YouTube" },
+            { "value": "icon-pinterest", "label": "Pinterest" },
+            { "value": "icon-tumblr", "label": "Tumblr" },
+            { "value": "icon-vimeo", "label": "Vimeo" },
+            { "value": "icon-tiktok", "label": "TikTok" }
+          ],
+          "default": "icon-instagram"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "id": "aria_label",
+          "label": "Aria label (acessibilidade)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Logitech",
+      "settings": {},
+      "blocks": [
+        { "type": "social_link", "settings": { "icon": "icon-facebook" } },
+        { "type": "social_link", "settings": { "icon": "icon-instagram" } },
+        { "type": "social_link", "settings": { "icon": "icon-youtube" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
