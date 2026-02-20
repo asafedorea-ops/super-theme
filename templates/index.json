@@ -100,6 +100,54 @@
         "enable_social_icons": true
       }
     },
+    "product_color_carousel_section": {
+      "type": "product-color-carousel",
+      "blocks": {
+        "pcc-white": {
+          "type": "color_slide",
+          "settings": {
+            "asset_filename": "logitech-white.png",
+            "label": "Logitech White",
+            "link": ""
+          }
+        },
+        "pcc-black": {
+          "type": "color_slide",
+          "settings": {
+            "asset_filename": "logitech-black.png",
+            "label": "Logitech Black",
+            "link": ""
+          }
+        },
+        "pcc-red": {
+          "type": "color_slide",
+          "settings": {
+            "asset_filename": "logitech-red.png",
+            "label": "Logitech Red",
+            "link": ""
+          }
+        }
+      },
+      "block_order": ["pcc-white", "pcc-black", "pcc-red"],
+      "settings": {
+        "custom_class": "",
+        "section_title": "Escolha sua cor",
+        "section_subtitle": "Três variedades para combinar com seu espaço.",
+        "background_style": "gradient",
+        "background_color": "#f8f8f8",
+        "heading_size": 28,
+        "caption_size": 14,
+        "transition_duration": 400,
+        "enable_animations": true,
+        "enable_autoplay": false,
+        "autoplay_speed": 5000,
+        "cta_label": "Explore Mais",
+        "cta_url": "",
+        "cta_bg": "#1a1a1a",
+        "cta_text": "#ffffff",
+        "cta_border": "#333333"
+      }
+    },
     "16351850661ed94a47": {
       "type": "banner-style1",
       "blocks": {
@@ -456,7 +504,7 @@
   "order": [
     "hero_logitech_section",
     "about_logitech_section",
-    "16351850661ed94a47",
+    "product_color_carousel_section",
     "16351881143a2d10e5",
     "163518802243d59863",
     "163518791261981d42",
