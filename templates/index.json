@@ -100,54 +100,6 @@
         "enable_social_icons": true
       }
     },
-    "product_color_carousel_section": {
-      "type": "product-color-carousel",
-      "blocks": {
-        "pcc-white": {
-          "type": "color_slide",
-          "settings": {
-            "asset_filename": "logitech-white.png",
-            "label": "Logitech White",
-            "link": ""
-          }
-        },
-        "pcc-black": {
-          "type": "color_slide",
-          "settings": {
-            "asset_filename": "logitech-black.png",
-            "label": "Logitech Black",
-            "link": ""
-          }
-        },
-        "pcc-red": {
-          "type": "color_slide",
-          "settings": {
-            "asset_filename": "logitech-red.png",
-            "label": "Logitech Red",
-            "link": ""
-          }
-        }
-      },
-      "block_order": ["pcc-white", "pcc-black", "pcc-red"],
-      "settings": {
-        "custom_class": "",
-        "section_title": "Escolha sua cor",
-        "section_subtitle": "Três variedades para combinar com seu espaço.",
-        "background_style": "gradient",
-        "background_color": "#f8f8f8",
-        "heading_size": 28,
-        "caption_size": 14,
-        "transition_duration": 400,
-        "enable_animations": true,
-        "enable_autoplay": false,
-        "autoplay_speed": 5000,
-        "cta_label": "Explore Mais",
-        "cta_url": "",
-        "cta_bg": "#1a1a1a",
-        "cta_text": "#ffffff",
-        "cta_border": "#333333"
-      }
-    },
     "16351850661ed94a47": {
       "type": "banner-style1",
       "blocks": {
@@ -176,6 +128,7 @@
       "block_order": [
         "6387f68d-af18-45c4-8cd9-942d907c65c6"
       ],
+      "disabled": true,
       "settings": {
         "banner_layout": "classic",
         "hero_overline": "MASTER SERIES",
@@ -279,6 +232,7 @@
         "16351881143a2d10e5-2",
         "26dcb641-695c-44e7-9210-b5a69195f968"
       ],
+      "disabled": true,
       "settings": {
         "custom_class": "",
         "enable_custom_margins_paddings": false,
@@ -299,6 +253,7 @@
     },
     "163518802243d59863": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
         "custom_class": "",
         "enable_custom_margins_paddings": false,
@@ -422,6 +377,7 @@
     },
     "163518866014942cc3": {
       "type": "blog-posts",
+      "disabled": true,
       "settings": {
         "custom_class": "",
         "enable_custom_margins_paddings": false,
@@ -483,6 +439,7 @@
         "template--15568352706607__152db996-38c7-4ba4-a031-92eba5449967-16775129800b4ec8a0-3",
         "567fde8b-339e-4191-a732-fa88d2fe0a99"
       ],
+      "disabled": true,
       "settings": {
         "custom_class": "",
         "enable_custom_margins_paddings": false,
@@ -504,7 +461,7 @@
   "order": [
     "hero_logitech_section",
     "about_logitech_section",
-    "product_color_carousel_section",
+    "16351850661ed94a47",
     "16351881143a2d10e5",
     "163518802243d59863",
     "163518791261981d42",
