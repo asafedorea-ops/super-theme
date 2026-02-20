@@ -1,0 +1,173 @@
+<!-- Header minimalista com estética glass -->
+{{ 'section-header-minimal.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign is_index = template.name | default: '' | downcase
+  assign about_anchor = '#shopify-section-about_logitech_section'
+  assign reviews_anchor = '#shopify-section-163518853512c34568'
+  if template.name != 'index'
+    assign about_anchor = '/' | append: about_anchor
+    assign reviews_anchor = '/' | append: reviews_anchor
+  endif
+-%}
+
+<header
+  class="header-minimal main-header"
+  role="banner"
+  aria-label="Header"
+  data-section-id="{{ section.id }}"
+>
+  <div class="header-minimal__inner">
+    <div class="header-minimal__logo">
+      <a href="{{ routes.root_url }}" title="{{ shop.name }}">
+        <img
+          src="{{ 'logitech-white-logo.png' | asset_url }}"
+          alt="{{ section.settings.logo_alt | default: shop.name | escape }}"
+          width="{{ section.settings.logo_max_width | default: 120 }}"
+          height="{{ section.settings.logo_max_width | default: 120 | divided_by: 3 }}"
+          loading="eager"
+          decoding="async"
+        >
+      </a>
+    </div>
+
+    <button type="button" class="header-minimal__burger header__icon__wrap icon--menu" aria-label="Abrir menu">
+      {%- render 'icon-hamburger' -%}
+    </button>
+
+    <nav class="header-minimal__nav" aria-label="Navegação principal">
+      <a href="{{ routes.root_url }}">Home</a>
+      <a href="{{ about_anchor }}">About</a>
+      <a href="{{ reviews_anchor }}">Customer Reviews</a>
+    </nav>
+
+    <div class="header-minimal__actions">
+      <button
+        type="button"
+        class="header-minimal__search-btn"
+        aria-label="Abrir pesquisa"
+        aria-expanded="false"
+        aria-controls="header-minimal-search-panel-{{ section.id }}"
+        data-search-toggle
+      >
+        {%- render 'icon-search' -%}
+      </button>
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="header-minimal__cart-wrap icon--cart"
+        aria-label="Carrinho"
+        id="cart-count"
+      >
+        <span class="header__icon__count__wrap">
+          {%- render 'icon-cart' -%}
+          <span class="header-minimal__cart-count header__cart__count">{{ cart.item_count }}</span>
+        </span>
+      </a>
+    </div>
+  </div>
+
+  <div
+    id="header-minimal-search-panel-{{ section.id }}"
+    class="header-minimal__search-panel"
+    aria-hidden="true"
+    data-search-panel
+  >
+    <form action="{{ routes.search_url }}" method="get" class="header-minimal__search-form" role="search">
+      <input
+        type="search"
+        name="q"
+        placeholder="{{ section.settings.search_placeholder | default: 'Pesquisar...' | escape }}"
+        aria-label="Pesquisar"
+        autocomplete="off"
+      >
+      <input type="hidden" name="type" value="product">
+      <button type="submit">{{ section.settings.search_button_text | default: 'Pesquisar' }}</button>
+    </form>
+  </div>
+</header>
+
+<script>
+  (function() {
+    var sectionId = '{{ section.id }}';
+    var header = document.querySelector('.header-minimal[data-section-id="' + sectionId + '"]');
+    var toggle = header && header.querySelector('[data-search-toggle]');
+    var panel = header && header.querySelector('[data-search-panel]');
+
+    if (toggle && panel) {
+      toggle.addEventListener('click', function() {
+        var open = panel.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open);
+        panel.setAttribute('aria-hidden', !open);
+        if (open) {
+          var input = panel.querySelector('input[type="search"]');
+          if (input) input.focus();
+        }
+      });
+      document.addEventListener('click', function(e) {
+        if (panel.classList.contains('is-open') && !panel.contains(e.target) && !toggle.contains(e.target)) {
+          panel.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+          panel.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+
+    if (header) {
+      var scrolled = false;
+      function onScroll() {
+        var now = window.scrollY > 20;
+        if (now !== scrolled) {
+          scrolled = now;
+          header.classList.toggle('is-scrolled', scrolled);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Header minimalista",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "logo_max_width",
+      "min": 80,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Largura máxima do logo",
+      "default": 120
+    },
+    {
+      "type": "text",
+      "id": "logo_alt",
+      "label": "Texto alternativo do logo",
+      "default": "Logo"
+    },
+    {
+      "type": "header",
+      "content": "Pesquisa"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Placeholder do campo de pesquisa",
+      "default": "Pesquisar..."
+    },
+    {
+      "type": "text",
+      "id": "search_button_text",
+      "label": "Texto do botão de pesquisa",
+      "default": "Pesquisar"
+    }
+  ]
+}
+{% endschema %}
