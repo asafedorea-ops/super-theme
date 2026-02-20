@@ -21,8 +21,8 @@
         "gradient_end": "#1a1a1a",
         "spotlight_intensity": 40,
         "content_max_width": 480,
-        "overline_text": "MASTER SERIES",
-        "heading_text": "MX MASTER 3S",
+        "overline_text": "SUPERLIGHT  SERIES",
+        "heading_text": "G PRO X SUPERLIGHT",
         "description_text": "<p>A SERIES OF TOOLS DESIGNED AND ENGINEERED TO EMPOWER CREATORS, MAKERS, AND CODES TO MASTER WHAT THEY MAKE.</p>",
         "show_reviews": true,
         "stars_value": 5,
@@ -36,7 +36,7 @@
         "hero_image_alt": "",
         "hero_image_max_width": 560,
         "enable_watermark": true,
-        "watermark_text": "MX",
+        "watermark_text": "PX",
         "watermark_opacity": 5
       }
     },
