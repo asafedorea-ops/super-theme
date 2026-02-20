@@ -1,0 +1,415 @@
+/* ===== Product Color Carousel - section-product-color-carousel.css ===== */
+/* Carrossel de variedades de cores: minimalista, fundo claro, transições suaves */
+
+.pcc {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--pcc-bg, #f8f8f8);
+  color: #1a1a1a;
+  padding: clamp(3rem, 8vw, 5rem) 20px;
+}
+
+/* ---------- Efeitos de fundo ---------- */
+.pcc__bg-effects {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+[data-background-style="gradient"] .pcc__bg-effects {
+  background: linear-gradient(
+    165deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    var(--pcc-bg, #f8f8f8) 40%,
+    rgba(248, 248, 252, 0.98) 100%
+  );
+}
+
+[data-background-style="geometric"] .pcc__bg-effects::before,
+[data-background-style="geometric"] .pcc__bg-effects::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.06;
+  animation: pcc-float 20s ease-in-out infinite;
+}
+
+[data-background-style="geometric"] .pcc__bg-effects::before {
+  width: min(400px, 60vw);
+  height: min(400px, 60vw);
+  background: radial-gradient(circle, #1a1a1a 0%, transparent 70%);
+  top: -10%;
+  right: -5%;
+  animation-delay: -5s;
+}
+
+[data-background-style="geometric"] .pcc__bg-effects::after {
+  width: min(300px, 45vw);
+  height: min(300px, 45vw);
+  background: radial-gradient(circle, #333 0%, transparent 70%);
+  bottom: -5%;
+  left: -8%;
+  animation-delay: -12s;
+}
+
+@keyframes pcc-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(15px, -10px) scale(1.02); }
+  66% { transform: translate(-10px, 15px) scale(0.98); }
+}
+
+/* ---------- Container ---------- */
+.pcc__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ---------- Cabeçalho ---------- */
+.pcc__header {
+  text-align: center;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.pcc__title {
+  margin: 0 0 0.5rem;
+  font-size: clamp(1.25rem, 2.5vw, var(--pcc-heading-size, 28px));
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #1a1a1a;
+}
+
+.pcc__subtitle {
+  margin: 0;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  color: rgba(26, 26, 26, 0.75);
+}
+
+/* ---------- Carrossel ---------- */
+.pcc__carousel {
+  position: relative;
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+}
+
+.pcc__viewport {
+  overflow: hidden;
+  padding: 20px 0 40px;
+}
+
+.pcc__track {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  min-height: 280px;
+}
+
+.pcc__slide {
+  flex: 0 1 28%;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: flex 0.4s ease, transform var(--pcc-transition-duration, 400ms) ease,
+    opacity var(--pcc-transition-duration, 400ms) ease, box-shadow 0.3s ease;
+  opacity: 0.75;
+  order: 1;
+}
+
+.pcc__slide--left {
+  opacity: 0.85;
+  transform: scale(0.88);
+}
+
+.pcc__slide--center {
+  flex: 0 1 38%;
+  max-width: 380px;
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+
+.pcc__slide--right {
+  opacity: 0.85;
+  transform: scale(0.88);
+}
+
+.pcc__slide-inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.pcc__slide-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 100%;
+}
+
+.pcc__slide-img-wrap {
+  position: relative;
+  width: 100%;
+  padding-bottom: 90%;
+  overflow: hidden;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.pcc__slide:hover .pcc__slide-img-wrap {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+.pcc__slide--center .pcc__slide-img-wrap:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.pcc__slide-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.pcc__slide:hover .pcc__slide-img {
+  transform: translate(-50%, -50%) scale(1.02);
+}
+
+.pcc__slide-caption {
+  margin: 1rem 0 0;
+  font-size: clamp(0.75rem, 1.2vw, var(--pcc-caption-size, 14px));
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(26, 26, 26, 0.85);
+}
+
+/* Desativar animações se configurado */
+.pcc[data-enable-animations="false"] .pcc__slide,
+.pcc[data-enable-animations="false"] .pcc__slide-img-wrap,
+.pcc[data-enable-animations="false"] .pcc__slide-img {
+  transition: none;
+}
+
+/* ---------- Navegação (setas) ---------- */
+.pcc__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1a1a1a;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pcc__nav:hover,
+.pcc__nav:focus {
+  background: #fff;
+  border-color: rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  outline: none;
+}
+
+.pcc__nav--prev {
+  left: 0;
+}
+
+.pcc__nav--next {
+  right: 0;
+}
+
+.pcc__nav svg {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+/* ---------- Indicadores (dots) ---------- */
+.pcc__dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.pcc__dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pcc__dot:hover {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+.pcc__dot--active {
+  background: #1a1a1a;
+  transform: scale(1.2);
+}
+
+/* ---------- Call to Action ---------- */
+.pcc__cta-wrap {
+  text-align: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+
+.pcc__cta {
+  display: inline-block;
+  padding: 1rem 2.25rem;
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--pcc-cta-text, #fff);
+  background: var(--pcc-cta-bg, #1a1a1a);
+  border: 1px solid var(--pcc-cta-border, #333);
+  border-radius: 999px;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.pcc__cta:hover,
+.pcc__cta:focus {
+  background: #333;
+  border-color: #444;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  outline: none;
+  color: var(--pcc-cta-text, #fff);
+}
+
+/* ---------- Responsivo: tablet ---------- */
+@media (max-width: 1024px) {
+  .pcc__track {
+    gap: 1rem;
+    min-height: 240px;
+  }
+
+  .pcc__slide {
+    flex: 0 1 26%;
+    max-width: 220px;
+  }
+
+  .pcc__slide--center {
+    flex: 0 1 36%;
+    max-width: 300px;
+  }
+
+  .pcc__nav {
+    width: 44px;
+    height: 44px;
+    top: 35%;
+  }
+
+  .pcc__nav--prev {
+    left: -8px;
+  }
+
+  .pcc__nav--next {
+    right: -8px;
+  }
+}
+
+/* ---------- Responsivo: mobile ---------- */
+@media (max-width: 767px) {
+  .pcc {
+    padding: 2rem 16px;
+  }
+
+  .pcc__viewport {
+    padding: 10px 0 50px;
+  }
+
+  .pcc__track {
+    gap: 0.75rem;
+    min-height: 220px;
+  }
+
+  .pcc__slide {
+    flex: 0 1 24%;
+    max-width: 120px;
+    opacity: 0.7;
+  }
+
+  .pcc__slide--left,
+  .pcc__slide--right {
+    opacity: 0.75;
+    transform: scale(0.8);
+  }
+
+  .pcc__slide--center {
+    flex: 0 1 42%;
+    max-width: 200px;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .pcc__slide-img-wrap {
+    padding-bottom: 95%;
+  }
+
+  .pcc__slide-caption {
+    margin-top: 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+  }
+
+  .pcc__nav {
+    width: 40px;
+    height: 40px;
+    top: 32%;
+  }
+
+  .pcc__nav--prev {
+    left: 4px;
+  }
+
+  .pcc__nav--next {
+    right: 4px;
+  }
+
+  .pcc__nav svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pcc__cta {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+}
