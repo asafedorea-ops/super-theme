@@ -1,0 +1,324 @@
+<!-- start product-specification.liquid (SECTION) - Product Specification page -->
+{{ 'section-product-specification.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign product_name = section.settings.product_name
+  assign tagline = section.settings.tagline
+  assign specs_heading = section.settings.specs_heading
+  assign showcase_heading = section.settings.showcase_heading
+  assign showcase_subheading = section.settings.showcase_subheading
+  assign features_heading = section.settings.features_heading
+  assign cta_label = section.settings.cta_label
+  assign cta_url = section.settings.cta_url
+  assign bg_overlay_opacity = section.settings.specs_bg_overlay | divided_by: 100.0
+  assign spec_blocks = section.blocks | where: 'type', 'spec_item'
+  assign feature_blocks = section.blocks | where: 'type', 'feature'
+-%}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="product-spec {{ section.settings.custom_class }}"
+  aria-label="{{ product_name | default: 'Product Specification' | escape }}"
+>
+  <!-- Hero: imagem 1 como fundo, título e tagline centralizados -->
+  <div
+    class="product-spec__hero"
+    style="--product-spec-hero-bg: url('{{ 'product-specification1.webp' | asset_url }}');"
+  >
+    <div class="product-spec__hero-overlay"></div>
+    <div class="product-spec__hero-inner">
+      {%- if product_name != blank -%}
+        <h1 class="product-spec__hero-title">{{ product_name }}</h1>
+      {%- endif -%}
+      {%- if tagline != blank -%}
+        <p class="product-spec__hero-tagline">{{ tagline }}</p>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <!-- Technical Specifications: imagem 2 como fundo levemente desbotado + lista -->
+  <div
+    class="product-spec__tech"
+    style="
+      --product-spec-tech-bg: url('{{ 'product-specification2.webp' | asset_url }}');
+      --product-spec-tech-overlay: {{ bg_overlay_opacity }};
+    "
+  >
+    <div class="product-spec__tech-overlay"></div>
+    <div class="wrapper product-spec__tech-inner">
+      {%- if specs_heading != blank -%}
+        <h2 class="product-spec__tech-heading">{{ specs_heading }}</h2>
+      {%- endif -%}
+      <ul class="product-spec__tech-list">
+        {%- for block in spec_blocks -%}
+          {%- if block.settings.text != blank -%}
+            <li class="product-spec__tech-item" {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if spec_blocks.size == 0 -%}
+          <li class="product-spec__tech-item">Sensor de alta precisão</li>
+          <li class="product-spec__tech-item">Design ergonômico</li>
+          <li class="product-spec__tech-item">Materials premium</li>
+          <li class="product-spec__tech-item">Performance otimizada</li>
+        {%- endif -%}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Visual Showcase: imagem 3 com efeito dinâmico -->
+  <div class="product-spec__showcase">
+    <div class="wrapper product-spec__showcase-inner">
+      {%- if showcase_heading != blank or showcase_subheading != blank -%}
+        <div class="product-spec__showcase-header">
+          {%- if showcase_heading != blank -%}
+            <h2 class="product-spec__showcase-title">{{ showcase_heading }}</h2>
+          {%- endif -%}
+          {%- if showcase_subheading != blank -%}
+            <p class="product-spec__showcase-subtitle">{{ showcase_subheading }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      <div class="product-spec__showcase-media">
+        <div class="product-spec__showcase-img-wrap">
+          <img
+            src="{{ 'product-specification3.webp' | asset_url }}"
+            alt="{{ showcase_heading | default: 'Product in action' | escape }}"
+            width="1200"
+            height="800"
+            loading="lazy"
+            class="product-spec__showcase-img"
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Features: ícones + especificações -->
+  <div class="product-spec__features">
+    <div class="wrapper product-spec__features-inner">
+      {%- if features_heading != blank -%}
+        <h2 class="product-spec__features-heading">{{ features_heading }}</h2>
+      {%- endif -%}
+      <div class="product-spec__features-grid">
+        {%- for block in feature_blocks -%}
+          <div class="product-spec__feature-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.icon != 'none' -%}
+              <span class="product-spec__feature-icon" aria-hidden="true">
+                {%- case block.settings.icon -%}
+                  {%- when 'sensor' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                  {%- when 'design' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/><path d="M9 12l-2 2 2 2-2 2 2 2"/><path d="M15 12l2 2-2 2 2 2-2 2"/></svg>
+                  {%- when 'battery' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="18" height="11" rx="2" ry="2"/><line x1="22" y1="11" x2="22" y2="13"/><line x1="6" y1="11" x2="6" y2="13"/><line x1="10" y1="11" x2="10" y2="13"/><line x1="14" y1="11" x2="14" y2="13"/></svg>
+                  {%- when 'wireless' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+                  {%- when 'performance' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  {%- when 'ergonomics' -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z"/><path d="M12 6v6l4 2"/></svg>
+                  {%- else -%}
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                {%- endcase -%}
+              </span>
+            {%- endif -%}
+            {%- if block.settings.title != blank -%}
+              <h3 class="product-spec__feature-title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <p class="product-spec__feature-text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+        {%- if feature_blocks.size == 0 -%}
+          <div class="product-spec__feature-card">
+            <span class="product-spec__feature-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </span>
+            <h3 class="product-spec__feature-title">Sensor HERO 25K</h3>
+            <p class="product-spec__feature-text">Precisão e rastreamento de última geração para jogos e produtividade.</p>
+          </div>
+          <div class="product-spec__feature-card">
+            <span class="product-spec__feature-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l2 4h4l-3 3 1 4-4-2-4 2 1-4-3-3h4z"/></svg>
+            </span>
+            <h3 class="product-spec__feature-title">Design Ergonômico</h3>
+            <p class="product-spec__feature-text">Forma pensada para conforto em longas sessões de uso.</p>
+          </div>
+          <div class="product-spec__feature-card">
+            <span class="product-spec__feature-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+            </span>
+            <h3 class="product-spec__feature-title">LIGHTSPEED Wireless</h3>
+            <p class="product-spec__feature-text">Conexão sem fio de baixa latência e longa duração de bateria.</p>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="product-spec__cta-wrap">
+    <div class="wrapper product-spec__cta-inner">
+      {%- if cta_label != blank -%}
+        <a
+          href="{{ cta_url | default: '#' }}"
+          class="product-spec__cta"
+        >
+          {{ cta_label }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Specification",
+  "tag": "section",
+  "class": "shopify-section--product-specification",
+  "settings": [
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Classe CSS customizada"
+    },
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "product_name",
+      "label": "Nome do produto",
+      "default": "MX MASTER 3S"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "PRECISION. COMFORT. PERFORMANCE."
+    },
+    {
+      "type": "header",
+      "content": "Especificações técnicas"
+    },
+    {
+      "type": "text",
+      "id": "specs_heading",
+      "label": "Título da seção",
+      "default": "Technical Specifications"
+    },
+    {
+      "type": "range",
+      "id": "specs_bg_overlay",
+      "label": "Opacidade do overlay (fundo desbotado)",
+      "min": 50,
+      "max": 95,
+      "step": 5,
+      "default": 75,
+      "unit": "%"
+    },
+    {
+      "type": "header",
+      "content": "Visual Showcase"
+    },
+    {
+      "type": "text",
+      "id": "showcase_heading",
+      "label": "Título",
+      "default": "Built for Performance"
+    },
+    {
+      "type": "text",
+      "id": "showcase_subheading",
+      "label": "Subtítulo",
+      "default": "Designed for creators and professionals in any environment."
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "text",
+      "id": "features_heading",
+      "label": "Título da seção",
+      "default": "Key Features"
+    },
+    {
+      "type": "header",
+      "content": "Call to Action"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Texto do botão",
+      "default": "Buy Now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "URL do botão"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "spec_item",
+      "name": "Item de especificação",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texto (ex.: sensor, design, materiais)"
+        }
+      ]
+    },
+    {
+      "type": "feature",
+      "name": "Feature (card)",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícone",
+          "options": [
+            { "value": "none", "label": "Nenhum" },
+            { "value": "sensor", "label": "Sensor" },
+            { "value": "design", "label": "Design" },
+            { "value": "battery", "label": "Bateria" },
+            { "value": "wireless", "label": "Wireless" },
+            { "value": "performance", "label": "Performance" },
+            { "value": "ergonomics", "label": "Ergonômico" },
+            { "value": "star", "label": "Estrela" }
+          ],
+          "default": "sensor"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Descrição"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Specification",
+      "blocks": [
+        { "type": "spec_item", "settings": { "text": "Sensor HERO 25K" } },
+        { "type": "spec_item", "settings": { "text": "Design ergonômico" } },
+        { "type": "spec_item", "settings": { "text": "Materials premium" } },
+        { "type": "spec_item", "settings": { "text": "LIGHTSPEED wireless" } },
+        { "type": "feature", "settings": { "icon": "sensor", "title": "Sensor HERO 25K", "text": "Precisão e rastreamento de última geração." } },
+        { "type": "feature", "settings": { "icon": "design", "title": "Design Ergonômico", "text": "Forma pensada para conforto em longas sessões." } },
+        { "type": "feature", "settings": { "icon": "wireless", "title": "LIGHTSPEED Wireless", "text": "Conexão sem fio de baixa latência." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
