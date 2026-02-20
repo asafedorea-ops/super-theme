@@ -2,9 +2,8 @@
 {{ 'section-header-minimal.css' | asset_url | stylesheet_tag }}
 
 {%- liquid
-  assign is_index = template.name | default: '' | downcase
-  assign about_anchor = '#shopify-section-about_logitech_section'
-  assign reviews_anchor = '#shopify-section-163518853512c34568'
+  assign about_anchor = '#section-about'
+  assign reviews_anchor = '#section-customer-reviews'
   if template.name != 'index'
     assign about_anchor = '/' | append: about_anchor
     assign reviews_anchor = '/' | append: reviews_anchor
@@ -37,8 +36,8 @@
 
     <nav class="header-minimal__nav" aria-label="Navegação principal">
       <a href="{{ routes.root_url }}">Home</a>
-      <a href="{{ about_anchor }}">About</a>
-      <a href="{{ reviews_anchor }}">Customer Reviews</a>
+      <a href="{{ about_anchor }}" class="header-minimal__anchor-link" data-anchor="section-about">About</a>
+      <a href="{{ reviews_anchor }}" class="header-minimal__anchor-link" data-anchor="section-customer-reviews">Customer Reviews</a>
     </nav>
 
     <div class="header-minimal__actions">
@@ -124,6 +123,56 @@
       }
       window.addEventListener('scroll', onScroll, { passive: true });
       onScroll();
+    }
+
+    /* Âncoras: scroll suave para About e Customer Reviews (mesma página ou após carregar com hash) */
+    function scrollToAnchor(id) {
+      var el = id ? document.getElementById(id) : null;
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    document.querySelectorAll('.header-minimal__anchor-link').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        var anchorId = this.getAttribute('data-anchor');
+        var href = (this.getAttribute('href') || '').trim();
+        var isSamePage = href.indexOf('#') === 0;
+        if (anchorId && isSamePage) {
+          var target = document.getElementById(anchorId);
+          if (target) {
+            e.preventDefault();
+            scrollToAnchor(anchorId);
+            history.replaceState(null, '', '#' + anchorId);
+          }
+        }
+      });
+    });
+    if (window.location.hash) {
+      var hashId = window.location.hash.slice(1);
+      if (hashId === 'section-about' || hashId === 'section-customer-reviews') {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() { scrollToAnchor(hashId); });
+        } else {
+          scrollToAnchor(hashId);
+        }
+      }
+    }
+
+    /* Atualização dinâmica do contador do carrinho no header minimal */
+    var cartCountEl = document.querySelector('#cart-count [data-cart-count]');
+    if (cartCountEl) {
+      function updateCartCount(count) {
+        cartCountEl.textContent = count;
+        var link = document.getElementById('cart-count');
+        if (link && link.getAttribute('aria-label')) {
+          link.setAttribute('aria-label', 'Carrinho (' + count + ' itens)');
+        }
+      }
+      document.addEventListener('cart:updated', function(e) {
+        if (e.detail && typeof e.detail.item_count !== 'undefined') {
+          updateCartCount(e.detail.item_count);
+        }
+      });
     }
   })();
 </script>
