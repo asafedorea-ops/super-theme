@@ -1,6 +1,11 @@
 /* ===== Product Color Carousel - section-product-color-carousel.css ===== */
 /* Carrossel de variedades de cores: minimalista, fundo claro, transições suaves */
 
+/* Garantir que a seção apareça sempre (ex.: abaixo da section about na homepage) */
+.shopify-section--product-color-carousel {
+  display: block !important;
+}
+
 .pcc {
   position: relative;
   width: 100%;
@@ -8,6 +13,7 @@
   background: var(--pcc-bg, #f8f8f8);
   color: #1a1a1a;
   padding: clamp(3rem, 8vw, 5rem) 20px;
+  min-height: 200px;
 }
 
 /* ---------- Efeitos de fundo ---------- */

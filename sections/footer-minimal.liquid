@@ -1,0 +1,400 @@
+<!-- start footer-minimal.liquid (SECTION) - Footer dark minimalista com info do produto e logo Logitech -->
+{{ 'section-footer-minimal.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign product_title = section.settings.product_title
+  assign product_description = section.settings.product_description
+  assign link_specs_label = section.settings.link_specs_label
+  assign link_specs_url = section.settings.link_specs_url
+  assign link_buy_label = section.settings.link_buy_label
+  assign link_buy_url = section.settings.link_buy_url
+  assign link_about_label = section.settings.link_about_label
+  assign link_about_url = section.settings.link_about_url
+  assign logo_image = section.settings.logo_image
+  assign logo_asset = section.settings.logo_asset_filename
+  assign link_privacy_url = section.settings.link_privacy_url
+  assign link_terms_url = section.settings.link_terms_url
+  assign link_support_url = section.settings.link_support_url
+  assign link_contact_url = section.settings.link_contact_url
+  assign copyright_text = section.settings.copyright_text
+  assign social_blocks = section.blocks | where: 'type', 'social'
+-%}
+
+<footer
+  id="shopify-section-{{ section.id }}"
+  class="footer-minimal {{ section.settings.custom_class }}"
+  data-section-id="{{ section.id }}"
+  style="
+    --footer-minimal-bg: {{ section.settings.background_color }};
+    --footer-minimal-text: {{ section.settings.text_color }};
+    --footer-minimal-text-muted: {{ section.settings.text_muted_color }};
+    --footer-minimal-accent: {{ section.settings.accent_color }};
+    --footer-minimal-border: {{ section.settings.border_color }};
+  "
+  role="contentinfo"
+>
+  <div class="footer-minimal__wrapper">
+    <div class="footer-minimal__inner">
+      <div class="footer-minimal__grid">
+        <!-- Coluna 1: Informações do produto -->
+        <div class="footer-minimal__col footer-minimal__col--product">
+          <div class="footer-minimal__product">
+            {%- if product_title != blank -%}
+              <h3 class="footer-minimal__product-title">{{ product_title }}</h3>
+            {%- endif -%}
+            {%- if product_description != blank -%}
+              <p class="footer-minimal__product-desc">{{ product_description }}</p>
+            {%- endif -%}
+            <nav class="footer-minimal__nav-product" aria-label="Product navigation">
+              <ul class="footer-minimal__nav-list">
+                {%- if link_specs_label != blank and link_specs_url != blank -%}
+                  <li><a href="{{ link_specs_url }}" class="footer-minimal__link">{{ link_specs_label }}</a></li>
+                {%- endif -%}
+                {%- if link_buy_label != blank and link_buy_url != blank -%}
+                  <li><a href="{{ link_buy_url }}" class="footer-minimal__link">{{ link_buy_label }}</a></li>
+                {%- endif -%}
+                {%- if link_about_label != blank and link_about_url != blank -%}
+                  <li><a href="{{ link_about_url }}" class="footer-minimal__link">{{ link_about_label }}</a></li>
+                {%- endif -%}
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="footer-minimal__separator" aria-hidden="true"></div>
+
+        <!-- Coluna 2: Logo Logitech e links legais/social -->
+        <div class="footer-minimal__col footer-minimal__col--brand">
+          <div class="footer-minimal__brand">
+            <a
+              href="{{ section.settings.logo_link | default: '/' }}"
+              class="footer-minimal__logo-link"
+              aria-label="Logitech - Home"
+            >
+              {%- if logo_image != blank -%}
+                <img
+                  src="{{ logo_image | image_url: width: 200 }}"
+                  alt="{{ section.settings.logo_alt | default: 'Logitech' | escape }}"
+                  width="120"
+                  height="40"
+                  loading="lazy"
+                  class="footer-minimal__logo-img"
+                >
+              {%- elsif logo_asset != blank -%}
+                <img
+                  src="{{ logo_asset | asset_url }}"
+                  alt="{{ section.settings.logo_alt | default: 'Logitech' | escape }}"
+                  width="120"
+                  height="40"
+                  loading="lazy"
+                  class="footer-minimal__logo-img"
+                >
+              {%- else -%}
+                <img
+                  src="{{ 'logitech-white-logo.png' | asset_url }}"
+                  alt="Logitech"
+                  width="120"
+                  height="40"
+                  loading="lazy"
+                  class="footer-minimal__logo-img"
+                >
+              {%- endif -%}
+            </a>
+
+            <nav class="footer-minimal__nav-legal" aria-label="Legal and support links">
+              <ul class="footer-minimal__nav-list footer-minimal__nav-list--legal">
+                {%- if link_privacy_url != blank -%}
+                  <li><a href="{{ link_privacy_url }}" class="footer-minimal__link">{{ section.settings.link_privacy_label | default: 'Privacy Policy' }}</a></li>
+                {%- endif -%}
+                {%- if link_terms_url != blank -%}
+                  <li><a href="{{ link_terms_url }}" class="footer-minimal__link">{{ section.settings.link_terms_label | default: 'Terms and Conditions' }}</a></li>
+                {%- endif -%}
+                {%- if link_support_url != blank -%}
+                  <li><a href="{{ link_support_url }}" class="footer-minimal__link">{{ section.settings.link_support_label | default: 'Customer Support' }}</a></li>
+                {%- endif -%}
+                {%- if link_contact_url != blank -%}
+                  <li><a href="{{ link_contact_url }}" class="footer-minimal__link">{{ section.settings.link_contact_label | default: 'Contact' }}</a></li>
+                {%- endif -%}
+              </ul>
+            </nav>
+
+            {%- if social_blocks.size > 0 -%}
+              <div class="footer-minimal__social" aria-label="Social media">
+                {%- for block in social_blocks -%}
+                  {%- liquid
+                    case block.settings.social_media
+                      when 'icon-facebook'
+                        assign social_link = settings['link-facebook']
+                      when 'icon-instagram'
+                        assign social_link = settings['link-instagram']
+                      when 'icon-pinterest'
+                        assign social_link = settings['link-pinterest']
+                      when 'icon-snapchat'
+                        assign social_link = settings['link-snapchat']
+                      when 'icon-tumblr'
+                        assign social_link = settings['link-tumblr']
+                      when 'icon-twitter'
+                        assign social_link = settings['link-twitter']
+                      when 'icon-vimeo'
+                        assign social_link = settings['link-vimeo']
+                      when 'icon-youtube'
+                        assign social_link = settings['link-youtube']
+                      when 'icon-tiktok'
+                        assign social_link = settings['link-tiktok']
+                      else
+                        assign social_link = ''
+                    endcase
+                  -%}
+                  {%- if social_link != blank -%}
+                    <a
+                      href="{{ social_link }}"
+                      class="footer-minimal__social-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="{{ block.settings.social_media | replace: 'icon-', '' | capitalize }}"
+                      {{ block.shopify_attributes }}
+                    >
+                      {%- render 'icon-media-social' with icon: block.settings.social_media -%}
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-minimal__credits">
+        <p class="footer-minimal__copyright">
+          &copy; {{ 'now' | date: '%Y' }}
+          <a href="/" class="footer-minimal__link">{{ shop.name }}</a>
+          {%- if copyright_text != blank -%}
+            {{ copyright_text }}
+          {%- else -%}
+            All rights reserved.
+          {%- endif -%}
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer minimal (dark)",
+  "class": "footer-section footer-section--minimal",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Product information"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product name",
+      "default": "MX MASTER 3S",
+      "info": "e.g. same as Specifications section above"
+    },
+    {
+      "type": "textarea",
+      "id": "product_description",
+      "label": "Short description (1–2 lines)",
+      "default": "Precision, comfort and performance. For creators and professionals.",
+      "info": "Concise product text"
+    },
+    {
+      "type": "text",
+      "id": "link_specs_label",
+      "label": "Specifications link text",
+      "default": "View Specifications"
+    },
+    {
+      "type": "url",
+      "id": "link_specs_url",
+      "label": "Specifications URL"
+    },
+    {
+      "type": "text",
+      "id": "link_buy_label",
+      "label": "Buy link text",
+      "default": "Buy Now"
+    },
+    {
+      "type": "url",
+      "id": "link_buy_url",
+      "label": "Buy URL"
+    },
+    {
+      "type": "text",
+      "id": "link_about_label",
+      "label": "About link text",
+      "default": "About the product"
+    },
+    {
+      "type": "url",
+      "id": "link_about_url",
+      "label": "About URL"
+    },
+    {
+      "type": "header",
+      "content": "Logitech logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image",
+      "info": "If empty, uses theme asset below"
+    },
+    {
+      "type": "text",
+      "id": "logo_asset_filename",
+      "label": "Logo filename (assets)",
+      "placeholder": "logitech-white-logo.png",
+      "info": "e.g. logitech-white-logo.png for dark background"
+    },
+    {
+      "type": "url",
+      "id": "logo_link",
+      "label": "Logo link"
+    },
+    {
+      "type": "text",
+      "id": "logo_alt",
+      "label": "Logo alt text",
+      "default": "Logitech"
+    },
+    {
+      "type": "header",
+      "content": "Legal and support links"
+    },
+    {
+      "type": "text",
+      "id": "link_privacy_label",
+      "label": "Privacy Policy text",
+      "default": "Privacy Policy"
+    },
+    {
+      "type": "url",
+      "id": "link_privacy_url",
+      "label": "Privacy Policy URL"
+    },
+    {
+      "type": "text",
+      "id": "link_terms_label",
+      "label": "Terms and Conditions text",
+      "default": "Terms and Conditions"
+    },
+    {
+      "type": "url",
+      "id": "link_terms_url",
+      "label": "Terms and Conditions URL"
+    },
+    {
+      "type": "text",
+      "id": "link_support_label",
+      "label": "Support text",
+      "default": "Customer Support"
+    },
+    {
+      "type": "url",
+      "id": "link_support_url",
+      "label": "Support URL"
+    },
+    {
+      "type": "text",
+      "id": "link_contact_label",
+      "label": "Contact text",
+      "default": "Contact"
+    },
+    {
+      "type": "url",
+      "id": "link_contact_url",
+      "label": "Contact URL"
+    },
+    {
+      "type": "header",
+      "content": "Footer"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Text after copyright",
+      "default": "All rights reserved."
+    },
+    {
+      "type": "header",
+      "content": "Colors (optional)"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#0d0d0d"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Primary text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_muted_color",
+      "label": "Secondary text",
+      "default": "#a3a3a3"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (link hover)",
+      "default": "#e5e5e5"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Separator",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "text",
+      "id": "custom_class",
+      "label": "Custom CSS class"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "social",
+      "name": "Social network",
+      "settings": [
+        {
+          "type": "select",
+          "id": "social_media",
+          "label": "Network",
+          "info": "Set links in Theme settings → Store info",
+          "options": [
+            { "label": "Facebook", "value": "icon-facebook" },
+            { "label": "Instagram", "value": "icon-instagram" },
+            { "label": "Twitter", "value": "icon-twitter" },
+            { "label": "YouTube", "value": "icon-youtube" },
+            { "label": "Pinterest", "value": "icon-pinterest" },
+            { "label": "TikTok", "value": "icon-tiktok" },
+            { "label": "Tumblr", "value": "icon-tumblr" },
+            { "label": "Vimeo", "value": "icon-vimeo" },
+            { "label": "Snapchat", "value": "icon-snapchat" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer minimal (dark)",
+      "blocks": [
+        { "type": "social", "settings": { "social_media": "icon-instagram" } },
+        { "type": "social", "settings": { "social_media": "icon-facebook" } },
+        { "type": "social", "settings": { "social_media": "icon-youtube" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

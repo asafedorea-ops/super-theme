@@ -5,7 +5,11 @@
   width: 100%;
   overflow: hidden;
   position: relative;
+  margin-top: -3rem; /* remove white gap above section */
+  margin-bottom: -3rem; /* remove white gap below section */
   padding: clamp(2rem, 5vw, 4rem) 0;
+  padding-top: calc(clamp(2rem, 5vw, 4rem) + 3rem); /* compensate for negative margin-top */
+  padding-bottom: calc(clamp(2rem, 5vw, 4rem) + 3rem); /* compensate for negative margin-bottom */
   box-sizing: border-box;
 }
 

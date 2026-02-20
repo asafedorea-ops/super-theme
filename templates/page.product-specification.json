@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "product-specification": {
+      "type": "product-specification",
+      "blocks": {
+        "spec_1": {
+          "type": "spec_item",
+          "settings": { "text": "Sensor HERO 25K" }
+        },
+        "spec_2": {
+          "type": "spec_item",
+          "settings": { "text": "Design ergonômico" }
+        },
+        "spec_3": {
+          "type": "spec_item",
+          "settings": { "text": "Materials premium" }
+        },
+        "spec_4": {
+          "type": "spec_item",
+          "settings": { "text": "LIGHTSPEED wireless" }
+        },
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "icon": "sensor",
+            "title": "Sensor HERO 25K",
+            "text": "Precisão e rastreamento de última geração para jogos e produtividade."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "icon": "design",
+            "title": "Design Ergonômico",
+            "text": "Forma pensada para conforto em longas sessões de uso."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "icon": "wireless",
+            "title": "LIGHTSPEED Wireless",
+            "text": "Conexão sem fio de baixa latência e longa duração de bateria."
+          }
+        }
+      },
+      "block_order": [
+        "spec_1",
+        "spec_2",
+        "spec_3",
+        "spec_4",
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "product_name": "MX MASTER 3S",
+        "tagline": "PRECISION. COMFORT. PERFORMANCE.",
+        "specs_heading": "Technical Specifications",
+        "specs_bg_overlay": 75,
+        "showcase_heading": "Built for Performance",
+        "showcase_subheading": "Designed for creators and professionals in any environment.",
+        "features_heading": "Key Features",
+        "cta_label": "Buy Now"
+      }
+    }
+  },
+  "order": ["product-specification"]
+}
