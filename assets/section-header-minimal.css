@@ -1,0 +1,410 @@
+/* Header minimalista – estética glass, continuação visual da hero */
+.header-content:has(.header-minimal) {
+  background: transparent !important;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.header-content:has(.header-minimal) .header-minimal {
+  pointer-events: auto;
+}
+
+.header-minimal {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.875rem clamp(1rem, 4vw, 1.5rem);
+  /* Glass: fundo muito transparente para a hero aparecer por baixo */
+  background: rgba(13, 13, 13, 0.18);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  /* Borda quase invisível para não cortar a hero */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+}
+
+/* Scroll: glass um pouco mais definido sem perder a continuidade */
+.header-minimal.is-scrolled {
+  background: rgba(13, 13, 13, 0.35);
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Fallback para navegadores sem backdrop-filter */
+@supports not (backdrop-filter: blur(20px)) {
+  .header-minimal {
+    background: rgba(13, 13, 13, 0.55);
+  }
+}
+
+.header-minimal__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1280px;
+  margin: 0 auto;
+  gap: clamp(0.75rem, 2vw, 1.5rem);
+  min-width: 0;
+}
+
+.header-minimal__logo {
+  flex-shrink: 0;
+}
+
+.header-minimal__logo a {
+  display: block;
+  line-height: 0;
+}
+
+.header-minimal__logo img {
+  height: clamp(26px, 4vw, 32px);
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Tipografia alinhada à hero: uppercase, letter-spacing, font-weight */
+.header-minimal,
+.header-minimal__nav,
+.header-minimal__search-panel {
+  font-family: inherit;
+}
+
+/* Hamburger: visível só em mobile */
+.header-minimal__burger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.header-minimal__burger:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+.header-minimal__burger svg,
+.header-minimal__burger svg path {
+  width: 22px;
+  height: auto;
+  fill: currentColor;
+}
+
+.header-minimal__nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  min-width: 0;
+}
+
+.header-minimal__nav a {
+  color: rgba(255, 255, 255, 0.88);
+  text-decoration: none;
+  font-size: clamp(0.7rem, 1.2vw, 0.75rem);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.header-minimal__nav a:hover {
+  color: #fff;
+}
+
+.header-minimal__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.header-minimal__search-btn,
+.header-minimal__cart-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.header-minimal__search-btn:hover,
+.header-minimal__cart-wrap:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+}
+
+.header-minimal__search-btn svg,
+.header-minimal__cart-wrap svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.header-minimal__cart-wrap {
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Badge do contador do carrinho removido (círculo verde) */
+.header-minimal__cart-count {
+  display: none;
+}
+
+/* Search colapsado – painel também em glass */
+.header-minimal__search-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.5rem;
+  background: rgba(13, 13, 13, 0.75);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity 0.25s ease, visibility 0.25s ease, transform 0.25s ease;
+  z-index: 99;
+}
+
+.header-minimal__search-panel.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.header-minimal__search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: min(480px, 95vw);
+  margin: 0 auto;
+  width: 100%;
+}
+
+.header-minimal__search-form input[type="search"],
+.header-minimal__search-form input[type="text"] {
+  flex: 1;
+  height: 44px;
+  padding: 0 1rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.header-minimal__search-form input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.header-minimal__search-form input:focus {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.header-minimal__search-form button[type="submit"] {
+  height: 44px;
+  padding: 0 1.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0d0d0d;
+  background: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, opacity 0.2s ease;
+}
+
+.header-minimal__search-form button[type="submit"]:hover {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* ========== Tablet (max-width: 1019px) – mesmo layout, tamanhos reduzidos ========== */
+@media (max-width: 1019px) {
+  .header-minimal {
+    padding: 0.75rem clamp(0.875rem, 3vw, 1.25rem);
+  }
+
+  .header-minimal__inner {
+    gap: 1rem;
+  }
+
+  .header-minimal__nav {
+    gap: 1.25rem;
+  }
+
+  .header-minimal__nav a {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .header-minimal__logo img {
+    height: 28px;
+    max-width: 120px;
+  }
+
+  .header-minimal__search-btn,
+  .header-minimal__cart-wrap {
+    width: 38px;
+    height: 38px;
+  }
+
+  .header-minimal__search-btn svg,
+  .header-minimal__cart-wrap svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .header-minimal__search-panel {
+    padding: 0.875rem 1rem;
+  }
+
+  .header-minimal__search-form input[type="search"],
+  .header-minimal__search-form input[type="text"] {
+    height: 40px;
+    font-size: 0.75rem;
+  }
+
+  .header-minimal__search-form button[type="submit"] {
+    height: 40px;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* ========== Mobile (max-width: 767px) – hamburger, nav oculta ========== */
+@media (max-width: 767px) {
+  .header-minimal {
+    padding: 0.6rem 0.75rem;
+  }
+
+  .header-minimal__inner {
+    gap: 0.5rem;
+  }
+
+  .header-minimal__burger {
+    display: flex;
+    order: 1;
+  }
+
+  .header-minimal__logo {
+    order: 0;
+  }
+
+  .header-minimal__nav {
+    display: none;
+  }
+
+  .header-minimal__actions {
+    order: 2;
+    gap: 0.25rem;
+  }
+
+  .header-minimal__logo img {
+    height: 26px;
+    max-width: 100px;
+  }
+
+  .header-minimal__search-btn,
+  .header-minimal__cart-wrap {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+  }
+
+  .header-minimal__search-btn svg,
+  .header-minimal__cart-wrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .header-minimal__search-panel {
+    padding: 0.75rem 0.875rem;
+    left: 0;
+    right: 0;
+  }
+
+  .header-minimal__search-form {
+    gap: 0.4rem;
+  }
+
+  .header-minimal__search-form input[type="search"],
+  .header-minimal__search-form input[type="text"] {
+    height: 42px;
+    font-size: 0.75rem;
+    min-width: 0;
+  }
+
+  .header-minimal__search-form button[type="submit"] {
+    height: 42px;
+    padding: 0 0.875rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* ========== Small mobile (max-width: 479px) ========== */
+@media (max-width: 479px) {
+  .header-minimal {
+    padding: 0.5rem 0.625rem;
+  }
+
+  .header-minimal__logo img {
+    height: 24px;
+    max-width: 90px;
+  }
+
+  .header-minimal__burger {
+    width: 40px;
+    height: 40px;
+  }
+
+  .header-minimal__burger svg {
+    width: 20px;
+  }
+
+  .header-minimal__search-btn,
+  .header-minimal__cart-wrap {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+  }
+
+  .header-minimal__search-btn svg,
+  .header-minimal__cart-wrap svg {
+    width: 18px;
+    height: 18px;
+  }
+}
