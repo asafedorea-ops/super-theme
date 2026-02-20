@@ -273,40 +273,6 @@
         "show_swatch": false
       }
     },
-    "163518791261981d42": {
-      "type": "cta-block",
-      "settings": {
-        "custom_class": "",
-        "enable_custom_margins_paddings": false,
-        "custom-margin-top": 0,
-        "custom-margin-bottom": 0,
-        "custom-padding-top": 0,
-        "custom-padding-bottom": 0,
-        "buy_now_line_direction": "row",
-        "box_limit": 200,
-        "text_above_button": "<h3>Lorem ipsum dolor</h3>\nLorem ipsum dolor sit amet consectetur adipiscing elit.",
-        "block_text_align": "left",
-        "text_above_font_size": 19,
-        "text_above_color": "#ffffff",
-        "buy_now_background_color": "#767676",
-        "buy_nowbackgroung_height": 100,
-        "buy_now_background_top_position": 0,
-        "buy_now_text_button": "LEARN MORE",
-        "text_transform_button": "uppercase",
-        "text_button_font_size": 20,
-        "width_cta_botton": 100,
-        "button_background_color": "#26b522",
-        "button_hover_background_color": "#9c2135",
-        "button_text_color": "#ffffff",
-        "button_hover_text_color": "#ffffff",
-        "button_border_color": "#ffffff",
-        "button_hover_border_color": "#ffffff",
-        "id_product_block": "accessories",
-        "use_add_to_cart": true,
-        "use_external_link": true,
-        "url_product": ""
-      }
-    },
     "163518853512c34568": {
       "type": "reviews",
       "blocks": {
@@ -464,7 +430,6 @@
     "16351850661ed94a47",
     "16351881143a2d10e5",
     "163518802243d59863",
-    "163518791261981d42",
     "163518853512c34568",
     "163518866014942cc3",
     "152db996-38c7-4ba4-a031-92eba5449967"
