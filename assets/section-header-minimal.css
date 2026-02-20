@@ -1,6 +1,20 @@
+/* Scroll suave para âncoras (About, Customer Reviews) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Alvos das âncoras: sem altura, com margem para o header sticky não cobrir o título */
+#section-about,
+#section-customer-reviews {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  scroll-margin-top: 80px;
+}
+
 /* Header minimalista – estética glass, continuação visual da hero */
 .header-content:has(.header-minimal) {
-  background: transparent !important;
+  background: #0d0d0d !important;
   position: absolute;
   top: 0;
   left: 0;
@@ -13,6 +27,11 @@
   pointer-events: auto;
 }
 
+/* Reservar espaço no topo para o header sticky – evita cortar título/imagem do produto */
+body:has(.header-minimal) #MainContent {
+  padding-top: 72px;
+}
+
 .header-minimal {
   position: sticky;
   top: 0;
@@ -20,6 +39,8 @@
   width: 100%;
   box-sizing: border-box;
   padding: 0.875rem clamp(1rem, 4vw, 1.5rem);
+  /* padding para a header ficar alinhada com a hero */
+  padding-bottom: 20px;
   /* Glass: fundo muito transparente para a hero aparecer por baixo */
   background: rgba(13, 13, 13, 0.18);
   backdrop-filter: blur(20px) saturate(180%);
@@ -27,6 +48,13 @@
   /* Borda quase invisível para não cortar a hero */
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   transition: background 0.35s ease, backdrop-filter 0.35s ease, border-color 0.35s ease;
+
+  @media (max-width: 1016px) and (min-width: 770px) {
+    .header-minimal {
+      padding-top: 1.5rem; /* Ajuste o valor do padding-top para cortar a linha branca */
+      padding-bottom: 30px; /* Aumente o padding-bottom se necessário */
+    }
+  /* shadow para a header ficar alinhada com a hero */
 }
 
 /* Scroll: glass um pouco mais definido sem perder a continuidade */
@@ -253,6 +281,10 @@
 
 /* ========== Tablet (max-width: 1019px) – mesmo layout, tamanhos reduzidos ========== */
 @media (max-width: 1019px) {
+  body:has(.header-minimal) #MainContent {
+    padding-top: 64px;
+  }
+
   .header-minimal {
     padding: 0.75rem clamp(0.875rem, 3vw, 1.25rem);
   }
@@ -306,6 +338,10 @@
 
 /* ========== Mobile (max-width: 767px) – hamburger, nav oculta ========== */
 @media (max-width: 767px) {
+  body:has(.header-minimal) #MainContent {
+    padding-top: 60px;
+  }
+
   .header-minimal {
     padding: 0.6rem 0.75rem;
   }
